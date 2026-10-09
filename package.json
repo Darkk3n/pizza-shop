@@ -1,0 +1,14 @@
+{
+	"name": "pizza-shop-pos-monorepo",
+	"private": true,
+	"scripts": {
+		"dev": "concurrently -n web,api -c cyan,magenta \"pnpm:dev:web\" \"pnpm:dev:api\"",
+		"dev:web": "pnpm --filter web dev",
+		"dev:api": "dotnet watch run --project api/PizzaShop.Api.csproj",
+		"db:up": "podman compose up -d",
+		"db:down": "podman compose down"
+	},
+	"devDependencies": {
+		"concurrently": "^10.0.6"
+	}
+}
