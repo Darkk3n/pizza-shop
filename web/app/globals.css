@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Desktop sidebar collapsed to icons; set on <html> by hooks/useSidebar.ts */
+@custom-variant sidebar-collapsed (&:where([data-sidebar="collapsed"] *));
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
