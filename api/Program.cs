@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PizzaShop.Api.Db;
+using PizzaShop.Api.Endpoints;
 using PizzaShop.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,5 +15,6 @@ var app = builder.Build();
 app.UseCors(CorsExtensions.FrontendPolicy);
 
 app.MapGet("/", () => "Hello World!");
+app.MapUnitsOfMeasureEndpoints();
 
 app.Run();
