@@ -2118,6 +2118,17 @@
       "source_url": null
     },
     {
+      "id": "microsoft_entityframeworkcore",
+      "label": "microsoft_entityframeworkcore",
+      "community": 13,
+      "community_name": "Program.cs",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "microsoft_entityframeworkcore",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "web_app_globals",
       "label": "web_app_globals",
       "community": 14,
@@ -2320,6 +2331,23 @@
       "context": "call",
       "source_file": "web/hooks/useSidebar.ts",
       "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "api_program",
+      "target": "microsoft_entityframeworkcore",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "Microsoft.EntityFrameworkCore",
+        "scope_kind": "file"
+      },
+      "source_file": "api/Program.cs",
+      "source_location": "L1",
       "weight": 1.0
     },
     {
@@ -4662,5 +4690,5 @@
       "source_file": "web/public/next.svg"
     }
   ],
-  "built_at_commit": "5a100e4b845391112de3afe9a560229425e96447"
+  "built_at_commit": "e00e7c024801f3fe2385913463af28db4e778b8c"
 }
