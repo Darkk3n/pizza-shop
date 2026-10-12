@@ -144,23 +144,44 @@
       "source_location": "L7"
     },
     {
-      "id": "api_models_recipe_pizzashop_api_models_recipe",
-      "label": "Recipe",
+      "id": "api_migrations_20261012162801_initialcreate_designer_pizzashop_api_migrations_initialcreate",
+      "label": "InitialCreate",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 15,
-      "community_name": "Recipe",
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
       "file_type": "code",
       "metadata": {
-        "namespace": "PizzaShop.Api.Models",
+        "is_partial": true,
+        "namespace": "PizzaShop.Api.Migrations",
         "scope_chain": [
-          "s3:0"
+          "s11:0"
         ]
       },
-      "norm_label": "recipe",
-      "source_file": "api/Models/Recipe.cs",
-      "source_location": "L6"
+      "norm_label": "initialcreate",
+      "source_file": "api/Migrations/20261012162801_InitialCreate.Designer.cs",
+      "source_location": "L14"
+    },
+    {
+      "id": "api_migrations_pizzashopcontextmodelsnapshot_pizzashop_api_migrations_pizzashopcontextmodelsnapshot",
+      "label": "PizzaShopContextModelSnapshot",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "file_type": "code",
+      "metadata": {
+        "is_partial": true,
+        "namespace": "PizzaShop.Api.Migrations",
+        "scope_chain": [
+          "s10:0"
+        ]
+      },
+      "norm_label": "pizzashopcontextmodelsnapshot",
+      "source_file": "api/Migrations/PizzaShopContextModelSnapshot.cs",
+      "source_location": "L13"
     },
     {
       "id": "api_models_enums_pizzashop_api_models_orderstatus",
@@ -277,6 +298,25 @@
       "source_location": "L7"
     },
     {
+      "id": "api_models_pizzasize_pizzashop_api_models_pizzasize",
+      "label": "PizzaSize",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 19,
+      "community_name": "PizzaSize",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "pizzasize",
+      "source_file": "api/Models/PizzaSize.cs",
+      "source_location": "L6"
+    },
+    {
       "id": "web_components_app_shell_icons_iconprops",
       "label": "IconProps",
       "_callable": true,
@@ -290,13 +330,13 @@
       "source_location": "L3"
     },
     {
-      "id": "api_models_pizzasize_pizzashop_api_models_pizzasize",
-      "label": "PizzaSize",
+      "id": "api_models_recipe_pizzashop_api_models_recipe",
+      "label": "Recipe",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -304,8 +344,8 @@
           "s3:0"
         ]
       },
-      "norm_label": "pizzasize",
-      "source_file": "api/Models/PizzaSize.cs",
+      "norm_label": "recipe",
+      "source_file": "api/Models/Recipe.cs",
       "source_location": "L6"
     },
     {
@@ -315,7 +355,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -396,6 +436,158 @@
       "norm_label": ".onmodelcreating()",
       "source_file": "api/Db/PizzaShopContext.cs",
       "source_location": "L27"
+    },
+    {
+      "id": "api_migrations_20261012162801_initialcreate_designer_pizzashop_api_migrations_initialcreate_buildtargetmodel",
+      "label": ".BuildTargetModel()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Migrations",
+        "scope_chain": [
+          "s11:0"
+        ],
+        "unresolved_calls": [
+          {
+            "callee": "HasAnnotation",
+            "receiver_type": "ModelBuilder",
+            "lang": "csharp",
+            "line": "L22"
+          },
+          {
+            "callee": "UseIdentityByDefaultColumns",
+            "receiver_type": "NpgsqlModelBuilderExtensions",
+            "lang": "csharp",
+            "line": "L26"
+          },
+          {
+            "callee": "Entity",
+            "receiver_type": "ModelBuilder",
+            "lang": "csharp",
+            "line": "L28"
+          },
+          {
+            "callee": "UseIdentityByDefaultColumn",
+            "receiver_type": "NpgsqlPropertyBuilderExtensions",
+            "lang": "csharp",
+            "line": "L70"
+          }
+        ]
+      },
+      "norm_label": ".buildtargetmodel()",
+      "source_file": "api/Migrations/20261012162801_InitialCreate.Designer.cs",
+      "source_location": "L19"
+    },
+    {
+      "id": "api_migrations_20261012162801_initialcreate_pizzashop_api_migrations_initialcreate_down",
+      "label": ".Down()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Migrations",
+        "scope_chain": [
+          "s8:0"
+        ],
+        "unresolved_calls": [
+          {
+            "callee": "DropTable",
+            "receiver_type": "MigrationBuilder",
+            "lang": "csharp",
+            "line": "L254"
+          }
+        ]
+      },
+      "norm_label": ".down()",
+      "source_file": "api/Migrations/20261012162801_InitialCreate.cs",
+      "source_location": "L252"
+    },
+    {
+      "id": "api_migrations_20261012162801_initialcreate_pizzashop_api_migrations_initialcreate_up",
+      "label": ".Up()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Migrations",
+        "scope_chain": [
+          "s8:0"
+        ],
+        "unresolved_calls": [
+          {
+            "callee": "CreateTable",
+            "receiver_type": "MigrationBuilder",
+            "lang": "csharp",
+            "line": "L17"
+          },
+          {
+            "callee": "InsertData",
+            "receiver_type": "MigrationBuilder",
+            "lang": "csharp",
+            "line": "L184"
+          },
+          {
+            "callee": "CreateIndex",
+            "receiver_type": "MigrationBuilder",
+            "lang": "csharp",
+            "line": "L204"
+          }
+        ]
+      },
+      "norm_label": ".up()",
+      "source_file": "api/Migrations/20261012162801_InitialCreate.cs",
+      "source_location": "L15"
+    },
+    {
+      "id": "api_migrations_pizzashopcontextmodelsnapshot_pizzashop_api_migrations_pizzashopcontextmodelsnapshot_buildmodel",
+      "label": ".BuildModel()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Migrations",
+        "scope_chain": [
+          "s10:0"
+        ],
+        "unresolved_calls": [
+          {
+            "callee": "HasAnnotation",
+            "receiver_type": "ModelBuilder",
+            "lang": "csharp",
+            "line": "L19"
+          },
+          {
+            "callee": "UseIdentityByDefaultColumns",
+            "receiver_type": "NpgsqlModelBuilderExtensions",
+            "lang": "csharp",
+            "line": "L23"
+          },
+          {
+            "callee": "Entity",
+            "receiver_type": "ModelBuilder",
+            "lang": "csharp",
+            "line": "L25"
+          },
+          {
+            "callee": "UseIdentityByDefaultColumn",
+            "receiver_type": "NpgsqlPropertyBuilderExtensions",
+            "lang": "csharp",
+            "line": "L67"
+          }
+        ]
+      },
+      "norm_label": ".buildmodel()",
+      "source_file": "api/Migrations/PizzaShopContextModelSnapshot.cs",
+      "source_location": "L16"
     },
     {
       "id": "web_app_layout_rootlayout",
@@ -1729,66 +1921,174 @@
       "source_location": "L24"
     },
     {
-      "id": "api_models_recipe_cs_guid",
+      "id": "api_migrations_20261012162801_initialcreate",
+      "label": "20261012162801_InitialCreate.cs",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "file_type": "code",
+      "norm_label": "20261012162801_initialcreate.cs",
+      "source_file": "api/Migrations/20261012162801_InitialCreate.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_migrations_20261012162801_initialcreate_cs_datetimeoffset",
+      "label": "DateTimeOffset",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "file_type": "code",
+      "norm_label": "datetimeoffset",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_migrations_20261012162801_initialcreate_cs_guid",
       "label": "Guid",
       "_origin": "ast",
       "community": 15,
-      "community_name": "Recipe",
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
       "file_type": "code",
       "norm_label": "guid",
       "source_file": "",
       "source_location": ""
     },
     {
-      "id": "api_models_recipe_pizzashop_api_models_recipe_baseprice",
-      "label": "BasePrice",
+      "id": "api_migrations_20261012162801_initialcreate_designer",
+      "label": "20261012162801_InitialCreate.Designer.cs",
       "_origin": "ast",
       "community": 15,
-      "community_name": "Recipe",
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
       "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "baseprice",
-      "source_file": "api/Models/Recipe.cs",
-      "source_location": "L14"
+      "norm_label": "20261012162801_initialcreate.designer.cs",
+      "source_file": "api/Migrations/20261012162801_InitialCreate.Designer.cs",
+      "source_location": "L1"
     },
     {
-      "id": "api_models_recipe_pizzashop_api_models_recipe_name",
-      "label": "Name",
+      "id": "api_migrations_20261012162801_initialcreate_designer_cs_datetimeoffset",
+      "label": "DateTimeOffset",
       "_origin": "ast",
       "community": 15,
-      "community_name": "Recipe",
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
       "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "name",
-      "source_file": "api/Models/Recipe.cs",
-      "source_location": "L11"
+      "norm_label": "datetimeoffset",
+      "source_file": "",
+      "source_location": ""
     },
     {
-      "id": "api_models_recipe_pizzashop_api_models_recipe_recipeid",
-      "label": "RecipeId",
+      "id": "api_migrations_20261012162801_initialcreate_designer_cs_guid",
+      "label": "Guid",
       "_origin": "ast",
       "community": 15,
-      "community_name": "Recipe",
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "file_type": "code",
+      "norm_label": "guid",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_migrations_20261012162801_initialcreate_designer_cs_modelbuilder",
+      "label": "ModelBuilder",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "file_type": "code",
+      "norm_label": "modelbuilder",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_migrations_pizzashopcontextmodelsnapshot",
+      "label": "PizzaShopContextModelSnapshot.cs",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "file_type": "code",
+      "norm_label": "pizzashopcontextmodelsnapshot.cs",
+      "source_file": "api/Migrations/PizzaShopContextModelSnapshot.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_migrations_pizzashopcontextmodelsnapshot_cs_datetimeoffset",
+      "label": "DateTimeOffset",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "file_type": "code",
+      "norm_label": "datetimeoffset",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_migrations_pizzashopcontextmodelsnapshot_cs_guid",
+      "label": "Guid",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "file_type": "code",
+      "norm_label": "guid",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_migrations_pizzashopcontextmodelsnapshot_cs_modelbuilder",
+      "label": "ModelBuilder",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "file_type": "code",
+      "norm_label": "modelbuilder",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "csharp_namespace:27c7cd20c785f9f3",
+      "label": "PizzaShop.Api.Migrations",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
       "file_type": "code",
       "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s3:0"
-        ]
+        "kind": "csharp_namespace",
+        "namespace": "PizzaShop.Api.Migrations"
       },
-      "norm_label": "recipeid",
-      "source_file": "api/Models/Recipe.cs",
-      "source_location": "L8"
+      "norm_label": "pizzashop.api.migrations",
+      "source_file": "api/Migrations/20261012162801_InitialCreate.Designer.cs",
+      "source_location": "L12",
+      "type": "namespace"
+    },
+    {
+      "id": "migration",
+      "label": "Migration",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "file_type": "code",
+      "norm_label": "migration",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "migrationbuilder",
+      "label": "MigrationBuilder",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "file_type": "code",
+      "norm_label": "migrationbuilder",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "modelsnapshot",
+      "label": "ModelSnapshot",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "file_type": "code",
+      "norm_label": "modelsnapshot",
+      "source_file": "",
+      "source_location": ""
     },
     {
       "id": "api_models_enums",
@@ -2339,6 +2639,68 @@
       "source_location": ""
     },
     {
+      "id": "api_models_pizzasize_cs_guid",
+      "label": "Guid",
+      "_origin": "ast",
+      "community": 19,
+      "community_name": "PizzaSize",
+      "file_type": "code",
+      "norm_label": "guid",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_models_pizzasize_pizzashop_api_models_pizzasize_name",
+      "label": "Name",
+      "_origin": "ast",
+      "community": 19,
+      "community_name": "PizzaSize",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "name",
+      "source_file": "api/Models/PizzaSize.cs",
+      "source_location": "L11"
+    },
+    {
+      "id": "api_models_pizzasize_pizzashop_api_models_pizzasize_pizzasizeid",
+      "label": "PizzaSizeId",
+      "_origin": "ast",
+      "community": 19,
+      "community_name": "PizzaSize",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "pizzasizeid",
+      "source_file": "api/Models/PizzaSize.cs",
+      "source_location": "L8"
+    },
+    {
+      "id": "api_models_pizzasize_pizzashop_api_models_pizzasize_pricemultiplier",
+      "label": "PriceMultiplier",
+      "_origin": "ast",
+      "community": 19,
+      "community_name": "PizzaSize",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "pricemultiplier",
+      "source_file": "api/Models/PizzaSize.cs",
+      "source_location": "L14"
+    },
+    {
       "id": "web_app_layout",
       "label": "layout.tsx",
       "_origin": "ast",
@@ -2728,7 +3090,7 @@
       "label": "PizzaShopContext.cs",
       "_origin": "ast",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "file_type": "code",
       "norm_label": "pizzashopcontext.cs",
       "source_file": "api/Db/PizzaShopContext.cs",
@@ -2739,7 +3101,7 @@
       "label": "Ingredient.cs",
       "_origin": "ast",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "file_type": "code",
       "norm_label": "ingredient.cs",
       "source_file": "api/Models/Ingredient.cs",
@@ -2750,7 +3112,7 @@
       "label": "Order.cs",
       "_origin": "ast",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "file_type": "code",
       "norm_label": "order.cs",
       "source_file": "api/Models/Order.cs",
@@ -2761,7 +3123,7 @@
       "label": "OrderItem.cs",
       "_origin": "ast",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "file_type": "code",
       "norm_label": "orderitem.cs",
       "source_file": "api/Models/OrderItem.cs",
@@ -2772,7 +3134,7 @@
       "label": "OrderItemTopping.cs",
       "_origin": "ast",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "file_type": "code",
       "norm_label": "orderitemtopping.cs",
       "source_file": "api/Models/OrderItemTopping.cs",
@@ -2783,29 +3145,57 @@
       "label": "PizzaSize.cs",
       "_origin": "ast",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "file_type": "code",
       "norm_label": "pizzasize.cs",
       "source_file": "api/Models/PizzaSize.cs",
       "source_location": "L1"
     },
     {
-      "id": "api_models_pizzasize_cs_guid",
+      "id": "api_models_recipe",
+      "label": "Recipe.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "microsoft_entityframeworkcore",
+      "file_type": "code",
+      "norm_label": "recipe.cs",
+      "source_file": "api/Models/Recipe.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_models_recipe_cs_guid",
       "label": "Guid",
       "_origin": "ast",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "file_type": "code",
       "norm_label": "guid",
       "source_file": "",
       "source_location": ""
     },
     {
-      "id": "api_models_pizzasize_pizzashop_api_models_pizzasize_name",
+      "id": "api_models_recipe_pizzashop_api_models_recipe_baseprice",
+      "label": "BasePrice",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "microsoft_entityframeworkcore",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "baseprice",
+      "source_file": "api/Models/Recipe.cs",
+      "source_location": "L14"
+    },
+    {
+      "id": "api_models_recipe_pizzashop_api_models_recipe_name",
       "label": "Name",
       "_origin": "ast",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -2814,15 +3204,15 @@
         ]
       },
       "norm_label": "name",
-      "source_file": "api/Models/PizzaSize.cs",
+      "source_file": "api/Models/Recipe.cs",
       "source_location": "L11"
     },
     {
-      "id": "api_models_pizzasize_pizzashop_api_models_pizzasize_pizzasizeid",
-      "label": "PizzaSizeId",
+      "id": "api_models_recipe_pizzashop_api_models_recipe_recipeid",
+      "label": "RecipeId",
       "_origin": "ast",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -2830,44 +3220,16 @@
           "s3:0"
         ]
       },
-      "norm_label": "pizzasizeid",
-      "source_file": "api/Models/PizzaSize.cs",
-      "source_location": "L8"
-    },
-    {
-      "id": "api_models_pizzasize_pizzashop_api_models_pizzasize_pricemultiplier",
-      "label": "PriceMultiplier",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "PizzaShop.Api.Models",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "pricemultiplier",
-      "source_file": "api/Models/PizzaSize.cs",
-      "source_location": "L14"
-    },
-    {
-      "id": "api_models_recipe",
-      "label": "Recipe.cs",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "PizzaShop.Api.Models",
-      "file_type": "code",
-      "norm_label": "recipe.cs",
+      "norm_label": "recipeid",
       "source_file": "api/Models/Recipe.cs",
-      "source_location": "L1"
+      "source_location": "L8"
     },
     {
       "id": "api_models_recipeitem",
       "label": "RecipeItem.cs",
       "_origin": "ast",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "file_type": "code",
       "norm_label": "recipeitem.cs",
       "source_file": "api/Models/RecipeItem.cs",
@@ -2878,7 +3240,7 @@
       "label": "UnitOfMeasure.cs",
       "_origin": "ast",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "file_type": "code",
       "norm_label": "unitofmeasure.cs",
       "source_file": "api/Models/UnitOfMeasure.cs",
@@ -2889,7 +3251,7 @@
       "label": "Guid",
       "_origin": "ast",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "file_type": "code",
       "norm_label": "guid",
       "source_file": "",
@@ -2900,7 +3262,7 @@
       "label": "Name",
       "_origin": "ast",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -2917,7 +3279,7 @@
       "label": "UnitOfMeasureId",
       "_origin": "ast",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -2934,7 +3296,7 @@
       "label": "Program.cs",
       "_origin": "ast",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "file_type": "code",
       "norm_label": "program.cs",
       "source_file": "api/Program.cs",
@@ -2945,7 +3307,7 @@
       "label": "PizzaShop.Api.Models",
       "_origin": "ast",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "file_type": "code",
       "metadata": {
         "kind": "csharp_namespace",
@@ -2961,7 +3323,7 @@
       "label": "PizzaShop.Api.Db",
       "_origin": "ast",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "file_type": "code",
       "metadata": {
         "kind": "csharp_namespace",
@@ -3957,6 +4319,72 @@
       "source_url": null
     },
     {
+      "id": "microsoft_entityframeworkcore_infrastructure",
+      "label": "microsoft_entityframeworkcore_infrastructure",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "microsoft_entityframeworkcore_infrastructure",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "microsoft_entityframeworkcore_migrations",
+      "label": "microsoft_entityframeworkcore_migrations",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "microsoft_entityframeworkcore_migrations",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "microsoft_entityframeworkcore_storage_valueconversion",
+      "label": "microsoft_entityframeworkcore_storage_valueconversion",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "microsoft_entityframeworkcore_storage_valueconversion",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "npgsql_entityframeworkcore_postgresql_metadata",
+      "label": "npgsql_entityframeworkcore_postgresql_metadata",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "npgsql_entityframeworkcore_postgresql_metadata",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "pizzashop_api_db",
+      "label": "pizzashop_api_db",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "pizzashop_api_db",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "system",
+      "label": "system",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "system",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "web_app_globals",
       "label": "web_app_globals",
       "community": 2,
@@ -3971,7 +4399,7 @@
       "id": "microsoft_entityframeworkcore",
       "label": "microsoft_entityframeworkcore",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "external": true,
       "file_type": "concept",
       "norm_label": "microsoft_entityframeworkcore",
@@ -3982,7 +4410,7 @@
       "id": "system_componentmodel_dataannotations",
       "label": "system_componentmodel_dataannotations",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "external": true,
       "file_type": "concept",
       "norm_label": "system_componentmodel_dataannotations",
@@ -3993,7 +4421,7 @@
       "id": "system_componentmodel_dataannotations_schema",
       "label": "system_componentmodel_dataannotations_schema",
       "community": 4,
-      "community_name": "PizzaShop.Api.Models",
+      "community_name": "microsoft_entityframeworkcore",
       "external": true,
       "file_type": "concept",
       "norm_label": "system_componentmodel_dataannotations_schema",
@@ -5173,6 +5601,51 @@
       "weight": 1.0
     },
     {
+      "source": "api_migrations_20261012162801_initialcreate_designer_pizzashop_api_migrations_initialcreate_buildtargetmodel",
+      "target": "api_migrations_20261012162801_initialcreate_designer_cs_datetimeoffset",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "generic_arg",
+      "metadata": {
+        "ref_token": "DateTimeOffset"
+      },
+      "source_file": "api/Migrations/20261012162801_InitialCreate.Designer.cs",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_20261012162801_initialcreate_pizzashop_api_migrations_initialcreate_up",
+      "target": "api_migrations_20261012162801_initialcreate_cs_datetimeoffset",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "generic_arg",
+      "metadata": {
+        "ref_token": "DateTimeOffset"
+      },
+      "source_file": "api/Migrations/20261012162801_InitialCreate.cs",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_pizzashopcontextmodelsnapshot_pizzashop_api_migrations_pizzashopcontextmodelsnapshot_buildmodel",
+      "target": "api_migrations_pizzashopcontextmodelsnapshot_cs_datetimeoffset",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "generic_arg",
+      "metadata": {
+        "ref_token": "DateTimeOffset"
+      },
+      "source_file": "api/Migrations/PizzaShopContextModelSnapshot.cs",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
       "source": "api_db_pizzashopcontext_pizzashop_api_db_pizzashopcontext_configureconventions",
       "target": "enum",
       "relation": "references",
@@ -5185,6 +5658,51 @@
       },
       "source_file": "api/Db/PizzaShopContext.cs",
       "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_20261012162801_initialcreate_designer_pizzashop_api_migrations_initialcreate_buildtargetmodel",
+      "target": "api_migrations_20261012162801_initialcreate_designer_cs_guid",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "generic_arg",
+      "metadata": {
+        "ref_token": "Guid"
+      },
+      "source_file": "api/Migrations/20261012162801_InitialCreate.Designer.cs",
+      "source_location": "L272",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_20261012162801_initialcreate_pizzashop_api_migrations_initialcreate_up",
+      "target": "api_migrations_20261012162801_initialcreate_cs_guid",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "generic_arg",
+      "metadata": {
+        "ref_token": "Guid"
+      },
+      "source_file": "api/Migrations/20261012162801_InitialCreate.cs",
+      "source_location": "L164",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_pizzashopcontextmodelsnapshot_pizzashop_api_migrations_pizzashopcontextmodelsnapshot_buildmodel",
+      "target": "api_migrations_pizzashopcontextmodelsnapshot_cs_guid",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "generic_arg",
+      "metadata": {
+        "ref_token": "Guid"
+      },
+      "source_file": "api/Migrations/PizzaShopContextModelSnapshot.cs",
+      "source_location": "L269",
       "weight": 1.0
     },
     {
@@ -5430,6 +5948,40 @@
       "weight": 1.0
     },
     {
+      "source": "api_migrations_20261012162801_initialcreate_designer",
+      "target": "microsoft_entityframeworkcore",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "Microsoft.EntityFrameworkCore",
+        "scope_kind": "file"
+      },
+      "source_file": "api/Migrations/20261012162801_InitialCreate.Designer.cs",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_pizzashopcontextmodelsnapshot",
+      "target": "microsoft_entityframeworkcore",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "Microsoft.EntityFrameworkCore",
+        "scope_kind": "file"
+      },
+      "source_file": "api/Migrations/PizzaShopContextModelSnapshot.cs",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
       "source": "api_models_ingredient",
       "target": "microsoft_entityframeworkcore",
       "relation": "imports",
@@ -5566,6 +6118,193 @@
       "weight": 1.0
     },
     {
+      "source": "api_migrations_20261012162801_initialcreate_designer",
+      "target": "microsoft_entityframeworkcore_infrastructure",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "Microsoft.EntityFrameworkCore.Infrastructure",
+        "scope_kind": "file"
+      },
+      "source_file": "api/Migrations/20261012162801_InitialCreate.Designer.cs",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_pizzashopcontextmodelsnapshot",
+      "target": "microsoft_entityframeworkcore_infrastructure",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "Microsoft.EntityFrameworkCore.Infrastructure",
+        "scope_kind": "file"
+      },
+      "source_file": "api/Migrations/PizzaShopContextModelSnapshot.cs",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_20261012162801_initialcreate",
+      "target": "microsoft_entityframeworkcore_migrations",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "Microsoft.EntityFrameworkCore.Migrations",
+        "scope_kind": "file"
+      },
+      "source_file": "api/Migrations/20261012162801_InitialCreate.cs",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_20261012162801_initialcreate_designer",
+      "target": "microsoft_entityframeworkcore_migrations",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "Microsoft.EntityFrameworkCore.Migrations",
+        "scope_kind": "file"
+      },
+      "source_file": "api/Migrations/20261012162801_InitialCreate.Designer.cs",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_20261012162801_initialcreate_designer",
+      "target": "microsoft_entityframeworkcore_storage_valueconversion",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "Microsoft.EntityFrameworkCore.Storage.ValueConversion",
+        "scope_kind": "file"
+      },
+      "source_file": "api/Migrations/20261012162801_InitialCreate.Designer.cs",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_pizzashopcontextmodelsnapshot",
+      "target": "microsoft_entityframeworkcore_storage_valueconversion",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "Microsoft.EntityFrameworkCore.Storage.ValueConversion",
+        "scope_kind": "file"
+      },
+      "source_file": "api/Migrations/PizzaShopContextModelSnapshot.cs",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_20261012162801_initialcreate",
+      "target": "npgsql_entityframeworkcore_postgresql_metadata",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "Npgsql.EntityFrameworkCore.PostgreSQL.Metadata",
+        "scope_kind": "file"
+      },
+      "source_file": "api/Migrations/20261012162801_InitialCreate.cs",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_20261012162801_initialcreate_designer",
+      "target": "npgsql_entityframeworkcore_postgresql_metadata",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "Npgsql.EntityFrameworkCore.PostgreSQL.Metadata",
+        "scope_kind": "file"
+      },
+      "source_file": "api/Migrations/20261012162801_InitialCreate.Designer.cs",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_pizzashopcontextmodelsnapshot",
+      "target": "npgsql_entityframeworkcore_postgresql_metadata",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "Npgsql.EntityFrameworkCore.PostgreSQL.Metadata",
+        "scope_kind": "file"
+      },
+      "source_file": "api/Migrations/PizzaShopContextModelSnapshot.cs",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_20261012162801_initialcreate_designer",
+      "target": "pizzashop_api_db",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "PizzaShop.Api.Db",
+        "scope_kind": "file"
+      },
+      "source_file": "api/Migrations/20261012162801_InitialCreate.Designer.cs",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_pizzashopcontextmodelsnapshot",
+      "target": "pizzashop_api_db",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "PizzaShop.Api.Db",
+        "scope_kind": "file"
+      },
+      "source_file": "api/Migrations/PizzaShopContextModelSnapshot.cs",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
       "source": "api_program",
       "target": "csharp_namespace:41e321ca24ee56c3",
       "relation": "imports",
@@ -5596,6 +6335,57 @@
         "scope_kind": "file"
       },
       "source_file": "api/Db/PizzaShopContext.cs",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_20261012162801_initialcreate",
+      "target": "system",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "System",
+        "scope_kind": "file"
+      },
+      "source_file": "api/Migrations/20261012162801_InitialCreate.cs",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_20261012162801_initialcreate_designer",
+      "target": "system",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "System",
+        "scope_kind": "file"
+      },
+      "source_file": "api/Migrations/20261012162801_InitialCreate.Designer.cs",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_pizzashopcontextmodelsnapshot",
+      "target": "system",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "System",
+        "scope_kind": "file"
+      },
+      "source_file": "api/Migrations/PizzaShopContextModelSnapshot.cs",
       "source_location": "L2",
       "weight": 1.0
     },
@@ -6255,6 +7045,36 @@
       "weight": 1.0
     },
     {
+      "source": "api_migrations_20261012162801_initialcreate_pizzashop_api_migrations_initialcreate_down",
+      "target": "migrationbuilder",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "MigrationBuilder"
+      },
+      "source_file": "api/Migrations/20261012162801_InitialCreate.cs",
+      "source_location": "L252",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_20261012162801_initialcreate_pizzashop_api_migrations_initialcreate_up",
+      "target": "migrationbuilder",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "MigrationBuilder"
+      },
+      "source_file": "api/Migrations/20261012162801_InitialCreate.cs",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
       "source": "api_db_pizzashopcontext_pizzashop_api_db_pizzashopcontext_onmodelcreating",
       "target": "modelbuilder",
       "relation": "references",
@@ -6267,6 +7087,36 @@
       },
       "source_file": "api/Db/PizzaShopContext.cs",
       "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_20261012162801_initialcreate_designer_pizzashop_api_migrations_initialcreate_buildtargetmodel",
+      "target": "api_migrations_20261012162801_initialcreate_designer_cs_modelbuilder",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "ModelBuilder"
+      },
+      "source_file": "api/Migrations/20261012162801_InitialCreate.Designer.cs",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_pizzashopcontextmodelsnapshot_pizzashop_api_migrations_pizzashopcontextmodelsnapshot_buildmodel",
+      "target": "api_migrations_pizzashopcontextmodelsnapshot_cs_modelbuilder",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "ModelBuilder"
+      },
+      "source_file": "api/Migrations/PizzaShopContextModelSnapshot.cs",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -6296,6 +7146,34 @@
       },
       "source_file": "api/Db/PizzaShopContext.cs",
       "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_20261012162801_initialcreate_designer_pizzashop_api_migrations_initialcreate",
+      "target": "migration",
+      "relation": "inherits",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "metadata": {
+        "ref_token": "Migration"
+      },
+      "source_file": "api/Migrations/20261012162801_InitialCreate.cs",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_pizzashopcontextmodelsnapshot_pizzashop_api_migrations_pizzashopcontextmodelsnapshot",
+      "target": "modelsnapshot",
+      "relation": "inherits",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "metadata": {
+        "ref_token": "ModelSnapshot"
+      },
+      "source_file": "api/Migrations/PizzaShopContextModelSnapshot.cs",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -6461,6 +7339,72 @@
       "confidence_score": 1.0,
       "source_file": "api/Db/PizzaShopContext.cs",
       "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_20261012162801_initialcreate",
+      "target": "api_migrations_20261012162801_initialcreate_designer_pizzashop_api_migrations_initialcreate",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "api/Migrations/20261012162801_InitialCreate.cs",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_20261012162801_initialcreate",
+      "target": "csharp_namespace:27c7cd20c785f9f3",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "api/Migrations/20261012162801_InitialCreate.cs",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_20261012162801_initialcreate_designer",
+      "target": "csharp_namespace:27c7cd20c785f9f3",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "api/Migrations/20261012162801_InitialCreate.Designer.cs",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_20261012162801_initialcreate_designer",
+      "target": "api_migrations_20261012162801_initialcreate_designer_pizzashop_api_migrations_initialcreate",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "api/Migrations/20261012162801_InitialCreate.Designer.cs",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_pizzashopcontextmodelsnapshot",
+      "target": "csharp_namespace:27c7cd20c785f9f3",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "api/Migrations/PizzaShopContextModelSnapshot.cs",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_pizzashopcontextmodelsnapshot",
+      "target": "api_migrations_pizzashopcontextmodelsnapshot_pizzashop_api_migrations_pizzashopcontextmodelsnapshot",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "api/Migrations/PizzaShopContextModelSnapshot.cs",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -7837,6 +8781,50 @@
       "weight": 1.0
     },
     {
+      "source": "api_migrations_20261012162801_initialcreate_designer_pizzashop_api_migrations_initialcreate",
+      "target": "api_migrations_20261012162801_initialcreate_designer_pizzashop_api_migrations_initialcreate_buildtargetmodel",
+      "relation": "method",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "api/Migrations/20261012162801_InitialCreate.Designer.cs",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_20261012162801_initialcreate_designer_pizzashop_api_migrations_initialcreate",
+      "target": "api_migrations_20261012162801_initialcreate_pizzashop_api_migrations_initialcreate_up",
+      "relation": "method",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "api/Migrations/20261012162801_InitialCreate.cs",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_20261012162801_initialcreate_designer_pizzashop_api_migrations_initialcreate",
+      "target": "api_migrations_20261012162801_initialcreate_pizzashop_api_migrations_initialcreate_down",
+      "relation": "method",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "api/Migrations/20261012162801_InitialCreate.cs",
+      "source_location": "L252",
+      "weight": 1.0
+    },
+    {
+      "source": "api_migrations_pizzashopcontextmodelsnapshot_pizzashop_api_migrations_pizzashopcontextmodelsnapshot",
+      "target": "api_migrations_pizzashopcontextmodelsnapshot_pizzashop_api_migrations_pizzashopcontextmodelsnapshot_buildmodel",
+      "relation": "method",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "api/Migrations/PizzaShopContextModelSnapshot.cs",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
       "source": "api_pizzashop_api",
       "target": "framework_net10_0",
       "relation": "references",
@@ -8622,5 +9610,5 @@
       "source_file": "web/public/next.svg"
     }
   ],
-  "built_at_commit": "e744de81c7c0cf8af3a163b4ca55bf918d1df9dd"
+  "built_at_commit": "53701c712515fc5b21ad5328e4d0b0691887820d"
 }
