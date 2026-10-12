@@ -9,16 +9,16 @@ const DESKTOP_QUERY = "(min-width: 48rem)"; // Tailwind `md`
 // collapsed state; CSS reads it via the `sidebar-collapsed:` variant.
 const listeners = new Set<() => void>();
 
-function subscribeCollapsed(listener: () => void) {
+const subscribeCollapsed = (listener: () => void) => {
   listeners.add(listener);
   return () => listeners.delete(listener);
-}
+};
 
-function getCollapsed() {
+const getCollapsed = () => {
   return document.documentElement.dataset.sidebar === "collapsed";
-}
+};
 
-function setCollapsed(collapsed: boolean) {
+const setCollapsed = (collapsed: boolean) => {
   if (collapsed) {
     document.documentElement.dataset.sidebar = "collapsed";
   } else {
@@ -30,21 +30,21 @@ function setCollapsed(collapsed: boolean) {
     // Storage unavailable (private mode, blocked); state still applies this session.
   }
   listeners.forEach((listener) => listener());
-}
+};
 
-function subscribeDesktop(listener: () => void) {
+const subscribeDesktop = (listener: () => void) => {
   const mql = window.matchMedia(DESKTOP_QUERY);
   mql.addEventListener("change", listener);
   return () => mql.removeEventListener("change", listener);
-}
+};
 
-function getIsDesktop() {
+const getIsDesktop = () => {
   return window.matchMedia(DESKTOP_QUERY).matches;
-}
+};
 
 const getServerFalse = () => false;
 
-export function useSidebarCollapsed() {
+export const useSidebarCollapsed = () => {
   const collapsed = useSyncExternalStore(
     subscribeCollapsed,
     getCollapsed,
@@ -52,8 +52,8 @@ export function useSidebarCollapsed() {
   );
   const toggleCollapsed = useCallback(() => setCollapsed(!getCollapsed()), []);
   return { collapsed, toggleCollapsed };
-}
+};
 
-export function useIsDesktop() {
+export const useIsDesktop = () => {
   return useSyncExternalStore(subscribeDesktop, getIsDesktop, getServerFalse);
-}
+};

@@ -2,7 +2,7 @@ import type { SVGProps } from "react";
 
 type IconProps = SVGProps<SVGSVGElement>;
 
-function Icon({ children, ...props }: IconProps) {
+const Icon = ({ children, ...props }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -18,25 +18,25 @@ function Icon({ children, ...props }: IconProps) {
       {children}
     </svg>
   );
-}
+};
 
-export function MenuIcon(props: IconProps) {
+export const MenuIcon = (props: IconProps) => {
   return (
     <Icon {...props}>
       <path d="M4 6h16M4 12h16M4 18h16" />
     </Icon>
   );
-}
+};
 
-export function CloseIcon(props: IconProps) {
+export const CloseIcon = (props: IconProps) => {
   return (
     <Icon {...props}>
       <path d="M6 6l12 12M18 6L6 18" />
     </Icon>
   );
-}
+};
 
-export function DashboardIcon(props: IconProps) {
+export const DashboardIcon = (props: IconProps) => {
   return (
     <Icon {...props}>
       <rect x="3" y="3" width="7" height="9" rx="1.5" />
@@ -45,45 +45,45 @@ export function DashboardIcon(props: IconProps) {
       <rect x="3" y="16" width="7" height="5" rx="1.5" />
     </Icon>
   );
-}
+};
 
-export function OrdersIcon(props: IconProps) {
+export const OrdersIcon = (props: IconProps) => {
   return (
     <Icon {...props}>
       <path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z" />
       <path d="M9 8h6M9 12h6" />
     </Icon>
   );
-}
+};
 
-export function RecipesIcon(props: IconProps) {
+export const RecipesIcon = (props: IconProps) => {
   return (
     <Icon {...props}>
       <path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2V5z" />
       <path d="M4 19a2 2 0 012-2h13v4H6a2 2 0 01-2-2z" />
     </Icon>
   );
-}
+};
 
-export function InventoryIcon(props: IconProps) {
+export const InventoryIcon = (props: IconProps) => {
   return (
     <Icon {...props}>
       <path d="M21 8l-9-5-9 5 9 5 9-5z" />
       <path d="M3 8v8l9 5 9-5V8M12 13v8" />
     </Icon>
   );
-}
+};
 
-export function AnalyticsIcon(props: IconProps) {
+export const AnalyticsIcon = (props: IconProps) => {
   return (
     <Icon {...props}>
       <path d="M4 20V10M10 20V4M16 20v-7M22 20H2" />
     </Icon>
   );
-}
+};
 
 /** Brand mark: a pizza slice. */
-export function BrandLogo(props: IconProps) {
+export const BrandLogo = (props: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -99,4 +99,4 @@ export function BrandLogo(props: IconProps) {
       <circle cx="16" cy="19" r="1.6" fill="#dc2626" />
     </svg>
   );
-}
+};

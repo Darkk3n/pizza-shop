@@ -25,25 +25,25 @@ const NAV_ITEMS = [
 
 const SIDEBAR_ID = "app-sidebar";
 
-function isActive(pathname: string, href: string) {
+const isActive = (pathname: string, href: string) => {
 	return href === "/"
 		? pathname === "/"
 		: pathname === href || pathname.startsWith(`${href}/`);
-}
+};
 
-function Brand() {
+const Brand = () => {
 	return (
 		<Link
 			href="/"
 			className="flex items-center gap-2.5 rounded-md font-semibold tracking-tight"
 		>
 			<BrandLogo className="size-8 shrink-0" />
-			<span className="text-base">Pizza Shop POS</span>
+			<span className="text-base">Pizza Shop</span>
 		</Link>
 	);
-}
+};
 
-export function AppShell({ children }: { children: ReactNode }) {
+export const AppShell = ({ children }: { children: ReactNode }) => {
 	const pathname = usePathname();
 	const isDesktop = useIsDesktop();
 	const { collapsed, toggleCollapsed } = useSidebarCollapsed();
@@ -53,15 +53,15 @@ export function AppShell({ children }: { children: ReactNode }) {
 	const toggleRef = useRef<HTMLButtonElement>(null);
 	const closeRef = useRef<HTMLButtonElement>(null);
 
-	function handleToggle() {
+	const handleToggle = () => {
 		if (isDesktop) toggleCollapsed();
 		else setMobileOpen((open) => !open);
-	}
+	};
 
-	function closeDrawer() {
+	const closeDrawer = () => {
 		setMobileOpen(false);
 		toggleRef.current?.focus();
-	}
+	};
 
 	// While the mobile drawer is open: lock page scroll, close on Escape,
 	// and move focus into the drawer.
@@ -71,12 +71,12 @@ export function AppShell({ children }: { children: ReactNode }) {
 		document.body.style.overflow = "hidden";
 		closeRef.current?.focus();
 
-		function onKeyDown(event: KeyboardEvent) {
+		const onKeyDown = (event: KeyboardEvent) => {
 			if (event.key === "Escape") {
 				setMobileOpen(false);
 				toggleRef.current?.focus();
 			}
-		}
+		};
 		document.addEventListener("keydown", onKeyDown);
 		return () => {
 			document.body.style.overflow = overflow;
@@ -181,4 +181,4 @@ export function AppShell({ children }: { children: ReactNode }) {
 			</div>
 		</>
 	);
-}
+};

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   description: "Point of sale, inventory, and sales analytics for pizza restaurants.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+const RootLayout = ({ children }: LayoutProps<"/">) => {
   return (
     // suppressHydrationWarning: the inline script may set data-sidebar before hydration.
     <html
@@ -35,4 +35,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;
