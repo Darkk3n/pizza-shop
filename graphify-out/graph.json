@@ -330,63 +330,6 @@
       "source_location": "L3"
     },
     {
-      "id": "api_dtos_createunitofmeasurerequest_pizzashop_api_dtos_createunitofmeasurerequest",
-      "label": "CreateUnitOfMeasureRequest",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 20,
-      "community_name": ".Create",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Dtos",
-        "scope_chain": [
-          "s2:0"
-        ]
-      },
-      "norm_label": "createunitofmeasurerequest",
-      "source_file": "api/Dtos/CreateUnitOfMeasureRequest.cs",
-      "source_location": "L6"
-    },
-    {
-      "id": "api_dtos_unitofmeasuredto_pizzashop_api_dtos_unitofmeasuredto",
-      "label": "UnitOfMeasureDto",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 20,
-      "community_name": ".Create",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Dtos",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "unitofmeasuredto",
-      "source_file": "api/Dtos/UnitOfMeasureDto.cs",
-      "source_location": "L6"
-    },
-    {
-      "id": "api_dtos_unitofmeasuredto_pizzashop_api_dtos_unitofmeasuremapper",
-      "label": "UnitOfMeasureMapper",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 20,
-      "community_name": ".Create",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Dtos",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "unitofmeasuremapper",
-      "source_file": "api/Dtos/UnitOfMeasureDto.cs",
-      "source_location": "L8"
-    },
-    {
       "id": "api_endpoints_unitsofmeasureendpoints_pizzashop_api_endpoints_unitsofmeasureendpoints",
       "label": "UnitsOfMeasureEndpoints",
       "_callable": true,
@@ -404,6 +347,63 @@
       "norm_label": "unitsofmeasureendpoints",
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
       "source_location": "L9"
+    },
+    {
+      "id": "api_dtos_createunitofmeasurerequest_pizzashop_api_dtos_createunitofmeasurerequest",
+      "label": "CreateUnitOfMeasureRequest",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 21,
+      "community_name": "UnitOfMeasureMapper",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Dtos",
+        "scope_chain": [
+          "s2:0"
+        ]
+      },
+      "norm_label": "createunitofmeasurerequest",
+      "source_file": "api/Dtos/CreateUnitOfMeasureRequest.cs",
+      "source_location": "L6"
+    },
+    {
+      "id": "api_dtos_unitofmeasuredto_pizzashop_api_dtos_unitofmeasuredto",
+      "label": "UnitOfMeasureDto",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 21,
+      "community_name": "UnitOfMeasureMapper",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Dtos",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "unitofmeasuredto",
+      "source_file": "api/Dtos/UnitOfMeasureDto.cs",
+      "source_location": "L6"
+    },
+    {
+      "id": "api_dtos_unitofmeasuredto_pizzashop_api_dtos_unitofmeasuremapper",
+      "label": "UnitOfMeasureMapper",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 21,
+      "community_name": "UnitOfMeasureMapper",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Dtos",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "unitofmeasuremapper",
+      "source_file": "api/Dtos/UnitOfMeasureDto.cs",
+      "source_location": "L8"
     },
     {
       "id": "api_models_pizzasize_pizzashop_api_models_pizzasize",
@@ -969,24 +969,6 @@
       "source_location": "L47"
     },
     {
-      "id": "api_dtos_unitofmeasuredto_pizzashop_api_dtos_unitofmeasuremapper_fromentity",
-      "label": ".FromEntity()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 20,
-      "community_name": ".Create",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Dtos",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": ".fromentity()",
-      "source_file": "api/Dtos/UnitOfMeasureDto.cs",
-      "source_location": "L16"
-    },
-    {
       "id": "api_endpoints_unitsofmeasureendpoints_pizzashop_api_endpoints_unitsofmeasureendpoints_create",
       "label": ".Create()",
       "_callable": true,
@@ -1004,19 +986,19 @@
             "callee": "Problem",
             "receiver_type": "TypedResults",
             "lang": "csharp",
-            "line": "L40"
+            "line": "L42"
           },
           {
             "callee": "Created",
             "receiver_type": "TypedResults",
             "lang": "csharp",
-            "line": "L51"
+            "line": "L53"
           }
         ]
       },
       "norm_label": ".create()",
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
-      "source_location": "L31"
+      "source_location": "L33"
     },
     {
       "id": "api_endpoints_unitsofmeasureendpoints_pizzashop_api_endpoints_unitsofmeasureendpoints_getall",
@@ -1036,13 +1018,13 @@
             "callee": "Ok",
             "receiver_type": "TypedResults",
             "lang": "csharp",
-            "line": "L28"
+            "line": "L30"
           }
         ]
       },
       "norm_label": ".getall()",
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
-      "source_location": "L22"
+      "source_location": "L24"
     },
     {
       "id": "api_endpoints_unitsofmeasureendpoints_pizzashop_api_endpoints_unitsofmeasureendpoints_mapunitsofmeasureendpoints",
@@ -1069,6 +1051,24 @@
       "norm_label": ".mapunitsofmeasureendpoints()",
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
       "source_location": "L11"
+    },
+    {
+      "id": "api_dtos_unitofmeasuredto_pizzashop_api_dtos_unitofmeasuremapper_fromentity",
+      "label": ".FromEntity()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 21,
+      "community_name": "UnitOfMeasureMapper",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Dtos",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": ".fromentity()",
+      "source_file": "api/Dtos/UnitOfMeasureDto.cs",
+      "source_location": "L16"
     },
     {
       "id": "claude_pizza_shop_pos",
@@ -2150,6 +2150,17 @@
       "source_location": "L24"
     },
     {
+      "id": "api_endpoints_unitsofmeasureendpoints",
+      "label": "UnitsOfMeasureEndpoints.cs",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "file_type": "code",
+      "norm_label": "unitsofmeasureendpoints.cs",
+      "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
+      "source_location": "L1"
+    },
+    {
       "id": "api_migrations_20261012162801_initialcreate",
       "label": "20261012162801_InitialCreate.cs",
       "_origin": "ast",
@@ -2295,6 +2306,22 @@
       "norm_label": "pizzashop.api.migrations",
       "source_file": "api/Migrations/20261012162801_InitialCreate.Designer.cs",
       "source_location": "L12",
+      "type": "namespace"
+    },
+    {
+      "id": "csharp_namespace:67154e65adca4dd6",
+      "label": "PizzaShop.Api.Endpoints",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "file_type": "code",
+      "metadata": {
+        "kind": "csharp_namespace",
+        "namespace": "PizzaShop.Api.Endpoints"
+      },
+      "norm_label": "pizzashop.api.endpoints",
+      "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
+      "source_location": "L7",
       "type": "namespace"
     },
     {
@@ -3104,39 +3131,6 @@
       "source_location": "L13"
     },
     {
-      "id": "api_dtos_createunitofmeasurerequest",
-      "label": "CreateUnitOfMeasureRequest.cs",
-      "_origin": "ast",
-      "community": 20,
-      "community_name": ".Create",
-      "file_type": "code",
-      "norm_label": "createunitofmeasurerequest.cs",
-      "source_file": "api/Dtos/CreateUnitOfMeasureRequest.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_dtos_unitofmeasuredto",
-      "label": "UnitOfMeasureDto.cs",
-      "_origin": "ast",
-      "community": 20,
-      "community_name": ".Create",
-      "file_type": "code",
-      "norm_label": "unitofmeasuredto.cs",
-      "source_file": "api/Dtos/UnitOfMeasureDto.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_endpoints_unitsofmeasureendpoints",
-      "label": "UnitsOfMeasureEndpoints.cs",
-      "_origin": "ast",
-      "community": 20,
-      "community_name": ".Create",
-      "file_type": "code",
-      "norm_label": "unitsofmeasureendpoints.cs",
-      "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
-      "source_location": "L1"
-    },
-    {
       "id": "cancellationtoken",
       "label": "CancellationToken",
       "_origin": "ast",
@@ -3159,67 +3153,13 @@
       "source_location": ""
     },
     {
-      "id": "csharp_namespace:4c61102edbee908b",
-      "label": "PizzaShop.Api.Dtos",
+      "id": "createunitofmeasurerequest",
+      "label": "CreateUnitOfMeasureRequest",
       "_origin": "ast",
       "community": 20,
       "community_name": ".Create",
       "file_type": "code",
-      "metadata": {
-        "kind": "csharp_namespace",
-        "namespace": "PizzaShop.Api.Dtos"
-      },
-      "norm_label": "pizzashop.api.dtos",
-      "source_file": "api/Dtos/CreateUnitOfMeasureRequest.cs",
-      "source_location": "L3",
-      "type": "namespace"
-    },
-    {
-      "id": "csharp_namespace:67154e65adca4dd6",
-      "label": "PizzaShop.Api.Endpoints",
-      "_origin": "ast",
-      "community": 20,
-      "community_name": ".Create",
-      "file_type": "code",
-      "metadata": {
-        "kind": "csharp_namespace",
-        "namespace": "PizzaShop.Api.Endpoints"
-      },
-      "norm_label": "pizzashop.api.endpoints",
-      "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
-      "source_location": "L7",
-      "type": "namespace"
-    },
-    {
-      "id": "expression",
-      "label": "Expression",
-      "_origin": "ast",
-      "community": 20,
-      "community_name": ".Create",
-      "file_type": "code",
-      "norm_label": "expression",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "func",
-      "label": "Func",
-      "_origin": "ast",
-      "community": 20,
-      "community_name": ".Create",
-      "file_type": "code",
-      "norm_label": "func",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "guid",
-      "label": "Guid",
-      "_origin": "ast",
-      "community": 20,
-      "community_name": ".Create",
-      "file_type": "code",
-      "norm_label": "guid",
+      "norm_label": "createunitofmeasurerequest",
       "source_file": "",
       "source_location": ""
     },
@@ -3301,11 +3241,93 @@
       "source_location": ""
     },
     {
-      "id": "unitofmeasure",
-      "label": "UnitOfMeasure",
+      "id": "unitofmeasuredto",
+      "label": "UnitOfMeasureDto",
       "_origin": "ast",
       "community": 20,
       "community_name": ".Create",
+      "file_type": "code",
+      "norm_label": "unitofmeasuredto",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_dtos_createunitofmeasurerequest",
+      "label": "CreateUnitOfMeasureRequest.cs",
+      "_origin": "ast",
+      "community": 21,
+      "community_name": "UnitOfMeasureMapper",
+      "file_type": "code",
+      "norm_label": "createunitofmeasurerequest.cs",
+      "source_file": "api/Dtos/CreateUnitOfMeasureRequest.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_dtos_unitofmeasuredto",
+      "label": "UnitOfMeasureDto.cs",
+      "_origin": "ast",
+      "community": 21,
+      "community_name": "UnitOfMeasureMapper",
+      "file_type": "code",
+      "norm_label": "unitofmeasuredto.cs",
+      "source_file": "api/Dtos/UnitOfMeasureDto.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "csharp_namespace:4c61102edbee908b",
+      "label": "PizzaShop.Api.Dtos",
+      "_origin": "ast",
+      "community": 21,
+      "community_name": "UnitOfMeasureMapper",
+      "file_type": "code",
+      "metadata": {
+        "kind": "csharp_namespace",
+        "namespace": "PizzaShop.Api.Dtos"
+      },
+      "norm_label": "pizzashop.api.dtos",
+      "source_file": "api/Dtos/CreateUnitOfMeasureRequest.cs",
+      "source_location": "L3",
+      "type": "namespace"
+    },
+    {
+      "id": "expression",
+      "label": "Expression",
+      "_origin": "ast",
+      "community": 21,
+      "community_name": "UnitOfMeasureMapper",
+      "file_type": "code",
+      "norm_label": "expression",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "func",
+      "label": "Func",
+      "_origin": "ast",
+      "community": 21,
+      "community_name": "UnitOfMeasureMapper",
+      "file_type": "code",
+      "norm_label": "func",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "guid",
+      "label": "Guid",
+      "_origin": "ast",
+      "community": 21,
+      "community_name": "UnitOfMeasureMapper",
+      "file_type": "code",
+      "norm_label": "guid",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "unitofmeasure",
+      "label": "UnitOfMeasure",
+      "_origin": "ast",
+      "community": 21,
+      "community_name": "UnitOfMeasureMapper",
       "file_type": "code",
       "norm_label": "unitofmeasure",
       "source_file": "",
@@ -4206,6 +4228,17 @@
       "source_location": null
     },
     {
+      "id": "nuget_microsoft_aspnetcore_openapi",
+      "label": "Microsoft.AspNetCore.OpenApi (10.0.12)",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "PizzaShop.Api.csproj",
+      "file_type": "code",
+      "norm_label": "microsoft.aspnetcore.openapi (10.0.12)",
+      "source_file": "api/PizzaShop.Api.csproj",
+      "source_location": null
+    },
+    {
       "id": "nuget_microsoft_entityframeworkcore_design",
       "label": "Microsoft.EntityFrameworkCore.Design (10.0.12)",
       "_origin": "ast",
@@ -4224,6 +4257,17 @@
       "community_name": "PizzaShop.Api.csproj",
       "file_type": "code",
       "norm_label": "npgsql.entityframeworkcore.postgresql (10.0.3)",
+      "source_file": "api/PizzaShop.Api.csproj",
+      "source_location": null
+    },
+    {
+      "id": "nuget_scalar_aspnetcore",
+      "label": "Scalar.AspNetCore (2.18.0)",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "PizzaShop.Api.csproj",
+      "file_type": "code",
+      "norm_label": "scalar.aspnetcore (2.18.0)",
       "source_file": "api/PizzaShop.Api.csproj",
       "source_location": null
     },
@@ -4805,6 +4849,17 @@
       "source_url": null
     },
     {
+      "id": "microsoft_aspnetcore_http_httpresults",
+      "label": "microsoft_aspnetcore_http_httpresults",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "microsoft_aspnetcore_http_httpresults",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "microsoft_entityframeworkcore_infrastructure",
       "label": "microsoft_entityframeworkcore_infrastructure",
       "community": 15,
@@ -4860,13 +4915,13 @@
       "type": "external"
     },
     {
-      "id": "pizzashop_api_endpoints",
-      "label": "pizzashop_api_endpoints",
+      "id": "pizzashop_api_dtos",
+      "label": "pizzashop_api_dtos",
       "community": 15,
       "community_name": "20261012162801_InitialCreate.Designer.cs",
       "external": true,
       "file_type": "concept",
-      "norm_label": "pizzashop_api_endpoints",
+      "norm_label": "pizzashop_api_dtos",
       "source_file": "",
       "type": "external"
     },
@@ -4878,6 +4933,17 @@
       "external": true,
       "file_type": "concept",
       "norm_label": "pizzashop_api_extensions",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "scalar_aspnetcore",
+      "label": "scalar_aspnetcore",
+      "community": 15,
+      "community_name": "20261012162801_InitialCreate.Designer.cs",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "scalar_aspnetcore",
       "source_file": "",
       "type": "external"
     },
@@ -4904,21 +4970,10 @@
       "type": "external"
     },
     {
-      "id": "microsoft_aspnetcore_http_httpresults",
-      "label": "microsoft_aspnetcore_http_httpresults",
-      "community": 20,
-      "community_name": ".Create",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "microsoft_aspnetcore_http_httpresults",
-      "source_file": "",
-      "type": "external"
-    },
-    {
       "id": "pizzashop_api_models",
       "label": "pizzashop_api_models",
-      "community": 20,
-      "community_name": ".Create",
+      "community": 21,
+      "community_name": "UnitOfMeasureMapper",
       "external": true,
       "file_type": "concept",
       "norm_label": "pizzashop_api_models",
@@ -4928,8 +4983,8 @@
     {
       "id": "system_linq_expressions",
       "label": "system_linq_expressions",
-      "community": 20,
-      "community_name": ".Create",
+      "community": 21,
+      "community_name": "UnitOfMeasureMapper",
       "external": true,
       "file_type": "concept",
       "norm_label": "system_linq_expressions",
@@ -4980,7 +5035,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
-      "source_location": "L51",
+      "source_location": "L53",
       "weight": 1.0
     },
     {
@@ -6210,7 +6265,7 @@
         "ref_token": "Created"
       },
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
-      "source_location": "L31",
+      "source_location": "L33",
       "weight": 1.0
     },
     {
@@ -6360,7 +6415,7 @@
         "ref_token": "List"
       },
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
-      "source_location": "L22",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -6375,7 +6430,7 @@
         "ref_token": "Ok"
       },
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
-      "source_location": "L22",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -6510,7 +6565,7 @@
         "ref_token": "ProblemHttpResult"
       },
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
-      "source_location": "L31",
+      "source_location": "L33",
       "weight": 1.0
     },
     {
@@ -6570,7 +6625,7 @@
         "ref_token": "Results"
       },
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
-      "source_location": "L31",
+      "source_location": "L33",
       "weight": 1.0
     },
     {
@@ -6635,7 +6690,7 @@
     },
     {
       "source": "api_endpoints_unitsofmeasureendpoints_pizzashop_api_endpoints_unitsofmeasureendpoints_create",
-      "target": "api_dtos_unitofmeasuredto_pizzashop_api_dtos_unitofmeasuredto",
+      "target": "unitofmeasuredto",
       "relation": "references",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -6645,12 +6700,12 @@
         "ref_token": "UnitOfMeasureDto"
       },
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
-      "source_location": "L31",
+      "source_location": "L33",
       "weight": 1.0
     },
     {
       "source": "api_endpoints_unitsofmeasureendpoints_pizzashop_api_endpoints_unitsofmeasureendpoints_getall",
-      "target": "api_dtos_unitofmeasuredto_pizzashop_api_dtos_unitofmeasuredto",
+      "target": "unitofmeasuredto",
       "relation": "references",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -6660,7 +6715,7 @@
         "ref_token": "UnitOfMeasureDto"
       },
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
-      "source_location": "L22",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -7107,7 +7162,7 @@
     },
     {
       "source": "api_endpoints_unitsofmeasureendpoints",
-      "target": "csharp_namespace:4c61102edbee908b",
+      "target": "pizzashop_api_dtos",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7124,7 +7179,7 @@
     },
     {
       "source": "api_program",
-      "target": "pizzashop_api_endpoints",
+      "target": "csharp_namespace:67154e65adca4dd6",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7204,6 +7259,23 @@
         "scope_kind": "file"
       },
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "api_program",
+      "target": "scalar_aspnetcore",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "Scalar.AspNetCore",
+        "scope_kind": "file"
+      },
+      "source_file": "api/Program.cs",
       "source_location": "L5",
       "weight": 1.0
     },
@@ -7959,7 +8031,7 @@
         "ref_token": "CancellationToken"
       },
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
-      "source_location": "L31",
+      "source_location": "L33",
       "weight": 1.0
     },
     {
@@ -7974,12 +8046,12 @@
         "ref_token": "CancellationToken"
       },
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
-      "source_location": "L22",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
       "source": "api_endpoints_unitsofmeasureendpoints_pizzashop_api_endpoints_unitsofmeasureendpoints_create",
-      "target": "api_dtos_createunitofmeasurerequest_pizzashop_api_dtos_createunitofmeasurerequest",
+      "target": "createunitofmeasurerequest",
       "relation": "references",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7989,7 +8061,7 @@
         "ref_token": "CreateUnitOfMeasureRequest"
       },
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
-      "source_location": "L31",
+      "source_location": "L33",
       "weight": 1.0
     },
     {
@@ -8109,7 +8181,7 @@
         "ref_token": "PizzaShopContext"
       },
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
-      "source_location": "L31",
+      "source_location": "L33",
       "weight": 1.0
     },
     {
@@ -8124,7 +8196,7 @@
         "ref_token": "PizzaShopContext"
       },
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
-      "source_location": "L22",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -8184,7 +8256,7 @@
         "ref_token": "Task"
       },
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
-      "source_location": "L31",
+      "source_location": "L33",
       "weight": 1.0
     },
     {
@@ -8199,7 +8271,7 @@
         "ref_token": "Task"
       },
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
-      "source_location": "L22",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -9922,6 +9994,16 @@
     },
     {
       "source": "api_pizzashop_api",
+      "target": "nuget_microsoft_aspnetcore_openapi",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "api/PizzaShop.Api.csproj",
+      "weight": 1.0
+    },
+    {
+      "source": "api_pizzashop_api",
       "target": "nuget_microsoft_entityframeworkcore_design",
       "relation": "imports",
       "_origin": "ast",
@@ -9933,6 +10015,16 @@
     {
       "source": "api_pizzashop_api",
       "target": "nuget_npgsql_entityframeworkcore_postgresql",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "api/PizzaShop.Api.csproj",
+      "weight": 1.0
+    },
+    {
+      "source": "api_pizzashop_api",
+      "target": "nuget_scalar_aspnetcore",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -9992,7 +10084,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
-      "source_location": "L22",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -10003,7 +10095,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
-      "source_location": "L31",
+      "source_location": "L33",
       "weight": 1.0
     },
     {
@@ -10847,5 +10939,5 @@
       "source_file": "web/public/next.svg"
     }
   ],
-  "built_at_commit": "d13a59beef3896c44ee85cf266561c17a6b952a0"
+  "built_at_commit": "93ee05ac0d248e7a38ef188bb3bb831ccb67de3d"
 }

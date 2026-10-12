@@ -14,7 +14,9 @@ namespace PizzaShop.Api.Endpoints
                 .WithTags("UnitsOfMeasure");
 
             group.MapGet("/", GetAll);
-            group.MapPost("/", Create);
+            group.MapPost("/", Create)
+                .ProducesProblem(StatusCodes.Status409Conflict)
+                .ProducesValidationProblem();
 
             return app;
         }
