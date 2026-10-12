@@ -9,6 +9,8 @@ var connectionString = builder.Configuration.GetConnectionString("PizzaShop")
     ?? throw new InvalidOperationException("Connection string 'PizzaShop' not found.");
 builder.Services.AddDbContext<PizzaShopContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddFrontendCors(builder.Configuration);
+builder.Services.AddProblemDetails();
+builder.Services.AddValidation();
 
 var app = builder.Build();
 

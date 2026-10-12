@@ -1,17 +1,17 @@
 # Graph Report - pizza-shop  (2026-10-12)
 
 ## Corpus Check
-- 35 files · ~6,360 words
+- 36 files · ~6,510 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 5 file(s) not represented in the graph (top: (none) 2, .example 1, .ico 1)
 
 ## Summary
-- 347 nodes · 446 edges · 26 communities (19 shown, 7 thin omitted)
+- 348 nodes · 446 edges · 25 communities (18 shown, 7 thin omitted)
 - Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 32 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `579bd7f6`
+- Built from commit: `946ebc2b`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -36,7 +36,6 @@
 - .GetAll
 - RecipeItem
 - Ingredient
-- PizzaSize
 
 ## God Nodes (most connected - your core abstractions)
 1. `PizzaShopContext` - 21 edges
@@ -44,8 +43,8 @@
 3. `Order` - 16 edges
 4. `OrderItemTopping` - 16 edges
 5. `compilerOptions` - 16 edges
-6. `Ingredient` - 12 edges
-7. `RecipeItem` - 12 edges
+6. `RecipeItem` - 12 edges
+7. `Ingredient` - 12 edges
 8. `PizzaShop.Api.Models` - 10 edges
 9. `AppShell()` - 9 edges
 10. `Icon()` - 8 edges
@@ -71,7 +70,7 @@
 - **Price snapshot pattern for historical stability** — claude_price_stability, claude_orderitems, claude_orderitemtoppings, claude_orders [INFERRED 0.85]
 - **create-next-app Default Boilerplate Assets (currently unused)** — web_public_file_file_icon, web_public_globe_globe_icon, web_public_next_next_js_wordmark, web_public_vercel_vercel_logo, web_public_window_window_icon [INFERRED 0.85]
 
-## Communities (26 total, 7 thin omitted)
+## Communities (25 total, 7 thin omitted)
 
 ### Community 0 - "Pizza Shop POS README"
 Cohesion: 0.12
@@ -91,7 +90,7 @@ Nodes (18): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModu
 
 ### Community 4 - "microsoft_entityframeworkcore"
 Cohesion: 0.12
-Nodes (10): Recipe, BasePrice, Name, RecipeId, UnitOfMeasure, Name, UnitOfMeasureId, PizzaShop.Api.Models (+2 more)
+Nodes (13): PizzaSize, Name, PizzaSizeId, PriceMultiplier, Recipe, BasePrice, Name, RecipeId (+5 more)
 
 ### Community 5 - "package.json"
 Cohesion: 0.12
@@ -122,7 +121,7 @@ Cohesion: 0.13
 Nodes (12): OrderItem, ItemNameSnapshot, LineTotal, Order, OrderId, OrderItemId, PizzaSize, PizzaSizeId (+4 more)
 
 ### Community 15 - "20261012162801_InitialCreate.Designer.cs"
-Cohesion: 0.10
+Cohesion: 0.09
 Nodes (3): InitialCreate, PizzaShopContextModelSnapshot, PizzaShop.Api.Migrations
 
 ### Community 16 - "Order"
@@ -134,8 +133,8 @@ Cohesion: 0.11
 Nodes (17): ToppingAmount, Extra, Light, Standard, ToppingCoverage, LeftHalf, RightHalf, Whole (+9 more)
 
 ### Community 20 - ".GetAll"
-Cohesion: 0.11
-Nodes (4): UnitOfMeasureDto, UnitOfMeasureMapper, UnitsOfMeasureEndpoints, PizzaShop.Api.Dtos
+Cohesion: 0.10
+Nodes (5): UnitOfMeasureDto, UnitOfMeasureMapper, UnitsOfMeasureEndpoints, PizzaShop.Api.Dtos, PizzaShop.Api.Endpoints
 
 ### Community 21 - "RecipeItem"
 Cohesion: 0.22
@@ -145,17 +144,13 @@ Nodes (7): RecipeItem, Amount, Ingredient, IngredientId, Recipe, RecipeId, Recip
 Cohesion: 0.25
 Nodes (6): Ingredient, CurrentStock, IngredientId, Name, UnitOfMeasure, UnitOfMeasureId
 
-### Community 23 - "PizzaSize"
-Cohesion: 0.40
-Nodes (4): PizzaSize, Name, PizzaSizeId, PriceMultiplier
-
 ## Ambiguous Edges - Review These
 - `pnpm workspace (packages: web)` → `Tech Stack (pnpm, Next.js 16, ASP.NET 10, PostgreSQL, Azure)`  [AMBIGUOUS]
   pnpm-workspace.yaml · relation: conceptually_related_to
 
 ## Knowledge Gaps
 - **92 isolated node(s):** `react-dom`, `tailwindcss`, `@tailwindcss/turbopack`, `@types/node`, `@types/react` (+87 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 207 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 209 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **7 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
@@ -172,7 +167,7 @@ _Questions this graph is uniquely positioned to answer:_
 - **Should `web/package.json` be split into smaller, more focused modules?**
   _Cohesion score 0.0625 - nodes in this community are weakly interconnected._
 - **Why does `OrderItemTopping` connect `OrderItemTopping` to `microsoft_entityframeworkcore`, `PizzaShopContext`, `OrderItem`, `Ingredient`, `.OnModelCreating`?**
-  _High betweenness centrality (0.042) - this node is a cross-community bridge._
+  _High betweenness centrality (0.043) - this node is a cross-community bridge._
 
 ### Low-confidence Hints
 _AMBIGUOUS edges — the extractor was unsure. Verify before acting on these._
