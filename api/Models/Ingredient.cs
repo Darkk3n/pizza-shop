@@ -13,7 +13,7 @@ namespace PizzaShop.Api.Models
         public string Name { get; set; } = string.Empty;
 
         [ForeignKey(nameof(UnitOfMeasureId))]
-        public UnitOfMeasure UnitOfMeasure { get; set; }
+        public UnitOfMeasure UnitOfMeasure { get; set; } = null!;
 
         public Guid UnitOfMeasureId { get; set; }
 

@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace PizzaShop.Api.Models
@@ -14,20 +10,20 @@ namespace PizzaShop.Api.Models
         public Guid OrderItemToppingId { get; set; }
 
         [ForeignKey(nameof(OrderItemId))]
-        public OrderItem OrderItem { get; set; }
+        public OrderItem OrderItem { get; set; } = null!;
 
         public Guid OrderItemId { get; set; }
 
         [ForeignKey(nameof(IngredientId))]
-        public Ingredient Ingredient { get; set; }
+        public Ingredient Ingredient { get; set; } = null!;
 
         public Guid IngredientId { get; set; }
 
         [MaxLength(20)]
-        public string Coverage { get; set; }
+        public ToppingCoverage Coverage { get; set; }
 
         [MaxLength(20)]
-        public string ExtraAmount { get; set; }
+        public ToppingAmount ExtraAmount { get; set; }
 
         [Precision(10, 2)]
         public decimal PriceAdjustment { get; set; }

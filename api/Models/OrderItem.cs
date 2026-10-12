@@ -10,14 +10,14 @@ namespace PizzaShop.Api.Models
         public Guid OrderItemId { get; set; }
 
         [ForeignKey(nameof(OrderId))]
-        public Order Order { get; set; }
+        public Order Order { get; set; } = null!;
 
         public Guid OrderId { get; set; }
 
         [ForeignKey(nameof(RecipeId))]
         public Recipe? Recipe { get; set; }
 
-        public Guid RecipeId { get; set; }
+        public Guid? RecipeId { get; set; }
 
         public int Quantity { get; set; }
 
@@ -28,11 +28,11 @@ namespace PizzaShop.Api.Models
         public decimal LineTotal { get; set; }
 
         [MaxLength(100)]
-        public string ItemNameSnapshot { get; set; }
+        public string ItemNameSnapshot { get; set; } = string.Empty;
 
         [ForeignKey(nameof(PizzaSizeId))]
-        public PizzaSize PizzaSize { get; set; }
+        public PizzaSize? PizzaSize { get; set; }
 
-        public Guid PizzaSizeId { get; set; }
+        public Guid? PizzaSizeId { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PizzaShop.Api.Models
 {
+    [Index(nameof(OrderNumber), IsUnique = true)]
     public class Order
     {
         [Key]
@@ -13,10 +14,10 @@ namespace PizzaShop.Api.Models
         public int OrderNumber { get; set; }
 
         [MaxLength(20)]
-        public string Status { get; set; }
+        public OrderStatus Status { get; set; }
 
         [MaxLength(20)]
-        public string OrderType { get; set; }
+        public OrderType OrderType { get; set; }
 
         [Precision(10, 2)]
         public decimal SubTotal { get; set; }

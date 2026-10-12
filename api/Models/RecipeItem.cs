@@ -10,12 +10,12 @@ namespace PizzaShop.Api.Models
         public Guid RecipeItemId { get; set; }
 
         [ForeignKey(nameof(IngredientId))]
-        public Ingredient Ingredient { get; set; }
+        public Ingredient Ingredient { get; set; } = null!;
 
         public Guid IngredientId { get; set; }
 
         [ForeignKey(nameof(RecipeId))]
-        public Recipe Recipe { get; set; }
+        public Recipe Recipe { get; set; } = null!;
 
         public Guid RecipeId { get; set; }
 

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using PizzaShop.Api.Db;
 
 var builder = WebApplication.CreateBuilder(args);
 
