@@ -29,6 +29,7 @@ A full-stack POS system for pizza restaurant owners featuring order management, 
 - Default to Server Components; explicitly place `"use client";` at the top of files handling UI interactivity or React Hook Form.
 - Always use Zod schemas to validate form inputs and API request payloads. Derive TypeScript types using `z.infer<typeof schema>`.
 - Keep complex form logic inside feature-specific hooks (`hooks/usePizzaBuilder.ts`).
+- Always use arrow functions (`const Name = () => {}`) for components, hooks, helpers, and handlers; never `function` declarations. For default exports (pages, layouts), declare the const and then `export default Name;`.
 
 ### Backend (`api`)
 
