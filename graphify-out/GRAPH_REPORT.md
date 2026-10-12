@@ -1,17 +1,17 @@
 # Graph Report - pizza-shop  (2026-10-12)
 
 ## Corpus Check
-- 32 files · ~6,182 words
+- 33 files · ~6,266 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 5 file(s) not represented in the graph (top: (none) 2, .example 1, .ico 1)
 
 ## Summary
-- 318 nodes · 414 edges · 20 communities (16 shown, 4 thin omitted)
+- 324 nodes · 420 edges · 20 communities (15 shown, 5 thin omitted)
 - Extraction: 92% EXTRACTED · 8% INFERRED · 0% AMBIGUOUS · INFERRED: 32 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `53701c71`
+- Built from commit: `09aa3296`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -32,7 +32,7 @@
 - 20261012162801_InitialCreate.Designer.cs
 - Order
 - OrderItemTopping
-- PizzaSize
+- .AddFrontendCors
 
 ## God Nodes (most connected - your core abstractions)
 1. `PizzaShopContext` - 21 edges
@@ -67,7 +67,7 @@
 - **Price snapshot pattern for historical stability** — claude_price_stability, claude_orderitems, claude_orderitemtoppings, claude_orders [INFERRED 0.85]
 - **create-next-app Default Boilerplate Assets (currently unused)** — web_public_file_file_icon, web_public_globe_globe_icon, web_public_next_next_js_wordmark, web_public_vercel_vercel_logo, web_public_window_window_icon [INFERRED 0.85]
 
-## Communities (20 total, 4 thin omitted)
+## Communities (20 total, 5 thin omitted)
 
 ### Community 0 - "Pizza Shop POS README"
 Cohesion: 0.12
@@ -86,8 +86,8 @@ Cohesion: 0.11
 Nodes (18): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+10 more)
 
 ### Community 4 - "microsoft_entityframeworkcore"
-Cohesion: 0.15
-Nodes (9): Recipe, BasePrice, Name, RecipeId, UnitOfMeasure, Name, UnitOfMeasureId, PizzaShop.Api.Models (+1 more)
+Cohesion: 0.12
+Nodes (13): PizzaSize, Name, PizzaSizeId, PriceMultiplier, Recipe, BasePrice, Name, RecipeId (+5 more)
 
 ### Community 5 - "package.json"
 Cohesion: 0.12
@@ -129,18 +129,14 @@ Nodes (18): OrderStatus, Completed, Pending, Preparing, Ready, OrderType, Delive
 Cohesion: 0.11
 Nodes (17): ToppingAmount, Extra, Light, Standard, ToppingCoverage, LeftHalf, RightHalf, Whole (+9 more)
 
-### Community 19 - "PizzaSize"
-Cohesion: 0.40
-Nodes (4): PizzaSize, Name, PizzaSizeId, PriceMultiplier
-
 ## Ambiguous Edges - Review These
 - `pnpm workspace (packages: web)` → `Tech Stack (pnpm, Next.js 16, ASP.NET 10, PostgreSQL, Azure)`  [AMBIGUOUS]
   pnpm-workspace.yaml · relation: conceptually_related_to
 
 ## Knowledge Gaps
 - **92 isolated node(s):** `react-dom`, `tailwindcss`, `@tailwindcss/turbopack`, `@types/node`, `@types/react` (+87 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 189 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 192 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **5 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_

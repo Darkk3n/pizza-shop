@@ -298,23 +298,23 @@
       "source_location": "L7"
     },
     {
-      "id": "api_models_pizzasize_pizzashop_api_models_pizzasize",
-      "label": "PizzaSize",
+      "id": "api_extensions_corsextensions_pizzashop_api_extensions_corsextensions",
+      "label": "CorsExtensions",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 19,
-      "community_name": "PizzaSize",
+      "community_name": ".AddFrontendCors",
       "file_type": "code",
       "metadata": {
-        "namespace": "PizzaShop.Api.Models",
+        "namespace": "PizzaShop.Api.Extensions",
         "scope_chain": [
-          "s3:0"
+          "s0:0"
         ]
       },
-      "norm_label": "pizzasize",
-      "source_file": "api/Models/PizzaSize.cs",
-      "source_location": "L6"
+      "norm_label": "corsextensions",
+      "source_file": "api/Extensions/CorsExtensions.cs",
+      "source_location": "L3"
     },
     {
       "id": "web_components_app_shell_icons_iconprops",
@@ -328,6 +328,25 @@
       "norm_label": "iconprops",
       "source_file": "web/components/app-shell/icons.tsx",
       "source_location": "L3"
+    },
+    {
+      "id": "api_models_pizzasize_pizzashop_api_models_pizzasize",
+      "label": "PizzaSize",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "microsoft_entityframeworkcore",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "pizzasize",
+      "source_file": "api/Models/PizzaSize.cs",
+      "source_location": "L6"
     },
     {
       "id": "api_models_recipe_pizzashop_api_models_recipe",
@@ -588,6 +607,38 @@
       "norm_label": ".buildmodel()",
       "source_file": "api/Migrations/PizzaShopContextModelSnapshot.cs",
       "source_location": "L16"
+    },
+    {
+      "id": "api_extensions_corsextensions_pizzashop_api_extensions_corsextensions_addfrontendcors",
+      "label": ".AddFrontendCors()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 19,
+      "community_name": ".AddFrontendCors",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Extensions",
+        "scope_chain": [
+          "s0:0"
+        ],
+        "unresolved_calls": [
+          {
+            "callee": "GetSection",
+            "receiver_type": "IConfiguration",
+            "lang": "csharp",
+            "line": "L14"
+          },
+          {
+            "callee": "AddCors",
+            "receiver_type": "IServiceCollection",
+            "lang": "csharp",
+            "line": "L16"
+          }
+        ]
+      },
+      "norm_label": ".addfrontendcors()",
+      "source_file": "api/Extensions/CorsExtensions.cs",
+      "source_location": "L12"
     },
     {
       "id": "web_app_layout_rootlayout",
@@ -2639,66 +2690,64 @@
       "source_location": ""
     },
     {
-      "id": "api_models_pizzasize_cs_guid",
-      "label": "Guid",
+      "id": "api_extensions_corsextensions",
+      "label": "CorsExtensions.cs",
       "_origin": "ast",
       "community": 19,
-      "community_name": "PizzaSize",
+      "community_name": ".AddFrontendCors",
       "file_type": "code",
-      "norm_label": "guid",
+      "norm_label": "corsextensions.cs",
+      "source_file": "api/Extensions/CorsExtensions.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_program",
+      "label": "Program.cs",
+      "_origin": "ast",
+      "community": 19,
+      "community_name": ".AddFrontendCors",
+      "file_type": "code",
+      "norm_label": "program.cs",
+      "source_file": "api/Program.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "csharp_namespace:8818c51307119776",
+      "label": "PizzaShop.Api.Extensions",
+      "_origin": "ast",
+      "community": 19,
+      "community_name": ".AddFrontendCors",
+      "file_type": "code",
+      "metadata": {
+        "kind": "csharp_namespace",
+        "namespace": "PizzaShop.Api.Extensions"
+      },
+      "norm_label": "pizzashop.api.extensions",
+      "source_file": "api/Extensions/CorsExtensions.cs",
+      "source_location": "L1",
+      "type": "namespace"
+    },
+    {
+      "id": "iconfiguration",
+      "label": "IConfiguration",
+      "_origin": "ast",
+      "community": 19,
+      "community_name": ".AddFrontendCors",
+      "file_type": "code",
+      "norm_label": "iconfiguration",
       "source_file": "",
       "source_location": ""
     },
     {
-      "id": "api_models_pizzasize_pizzashop_api_models_pizzasize_name",
-      "label": "Name",
+      "id": "iservicecollection",
+      "label": "IServiceCollection",
       "_origin": "ast",
       "community": 19,
-      "community_name": "PizzaSize",
+      "community_name": ".AddFrontendCors",
       "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "name",
-      "source_file": "api/Models/PizzaSize.cs",
-      "source_location": "L11"
-    },
-    {
-      "id": "api_models_pizzasize_pizzashop_api_models_pizzasize_pizzasizeid",
-      "label": "PizzaSizeId",
-      "_origin": "ast",
-      "community": 19,
-      "community_name": "PizzaSize",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "pizzasizeid",
-      "source_file": "api/Models/PizzaSize.cs",
-      "source_location": "L8"
-    },
-    {
-      "id": "api_models_pizzasize_pizzashop_api_models_pizzasize_pricemultiplier",
-      "label": "PriceMultiplier",
-      "_origin": "ast",
-      "community": 19,
-      "community_name": "PizzaSize",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "pricemultiplier",
-      "source_file": "api/Models/PizzaSize.cs",
-      "source_location": "L14"
+      "norm_label": "iservicecollection",
+      "source_file": "",
+      "source_location": ""
     },
     {
       "id": "web_app_layout",
@@ -3152,6 +3201,68 @@
       "source_location": "L1"
     },
     {
+      "id": "api_models_pizzasize_cs_guid",
+      "label": "Guid",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "microsoft_entityframeworkcore",
+      "file_type": "code",
+      "norm_label": "guid",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_models_pizzasize_pizzashop_api_models_pizzasize_name",
+      "label": "Name",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "microsoft_entityframeworkcore",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "name",
+      "source_file": "api/Models/PizzaSize.cs",
+      "source_location": "L11"
+    },
+    {
+      "id": "api_models_pizzasize_pizzashop_api_models_pizzasize_pizzasizeid",
+      "label": "PizzaSizeId",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "microsoft_entityframeworkcore",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "pizzasizeid",
+      "source_file": "api/Models/PizzaSize.cs",
+      "source_location": "L8"
+    },
+    {
+      "id": "api_models_pizzasize_pizzashop_api_models_pizzasize_pricemultiplier",
+      "label": "PriceMultiplier",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "microsoft_entityframeworkcore",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "pricemultiplier",
+      "source_file": "api/Models/PizzaSize.cs",
+      "source_location": "L14"
+    },
+    {
       "id": "api_models_recipe",
       "label": "Recipe.cs",
       "_origin": "ast",
@@ -3290,17 +3401,6 @@
       "norm_label": "unitofmeasureid",
       "source_file": "api/Models/UnitOfMeasure.cs",
       "source_location": "L7"
-    },
-    {
-      "id": "api_program",
-      "label": "Program.cs",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "microsoft_entityframeworkcore",
-      "file_type": "code",
-      "norm_label": "program.cs",
-      "source_file": "api/Program.cs",
-      "source_location": "L1"
     },
     {
       "id": "csharp_namespace:250228d3e385bc49",
@@ -6306,7 +6406,7 @@
     },
     {
       "source": "api_program",
-      "target": "csharp_namespace:41e321ca24ee56c3",
+      "target": "pizzashop_api_db",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -6319,6 +6419,23 @@
       },
       "source_file": "api/Program.cs",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "api_program",
+      "target": "csharp_namespace:8818c51307119776",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "PizzaShop.Api.Extensions",
+        "scope_kind": "file"
+      },
+      "source_file": "api/Program.cs",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -7045,6 +7162,21 @@
       "weight": 1.0
     },
     {
+      "source": "api_extensions_corsextensions_pizzashop_api_extensions_corsextensions_addfrontendcors",
+      "target": "iconfiguration",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "IConfiguration"
+      },
+      "source_file": "api/Extensions/CorsExtensions.cs",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
       "source": "api_migrations_20261012162801_initialcreate_pizzashop_api_migrations_initialcreate_down",
       "target": "migrationbuilder",
       "relation": "references",
@@ -7132,6 +7264,21 @@
       },
       "source_file": "api/Db/PizzaShopContext.cs",
       "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "api_extensions_corsextensions_pizzashop_api_extensions_corsextensions_addfrontendcors",
+      "target": "iservicecollection",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "return_type",
+      "metadata": {
+        "ref_token": "IServiceCollection"
+      },
+      "source_file": "api/Extensions/CorsExtensions.cs",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
@@ -7339,6 +7486,28 @@
       "confidence_score": 1.0,
       "source_file": "api/Db/PizzaShopContext.cs",
       "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "api_extensions_corsextensions",
+      "target": "csharp_namespace:8818c51307119776",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "api/Extensions/CorsExtensions.cs",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "api_extensions_corsextensions",
+      "target": "api_extensions_corsextensions_pizzashop_api_extensions_corsextensions",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "api/Extensions/CorsExtensions.cs",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -8781,6 +8950,17 @@
       "weight": 1.0
     },
     {
+      "source": "api_extensions_corsextensions_pizzashop_api_extensions_corsextensions",
+      "target": "api_extensions_corsextensions_pizzashop_api_extensions_corsextensions_addfrontendcors",
+      "relation": "method",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "api/Extensions/CorsExtensions.cs",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
       "source": "api_migrations_20261012162801_initialcreate_designer_pizzashop_api_migrations_initialcreate",
       "target": "api_migrations_20261012162801_initialcreate_designer_pizzashop_api_migrations_initialcreate_buildtargetmodel",
       "relation": "method",
@@ -9610,5 +9790,5 @@
       "source_file": "web/public/next.svg"
     }
   ],
-  "built_at_commit": "53701c712515fc5b21ad5328e4d0b0691887820d"
+  "built_at_commit": "09aa32962ae787f30a416b5bc9bf3fdffab0bc86"
 }
