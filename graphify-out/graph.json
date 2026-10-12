@@ -1519,6 +1519,28 @@
       "source_location": null
     },
     {
+      "id": "nuget_microsoft_entityframeworkcore_design",
+      "label": "Microsoft.EntityFrameworkCore.Design (10.0.12)",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "PizzaShop.Api.csproj",
+      "file_type": "code",
+      "norm_label": "microsoft.entityframeworkcore.design (10.0.12)",
+      "source_file": "api/PizzaShop.Api.csproj",
+      "source_location": null
+    },
+    {
+      "id": "nuget_npgsql_entityframeworkcore_postgresql",
+      "label": "Npgsql.EntityFrameworkCore.PostgreSQL (10.0.3)",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "PizzaShop.Api.csproj",
+      "file_type": "code",
+      "norm_label": "npgsql.entityframeworkcore.postgresql (10.0.3)",
+      "source_file": "api/PizzaShop.Api.csproj",
+      "source_location": null
+    },
+    {
       "id": "framework_net10_0",
       "label": "net10.0",
       "_origin": "ast",
@@ -3836,6 +3858,26 @@
     },
     {
       "source": "api_pizzashop_api",
+      "target": "nuget_microsoft_entityframeworkcore_design",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "api/PizzaShop.Api.csproj",
+      "weight": 1.0
+    },
+    {
+      "source": "api_pizzashop_api",
+      "target": "nuget_npgsql_entityframeworkcore_postgresql",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "api/PizzaShop.Api.csproj",
+      "weight": 1.0
+    },
+    {
+      "source": "api_pizzashop_api",
       "target": "framework_net10_0",
       "relation": "references",
       "_origin": "ast",
@@ -4620,5 +4662,5 @@
       "source_file": "web/public/next.svg"
     }
   ],
-  "built_at_commit": "865ce75279597681fbc15d8f13ee5578c9a0b644"
+  "built_at_commit": "5a100e4b845391112de3afe9a560229425e96447"
 }
