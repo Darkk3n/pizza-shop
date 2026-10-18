@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PizzaShop.Api.Models
 {
+    // An ingredient appears at most once per recipe.
+    [Index(nameof(RecipeId), nameof(IngredientId), IsUnique = true)]
     public class RecipeItem
     {
         [Key]

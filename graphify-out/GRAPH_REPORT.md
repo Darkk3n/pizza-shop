@@ -1,17 +1,17 @@
 # Graph Report - pizza-shop  (2026-10-17)
 
 ## Corpus Check
-- 43 files · ~7,598 words
+- 50 files · ~8,996 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 5 file(s) not represented in the graph (top: (none) 2, .example 1, .ico 1)
 
 ## Summary
-- 404 nodes · 620 edges · 30 communities (20 shown, 10 thin omitted)
-- Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 32 edges (avg confidence: 0.87)
+- 445 nodes · 759 edges · 31 communities (21 shown, 10 thin omitted)
+- Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 35 edges (avg confidence: 0.86)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `82e846e9`
+- Built from commit: `6cc76744`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -20,21 +20,21 @@
 - web/package.json
 - AppShell.tsx
 - compilerOptions
-- microsoft_entityframeworkcore
+- system_componentmodel_dataannotations
 - package.json
 - http
 - postgres service (postgres:18-alpine, pizzashop-db)
 - PizzaShop.Api.csproj
 - Globe Icon (world/web, 16x16 gray)
 - Next.js Wordmark Logo (black)
-- Ingredient
+- RecipeItem
 - OrderItem
 - 20261012162801_InitialCreate.Designer.cs
 - Order
 - PizzaShopContext
 - .AddFrontendCors
-- .Update
-- PizzaSize
+- CancellationToken
+- Ingredient
 - OrderItemTopping
 - Enums.cs
 - OrderStatus
@@ -44,13 +44,13 @@
 1. `PizzaShopContext` - 22 edges
 2. `OrderItem` - 17 edges
 3. `compilerOptions` - 16 edges
-4. `Order` - 14 edges
-5. `OrderItemTopping` - 14 edges
-6. `IngredientsEndpoints` - 11 edges
-7. `Ingredient` - 10 edges
-8. `RecipeItem` - 10 edges
-9. `PizzaShop.Api.Dtos` - 9 edges
-10. `IngredientDto` - 9 edges
+4. `PizzaShop.Api.Dtos` - 14 edges
+5. `Order` - 14 edges
+6. `OrderItemTopping` - 14 edges
+7. `RecipeItem` - 12 edges
+8. `RecipesEndpoints` - 11 edges
+9. `PizzaShop.Api.Models` - 11 edges
+10. `IngredientsEndpoints` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Next.js Agent Rules (breaking-change docs warning)` --conceptually_related_to--> `Frontend Conventions (Server Components, Zod, feature hooks)`  [INFERRED]
@@ -73,7 +73,7 @@
 - **Price snapshot pattern for historical stability** — claude_price_stability, claude_orderitems, claude_orderitemtoppings, claude_orders [INFERRED 0.85]
 - **create-next-app Default Boilerplate Assets (currently unused)** — web_public_file_file_icon, web_public_globe_globe_icon, web_public_next_next_js_wordmark, web_public_vercel_vercel_logo, web_public_window_window_icon [INFERRED 0.85]
 
-## Communities (30 total, 10 thin omitted)
+## Communities (31 total, 10 thin omitted)
 
 ### Community 0 - "Pizza Shop POS README"
 Cohesion: 0.12
@@ -91,9 +91,9 @@ Nodes (32): next, react, geistMono, geistSans, metadata, RootLayout(), AppShell(
 Cohesion: 0.11
 Nodes (18): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+10 more)
 
-### Community 4 - "microsoft_entityframeworkcore"
-Cohesion: 0.08
-Nodes (12): AdjustIngredientStockRequest, CreateIngredientRequest, CreateUnitOfMeasureRequest, UpdateIngredientRequest, UpdateUnitOfMeasureRequest, UnitOfMeasure, Name, UnitOfMeasureId (+4 more)
+### Community 4 - "system_componentmodel_dataannotations"
+Cohesion: 0.06
+Nodes (19): AdjustIngredientStockRequest, CreateIngredientRequest, CreateRecipeRequest, CreateUnitOfMeasureRequest, RecipeItemRequest, UpdateIngredientRequest, UpdateRecipeRequest, UpdateUnitOfMeasureRequest (+11 more)
 
 ### Community 5 - "package.json"
 Cohesion: 0.12
@@ -115,29 +115,33 @@ Nodes (6): net10.0, Microsoft.AspNetCore.OpenApi (10.0.12), Microsoft.EntityFram
 Cohesion: 0.67
 Nodes (3): File Icon (document outline, 16x16 gray), Globe Icon (world/web, 16x16 gray), Browser Window Icon (16x16 gray)
 
-### Community 13 - "Ingredient"
-Cohesion: 0.12
-Nodes (13): Ingredient, CurrentStock, IngredientId, Name, UnitOfMeasure, UnitOfMeasureId, RecipeItem, Amount (+5 more)
+### Community 13 - "RecipeItem"
+Cohesion: 0.13
+Nodes (12): Recipe, BasePrice, Name, RecipeId, RecipeItems, RecipeItem, Amount, Ingredient (+4 more)
 
 ### Community 14 - "OrderItem"
 Cohesion: 0.13
 Nodes (12): OrderItem, ItemNameSnapshot, LineTotal, Order, OrderId, OrderItemId, PizzaSize, PizzaSizeId (+4 more)
 
 ### Community 15 - "20261012162801_InitialCreate.Designer.cs"
-Cohesion: 0.10
-Nodes (3): InitialCreate, PizzaShopContextModelSnapshot, PizzaShop.Api.Migrations
+Cohesion: 0.09
+Nodes (4): InitialCreate, AddRecipeItemUniqueIndex, PizzaShopContextModelSnapshot, PizzaShop.Api.Migrations
 
 ### Community 16 - "Order"
 Cohesion: 0.18
 Nodes (9): Order, CreatedAt, OrderId, OrderNumber, OrderType, Status, SubTotal, Tax (+1 more)
 
 ### Community 17 - "PizzaShopContext"
-Cohesion: 0.08
-Nodes (13): PizzaShopContext, Ingredients, OrderItems, OrderItemToppings, Orders, PizzaSizes, RecipeItems, Recipes (+5 more)
+Cohesion: 0.07
+Nodes (16): PizzaShopContext, Ingredients, OrderItems, OrderItemToppings, Orders, PizzaSizes, RecipeItems, Recipes (+8 more)
 
-### Community 21 - "PizzaSize"
-Cohesion: 0.18
-Nodes (8): PizzaSize, Name, PizzaSizeId, PriceMultiplier, Recipe, BasePrice, Name, RecipeId
+### Community 20 - "CancellationToken"
+Cohesion: 0.16
+Nodes (3): IngredientsEndpoints, RecipesEndpoints, UnitsOfMeasureEndpoints
+
+### Community 21 - "Ingredient"
+Cohesion: 0.25
+Nodes (6): Ingredient, CurrentStock, IngredientId, Name, UnitOfMeasure, UnitOfMeasureId
 
 ### Community 26 - "OrderItemTopping"
 Cohesion: 0.20
@@ -160,25 +164,25 @@ Nodes (4): ToppingCoverage, LeftHalf, RightHalf, Whole
   pnpm-workspace.yaml · relation: conceptually_related_to
 
 ## Knowledge Gaps
-- **94 isolated node(s):** `react-dom`, `tailwindcss`, `@tailwindcss/turbopack`, `@types/node`, `@types/react` (+89 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 207 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **95 isolated node(s):** `RecipeId`, `Name`, `BasePrice`, `RecipeItems`, `RecipeItemId` (+90 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 216 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **10 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `PizzaShopContext` connect `PizzaShopContext` to `microsoft_entityframeworkcore`?**
-  _High betweenness centrality (0.057) - this node is a cross-community bridge._
-- **What connects `react-dom`, `tailwindcss`, `@tailwindcss/turbopack` to the rest of the system?**
-  _94 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `PizzaShopContext` connect `PizzaShopContext` to `system_componentmodel_dataannotations`?**
+  _High betweenness centrality (0.053) - this node is a cross-community bridge._
+- **What connects `RecipeId`, `Name`, `BasePrice` to the rest of the system?**
+  _95 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Pizza Shop POS README` be split into smaller, more focused modules?**
   _Cohesion score 0.1164021164021164 - nodes in this community are weakly interconnected._
-- **Why does `OrderItemTopping` connect `OrderItemTopping` to `microsoft_entityframeworkcore`, `Ingredient`, `OrderItem`, `Enums.cs`, `ToppingCoverage`?**
-  _High betweenness centrality (0.046) - this node is a cross-community bridge._
+- **Why does `PizzaShop.Api.Models` connect `system_componentmodel_dataannotations` to `PizzaShopContext`, `Enums.cs`?**
+  _High betweenness centrality (0.039) - this node is a cross-community bridge._
 - **Should `web/package.json` be split into smaller, more focused modules?**
   _Cohesion score 0.0625 - nodes in this community are weakly interconnected._
-- **Why does `Order` connect `Order` to `Enums.cs`, `microsoft_entityframeworkcore`, `OrderStatus`, `OrderItem`?**
-  _High betweenness centrality (0.043) - this node is a cross-community bridge._
+- **Why does `OrderItem` connect `OrderItem` to `Order`, `OrderItemTopping`, `system_componentmodel_dataannotations`?**
+  _High betweenness centrality (0.039) - this node is a cross-community bridge._
 
 ### Low-confidence Hints
 _AMBIGUOUS edges — the extractor was unsure. Verify before acting on these._

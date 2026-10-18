@@ -259,7 +259,8 @@ namespace PizzaShop.Api.Migrations
 
                     b.HasIndex("IngredientId");
 
-                    b.HasIndex("RecipeId");
+                    b.HasIndex("RecipeId", "IngredientId")
+                        .IsUnique();
 
                     b.ToTable("RecipeItems");
                 });
@@ -361,7 +362,7 @@ namespace PizzaShop.Api.Migrations
                         .IsRequired();
 
                     b.HasOne("PizzaShop.Api.Models.Recipe", "Recipe")
-                        .WithMany()
+                        .WithMany("RecipeItems")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -369,6 +370,11 @@ namespace PizzaShop.Api.Migrations
                     b.Navigation("Ingredient");
 
                     b.Navigation("Recipe");
+                });
+
+            modelBuilder.Entity("PizzaShop.Api.Models.Recipe", b =>
+                {
+                    b.Navigation("RecipeItems");
                 });
 #pragma warning restore 612, 618
         }

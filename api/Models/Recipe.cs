@@ -13,5 +13,7 @@ namespace PizzaShop.Api.Models
 
         [Precision(10, 2)]
         public decimal BasePrice { get; set; }
+
+        public List<RecipeItem> RecipeItems { get; set; } = [];
     }
 }
