@@ -30,13 +30,12 @@ namespace PizzaShop.Api.Endpoints
             return TypedResults.Ok(unitsOfMeasure);
         }
 
-        private static async Task<Results<Created<UnitOfMeasureDto>, ProblemHttpResult>> Create(
-            CreateUnitOfMeasureRequest request, PizzaShopContext context, CancellationToken ct)
+        private static async Task<Results<Created<UnitOfMeasureDto>, ProblemHttpResult>> Create(CreateUnitOfMeasureRequest request, PizzaShopContext context, CancellationToken ct)
         {
             var name = request.Name.Trim();
 
             var exists = await context.UnitsOfMeasure
-                .AnyAsync(uom => uom.Name.ToLower() == name.ToLower(), ct);
+                .AnyAsync(uom => uom.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase), ct);
             if (exists)
             {
                 return TypedResults.Problem(
@@ -49,7 +48,6 @@ namespace PizzaShop.Api.Endpoints
             context.UnitsOfMeasure.Add(unitOfMeasure);
             await context.SaveChangesAsync(ct);
 
-            // No GET-by-id endpoint yet, so there is no Location to point at.
             return TypedResults.Created((string?)null, UnitOfMeasureMapper.FromEntity(unitOfMeasure));
         }
     }

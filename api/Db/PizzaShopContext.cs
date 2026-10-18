@@ -3,12 +3,8 @@ using PizzaShop.Api.Models;
 
 namespace PizzaShop.Api.Db
 {
-    public class PizzaShopContext : DbContext
+    public class PizzaShopContext(DbContextOptions<PizzaShopContext> options) : DbContext(options)
     {
-        public PizzaShopContext(DbContextOptions<PizzaShopContext> options) : base(options)
-        {
-        }
-
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<UnitOfMeasure> UnitsOfMeasure { get; set; }
         public DbSet<Order> Orders { get; set; }
