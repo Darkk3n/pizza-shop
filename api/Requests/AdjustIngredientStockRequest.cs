@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PizzaShop.Api.Dtos
+namespace PizzaShop.Api.Requests
 {
     // Validated automatically before the handler runs (see AddValidation in Program.cs).
     // Positive Delta adds stock (restock); negative removes it (waste, recount).

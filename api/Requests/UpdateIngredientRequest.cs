@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PizzaShop.Api.Dtos
+namespace PizzaShop.Api.Requests
 {
     // Validated automatically before the handler runs (see AddValidation in Program.cs).
     // Stock isn't editable here; it changes through stock adjustments and orders.

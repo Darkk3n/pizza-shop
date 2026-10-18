@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PizzaShop.Api.Db;
 using PizzaShop.Api.Dtos;
 using PizzaShop.Api.Models;
+using PizzaShop.Api.Requests;
 
 namespace PizzaShop.Api.Endpoints
 {

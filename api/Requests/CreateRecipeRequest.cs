@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PizzaShop.Api.Dtos
+namespace PizzaShop.Api.Requests
 {
     // Validated automatically before the handler runs (see AddValidation in Program.cs),
     // including each entry in Items.
