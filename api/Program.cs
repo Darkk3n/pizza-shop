@@ -29,5 +29,6 @@ app.MapGet("/", () => "Hello World!");
 app.MapUnitsOfMeasureEndpoints();
 app.MapIngredientsEndpoints();
 app.MapRecipesEndpoints();
+app.MapPizzaSizesEndpoints();
 
 app.Run();
