@@ -1,17 +1,17 @@
 # Graph Report - pizza-shop  (2026-10-17)
 
 ## Corpus Check
-- 38 files · ~6,805 words
+- 43 files · ~7,598 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 5 file(s) not represented in the graph (top: (none) 2, .example 1, .ico 1)
 
 ## Summary
-- 377 nodes · 511 edges · 26 communities (16 shown, 10 thin omitted)
-- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 32 edges (avg confidence: 0.87)
+- 404 nodes · 620 edges · 30 communities (20 shown, 10 thin omitted)
+- Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 32 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `b9a5d8d9`
+- Built from commit: `82e846e9`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -35,6 +35,10 @@
 - .AddFrontendCors
 - .Update
 - PizzaSize
+- OrderItemTopping
+- Enums.cs
+- OrderStatus
+- ToppingCoverage
 
 ## God Nodes (most connected - your core abstractions)
 1. `PizzaShopContext` - 22 edges
@@ -42,11 +46,11 @@
 3. `compilerOptions` - 16 edges
 4. `Order` - 14 edges
 5. `OrderItemTopping` - 14 edges
-6. `Ingredient` - 10 edges
-7. `RecipeItem` - 10 edges
-8. `UnitsOfMeasureEndpoints` - 9 edges
-9. `AppShell()` - 9 edges
-10. `PizzaShop.Api.Models` - 9 edges
+6. `IngredientsEndpoints` - 11 edges
+7. `Ingredient` - 10 edges
+8. `RecipeItem` - 10 edges
+9. `PizzaShop.Api.Dtos` - 9 edges
+10. `IngredientDto` - 9 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Next.js Agent Rules (breaking-change docs warning)` --conceptually_related_to--> `Frontend Conventions (Server Components, Zod, feature hooks)`  [INFERRED]
@@ -69,7 +73,7 @@
 - **Price snapshot pattern for historical stability** — claude_price_stability, claude_orderitems, claude_orderitemtoppings, claude_orders [INFERRED 0.85]
 - **create-next-app Default Boilerplate Assets (currently unused)** — web_public_file_file_icon, web_public_globe_globe_icon, web_public_next_next_js_wordmark, web_public_vercel_vercel_logo, web_public_window_window_icon [INFERRED 0.85]
 
-## Communities (26 total, 10 thin omitted)
+## Communities (30 total, 10 thin omitted)
 
 ### Community 0 - "Pizza Shop POS README"
 Cohesion: 0.12
@@ -88,8 +92,8 @@ Cohesion: 0.11
 Nodes (18): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+10 more)
 
 ### Community 4 - "microsoft_entityframeworkcore"
-Cohesion: 0.10
-Nodes (12): CreateUnitOfMeasureRequest, UpdateUnitOfMeasureRequest, Recipe, BasePrice, Name, RecipeId, UnitOfMeasure, Name (+4 more)
+Cohesion: 0.08
+Nodes (12): AdjustIngredientStockRequest, CreateIngredientRequest, CreateUnitOfMeasureRequest, UpdateIngredientRequest, UpdateUnitOfMeasureRequest, UnitOfMeasure, Name, UnitOfMeasureId (+4 more)
 
 ### Community 5 - "package.json"
 Cohesion: 0.12
@@ -124,16 +128,32 @@ Cohesion: 0.10
 Nodes (3): InitialCreate, PizzaShopContextModelSnapshot, PizzaShop.Api.Migrations
 
 ### Community 16 - "Order"
-Cohesion: 0.05
-Nodes (35): OrderStatus, Completed, Pending, Preparing, Ready, OrderType, Delivery, DineIn (+27 more)
+Cohesion: 0.18
+Nodes (9): Order, CreatedAt, OrderId, OrderNumber, OrderType, Status, SubTotal, Tax (+1 more)
 
 ### Community 17 - "PizzaShopContext"
 Cohesion: 0.08
-Nodes (12): PizzaShopContext, Ingredients, OrderItems, OrderItemToppings, Orders, PizzaSizes, RecipeItems, Recipes (+4 more)
+Nodes (13): PizzaShopContext, Ingredients, OrderItems, OrderItemToppings, Orders, PizzaSizes, RecipeItems, Recipes (+5 more)
 
 ### Community 21 - "PizzaSize"
+Cohesion: 0.18
+Nodes (8): PizzaSize, Name, PizzaSizeId, PriceMultiplier, Recipe, BasePrice, Name, RecipeId
+
+### Community 26 - "OrderItemTopping"
+Cohesion: 0.20
+Nodes (9): OrderItemTopping, Coverage, ExtraAmount, Ingredient, IngredientId, OrderItem, OrderItemId, OrderItemToppingId (+1 more)
+
+### Community 27 - "Enums.cs"
+Cohesion: 0.22
+Nodes (8): OrderType, Delivery, DineIn, Takeout, ToppingAmount, Extra, Light, Standard
+
+### Community 28 - "OrderStatus"
 Cohesion: 0.40
-Nodes (4): PizzaSize, Name, PizzaSizeId, PriceMultiplier
+Nodes (5): OrderStatus, Completed, Pending, Preparing, Ready
+
+### Community 29 - "ToppingCoverage"
+Cohesion: 0.50
+Nodes (4): ToppingCoverage, LeftHalf, RightHalf, Whole
 
 ## Ambiguous Edges - Review These
 - `pnpm workspace (packages: web)` → `Tech Stack (pnpm, Next.js 16, ASP.NET 10, PostgreSQL, Azure)`  [AMBIGUOUS]
@@ -141,24 +161,24 @@ Nodes (4): PizzaSize, Name, PizzaSizeId, PriceMultiplier
 
 ## Knowledge Gaps
 - **94 isolated node(s):** `react-dom`, `tailwindcss`, `@tailwindcss/turbopack`, `@types/node`, `@types/react` (+89 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 212 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 207 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **10 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `OrderItemTopping` connect `Order` to `microsoft_entityframeworkcore`, `Ingredient`, `OrderItem`?**
-  _High betweenness centrality (0.046) - this node is a cross-community bridge._
+- **Why does `PizzaShopContext` connect `PizzaShopContext` to `microsoft_entityframeworkcore`?**
+  _High betweenness centrality (0.057) - this node is a cross-community bridge._
 - **What connects `react-dom`, `tailwindcss`, `@tailwindcss/turbopack` to the rest of the system?**
   _94 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Pizza Shop POS README` be split into smaller, more focused modules?**
   _Cohesion score 0.1164021164021164 - nodes in this community are weakly interconnected._
-- **Why does `Order` connect `Order` to `microsoft_entityframeworkcore`, `OrderItem`?**
-  _High betweenness centrality (0.042) - this node is a cross-community bridge._
+- **Why does `OrderItemTopping` connect `OrderItemTopping` to `microsoft_entityframeworkcore`, `Ingredient`, `OrderItem`, `Enums.cs`, `ToppingCoverage`?**
+  _High betweenness centrality (0.046) - this node is a cross-community bridge._
 - **Should `web/package.json` be split into smaller, more focused modules?**
   _Cohesion score 0.0625 - nodes in this community are weakly interconnected._
-- **Should `AppShell.tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.1039136302294197 - nodes in this community are weakly interconnected._
+- **Why does `Order` connect `Order` to `Enums.cs`, `microsoft_entityframeworkcore`, `OrderStatus`, `OrderItem`?**
+  _High betweenness centrality (0.043) - this node is a cross-community bridge._
 
 ### Low-confidence Hints
 _AMBIGUOUS edges — the extractor was unsure. Verify before acting on these._
