@@ -87,25 +87,6 @@
       "source_location": "L8"
     },
     {
-      "id": "api_models_orderitem_pizzashop_api_models_orderitem",
-      "label": "OrderItem",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "OrderItem",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "orderitem",
-      "source_file": "api/Models/OrderItem.cs",
-      "source_location": "L7"
-    },
-    {
       "id": "api_migrations_20261012162801_initialcreate_designer_pizzashop_api_migrations_initialcreate",
       "label": "InitialCreate",
       "_callable": true,
@@ -216,6 +197,44 @@
       "source_location": "L13"
     },
     {
+      "id": "api_models_ingredient_pizzashop_api_models_ingredient",
+      "label": "Ingredient",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "ingredient",
+      "source_file": "api/Models/Ingredient.cs",
+      "source_location": "L7"
+    },
+    {
+      "id": "api_models_orderingredientusage_pizzashop_api_models_orderingredientusage",
+      "label": "OrderIngredientUsage",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "orderingredientusage",
+      "source_file": "api/Models/OrderIngredientUsage.cs",
+      "source_location": "L9"
+    },
+    {
       "id": "api_models_order_pizzashop_api_models_order",
       "label": "Order",
       "_callable": true,
@@ -233,177 +252,6 @@
       "norm_label": "order",
       "source_file": "api/Models/Order.cs",
       "source_location": "L7"
-    },
-    {
-      "id": "api_models_orderingredientusage_pizzashop_api_models_orderingredientusage",
-      "label": "OrderIngredientUsage",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 21,
-      "community_name": "Order",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "orderingredientusage",
-      "source_file": "api/Models/OrderIngredientUsage.cs",
-      "source_location": "L9"
-    },
-    {
-      "id": "api_requests_adjustingredientstockrequest_pizzashop_api_requests_adjustingredientstockrequest",
-      "label": "AdjustIngredientStockRequest",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Requests",
-        "scope_chain": [
-          "s2:0"
-        ]
-      },
-      "norm_label": "adjustingredientstockrequest",
-      "source_file": "api/Requests/AdjustIngredientStockRequest.cs",
-      "source_location": "L7"
-    },
-    {
-      "id": "api_requests_createingredientrequest_pizzashop_api_requests_createingredientrequest",
-      "label": "CreateIngredientRequest",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Requests",
-        "scope_chain": [
-          "s2:0"
-        ]
-      },
-      "norm_label": "createingredientrequest",
-      "source_file": "api/Requests/CreateIngredientRequest.cs",
-      "source_location": "L7"
-    },
-    {
-      "id": "api_requests_createpizzasizerequest_pizzashop_api_requests_createpizzasizerequest",
-      "label": "CreatePizzaSizeRequest",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Requests",
-        "scope_chain": [
-          "s2:0"
-        ]
-      },
-      "norm_label": "createpizzasizerequest",
-      "source_file": "api/Requests/CreatePizzaSizeRequest.cs",
-      "source_location": "L7"
-    },
-    {
-      "id": "api_requests_createreciperequest_pizzashop_api_requests_createreciperequest",
-      "label": "CreateRecipeRequest",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Requests",
-        "scope_chain": [
-          "s2:0"
-        ]
-      },
-      "norm_label": "createreciperequest",
-      "source_file": "api/Requests/CreateRecipeRequest.cs",
-      "source_location": "L7"
-    },
-    {
-      "id": "api_requests_createunitofmeasurerequest_pizzashop_api_requests_createunitofmeasurerequest",
-      "label": "CreateUnitOfMeasureRequest",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Requests",
-        "scope_chain": [
-          "s2:0"
-        ]
-      },
-      "norm_label": "createunitofmeasurerequest",
-      "source_file": "api/Requests/CreateUnitOfMeasureRequest.cs",
-      "source_location": "L6"
-    },
-    {
-      "id": "api_requests_recipeitemrequest_pizzashop_api_requests_recipeitemrequest",
-      "label": "RecipeItemRequest",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Requests",
-        "scope_chain": [
-          "s2:0"
-        ]
-      },
-      "norm_label": "recipeitemrequest",
-      "source_file": "api/Requests/RecipeItemRequest.cs",
-      "source_location": "L7"
-    },
-    {
-      "id": "api_requests_updatepizzasizerequest_pizzashop_api_requests_updatepizzasizerequest",
-      "label": "UpdatePizzaSizeRequest",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Requests",
-        "scope_chain": [
-          "s2:0"
-        ]
-      },
-      "norm_label": "updatepizzasizerequest",
-      "source_file": "api/Requests/UpdatePizzaSizeRequest.cs",
-      "source_location": "L7"
-    },
-    {
-      "id": "api_requests_updateunitofmeasurerequest_pizzashop_api_requests_updateunitofmeasurerequest",
-      "label": "UpdateUnitOfMeasureRequest",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Requests",
-        "scope_chain": [
-          "s2:0"
-        ]
-      },
-      "norm_label": "updateunitofmeasurerequest",
-      "source_file": "api/Requests/UpdateUnitOfMeasureRequest.cs",
-      "source_location": "L6"
     },
     {
       "id": "api_dtos_userdto_pizzashop_api_dtos_userdto",
@@ -482,13 +330,70 @@
       "source_location": "L6"
     },
     {
+      "id": "api_dtos_recipedto_pizzashop_api_dtos_recipedto",
+      "label": "RecipeDto",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Dtos",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "recipedto",
+      "source_file": "api/Dtos/RecipeDto.cs",
+      "source_location": "L6"
+    },
+    {
+      "id": "api_dtos_recipedto_pizzashop_api_dtos_recipeitemdto",
+      "label": "RecipeItemDto",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Dtos",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "recipeitemdto",
+      "source_file": "api/Dtos/RecipeDto.cs",
+      "source_location": "L13"
+    },
+    {
+      "id": "api_dtos_recipedto_pizzashop_api_dtos_recipemapper",
+      "label": "RecipeMapper",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Dtos",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "recipemapper",
+      "source_file": "api/Dtos/RecipeDto.cs",
+      "source_location": "L20"
+    },
+    {
       "id": "api_endpoints_recipesendpoints_pizzashop_api_endpoints_recipesendpoints",
       "label": "RecipesEndpoints",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "RecipesEndpoints",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Endpoints",
@@ -501,51 +406,51 @@
       "source_location": "L12"
     },
     {
-      "id": "api_dtos_pizzasizedto_pizzashop_api_dtos_pizzasizedto",
-      "label": "PizzaSizeDto",
+      "id": "api_models_recipe_pizzashop_api_models_recipe",
+      "label": "Recipe",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 26,
-      "community_name": "PizzaSizeMapper",
+      "community": 24,
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
-        "namespace": "PizzaShop.Api.Dtos",
+        "namespace": "PizzaShop.Api.Models",
         "scope_chain": [
           "s3:0"
         ]
       },
-      "norm_label": "pizzasizedto",
-      "source_file": "api/Dtos/PizzaSizeDto.cs",
+      "norm_label": "recipe",
+      "source_file": "api/Models/Recipe.cs",
       "source_location": "L6"
     },
     {
-      "id": "api_dtos_pizzasizedto_pizzashop_api_dtos_pizzasizemapper",
-      "label": "PizzaSizeMapper",
+      "id": "api_requests_updatereciperequest_pizzashop_api_requests_updatereciperequest",
+      "label": "UpdateRecipeRequest",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 26,
-      "community_name": "PizzaSizeMapper",
+      "community": 24,
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
-        "namespace": "PizzaShop.Api.Dtos",
+        "namespace": "PizzaShop.Api.Requests",
         "scope_chain": [
-          "s3:0"
+          "s2:0"
         ]
       },
-      "norm_label": "pizzasizemapper",
-      "source_file": "api/Dtos/PizzaSizeDto.cs",
+      "norm_label": "updatereciperequest",
+      "source_file": "api/Requests/UpdateRecipeRequest.cs",
       "source_location": "L8"
     },
     {
-      "id": "api_dtos_unitofmeasuredto_pizzashop_api_dtos_unitofmeasuredto",
-      "label": "UnitOfMeasureDto",
+      "id": "api_dtos_orderdto_pizzashop_api_dtos_orderdto",
+      "label": "OrderDto",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 26,
-      "community_name": "PizzaSizeMapper",
+      "community": 27,
+      "community_name": ".Create",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Dtos",
@@ -553,18 +458,18 @@
           "s3:0"
         ]
       },
-      "norm_label": "unitofmeasuredto",
-      "source_file": "api/Dtos/UnitOfMeasureDto.cs",
+      "norm_label": "orderdto",
+      "source_file": "api/Dtos/OrderDto.cs",
       "source_location": "L6"
     },
     {
-      "id": "api_dtos_unitofmeasuredto_pizzashop_api_dtos_unitofmeasuremapper",
-      "label": "UnitOfMeasureMapper",
+      "id": "api_dtos_orderdto_pizzashop_api_dtos_orderitemdto",
+      "label": "OrderItemDto",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 26,
-      "community_name": "PizzaSizeMapper",
+      "community": 27,
+      "community_name": ".Create",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Dtos",
@@ -572,9 +477,85 @@
           "s3:0"
         ]
       },
-      "norm_label": "unitofmeasuremapper",
-      "source_file": "api/Dtos/UnitOfMeasureDto.cs",
-      "source_location": "L8"
+      "norm_label": "orderitemdto",
+      "source_file": "api/Dtos/OrderDto.cs",
+      "source_location": "L21"
+    },
+    {
+      "id": "api_dtos_orderdto_pizzashop_api_dtos_orderitemtoppingdto",
+      "label": "OrderItemToppingDto",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": ".Create",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Dtos",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "orderitemtoppingdto",
+      "source_file": "api/Dtos/OrderDto.cs",
+      "source_location": "L31"
+    },
+    {
+      "id": "api_dtos_orderdto_pizzashop_api_dtos_ordermapper",
+      "label": "OrderMapper",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": ".Create",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Dtos",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "ordermapper",
+      "source_file": "api/Dtos/OrderDto.cs",
+      "source_location": "L54"
+    },
+    {
+      "id": "api_dtos_orderdto_pizzashop_api_dtos_ordersummarydto",
+      "label": "OrderSummaryDto",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": ".Create",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Dtos",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "ordersummarydto",
+      "source_file": "api/Dtos/OrderDto.cs",
+      "source_location": "L40"
+    },
+    {
+      "id": "api_dtos_orderdto_pizzashop_api_dtos_pagedresult",
+      "label": "PagedResult",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": ".Create",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Dtos",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "pagedresult",
+      "source_file": "api/Dtos/OrderDto.cs",
+      "source_location": "L52"
     },
     {
       "id": "api_endpoints_ordersendpoints_pizzashop_api_endpoints_ordersendpoints",
@@ -596,6 +577,25 @@
       "source_location": "L19"
     },
     {
+      "id": "api_models_enums_pizzashop_api_models_orderstatus",
+      "label": "OrderStatus",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": ".Create",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s0:0"
+        ]
+      },
+      "norm_label": "orderstatus",
+      "source_file": "api/Models/Enums.cs",
+      "source_location": "L9"
+    },
+    {
       "id": "api_requests_cancelorderrequest_pizzashop_api_requests_cancelorderrequest",
       "label": "CancelOrderRequest",
       "_callable": true,
@@ -612,6 +612,25 @@
       },
       "norm_label": "cancelorderrequest",
       "source_file": "api/Requests/CancelOrderRequest.cs",
+      "source_location": "L6"
+    },
+    {
+      "id": "api_requests_updateorderstatusrequest_pizzashop_api_requests_updateorderstatusrequest",
+      "label": "UpdateOrderStatusRequest",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": ".Create",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Requests",
+        "scope_chain": [
+          "s2:0"
+        ]
+      },
+      "norm_label": "updateorderstatusrequest",
+      "source_file": "api/Requests/UpdateOrderStatusRequest.cs",
       "source_location": "L6"
     },
     {
@@ -640,7 +659,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Dtos",
@@ -659,7 +678,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Dtos",
@@ -678,7 +697,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Endpoints",
@@ -691,32 +710,13 @@
       "source_location": "L11"
     },
     {
-      "id": "api_models_ingredient_pizzashop_api_models_ingredient",
-      "label": "Ingredient",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 31,
-      "community_name": "Ingredient",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "ingredient",
-      "source_file": "api/Models/Ingredient.cs",
-      "source_location": "L7"
-    },
-    {
       "id": "api_requests_updateingredientrequest_pizzashop_api_requests_updateingredientrequest",
       "label": "UpdateIngredientRequest",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Requests",
@@ -746,6 +746,82 @@
       "norm_label": "unitsofmeasureendpoints",
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
       "source_location": "L11"
+    },
+    {
+      "id": "api_dtos_pizzasizedto_pizzashop_api_dtos_pizzasizedto",
+      "label": "PizzaSizeDto",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": ".Update",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Dtos",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "pizzasizedto",
+      "source_file": "api/Dtos/PizzaSizeDto.cs",
+      "source_location": "L6"
+    },
+    {
+      "id": "api_dtos_pizzasizedto_pizzashop_api_dtos_pizzasizemapper",
+      "label": "PizzaSizeMapper",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": ".Update",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Dtos",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "pizzasizemapper",
+      "source_file": "api/Dtos/PizzaSizeDto.cs",
+      "source_location": "L8"
+    },
+    {
+      "id": "api_dtos_unitofmeasuredto_pizzashop_api_dtos_unitofmeasuredto",
+      "label": "UnitOfMeasureDto",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": ".Update",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Dtos",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "unitofmeasuredto",
+      "source_file": "api/Dtos/UnitOfMeasureDto.cs",
+      "source_location": "L6"
+    },
+    {
+      "id": "api_dtos_unitofmeasuredto_pizzashop_api_dtos_unitofmeasuremapper",
+      "label": "UnitOfMeasureMapper",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": ".Update",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Dtos",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "unitofmeasuremapper",
+      "source_file": "api/Dtos/UnitOfMeasureDto.cs",
+      "source_location": "L8"
     },
     {
       "id": "api_endpoints_pizzasizesendpoints_pizzashop_api_endpoints_pizzasizesendpoints",
@@ -793,7 +869,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Auth",
@@ -804,6 +880,158 @@
       "norm_label": "policies",
       "source_file": "api/Auth/Policies.cs",
       "source_location": "L4"
+    },
+    {
+      "id": "api_requests_adjustingredientstockrequest_pizzashop_api_requests_adjustingredientstockrequest",
+      "label": "AdjustIngredientStockRequest",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Requests",
+        "scope_chain": [
+          "s2:0"
+        ]
+      },
+      "norm_label": "adjustingredientstockrequest",
+      "source_file": "api/Requests/AdjustIngredientStockRequest.cs",
+      "source_location": "L7"
+    },
+    {
+      "id": "api_requests_createingredientrequest_pizzashop_api_requests_createingredientrequest",
+      "label": "CreateIngredientRequest",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Requests",
+        "scope_chain": [
+          "s2:0"
+        ]
+      },
+      "norm_label": "createingredientrequest",
+      "source_file": "api/Requests/CreateIngredientRequest.cs",
+      "source_location": "L7"
+    },
+    {
+      "id": "api_requests_createpizzasizerequest_pizzashop_api_requests_createpizzasizerequest",
+      "label": "CreatePizzaSizeRequest",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Requests",
+        "scope_chain": [
+          "s2:0"
+        ]
+      },
+      "norm_label": "createpizzasizerequest",
+      "source_file": "api/Requests/CreatePizzaSizeRequest.cs",
+      "source_location": "L7"
+    },
+    {
+      "id": "api_requests_createreciperequest_pizzashop_api_requests_createreciperequest",
+      "label": "CreateRecipeRequest",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Requests",
+        "scope_chain": [
+          "s2:0"
+        ]
+      },
+      "norm_label": "createreciperequest",
+      "source_file": "api/Requests/CreateRecipeRequest.cs",
+      "source_location": "L7"
+    },
+    {
+      "id": "api_requests_createunitofmeasurerequest_pizzashop_api_requests_createunitofmeasurerequest",
+      "label": "CreateUnitOfMeasureRequest",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Requests",
+        "scope_chain": [
+          "s2:0"
+        ]
+      },
+      "norm_label": "createunitofmeasurerequest",
+      "source_file": "api/Requests/CreateUnitOfMeasureRequest.cs",
+      "source_location": "L6"
+    },
+    {
+      "id": "api_requests_recipeitemrequest_pizzashop_api_requests_recipeitemrequest",
+      "label": "RecipeItemRequest",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Requests",
+        "scope_chain": [
+          "s2:0"
+        ]
+      },
+      "norm_label": "recipeitemrequest",
+      "source_file": "api/Requests/RecipeItemRequest.cs",
+      "source_location": "L7"
+    },
+    {
+      "id": "api_requests_updatepizzasizerequest_pizzashop_api_requests_updatepizzasizerequest",
+      "label": "UpdatePizzaSizeRequest",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Requests",
+        "scope_chain": [
+          "s2:0"
+        ]
+      },
+      "norm_label": "updatepizzasizerequest",
+      "source_file": "api/Requests/UpdatePizzaSizeRequest.cs",
+      "source_location": "L7"
+    },
+    {
+      "id": "api_requests_updateunitofmeasurerequest_pizzashop_api_requests_updateunitofmeasurerequest",
+      "label": "UpdateUnitOfMeasureRequest",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Requests",
+        "scope_chain": [
+          "s2:0"
+        ]
+      },
+      "norm_label": "updateunitofmeasurerequest",
+      "source_file": "api/Requests/UpdateUnitOfMeasureRequest.cs",
+      "source_location": "L6"
     },
     {
       "id": "api_auth_bearersecurityschemetransformer_pizzashop_api_auth_bearersecurityschemetransformer",
@@ -825,146 +1053,13 @@
       "source_location": "L7"
     },
     {
-      "id": "api_dtos_orderdto_pizzashop_api_dtos_orderdto",
-      "label": "OrderDto",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 42,
-      "community_name": "OrderDto",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Dtos",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "orderdto",
-      "source_file": "api/Dtos/OrderDto.cs",
-      "source_location": "L6"
-    },
-    {
-      "id": "api_dtos_orderdto_pizzashop_api_dtos_orderitemdto",
-      "label": "OrderItemDto",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 42,
-      "community_name": "OrderDto",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Dtos",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "orderitemdto",
-      "source_file": "api/Dtos/OrderDto.cs",
-      "source_location": "L21"
-    },
-    {
-      "id": "api_dtos_orderdto_pizzashop_api_dtos_orderitemtoppingdto",
-      "label": "OrderItemToppingDto",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 42,
-      "community_name": "OrderDto",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Dtos",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "orderitemtoppingdto",
-      "source_file": "api/Dtos/OrderDto.cs",
-      "source_location": "L31"
-    },
-    {
-      "id": "api_dtos_orderdto_pizzashop_api_dtos_ordermapper",
-      "label": "OrderMapper",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 42,
-      "community_name": "OrderDto",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Dtos",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "ordermapper",
-      "source_file": "api/Dtos/OrderDto.cs",
-      "source_location": "L54"
-    },
-    {
-      "id": "api_dtos_orderdto_pizzashop_api_dtos_ordersummarydto",
-      "label": "OrderSummaryDto",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 42,
-      "community_name": "OrderDto",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Dtos",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "ordersummarydto",
-      "source_file": "api/Dtos/OrderDto.cs",
-      "source_location": "L40"
-    },
-    {
-      "id": "api_dtos_orderdto_pizzashop_api_dtos_pagedresult",
-      "label": "PagedResult",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 42,
-      "community_name": "OrderDto",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Dtos",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "pagedresult",
-      "source_file": "api/Dtos/OrderDto.cs",
-      "source_location": "L52"
-    },
-    {
-      "id": "api_models_enums_pizzashop_api_models_orderstatus",
-      "label": "OrderStatus",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 42,
-      "community_name": "OrderDto",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s0:0"
-        ]
-      },
-      "norm_label": "orderstatus",
-      "source_file": "api/Models/Enums.cs",
-      "source_location": "L9"
-    },
-    {
       "id": "api_models_enums_pizzashop_api_models_ordertype",
       "label": "OrderType",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -983,7 +1078,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -1002,7 +1097,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -1015,13 +1110,32 @@
       "source_location": "L25"
     },
     {
+      "id": "api_models_orderitem_pizzashop_api_models_orderitem",
+      "label": "OrderItem",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 42,
+      "community_name": "OrderItem",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "orderitem",
+      "source_file": "api/Models/OrderItem.cs",
+      "source_location": "L7"
+    },
+    {
       "id": "api_models_orderitemtopping_pizzashop_api_models_orderitemtopping",
       "label": "OrderItemTopping",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -1040,7 +1154,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Requests",
@@ -1059,7 +1173,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Requests",
@@ -1078,7 +1192,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Requests",
@@ -1088,25 +1202,6 @@
       },
       "norm_label": "orderitemtoppingrequest",
       "source_file": "api/Requests/OrderItemToppingRequest.cs",
-      "source_location": "L6"
-    },
-    {
-      "id": "api_requests_updateorderstatusrequest_pizzashop_api_requests_updateorderstatusrequest",
-      "label": "UpdateOrderStatusRequest",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 42,
-      "community_name": "OrderDto",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Requests",
-        "scope_chain": [
-          "s2:0"
-        ]
-      },
-      "norm_label": "updateorderstatusrequest",
-      "source_file": "api/Requests/UpdateOrderStatusRequest.cs",
       "source_location": "L6"
     },
     {
@@ -1227,25 +1322,6 @@
       "source_location": "L6"
     },
     {
-      "id": "api_models_recipe_pizzashop_api_models_recipe",
-      "label": "Recipe",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 73,
-      "community_name": "Recipe",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "recipe",
-      "source_file": "api/Models/Recipe.cs",
-      "source_location": "L6"
-    },
-    {
       "id": "api_migrations_20261019024553_addingredienttoppingfields_designer_pizzashop_api_migrations_addingredienttoppingfields",
       "label": "AddIngredientToppingFields",
       "_callable": true,
@@ -1264,63 +1340,6 @@
       "norm_label": "addingredienttoppingfields",
       "source_file": "api/Migrations/20261019024553_AddIngredientToppingFields.Designer.cs",
       "source_location": "L14"
-    },
-    {
-      "id": "api_dtos_recipedto_pizzashop_api_dtos_recipedto",
-      "label": "RecipeDto",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 75,
-      "community_name": "RecipeDto",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Dtos",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "recipedto",
-      "source_file": "api/Dtos/RecipeDto.cs",
-      "source_location": "L6"
-    },
-    {
-      "id": "api_dtos_recipedto_pizzashop_api_dtos_recipeitemdto",
-      "label": "RecipeItemDto",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 75,
-      "community_name": "RecipeDto",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Dtos",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "recipeitemdto",
-      "source_file": "api/Dtos/RecipeDto.cs",
-      "source_location": "L13"
-    },
-    {
-      "id": "api_dtos_recipedto_pizzashop_api_dtos_recipemapper",
-      "label": "RecipeMapper",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 75,
-      "community_name": "RecipeDto",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Dtos",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "recipemapper",
-      "source_file": "api/Dtos/RecipeDto.cs",
-      "source_location": "L20"
     },
     {
       "id": "api_dtos_toppingdto_pizzashop_api_dtos_toppingdto",
@@ -1378,25 +1397,6 @@
       "norm_label": "roles",
       "source_file": "api/Auth/Roles.cs",
       "source_location": "L5"
-    },
-    {
-      "id": "api_requests_updatereciperequest_pizzashop_api_requests_updatereciperequest",
-      "label": "UpdateRecipeRequest",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 81,
-      "community_name": "UpdateRecipeRequest",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Requests",
-        "scope_chain": [
-          "s2:0"
-        ]
-      },
-      "norm_label": "updatereciperequest",
-      "source_file": "api/Requests/UpdateRecipeRequest.cs",
-      "source_location": "L8"
     },
     {
       "id": "web_app_page_home",
@@ -1999,6 +1999,32 @@
       "source_location": "L47"
     },
     {
+      "id": "api_db_pizzashopcontext_pizzashop_api_db_pizzashopcontext_configureconventions",
+      "label": ".ConfigureConventions()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Db",
+        "scope_chain": [
+          "s7:0"
+        ],
+        "unresolved_calls": [
+          {
+            "callee": "Properties",
+            "receiver_type": "ModelConfigurationBuilder",
+            "lang": "csharp",
+            "line": "L30"
+          }
+        ]
+      },
+      "norm_label": ".configureconventions()",
+      "source_file": "api/Db/PizzaShopContext.cs",
+      "source_location": "L27"
+    },
+    {
       "id": "api_db_pizzashopcontext_pizzashop_api_db_pizzashopcontext_onmodelcreating",
       "label": ".OnModelCreating()",
       "_callable": true,
@@ -2181,12 +2207,108 @@
       "source_location": "L69"
     },
     {
+      "id": "api_endpoints_recipesendpoints_pizzashop_api_endpoints_recipesendpoints_create",
+      "label": ".Create()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Endpoints",
+        "scope_chain": [
+          "s9:0"
+        ],
+        "unresolved_calls": [
+          {
+            "callee": "ValidationProblem",
+            "receiver_type": "TypedResults",
+            "lang": "csharp",
+            "line": "L63"
+          },
+          {
+            "callee": "CreatedAtRoute",
+            "receiver_type": "TypedResults",
+            "lang": "csharp",
+            "line": "L84"
+          }
+        ]
+      },
+      "norm_label": ".create()",
+      "source_file": "api/Endpoints/RecipesEndpoints.cs",
+      "source_location": "L58"
+    },
+    {
+      "id": "api_endpoints_recipesendpoints_pizzashop_api_endpoints_recipesendpoints_delete",
+      "label": ".Delete()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Endpoints",
+        "scope_chain": [
+          "s9:0"
+        ],
+        "unresolved_calls": [
+          {
+            "callee": "NotFound",
+            "receiver_type": "TypedResults",
+            "lang": "csharp",
+            "line": "L146"
+          },
+          {
+            "callee": "Problem",
+            "receiver_type": "TypedResults",
+            "lang": "csharp",
+            "line": "L154"
+          },
+          {
+            "callee": "NoContent",
+            "receiver_type": "TypedResults",
+            "lang": "csharp",
+            "line": "L163"
+          }
+        ]
+      },
+      "norm_label": ".delete()",
+      "source_file": "api/Endpoints/RecipesEndpoints.cs",
+      "source_location": "L141"
+    },
+    {
+      "id": "api_endpoints_recipesendpoints_pizzashop_api_endpoints_recipesendpoints_duplicatename",
+      "label": ".DuplicateName()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Endpoints",
+        "scope_chain": [
+          "s9:0"
+        ],
+        "unresolved_calls": [
+          {
+            "callee": "Problem",
+            "receiver_type": "TypedResults",
+            "lang": "csharp",
+            "line": "L235"
+          }
+        ]
+      },
+      "norm_label": ".duplicatename()",
+      "source_file": "api/Endpoints/RecipesEndpoints.cs",
+      "source_location": "L234"
+    },
+    {
       "id": "api_endpoints_recipesendpoints_pizzashop_api_endpoints_recipesendpoints_finddtoasync",
       "label": ".FindDtoAsync()",
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "RecipesEndpoints",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Endpoints",
@@ -2204,7 +2326,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "RecipesEndpoints",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Endpoints",
@@ -2230,7 +2352,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "RecipesEndpoints",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Endpoints",
@@ -2262,7 +2384,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "RecipesEndpoints",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Endpoints",
@@ -2288,7 +2410,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "RecipesEndpoints",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Endpoints",
@@ -2301,12 +2423,50 @@
       "source_location": "L227"
     },
     {
+      "id": "api_endpoints_recipesendpoints_pizzashop_api_endpoints_recipesendpoints_update",
+      "label": ".Update()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Endpoints",
+        "scope_chain": [
+          "s9:0"
+        ],
+        "unresolved_calls": [
+          {
+            "callee": "NotFound",
+            "receiver_type": "TypedResults",
+            "lang": "csharp",
+            "line": "L94"
+          },
+          {
+            "callee": "ValidationProblem",
+            "receiver_type": "TypedResults",
+            "lang": "csharp",
+            "line": "L102"
+          },
+          {
+            "callee": "Ok",
+            "receiver_type": "TypedResults",
+            "lang": "csharp",
+            "line": "L138"
+          }
+        ]
+      },
+      "norm_label": ".update()",
+      "source_file": "api/Endpoints/RecipesEndpoints.cs",
+      "source_location": "L87"
+    },
+    {
       "id": "api_endpoints_recipesendpoints_pizzashop_api_endpoints_recipesendpoints_validateitemsasync",
       "label": ".ValidateItemsAsync()",
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "RecipesEndpoints",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Endpoints",
@@ -2344,7 +2504,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "RecipesEndpoints",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Endpoints",
@@ -2363,42 +2523,6 @@
       "norm_label": ".visiblerecipes()",
       "source_file": "api/Endpoints/RecipesEndpoints.cs",
       "source_location": "L173"
-    },
-    {
-      "id": "api_dtos_pizzasizedto_pizzashop_api_dtos_pizzasizemapper_fromentity",
-      "label": ".FromEntity()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 26,
-      "community_name": "PizzaSizeMapper",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Dtos",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": ".fromentity()",
-      "source_file": "api/Dtos/PizzaSizeDto.cs",
-      "source_location": "L16"
-    },
-    {
-      "id": "api_dtos_unitofmeasuredto_pizzashop_api_dtos_unitofmeasuremapper_fromentity",
-      "label": ".FromEntity()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 26,
-      "community_name": "PizzaSizeMapper",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Dtos",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": ".fromentity()",
-      "source_file": "api/Dtos/UnitOfMeasureDto.cs",
-      "source_location": "L16"
     },
     {
       "id": "api_endpoints_ordersendpoints_pizzashop_api_endpoints_ordersendpoints_adddeduction",
@@ -2978,7 +3102,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Dtos",
@@ -2996,7 +3120,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Endpoints",
@@ -3034,7 +3158,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Endpoints",
@@ -3060,7 +3184,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Endpoints",
@@ -3098,7 +3222,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Endpoints",
@@ -3124,7 +3248,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Endpoints",
@@ -3150,7 +3274,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Endpoints",
@@ -3182,7 +3306,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Endpoints",
@@ -3208,7 +3332,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Endpoints",
@@ -3234,7 +3358,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Endpoints",
@@ -3252,7 +3376,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Endpoints",
@@ -3278,7 +3402,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Endpoints",
@@ -3527,6 +3651,42 @@
       "norm_label": ".update()",
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
       "source_location": "L76"
+    },
+    {
+      "id": "api_dtos_pizzasizedto_pizzashop_api_dtos_pizzasizemapper_fromentity",
+      "label": ".FromEntity()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": ".Update",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Dtos",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": ".fromentity()",
+      "source_file": "api/Dtos/PizzaSizeDto.cs",
+      "source_location": "L16"
+    },
+    {
+      "id": "api_dtos_unitofmeasuredto_pizzashop_api_dtos_unitofmeasuremapper_fromentity",
+      "label": ".FromEntity()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": ".Update",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Dtos",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": ".fromentity()",
+      "source_file": "api/Dtos/UnitOfMeasureDto.cs",
+      "source_location": "L16"
     },
     {
       "id": "api_endpoints_pizzasizesendpoints_pizzashop_api_endpoints_pizzasizesendpoints_create",
@@ -3813,140 +3973,6 @@
       "norm_label": ".transformasync()",
       "source_file": "api/Auth/BearerSecuritySchemeTransformer.cs",
       "source_location": "L11"
-    },
-    {
-      "id": "api_endpoints_recipesendpoints_pizzashop_api_endpoints_recipesendpoints_create",
-      "label": ".Create()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 43,
-      "community_name": ".Update",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Endpoints",
-        "scope_chain": [
-          "s9:0"
-        ],
-        "unresolved_calls": [
-          {
-            "callee": "ValidationProblem",
-            "receiver_type": "TypedResults",
-            "lang": "csharp",
-            "line": "L63"
-          },
-          {
-            "callee": "CreatedAtRoute",
-            "receiver_type": "TypedResults",
-            "lang": "csharp",
-            "line": "L84"
-          }
-        ]
-      },
-      "norm_label": ".create()",
-      "source_file": "api/Endpoints/RecipesEndpoints.cs",
-      "source_location": "L58"
-    },
-    {
-      "id": "api_endpoints_recipesendpoints_pizzashop_api_endpoints_recipesendpoints_delete",
-      "label": ".Delete()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 43,
-      "community_name": ".Update",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Endpoints",
-        "scope_chain": [
-          "s9:0"
-        ],
-        "unresolved_calls": [
-          {
-            "callee": "NotFound",
-            "receiver_type": "TypedResults",
-            "lang": "csharp",
-            "line": "L146"
-          },
-          {
-            "callee": "Problem",
-            "receiver_type": "TypedResults",
-            "lang": "csharp",
-            "line": "L154"
-          },
-          {
-            "callee": "NoContent",
-            "receiver_type": "TypedResults",
-            "lang": "csharp",
-            "line": "L163"
-          }
-        ]
-      },
-      "norm_label": ".delete()",
-      "source_file": "api/Endpoints/RecipesEndpoints.cs",
-      "source_location": "L141"
-    },
-    {
-      "id": "api_endpoints_recipesendpoints_pizzashop_api_endpoints_recipesendpoints_duplicatename",
-      "label": ".DuplicateName()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 43,
-      "community_name": ".Update",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Endpoints",
-        "scope_chain": [
-          "s9:0"
-        ],
-        "unresolved_calls": [
-          {
-            "callee": "Problem",
-            "receiver_type": "TypedResults",
-            "lang": "csharp",
-            "line": "L235"
-          }
-        ]
-      },
-      "norm_label": ".duplicatename()",
-      "source_file": "api/Endpoints/RecipesEndpoints.cs",
-      "source_location": "L234"
-    },
-    {
-      "id": "api_endpoints_recipesendpoints_pizzashop_api_endpoints_recipesendpoints_update",
-      "label": ".Update()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 43,
-      "community_name": ".Update",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Endpoints",
-        "scope_chain": [
-          "s9:0"
-        ],
-        "unresolved_calls": [
-          {
-            "callee": "NotFound",
-            "receiver_type": "TypedResults",
-            "lang": "csharp",
-            "line": "L94"
-          },
-          {
-            "callee": "ValidationProblem",
-            "receiver_type": "TypedResults",
-            "lang": "csharp",
-            "line": "L102"
-          },
-          {
-            "callee": "Ok",
-            "receiver_type": "TypedResults",
-            "lang": "csharp",
-            "line": "L138"
-          }
-        ]
-      },
-      "norm_label": ".update()",
-      "source_file": "api/Endpoints/RecipesEndpoints.cs",
-      "source_location": "L87"
     },
     {
       "id": "api_migrations_20261019030907_addorderidempotencykey_designer_pizzashop_api_migrations_addorderidempotencykey_buildtargetmodel",
@@ -4509,32 +4535,6 @@
       "norm_label": ".buildtargetmodel()",
       "source_file": "api/Migrations/20261018025617_AddRecipeItemUniqueIndex.Designer.cs",
       "source_location": "L19"
-    },
-    {
-      "id": "api_db_pizzashopcontext_pizzashop_api_db_pizzashopcontext_configureconventions",
-      "label": ".ConfigureConventions()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 80,
-      "community_name": ".ConfigureConventions",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Db",
-        "scope_chain": [
-          "s7:0"
-        ],
-        "unresolved_calls": [
-          {
-            "callee": "Properties",
-            "receiver_type": "ModelConfigurationBuilder",
-            "lang": "csharp",
-            "line": "L30"
-          }
-        ]
-      },
-      "norm_label": ".configureconventions()",
-      "source_file": "api/Db/PizzaShopContext.cs",
-      "source_location": "L27"
     },
     {
       "id": "claude_pizza_shop_pos",
@@ -5107,254 +5107,6 @@
       "norm_label": "ingredient",
       "source_file": "",
       "source_location": ""
-    },
-    {
-      "id": "api_models_orderitem_cs_guid",
-      "label": "Guid",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "OrderItem",
-      "file_type": "code",
-      "norm_label": "guid",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_models_orderitem_cs_list",
-      "label": "List",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "OrderItem",
-      "file_type": "code",
-      "norm_label": "list",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_models_orderitem_cs_pizzasize",
-      "label": "PizzaSize",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "OrderItem",
-      "file_type": "code",
-      "norm_label": "pizzasize",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_models_orderitem_cs_recipe",
-      "label": "Recipe",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "OrderItem",
-      "file_type": "code",
-      "norm_label": "recipe",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_models_orderitem_pizzashop_api_models_orderitem_itemnamesnapshot",
-      "label": "ItemNameSnapshot",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "OrderItem",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "itemnamesnapshot",
-      "source_file": "api/Models/OrderItem.cs",
-      "source_location": "L30"
-    },
-    {
-      "id": "api_models_orderitem_pizzashop_api_models_orderitem_linetotal",
-      "label": "LineTotal",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "OrderItem",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "linetotal",
-      "source_file": "api/Models/OrderItem.cs",
-      "source_location": "L27"
-    },
-    {
-      "id": "api_models_orderitem_pizzashop_api_models_orderitem_order",
-      "label": "Order",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "OrderItem",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "order",
-      "source_file": "api/Models/OrderItem.cs",
-      "source_location": "L12"
-    },
-    {
-      "id": "api_models_orderitem_pizzashop_api_models_orderitem_orderid",
-      "label": "OrderId",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "OrderItem",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "orderid",
-      "source_file": "api/Models/OrderItem.cs",
-      "source_location": "L15"
-    },
-    {
-      "id": "api_models_orderitem_pizzashop_api_models_orderitem_orderitemid",
-      "label": "OrderItemId",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "OrderItem",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "orderitemid",
-      "source_file": "api/Models/OrderItem.cs",
-      "source_location": "L9"
-    },
-    {
-      "id": "api_models_orderitem_pizzashop_api_models_orderitem_pizzasize",
-      "label": "PizzaSize",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "OrderItem",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "pizzasize",
-      "source_file": "api/Models/OrderItem.cs",
-      "source_location": "L33"
-    },
-    {
-      "id": "api_models_orderitem_pizzashop_api_models_orderitem_pizzasizeid",
-      "label": "PizzaSizeId",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "OrderItem",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "pizzasizeid",
-      "source_file": "api/Models/OrderItem.cs",
-      "source_location": "L36"
-    },
-    {
-      "id": "api_models_orderitem_pizzashop_api_models_orderitem_quantity",
-      "label": "Quantity",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "OrderItem",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "quantity",
-      "source_file": "api/Models/OrderItem.cs",
-      "source_location": "L22"
-    },
-    {
-      "id": "api_models_orderitem_pizzashop_api_models_orderitem_recipe",
-      "label": "Recipe",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "OrderItem",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "recipe",
-      "source_file": "api/Models/OrderItem.cs",
-      "source_location": "L17"
-    },
-    {
-      "id": "api_models_orderitem_pizzashop_api_models_orderitem_recipeid",
-      "label": "RecipeId",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "OrderItem",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "recipeid",
-      "source_file": "api/Models/OrderItem.cs",
-      "source_location": "L20"
-    },
-    {
-      "id": "api_models_orderitem_pizzashop_api_models_orderitem_toppings",
-      "label": "Toppings",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "OrderItem",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "toppings",
-      "source_file": "api/Models/OrderItem.cs",
-      "source_location": "L38"
-    },
-    {
-      "id": "api_models_orderitem_pizzashop_api_models_orderitem_unitprice",
-      "label": "UnitPrice",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "OrderItem",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "unitprice",
-      "source_file": "api/Models/OrderItem.cs",
-      "source_location": "L24"
     },
     {
       "id": "api_migrations_20261012162801_initialcreate_cs_datetimeoffset",
@@ -6027,6 +5779,277 @@
       "source_location": "L18"
     },
     {
+      "id": "api_models_ingredient_cs_guid",
+      "label": "Guid",
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "norm_label": "guid",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_models_ingredient_cs_unitofmeasure",
+      "label": "UnitOfMeasure",
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "norm_label": "unitofmeasure",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_models_ingredient_pizzashop_api_models_ingredient_currentstock",
+      "label": "CurrentStock",
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "currentstock",
+      "source_file": "api/Models/Ingredient.cs",
+      "source_location": "L20"
+    },
+    {
+      "id": "api_models_ingredient_pizzashop_api_models_ingredient_ingredientid",
+      "label": "IngredientId",
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "ingredientid",
+      "source_file": "api/Models/Ingredient.cs",
+      "source_location": "L9"
+    },
+    {
+      "id": "api_models_ingredient_pizzashop_api_models_ingredient_isactive",
+      "label": "IsActive",
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "isactive",
+      "source_file": "api/Models/Ingredient.cs",
+      "source_location": "L25"
+    },
+    {
+      "id": "api_models_ingredient_pizzashop_api_models_ingredient_name",
+      "label": "Name",
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "name",
+      "source_file": "api/Models/Ingredient.cs",
+      "source_location": "L12"
+    },
+    {
+      "id": "api_models_ingredient_pizzashop_api_models_ingredient_toppingportion",
+      "label": "ToppingPortion",
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "toppingportion",
+      "source_file": "api/Models/Ingredient.cs",
+      "source_location": "L33"
+    },
+    {
+      "id": "api_models_ingredient_pizzashop_api_models_ingredient_toppingprice",
+      "label": "ToppingPrice",
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "toppingprice",
+      "source_file": "api/Models/Ingredient.cs",
+      "source_location": "L30"
+    },
+    {
+      "id": "api_models_ingredient_pizzashop_api_models_ingredient_unitofmeasure",
+      "label": "UnitOfMeasure",
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "unitofmeasure",
+      "source_file": "api/Models/Ingredient.cs",
+      "source_location": "L15"
+    },
+    {
+      "id": "api_models_ingredient_pizzashop_api_models_ingredient_unitofmeasureid",
+      "label": "UnitOfMeasureId",
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "unitofmeasureid",
+      "source_file": "api/Models/Ingredient.cs",
+      "source_location": "L18"
+    },
+    {
+      "id": "api_models_orderingredientusage_cs_guid",
+      "label": "Guid",
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "norm_label": "guid",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_models_orderingredientusage_pizzashop_api_models_orderingredientusage_amount",
+      "label": "Amount",
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "amount",
+      "source_file": "api/Models/OrderIngredientUsage.cs",
+      "source_location": "L26"
+    },
+    {
+      "id": "api_models_orderingredientusage_pizzashop_api_models_orderingredientusage_ingredient",
+      "label": "Ingredient",
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "ingredient",
+      "source_file": "api/Models/OrderIngredientUsage.cs",
+      "source_location": "L20"
+    },
+    {
+      "id": "api_models_orderingredientusage_pizzashop_api_models_orderingredientusage_ingredientid",
+      "label": "IngredientId",
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "ingredientid",
+      "source_file": "api/Models/OrderIngredientUsage.cs",
+      "source_location": "L23"
+    },
+    {
+      "id": "api_models_orderingredientusage_pizzashop_api_models_orderingredientusage_order",
+      "label": "Order",
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "order",
+      "source_file": "api/Models/OrderIngredientUsage.cs",
+      "source_location": "L15"
+    },
+    {
+      "id": "api_models_orderingredientusage_pizzashop_api_models_orderingredientusage_orderid",
+      "label": "OrderId",
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "orderid",
+      "source_file": "api/Models/OrderIngredientUsage.cs",
+      "source_location": "L18"
+    },
+    {
+      "id": "api_models_orderingredientusage_pizzashop_api_models_orderingredientusage_orderingredientusageid",
+      "label": "OrderIngredientUsageId",
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "orderingredientusageid",
+      "source_file": "api/Models/OrderIngredientUsage.cs",
+      "source_location": "L12"
+    },
+    {
       "id": "dataprotectionkey",
       "label": "DataProtectionKey",
       "_origin": "ast",
@@ -6060,6 +6083,17 @@
       "source_location": ""
     },
     {
+      "id": "enum",
+      "label": "Enum",
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "norm_label": "enum",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
       "id": "idataprotectionkeycontext",
       "label": "IDataProtectionKeyContext",
       "_origin": "ast",
@@ -6078,6 +6112,17 @@
       "community_name": "PizzaShopContext",
       "file_type": "code",
       "norm_label": "identitydbcontext",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "modelconfigurationbuilder",
+      "label": "ModelConfigurationBuilder",
+      "_origin": "ast",
+      "community": 20,
+      "community_name": "PizzaShopContext",
+      "file_type": "code",
+      "norm_label": "modelconfigurationbuilder",
       "source_file": "",
       "source_location": ""
     },
@@ -6454,333 +6499,6 @@
       "source_location": "L31"
     },
     {
-      "id": "api_models_orderingredientusage_cs_guid",
-      "label": "Guid",
-      "_origin": "ast",
-      "community": 21,
-      "community_name": "Order",
-      "file_type": "code",
-      "norm_label": "guid",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_models_orderingredientusage_pizzashop_api_models_orderingredientusage_amount",
-      "label": "Amount",
-      "_origin": "ast",
-      "community": 21,
-      "community_name": "Order",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "amount",
-      "source_file": "api/Models/OrderIngredientUsage.cs",
-      "source_location": "L26"
-    },
-    {
-      "id": "api_models_orderingredientusage_pizzashop_api_models_orderingredientusage_ingredient",
-      "label": "Ingredient",
-      "_origin": "ast",
-      "community": 21,
-      "community_name": "Order",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "ingredient",
-      "source_file": "api/Models/OrderIngredientUsage.cs",
-      "source_location": "L20"
-    },
-    {
-      "id": "api_models_orderingredientusage_pizzashop_api_models_orderingredientusage_ingredientid",
-      "label": "IngredientId",
-      "_origin": "ast",
-      "community": 21,
-      "community_name": "Order",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "ingredientid",
-      "source_file": "api/Models/OrderIngredientUsage.cs",
-      "source_location": "L23"
-    },
-    {
-      "id": "api_models_orderingredientusage_pizzashop_api_models_orderingredientusage_order",
-      "label": "Order",
-      "_origin": "ast",
-      "community": 21,
-      "community_name": "Order",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "order",
-      "source_file": "api/Models/OrderIngredientUsage.cs",
-      "source_location": "L15"
-    },
-    {
-      "id": "api_models_orderingredientusage_pizzashop_api_models_orderingredientusage_orderid",
-      "label": "OrderId",
-      "_origin": "ast",
-      "community": 21,
-      "community_name": "Order",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "orderid",
-      "source_file": "api/Models/OrderIngredientUsage.cs",
-      "source_location": "L18"
-    },
-    {
-      "id": "api_models_orderingredientusage_pizzashop_api_models_orderingredientusage_orderingredientusageid",
-      "label": "OrderIngredientUsageId",
-      "_origin": "ast",
-      "community": 21,
-      "community_name": "Order",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "orderingredientusageid",
-      "source_file": "api/Models/OrderIngredientUsage.cs",
-      "source_location": "L12"
-    },
-    {
-      "id": "api_requests_adjustingredientstockrequest",
-      "label": "AdjustIngredientStockRequest.cs",
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "norm_label": "adjustingredientstockrequest.cs",
-      "source_file": "api/Requests/AdjustIngredientStockRequest.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_requests_cancelorderrequest",
-      "label": "CancelOrderRequest.cs",
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "norm_label": "cancelorderrequest.cs",
-      "source_file": "api/Requests/CancelOrderRequest.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_requests_createingredientrequest",
-      "label": "CreateIngredientRequest.cs",
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "norm_label": "createingredientrequest.cs",
-      "source_file": "api/Requests/CreateIngredientRequest.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_requests_createingredientrequest_cs_guid",
-      "label": "Guid",
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "norm_label": "guid",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_requests_createpizzasizerequest",
-      "label": "CreatePizzaSizeRequest.cs",
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "norm_label": "createpizzasizerequest.cs",
-      "source_file": "api/Requests/CreatePizzaSizeRequest.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_requests_createreciperequest",
-      "label": "CreateRecipeRequest.cs",
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "norm_label": "createreciperequest.cs",
-      "source_file": "api/Requests/CreateRecipeRequest.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_requests_createreciperequest_cs_list",
-      "label": "List",
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "norm_label": "list",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_requests_createunitofmeasurerequest",
-      "label": "CreateUnitOfMeasureRequest.cs",
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "norm_label": "createunitofmeasurerequest.cs",
-      "source_file": "api/Requests/CreateUnitOfMeasureRequest.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_requests_orderitemrequest",
-      "label": "OrderItemRequest.cs",
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "norm_label": "orderitemrequest.cs",
-      "source_file": "api/Requests/OrderItemRequest.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_requests_orderitemtoppingrequest",
-      "label": "OrderItemToppingRequest.cs",
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "norm_label": "orderitemtoppingrequest.cs",
-      "source_file": "api/Requests/OrderItemToppingRequest.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_requests_recipeitemrequest",
-      "label": "RecipeItemRequest.cs",
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "norm_label": "recipeitemrequest.cs",
-      "source_file": "api/Requests/RecipeItemRequest.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_requests_recipeitemrequest_cs_guid",
-      "label": "Guid",
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "norm_label": "guid",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_requests_updateingredientrequest",
-      "label": "UpdateIngredientRequest.cs",
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "norm_label": "updateingredientrequest.cs",
-      "source_file": "api/Requests/UpdateIngredientRequest.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_requests_updateorderstatusrequest",
-      "label": "UpdateOrderStatusRequest.cs",
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "norm_label": "updateorderstatusrequest.cs",
-      "source_file": "api/Requests/UpdateOrderStatusRequest.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_requests_updatepizzasizerequest",
-      "label": "UpdatePizzaSizeRequest.cs",
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "norm_label": "updatepizzasizerequest.cs",
-      "source_file": "api/Requests/UpdatePizzaSizeRequest.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_requests_updatereciperequest",
-      "label": "UpdateRecipeRequest.cs",
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "norm_label": "updatereciperequest.cs",
-      "source_file": "api/Requests/UpdateRecipeRequest.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_requests_updateunitofmeasurerequest",
-      "label": "UpdateUnitOfMeasureRequest.cs",
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "norm_label": "updateunitofmeasurerequest.cs",
-      "source_file": "api/Requests/UpdateUnitOfMeasureRequest.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_requests_updateuserrolesrequest",
-      "label": "UpdateUserRolesRequest.cs",
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "norm_label": "updateuserrolesrequest.cs",
-      "source_file": "api/Requests/UpdateUserRolesRequest.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "csharp_namespace:530f87ba28d61afa",
-      "label": "PizzaShop.Api.Requests",
-      "_origin": "ast",
-      "community": 22,
-      "community_name": "PizzaShop.Api.Requests",
-      "file_type": "code",
-      "metadata": {
-        "kind": "csharp_namespace",
-        "namespace": "PizzaShop.Api.Requests"
-      },
-      "norm_label": "pizzashop.api.requests",
-      "source_file": "api/Requests/CancelOrderRequest.cs",
-      "source_location": "L3",
-      "type": "namespace"
-    },
-    {
       "id": "api_dtos_userdto",
       "label": "UserDto.cs",
       "_origin": "ast",
@@ -6968,11 +6686,66 @@
       "source_location": ""
     },
     {
+      "id": "api_dtos_recipedto",
+      "label": "RecipeDto.cs",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "recipedto.cs",
+      "source_file": "api/Dtos/RecipeDto.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_dtos_recipedto_cs_expression",
+      "label": "Expression",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "expression",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_dtos_recipedto_cs_func",
+      "label": "Func",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "func",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_dtos_recipedto_cs_guid",
+      "label": "Guid",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "guid",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_dtos_recipedto_cs_list",
+      "label": "List",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "list",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
       "id": "api_endpoints_recipesendpoints_cs_cancellationtoken",
       "label": "CancellationToken",
       "_origin": "ast",
       "community": 24,
-      "community_name": "RecipesEndpoints",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "cancellationtoken",
       "source_file": "",
@@ -6983,9 +6756,20 @@
       "label": "ClaimsPrincipal",
       "_origin": "ast",
       "community": 24,
-      "community_name": "RecipesEndpoints",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "claimsprincipal",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_endpoints_recipesendpoints_cs_createdatroute",
+      "label": "CreatedAtRoute",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "createdatroute",
       "source_file": "",
       "source_location": ""
     },
@@ -6994,7 +6778,7 @@
       "label": "Dictionary",
       "_origin": "ast",
       "community": 24,
-      "community_name": "RecipesEndpoints",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "dictionary",
       "source_file": "",
@@ -7005,7 +6789,7 @@
       "label": "Guid",
       "_origin": "ast",
       "community": 24,
-      "community_name": "RecipesEndpoints",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "guid",
       "source_file": "",
@@ -7016,7 +6800,7 @@
       "label": "IEndpointRouteBuilder",
       "_origin": "ast",
       "community": 24,
-      "community_name": "RecipesEndpoints",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "iendpointroutebuilder",
       "source_file": "",
@@ -7027,7 +6811,7 @@
       "label": "IQueryable",
       "_origin": "ast",
       "community": 24,
-      "community_name": "RecipesEndpoints",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "iqueryable",
       "source_file": "",
@@ -7038,9 +6822,31 @@
       "label": "List",
       "_origin": "ast",
       "community": 24,
-      "community_name": "RecipesEndpoints",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "list",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_endpoints_recipesendpoints_cs_nocontent",
+      "label": "NoContent",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "nocontent",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_endpoints_recipesendpoints_cs_notfound",
+      "label": "NotFound",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "notfound",
       "source_file": "",
       "source_location": ""
     },
@@ -7049,9 +6855,20 @@
       "label": "Ok",
       "_origin": "ast",
       "community": 24,
-      "community_name": "RecipesEndpoints",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "ok",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_endpoints_recipesendpoints_cs_problemhttpresult",
+      "label": "ProblemHttpResult",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "problemhttpresult",
       "source_file": "",
       "source_location": ""
     },
@@ -7060,9 +6877,20 @@
       "label": "RecipeItemRequest",
       "_origin": "ast",
       "community": 24,
-      "community_name": "RecipesEndpoints",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "recipeitemrequest",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_endpoints_recipesendpoints_cs_results",
+      "label": "Results",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "results",
       "source_file": "",
       "source_location": ""
     },
@@ -7071,9 +6899,171 @@
       "label": "Task",
       "_origin": "ast",
       "community": 24,
-      "community_name": "RecipesEndpoints",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "task",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_endpoints_recipesendpoints_cs_validationproblem",
+      "label": "ValidationProblem",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "validationproblem",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_models_recipe_cs_guid",
+      "label": "Guid",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "guid",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_models_recipe_cs_list",
+      "label": "List",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "list",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_models_recipe_cs_recipeitem",
+      "label": "RecipeItem",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "recipeitem",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_models_recipe_pizzashop_api_models_recipe_baseprice",
+      "label": "BasePrice",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "baseprice",
+      "source_file": "api/Models/Recipe.cs",
+      "source_location": "L14"
+    },
+    {
+      "id": "api_models_recipe_pizzashop_api_models_recipe_isactive",
+      "label": "IsActive",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "isactive",
+      "source_file": "api/Models/Recipe.cs",
+      "source_location": "L19"
+    },
+    {
+      "id": "api_models_recipe_pizzashop_api_models_recipe_name",
+      "label": "Name",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "name",
+      "source_file": "api/Models/Recipe.cs",
+      "source_location": "L11"
+    },
+    {
+      "id": "api_models_recipe_pizzashop_api_models_recipe_recipeid",
+      "label": "RecipeId",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "recipeid",
+      "source_file": "api/Models/Recipe.cs",
+      "source_location": "L8"
+    },
+    {
+      "id": "api_models_recipe_pizzashop_api_models_recipe_recipeitems",
+      "label": "RecipeItems",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s3:0"
+        ]
+      },
+      "norm_label": "recipeitems",
+      "source_file": "api/Models/Recipe.cs",
+      "source_location": "L21"
+    },
+    {
+      "id": "api_requests_updatereciperequest_cs_list",
+      "label": "List",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "list",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_requests_updatereciperequest_cs_recipeitemrequest",
+      "label": "RecipeItemRequest",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "recipeitemrequest",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "createreciperequest",
+      "label": "CreateRecipeRequest",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "createreciperequest",
       "source_file": "",
       "source_location": ""
     },
@@ -7082,7 +7072,7 @@
       "label": "IReadOnlySet",
       "_origin": "ast",
       "community": 24,
-      "community_name": "RecipesEndpoints",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "ireadonlyset",
       "source_file": "",
@@ -7100,90 +7090,68 @@
       "source_location": ""
     },
     {
-      "id": "api_dtos_pizzasizedto",
-      "label": "PizzaSizeDto.cs",
+      "id": "api_dtos_orderdto",
+      "label": "OrderDto.cs",
       "_origin": "ast",
-      "community": 26,
-      "community_name": "PizzaSizeMapper",
+      "community": 27,
+      "community_name": ".Create",
       "file_type": "code",
-      "norm_label": "pizzasizedto.cs",
-      "source_file": "api/Dtos/PizzaSizeDto.cs",
+      "norm_label": "orderdto.cs",
+      "source_file": "api/Dtos/OrderDto.cs",
       "source_location": "L1"
     },
     {
-      "id": "api_dtos_pizzasizedto_cs_guid",
-      "label": "Guid",
+      "id": "api_dtos_orderdto_cs_datetimeoffset",
+      "label": "DateTimeOffset",
       "_origin": "ast",
-      "community": 26,
-      "community_name": "PizzaSizeMapper",
+      "community": 27,
+      "community_name": ".Create",
       "file_type": "code",
-      "norm_label": "guid",
+      "norm_label": "datetimeoffset",
       "source_file": "",
       "source_location": ""
     },
     {
-      "id": "api_dtos_unitofmeasuredto",
-      "label": "UnitOfMeasureDto.cs",
-      "_origin": "ast",
-      "community": 26,
-      "community_name": "PizzaSizeMapper",
-      "file_type": "code",
-      "norm_label": "unitofmeasuredto.cs",
-      "source_file": "api/Dtos/UnitOfMeasureDto.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "expression",
+      "id": "api_dtos_orderdto_cs_expression",
       "label": "Expression",
       "_origin": "ast",
-      "community": 26,
-      "community_name": "PizzaSizeMapper",
+      "community": 27,
+      "community_name": ".Create",
       "file_type": "code",
       "norm_label": "expression",
       "source_file": "",
       "source_location": ""
     },
     {
-      "id": "func",
+      "id": "api_dtos_orderdto_cs_func",
       "label": "Func",
       "_origin": "ast",
-      "community": 26,
-      "community_name": "PizzaSizeMapper",
+      "community": 27,
+      "community_name": ".Create",
       "file_type": "code",
       "norm_label": "func",
       "source_file": "",
       "source_location": ""
     },
     {
-      "id": "guid",
+      "id": "api_dtos_orderdto_cs_guid",
       "label": "Guid",
       "_origin": "ast",
-      "community": 26,
-      "community_name": "PizzaSizeMapper",
+      "community": 27,
+      "community_name": ".Create",
       "file_type": "code",
       "norm_label": "guid",
       "source_file": "",
       "source_location": ""
     },
     {
-      "id": "pizzasize",
-      "label": "PizzaSize",
+      "id": "api_dtos_orderdto_cs_list",
+      "label": "List",
       "_origin": "ast",
-      "community": 26,
-      "community_name": "PizzaSizeMapper",
+      "community": 27,
+      "community_name": ".Create",
       "file_type": "code",
-      "norm_label": "pizzasize",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "unitofmeasure",
-      "label": "UnitOfMeasure",
-      "_origin": "ast",
-      "community": 26,
-      "community_name": "PizzaSizeMapper",
-      "file_type": "code",
-      "norm_label": "unitofmeasure",
+      "norm_label": "list",
       "source_file": "",
       "source_location": ""
     },
@@ -7364,6 +7332,91 @@
       "source_location": ""
     },
     {
+      "id": "api_models_enums_pizzashop_api_models_orderstatus_cancelled",
+      "label": "Cancelled",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": ".Create",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s0:0"
+        ]
+      },
+      "norm_label": "cancelled",
+      "source_file": "api/Models/Enums.cs",
+      "source_location": "L15"
+    },
+    {
+      "id": "api_models_enums_pizzashop_api_models_orderstatus_completed",
+      "label": "Completed",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": ".Create",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s0:0"
+        ]
+      },
+      "norm_label": "completed",
+      "source_file": "api/Models/Enums.cs",
+      "source_location": "L14"
+    },
+    {
+      "id": "api_models_enums_pizzashop_api_models_orderstatus_pending",
+      "label": "Pending",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": ".Create",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s0:0"
+        ]
+      },
+      "norm_label": "pending",
+      "source_file": "api/Models/Enums.cs",
+      "source_location": "L11"
+    },
+    {
+      "id": "api_models_enums_pizzashop_api_models_orderstatus_preparing",
+      "label": "Preparing",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": ".Create",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s0:0"
+        ]
+      },
+      "norm_label": "preparing",
+      "source_file": "api/Models/Enums.cs",
+      "source_location": "L12"
+    },
+    {
+      "id": "api_models_enums_pizzashop_api_models_orderstatus_ready",
+      "label": "Ready",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": ".Create",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s0:0"
+        ]
+      },
+      "norm_label": "ready",
+      "source_file": "api/Models/Enums.cs",
+      "source_location": "L13"
+    },
+    {
       "id": "createorderrequest",
       "label": "CreateOrderRequest",
       "_origin": "ast",
@@ -7428,165 +7481,6 @@
       "norm_label": "updateorderstatusrequest",
       "source_file": "",
       "source_location": ""
-    },
-    {
-      "id": "api_migrations_20261012162801_initialcreate",
-      "label": "20261012162801_InitialCreate.cs",
-      "_origin": "ast",
-      "community": 28,
-      "community_name": "PizzaShop.Api.Migrations",
-      "file_type": "code",
-      "norm_label": "20261012162801_initialcreate.cs",
-      "source_file": "api/Migrations/20261012162801_InitialCreate.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_migrations_20261012162801_initialcreate_designer",
-      "label": "20261012162801_InitialCreate.Designer.cs",
-      "_origin": "ast",
-      "community": 28,
-      "community_name": "PizzaShop.Api.Migrations",
-      "file_type": "code",
-      "norm_label": "20261012162801_initialcreate.designer.cs",
-      "source_file": "api/Migrations/20261012162801_InitialCreate.Designer.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_migrations_20261018025617_addrecipeitemuniqueindex",
-      "label": "20261018025617_AddRecipeItemUniqueIndex.cs",
-      "_origin": "ast",
-      "community": 28,
-      "community_name": "PizzaShop.Api.Migrations",
-      "file_type": "code",
-      "norm_label": "20261018025617_addrecipeitemuniqueindex.cs",
-      "source_file": "api/Migrations/20261018025617_AddRecipeItemUniqueIndex.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_migrations_20261018025617_addrecipeitemuniqueindex_designer",
-      "label": "20261018025617_AddRecipeItemUniqueIndex.Designer.cs",
-      "_origin": "ast",
-      "community": 28,
-      "community_name": "PizzaShop.Api.Migrations",
-      "file_type": "code",
-      "norm_label": "20261018025617_addrecipeitemuniqueindex.designer.cs",
-      "source_file": "api/Migrations/20261018025617_AddRecipeItemUniqueIndex.Designer.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_migrations_20261019024553_addingredienttoppingfields",
-      "label": "20261019024553_AddIngredientToppingFields.cs",
-      "_origin": "ast",
-      "community": 28,
-      "community_name": "PizzaShop.Api.Migrations",
-      "file_type": "code",
-      "norm_label": "20261019024553_addingredienttoppingfields.cs",
-      "source_file": "api/Migrations/20261019024553_AddIngredientToppingFields.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_migrations_20261019024553_addingredienttoppingfields_designer",
-      "label": "20261019024553_AddIngredientToppingFields.Designer.cs",
-      "_origin": "ast",
-      "community": 28,
-      "community_name": "PizzaShop.Api.Migrations",
-      "file_type": "code",
-      "norm_label": "20261019024553_addingredienttoppingfields.designer.cs",
-      "source_file": "api/Migrations/20261019024553_AddIngredientToppingFields.Designer.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_migrations_20261019030907_addorderidempotencykey",
-      "label": "20261019030907_AddOrderIdempotencyKey.cs",
-      "_origin": "ast",
-      "community": 28,
-      "community_name": "PizzaShop.Api.Migrations",
-      "file_type": "code",
-      "norm_label": "20261019030907_addorderidempotencykey.cs",
-      "source_file": "api/Migrations/20261019030907_AddOrderIdempotencyKey.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_migrations_20261019030907_addorderidempotencykey_designer",
-      "label": "20261019030907_AddOrderIdempotencyKey.Designer.cs",
-      "_origin": "ast",
-      "community": 28,
-      "community_name": "PizzaShop.Api.Migrations",
-      "file_type": "code",
-      "norm_label": "20261019030907_addorderidempotencykey.designer.cs",
-      "source_file": "api/Migrations/20261019030907_AddOrderIdempotencyKey.Designer.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_migrations_20261019032523_addidentity",
-      "label": "20261019032523_AddIdentity.cs",
-      "_origin": "ast",
-      "community": 28,
-      "community_name": "PizzaShop.Api.Migrations",
-      "file_type": "code",
-      "norm_label": "20261019032523_addidentity.cs",
-      "source_file": "api/Migrations/20261019032523_AddIdentity.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_migrations_20261019032523_addidentity_designer",
-      "label": "20261019032523_AddIdentity.Designer.cs",
-      "_origin": "ast",
-      "community": 28,
-      "community_name": "PizzaShop.Api.Migrations",
-      "file_type": "code",
-      "norm_label": "20261019032523_addidentity.designer.cs",
-      "source_file": "api/Migrations/20261019032523_AddIdentity.Designer.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_migrations_20261019034854_addmenuactiveandordercancellation",
-      "label": "20261019034854_AddMenuActiveAndOrderCancellation.cs",
-      "_origin": "ast",
-      "community": 28,
-      "community_name": "PizzaShop.Api.Migrations",
-      "file_type": "code",
-      "norm_label": "20261019034854_addmenuactiveandordercancellation.cs",
-      "source_file": "api/Migrations/20261019034854_AddMenuActiveAndOrderCancellation.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_migrations_20261019034854_addmenuactiveandordercancellation_designer",
-      "label": "20261019034854_AddMenuActiveAndOrderCancellation.Designer.cs",
-      "_origin": "ast",
-      "community": 28,
-      "community_name": "PizzaShop.Api.Migrations",
-      "file_type": "code",
-      "norm_label": "20261019034854_addmenuactiveandordercancellation.designer.cs",
-      "source_file": "api/Migrations/20261019034854_AddMenuActiveAndOrderCancellation.Designer.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_migrations_pizzashopcontextmodelsnapshot",
-      "label": "PizzaShopContextModelSnapshot.cs",
-      "_origin": "ast",
-      "community": 28,
-      "community_name": "PizzaShop.Api.Migrations",
-      "file_type": "code",
-      "norm_label": "pizzashopcontextmodelsnapshot.cs",
-      "source_file": "api/Migrations/PizzaShopContextModelSnapshot.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "csharp_namespace:27c7cd20c785f9f3",
-      "label": "PizzaShop.Api.Migrations",
-      "_origin": "ast",
-      "community": 28,
-      "community_name": "PizzaShop.Api.Migrations",
-      "file_type": "code",
-      "metadata": {
-        "kind": "csharp_namespace",
-        "namespace": "PizzaShop.Api.Migrations"
-      },
-      "norm_label": "pizzashop.api.migrations",
-      "source_file": "api/Migrations/20261019034854_AddMenuActiveAndOrderCancellation.Designer.cs",
-      "source_location": "L12",
-      "type": "namespace"
     },
     {
       "id": "api_endpoints_toppingsendpoints_cs_cancellationtoken",
@@ -7879,7 +7773,7 @@
       "label": "AdjustIngredientStockRequest",
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "adjustingredientstockrequest",
       "source_file": "",
@@ -7890,7 +7784,7 @@
       "label": "Expression",
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "expression",
       "source_file": "",
@@ -7901,7 +7795,7 @@
       "label": "Func",
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "func",
       "source_file": "",
@@ -7912,7 +7806,7 @@
       "label": "Guid",
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "guid",
       "source_file": "",
@@ -7923,7 +7817,7 @@
       "label": "CancellationToken",
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "cancellationtoken",
       "source_file": "",
@@ -7934,7 +7828,7 @@
       "label": "CreatedAtRoute",
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "createdatroute",
       "source_file": "",
@@ -7945,7 +7839,7 @@
       "label": "Guid",
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "guid",
       "source_file": "",
@@ -7956,7 +7850,7 @@
       "label": "IEndpointRouteBuilder",
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "iendpointroutebuilder",
       "source_file": "",
@@ -7967,7 +7861,7 @@
       "label": "List",
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "list",
       "source_file": "",
@@ -7978,7 +7872,7 @@
       "label": "NoContent",
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "nocontent",
       "source_file": "",
@@ -7989,7 +7883,7 @@
       "label": "NotFound",
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "notfound",
       "source_file": "",
@@ -8000,7 +7894,7 @@
       "label": "Ok",
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "ok",
       "source_file": "",
@@ -8011,7 +7905,7 @@
       "label": "ProblemHttpResult",
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "problemhttpresult",
       "source_file": "",
@@ -8022,7 +7916,7 @@
       "label": "Results",
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "results",
       "source_file": "",
@@ -8033,7 +7927,7 @@
       "label": "Task",
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "task",
       "source_file": "",
@@ -8044,176 +7938,18 @@
       "label": "ValidationProblem",
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "validationproblem",
       "source_file": "",
       "source_location": ""
     },
     {
-      "id": "api_models_ingredient_cs_guid",
-      "label": "Guid",
-      "_origin": "ast",
-      "community": 31,
-      "community_name": "Ingredient",
-      "file_type": "code",
-      "norm_label": "guid",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_models_ingredient_cs_unitofmeasure",
-      "label": "UnitOfMeasure",
-      "_origin": "ast",
-      "community": 31,
-      "community_name": "Ingredient",
-      "file_type": "code",
-      "norm_label": "unitofmeasure",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_models_ingredient_pizzashop_api_models_ingredient_currentstock",
-      "label": "CurrentStock",
-      "_origin": "ast",
-      "community": 31,
-      "community_name": "Ingredient",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "currentstock",
-      "source_file": "api/Models/Ingredient.cs",
-      "source_location": "L20"
-    },
-    {
-      "id": "api_models_ingredient_pizzashop_api_models_ingredient_ingredientid",
-      "label": "IngredientId",
-      "_origin": "ast",
-      "community": 31,
-      "community_name": "Ingredient",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "ingredientid",
-      "source_file": "api/Models/Ingredient.cs",
-      "source_location": "L9"
-    },
-    {
-      "id": "api_models_ingredient_pizzashop_api_models_ingredient_isactive",
-      "label": "IsActive",
-      "_origin": "ast",
-      "community": 31,
-      "community_name": "Ingredient",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "isactive",
-      "source_file": "api/Models/Ingredient.cs",
-      "source_location": "L25"
-    },
-    {
-      "id": "api_models_ingredient_pizzashop_api_models_ingredient_name",
-      "label": "Name",
-      "_origin": "ast",
-      "community": 31,
-      "community_name": "Ingredient",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "name",
-      "source_file": "api/Models/Ingredient.cs",
-      "source_location": "L12"
-    },
-    {
-      "id": "api_models_ingredient_pizzashop_api_models_ingredient_toppingportion",
-      "label": "ToppingPortion",
-      "_origin": "ast",
-      "community": 31,
-      "community_name": "Ingredient",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "toppingportion",
-      "source_file": "api/Models/Ingredient.cs",
-      "source_location": "L33"
-    },
-    {
-      "id": "api_models_ingredient_pizzashop_api_models_ingredient_toppingprice",
-      "label": "ToppingPrice",
-      "_origin": "ast",
-      "community": 31,
-      "community_name": "Ingredient",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "toppingprice",
-      "source_file": "api/Models/Ingredient.cs",
-      "source_location": "L30"
-    },
-    {
-      "id": "api_models_ingredient_pizzashop_api_models_ingredient_unitofmeasure",
-      "label": "UnitOfMeasure",
-      "_origin": "ast",
-      "community": 31,
-      "community_name": "Ingredient",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "unitofmeasure",
-      "source_file": "api/Models/Ingredient.cs",
-      "source_location": "L15"
-    },
-    {
-      "id": "api_models_ingredient_pizzashop_api_models_ingredient_unitofmeasureid",
-      "label": "UnitOfMeasureId",
-      "_origin": "ast",
-      "community": 31,
-      "community_name": "Ingredient",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s4:0"
-        ]
-      },
-      "norm_label": "unitofmeasureid",
-      "source_file": "api/Models/Ingredient.cs",
-      "source_location": "L18"
-    },
-    {
       "id": "api_requests_updateingredientrequest_cs_guid",
       "label": "Guid",
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "guid",
       "source_file": "",
@@ -8224,7 +7960,7 @@
       "label": "CreateIngredientRequest",
       "_origin": "ast",
       "community": 31,
-      "community_name": "Ingredient",
+      "community_name": ".Update",
       "file_type": "code",
       "norm_label": "createingredientrequest",
       "source_file": "",
@@ -8440,6 +8176,39 @@
       "source_location": ""
     },
     {
+      "id": "api_dtos_pizzasizedto",
+      "label": "PizzaSizeDto.cs",
+      "_origin": "ast",
+      "community": 38,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "pizzasizedto.cs",
+      "source_file": "api/Dtos/PizzaSizeDto.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_dtos_pizzasizedto_cs_guid",
+      "label": "Guid",
+      "_origin": "ast",
+      "community": 38,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "guid",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_dtos_unitofmeasuredto",
+      "label": "UnitOfMeasureDto.cs",
+      "_origin": "ast",
+      "community": 38,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "unitofmeasuredto.cs",
+      "source_file": "api/Dtos/UnitOfMeasureDto.cs",
+      "source_location": "L1"
+    },
+    {
       "id": "api_endpoints_pizzasizesendpoints_cs_cancellationtoken",
       "label": "CancellationToken",
       "_origin": "ast",
@@ -8572,6 +8341,50 @@
       "source_location": ""
     },
     {
+      "id": "expression",
+      "label": "Expression",
+      "_origin": "ast",
+      "community": 38,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "expression",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "func",
+      "label": "Func",
+      "_origin": "ast",
+      "community": 38,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "func",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "guid",
+      "label": "Guid",
+      "_origin": "ast",
+      "community": 38,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "guid",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "pizzasize",
+      "label": "PizzaSize",
+      "_origin": "ast",
+      "community": 38,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "pizzasize",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
       "id": "pizzasizedto",
       "label": "PizzaSizeDto",
       "_origin": "ast",
@@ -8579,6 +8392,17 @@
       "community_name": ".Update",
       "file_type": "code",
       "norm_label": "pizzasizedto",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "unitofmeasure",
+      "label": "UnitOfMeasure",
+      "_origin": "ast",
+      "community": 38,
+      "community_name": ".Update",
+      "file_type": "code",
+      "norm_label": "unitofmeasure",
       "source_file": "",
       "source_location": ""
     },
@@ -8642,7 +8466,7 @@
       "label": "AuthExtensions.cs",
       "_origin": "ast",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "file_type": "code",
       "norm_label": "authextensions.cs",
       "source_file": "api/Auth/AuthExtensions.cs",
@@ -8653,10 +8477,43 @@
       "label": "Policies.cs",
       "_origin": "ast",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "file_type": "code",
       "norm_label": "policies.cs",
       "source_file": "api/Auth/Policies.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_db_pizzashopcontext",
+      "label": "PizzaShopContext.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "pizzashopcontext.cs",
+      "source_file": "api/Db/PizzaShopContext.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_dtos_ingredientdto",
+      "label": "IngredientDto.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "ingredientdto.cs",
+      "source_file": "api/Dtos/IngredientDto.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_dtos_toppingdto",
+      "label": "ToppingDto.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "toppingdto.cs",
+      "source_file": "api/Dtos/ToppingDto.cs",
       "source_location": "L1"
     },
     {
@@ -8664,7 +8521,7 @@
       "label": "IngredientsEndpoints.cs",
       "_origin": "ast",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "file_type": "code",
       "norm_label": "ingredientsendpoints.cs",
       "source_file": "api/Endpoints/IngredientsEndpoints.cs",
@@ -8675,7 +8532,7 @@
       "label": "OrdersEndpoints.cs",
       "_origin": "ast",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "file_type": "code",
       "norm_label": "ordersendpoints.cs",
       "source_file": "api/Endpoints/OrdersEndpoints.cs",
@@ -8686,7 +8543,7 @@
       "label": "PizzaSizesEndpoints.cs",
       "_origin": "ast",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "file_type": "code",
       "norm_label": "pizzasizesendpoints.cs",
       "source_file": "api/Endpoints/PizzaSizesEndpoints.cs",
@@ -8697,7 +8554,7 @@
       "label": "RecipesEndpoints.cs",
       "_origin": "ast",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "file_type": "code",
       "norm_label": "recipesendpoints.cs",
       "source_file": "api/Endpoints/RecipesEndpoints.cs",
@@ -8708,7 +8565,7 @@
       "label": "ToppingsEndpoints.cs",
       "_origin": "ast",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "file_type": "code",
       "norm_label": "toppingsendpoints.cs",
       "source_file": "api/Endpoints/ToppingsEndpoints.cs",
@@ -8719,7 +8576,7 @@
       "label": "UnitsOfMeasureEndpoints.cs",
       "_origin": "ast",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "file_type": "code",
       "norm_label": "unitsofmeasureendpoints.cs",
       "source_file": "api/Endpoints/UnitsOfMeasureEndpoints.cs",
@@ -8730,10 +8587,263 @@
       "label": "UsersEndpoints.cs",
       "_origin": "ast",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "file_type": "code",
       "norm_label": "usersendpoints.cs",
       "source_file": "api/Endpoints/UsersEndpoints.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_migrations_20261012162801_initialcreate",
+      "label": "20261012162801_InitialCreate.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "20261012162801_initialcreate.cs",
+      "source_file": "api/Migrations/20261012162801_InitialCreate.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_migrations_20261012162801_initialcreate_designer",
+      "label": "20261012162801_InitialCreate.Designer.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "20261012162801_initialcreate.designer.cs",
+      "source_file": "api/Migrations/20261012162801_InitialCreate.Designer.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_migrations_20261018025617_addrecipeitemuniqueindex",
+      "label": "20261018025617_AddRecipeItemUniqueIndex.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "20261018025617_addrecipeitemuniqueindex.cs",
+      "source_file": "api/Migrations/20261018025617_AddRecipeItemUniqueIndex.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_migrations_20261018025617_addrecipeitemuniqueindex_designer",
+      "label": "20261018025617_AddRecipeItemUniqueIndex.Designer.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "20261018025617_addrecipeitemuniqueindex.designer.cs",
+      "source_file": "api/Migrations/20261018025617_AddRecipeItemUniqueIndex.Designer.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_migrations_20261019024553_addingredienttoppingfields",
+      "label": "20261019024553_AddIngredientToppingFields.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "20261019024553_addingredienttoppingfields.cs",
+      "source_file": "api/Migrations/20261019024553_AddIngredientToppingFields.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_migrations_20261019024553_addingredienttoppingfields_designer",
+      "label": "20261019024553_AddIngredientToppingFields.Designer.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "20261019024553_addingredienttoppingfields.designer.cs",
+      "source_file": "api/Migrations/20261019024553_AddIngredientToppingFields.Designer.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_migrations_20261019030907_addorderidempotencykey",
+      "label": "20261019030907_AddOrderIdempotencyKey.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "20261019030907_addorderidempotencykey.cs",
+      "source_file": "api/Migrations/20261019030907_AddOrderIdempotencyKey.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_migrations_20261019030907_addorderidempotencykey_designer",
+      "label": "20261019030907_AddOrderIdempotencyKey.Designer.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "20261019030907_addorderidempotencykey.designer.cs",
+      "source_file": "api/Migrations/20261019030907_AddOrderIdempotencyKey.Designer.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_migrations_20261019032523_addidentity",
+      "label": "20261019032523_AddIdentity.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "20261019032523_addidentity.cs",
+      "source_file": "api/Migrations/20261019032523_AddIdentity.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_migrations_20261019032523_addidentity_designer",
+      "label": "20261019032523_AddIdentity.Designer.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "20261019032523_addidentity.designer.cs",
+      "source_file": "api/Migrations/20261019032523_AddIdentity.Designer.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_migrations_20261019034854_addmenuactiveandordercancellation",
+      "label": "20261019034854_AddMenuActiveAndOrderCancellation.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "20261019034854_addmenuactiveandordercancellation.cs",
+      "source_file": "api/Migrations/20261019034854_AddMenuActiveAndOrderCancellation.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_migrations_20261019034854_addmenuactiveandordercancellation_designer",
+      "label": "20261019034854_AddMenuActiveAndOrderCancellation.Designer.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "20261019034854_addmenuactiveandordercancellation.designer.cs",
+      "source_file": "api/Migrations/20261019034854_AddMenuActiveAndOrderCancellation.Designer.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_migrations_pizzashopcontextmodelsnapshot",
+      "label": "PizzaShopContextModelSnapshot.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "pizzashopcontextmodelsnapshot.cs",
+      "source_file": "api/Migrations/PizzaShopContextModelSnapshot.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_models_appuser",
+      "label": "AppUser.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "appuser.cs",
+      "source_file": "api/Models/AppUser.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_models_ingredient",
+      "label": "Ingredient.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "ingredient.cs",
+      "source_file": "api/Models/Ingredient.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_models_order",
+      "label": "Order.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "order.cs",
+      "source_file": "api/Models/Order.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_models_orderingredientusage",
+      "label": "OrderIngredientUsage.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "orderingredientusage.cs",
+      "source_file": "api/Models/OrderIngredientUsage.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_models_orderitem",
+      "label": "OrderItem.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "orderitem.cs",
+      "source_file": "api/Models/OrderItem.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_models_orderitemtopping",
+      "label": "OrderItemTopping.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "orderitemtopping.cs",
+      "source_file": "api/Models/OrderItemTopping.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_models_pizzasize",
+      "label": "PizzaSize.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "pizzasize.cs",
+      "source_file": "api/Models/PizzaSize.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_models_recipe",
+      "label": "Recipe.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "recipe.cs",
+      "source_file": "api/Models/Recipe.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_models_recipeitem",
+      "label": "RecipeItem.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "recipeitem.cs",
+      "source_file": "api/Models/RecipeItem.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_models_unitofmeasure",
+      "label": "UnitOfMeasure.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "unitofmeasure.cs",
+      "source_file": "api/Models/UnitOfMeasure.cs",
       "source_location": "L1"
     },
     {
@@ -8741,10 +8851,219 @@
       "label": "Program.cs",
       "_origin": "ast",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "file_type": "code",
       "norm_label": "program.cs",
       "source_file": "api/Program.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_requests_adjustingredientstockrequest",
+      "label": "AdjustIngredientStockRequest.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "adjustingredientstockrequest.cs",
+      "source_file": "api/Requests/AdjustIngredientStockRequest.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_requests_cancelorderrequest",
+      "label": "CancelOrderRequest.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "cancelorderrequest.cs",
+      "source_file": "api/Requests/CancelOrderRequest.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_requests_createingredientrequest",
+      "label": "CreateIngredientRequest.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "createingredientrequest.cs",
+      "source_file": "api/Requests/CreateIngredientRequest.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_requests_createingredientrequest_cs_guid",
+      "label": "Guid",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "guid",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_requests_createorderrequest",
+      "label": "CreateOrderRequest.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "createorderrequest.cs",
+      "source_file": "api/Requests/CreateOrderRequest.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_requests_createpizzasizerequest",
+      "label": "CreatePizzaSizeRequest.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "createpizzasizerequest.cs",
+      "source_file": "api/Requests/CreatePizzaSizeRequest.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_requests_createreciperequest",
+      "label": "CreateRecipeRequest.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "createreciperequest.cs",
+      "source_file": "api/Requests/CreateRecipeRequest.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_requests_createreciperequest_cs_list",
+      "label": "List",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "list",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_requests_createunitofmeasurerequest",
+      "label": "CreateUnitOfMeasureRequest.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "createunitofmeasurerequest.cs",
+      "source_file": "api/Requests/CreateUnitOfMeasureRequest.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_requests_orderitemrequest",
+      "label": "OrderItemRequest.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "orderitemrequest.cs",
+      "source_file": "api/Requests/OrderItemRequest.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_requests_orderitemtoppingrequest",
+      "label": "OrderItemToppingRequest.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "orderitemtoppingrequest.cs",
+      "source_file": "api/Requests/OrderItemToppingRequest.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_requests_recipeitemrequest",
+      "label": "RecipeItemRequest.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "recipeitemrequest.cs",
+      "source_file": "api/Requests/RecipeItemRequest.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_requests_recipeitemrequest_cs_guid",
+      "label": "Guid",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "guid",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_requests_updateingredientrequest",
+      "label": "UpdateIngredientRequest.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "updateingredientrequest.cs",
+      "source_file": "api/Requests/UpdateIngredientRequest.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_requests_updateorderstatusrequest",
+      "label": "UpdateOrderStatusRequest.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "updateorderstatusrequest.cs",
+      "source_file": "api/Requests/UpdateOrderStatusRequest.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_requests_updatepizzasizerequest",
+      "label": "UpdatePizzaSizeRequest.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "updatepizzasizerequest.cs",
+      "source_file": "api/Requests/UpdatePizzaSizeRequest.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_requests_updatereciperequest",
+      "label": "UpdateRecipeRequest.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "updatereciperequest.cs",
+      "source_file": "api/Requests/UpdateRecipeRequest.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_requests_updateunitofmeasurerequest",
+      "label": "UpdateUnitOfMeasureRequest.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "updateunitofmeasurerequest.cs",
+      "source_file": "api/Requests/UpdateUnitOfMeasureRequest.cs",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_requests_updateuserrolesrequest",
+      "label": "UpdateUserRolesRequest.cs",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "norm_label": "updateuserrolesrequest.cs",
+      "source_file": "api/Requests/UpdateUserRolesRequest.cs",
       "source_location": "L1"
     },
     {
@@ -8752,7 +9071,7 @@
       "label": "PizzaShop.Api.Auth",
       "_origin": "ast",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "file_type": "code",
       "metadata": {
         "kind": "csharp_namespace",
@@ -8764,11 +9083,43 @@
       "type": "namespace"
     },
     {
+      "id": "csharp_namespace:250228d3e385bc49",
+      "label": "PizzaShop.Api.Models",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "metadata": {
+        "kind": "csharp_namespace",
+        "namespace": "PizzaShop.Api.Models"
+      },
+      "norm_label": "pizzashop.api.models",
+      "source_file": "api/Models/Enums.cs",
+      "source_location": "L1",
+      "type": "namespace"
+    },
+    {
+      "id": "csharp_namespace:27c7cd20c785f9f3",
+      "label": "PizzaShop.Api.Migrations",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "metadata": {
+        "kind": "csharp_namespace",
+        "namespace": "PizzaShop.Api.Migrations"
+      },
+      "norm_label": "pizzashop.api.migrations",
+      "source_file": "api/Migrations/20261019034854_AddMenuActiveAndOrderCancellation.Designer.cs",
+      "source_location": "L12",
+      "type": "namespace"
+    },
+    {
       "id": "csharp_namespace:41e321ca24ee56c3",
       "label": "PizzaShop.Api.Db",
       "_origin": "ast",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "file_type": "code",
       "metadata": {
         "kind": "csharp_namespace",
@@ -8784,7 +9135,7 @@
       "label": "PizzaShop.Api.Dtos",
       "_origin": "ast",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "file_type": "code",
       "metadata": {
         "kind": "csharp_namespace",
@@ -8796,11 +9147,27 @@
       "type": "namespace"
     },
     {
+      "id": "csharp_namespace:530f87ba28d61afa",
+      "label": "PizzaShop.Api.Requests",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "file_type": "code",
+      "metadata": {
+        "kind": "csharp_namespace",
+        "namespace": "PizzaShop.Api.Requests"
+      },
+      "norm_label": "pizzashop.api.requests",
+      "source_file": "api/Requests/CancelOrderRequest.cs",
+      "source_location": "L3",
+      "type": "namespace"
+    },
+    {
       "id": "csharp_namespace:67154e65adca4dd6",
       "label": "PizzaShop.Api.Endpoints",
       "_origin": "ast",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "file_type": "code",
       "metadata": {
         "kind": "csharp_namespace",
@@ -8809,165 +9176,6 @@
       "norm_label": "pizzashop.api.endpoints",
       "source_file": "api/Endpoints/IngredientsEndpoints.cs",
       "source_location": "L9",
-      "type": "namespace"
-    },
-    {
-      "id": "api_dtos_ingredientdto",
-      "label": "IngredientDto.cs",
-      "_origin": "ast",
-      "community": 40,
-      "community_name": "PizzaShop.Api.Models",
-      "file_type": "code",
-      "norm_label": "ingredientdto.cs",
-      "source_file": "api/Dtos/IngredientDto.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_dtos_recipedto",
-      "label": "RecipeDto.cs",
-      "_origin": "ast",
-      "community": 40,
-      "community_name": "PizzaShop.Api.Models",
-      "file_type": "code",
-      "norm_label": "recipedto.cs",
-      "source_file": "api/Dtos/RecipeDto.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_dtos_toppingdto",
-      "label": "ToppingDto.cs",
-      "_origin": "ast",
-      "community": 40,
-      "community_name": "PizzaShop.Api.Models",
-      "file_type": "code",
-      "norm_label": "toppingdto.cs",
-      "source_file": "api/Dtos/ToppingDto.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_models_ingredient",
-      "label": "Ingredient.cs",
-      "_origin": "ast",
-      "community": 40,
-      "community_name": "PizzaShop.Api.Models",
-      "file_type": "code",
-      "norm_label": "ingredient.cs",
-      "source_file": "api/Models/Ingredient.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_models_order",
-      "label": "Order.cs",
-      "_origin": "ast",
-      "community": 40,
-      "community_name": "PizzaShop.Api.Models",
-      "file_type": "code",
-      "norm_label": "order.cs",
-      "source_file": "api/Models/Order.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_models_orderingredientusage",
-      "label": "OrderIngredientUsage.cs",
-      "_origin": "ast",
-      "community": 40,
-      "community_name": "PizzaShop.Api.Models",
-      "file_type": "code",
-      "norm_label": "orderingredientusage.cs",
-      "source_file": "api/Models/OrderIngredientUsage.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_models_orderitem",
-      "label": "OrderItem.cs",
-      "_origin": "ast",
-      "community": 40,
-      "community_name": "PizzaShop.Api.Models",
-      "file_type": "code",
-      "norm_label": "orderitem.cs",
-      "source_file": "api/Models/OrderItem.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_models_orderitemtopping",
-      "label": "OrderItemTopping.cs",
-      "_origin": "ast",
-      "community": 40,
-      "community_name": "PizzaShop.Api.Models",
-      "file_type": "code",
-      "norm_label": "orderitemtopping.cs",
-      "source_file": "api/Models/OrderItemTopping.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_models_pizzasize",
-      "label": "PizzaSize.cs",
-      "_origin": "ast",
-      "community": 40,
-      "community_name": "PizzaShop.Api.Models",
-      "file_type": "code",
-      "norm_label": "pizzasize.cs",
-      "source_file": "api/Models/PizzaSize.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_models_recipe",
-      "label": "Recipe.cs",
-      "_origin": "ast",
-      "community": 40,
-      "community_name": "PizzaShop.Api.Models",
-      "file_type": "code",
-      "norm_label": "recipe.cs",
-      "source_file": "api/Models/Recipe.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_models_recipeitem",
-      "label": "RecipeItem.cs",
-      "_origin": "ast",
-      "community": 40,
-      "community_name": "PizzaShop.Api.Models",
-      "file_type": "code",
-      "norm_label": "recipeitem.cs",
-      "source_file": "api/Models/RecipeItem.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_models_unitofmeasure",
-      "label": "UnitOfMeasure.cs",
-      "_origin": "ast",
-      "community": 40,
-      "community_name": "PizzaShop.Api.Models",
-      "file_type": "code",
-      "norm_label": "unitofmeasure.cs",
-      "source_file": "api/Models/UnitOfMeasure.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_requests_createorderrequest",
-      "label": "CreateOrderRequest.cs",
-      "_origin": "ast",
-      "community": 40,
-      "community_name": "PizzaShop.Api.Models",
-      "file_type": "code",
-      "norm_label": "createorderrequest.cs",
-      "source_file": "api/Requests/CreateOrderRequest.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "csharp_namespace:250228d3e385bc49",
-      "label": "PizzaShop.Api.Models",
-      "_origin": "ast",
-      "community": 40,
-      "community_name": "PizzaShop.Api.Models",
-      "file_type": "code",
-      "metadata": {
-        "kind": "csharp_namespace",
-        "namespace": "PizzaShop.Api.Models"
-      },
-      "norm_label": "pizzashop.api.models",
-      "source_file": "api/Models/Enums.cs",
-      "source_location": "L1",
       "type": "namespace"
     },
     {
@@ -9037,173 +9245,22 @@
       "source_location": ""
     },
     {
-      "id": "api_dtos_orderdto",
-      "label": "OrderDto.cs",
-      "_origin": "ast",
-      "community": 42,
-      "community_name": "OrderDto",
-      "file_type": "code",
-      "norm_label": "orderdto.cs",
-      "source_file": "api/Dtos/OrderDto.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_dtos_orderdto_cs_datetimeoffset",
-      "label": "DateTimeOffset",
-      "_origin": "ast",
-      "community": 42,
-      "community_name": "OrderDto",
-      "file_type": "code",
-      "norm_label": "datetimeoffset",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_dtos_orderdto_cs_expression",
-      "label": "Expression",
-      "_origin": "ast",
-      "community": 42,
-      "community_name": "OrderDto",
-      "file_type": "code",
-      "norm_label": "expression",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_dtos_orderdto_cs_func",
-      "label": "Func",
-      "_origin": "ast",
-      "community": 42,
-      "community_name": "OrderDto",
-      "file_type": "code",
-      "norm_label": "func",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_dtos_orderdto_cs_guid",
-      "label": "Guid",
-      "_origin": "ast",
-      "community": 42,
-      "community_name": "OrderDto",
-      "file_type": "code",
-      "norm_label": "guid",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_dtos_orderdto_cs_list",
-      "label": "List",
-      "_origin": "ast",
-      "community": 42,
-      "community_name": "OrderDto",
-      "file_type": "code",
-      "norm_label": "list",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
       "id": "api_models_enums",
       "label": "Enums.cs",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "norm_label": "enums.cs",
       "source_file": "api/Models/Enums.cs",
       "source_location": "L1"
     },
     {
-      "id": "api_models_enums_pizzashop_api_models_orderstatus_cancelled",
-      "label": "Cancelled",
-      "_origin": "ast",
-      "community": 42,
-      "community_name": "OrderDto",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s0:0"
-        ]
-      },
-      "norm_label": "cancelled",
-      "source_file": "api/Models/Enums.cs",
-      "source_location": "L15"
-    },
-    {
-      "id": "api_models_enums_pizzashop_api_models_orderstatus_completed",
-      "label": "Completed",
-      "_origin": "ast",
-      "community": 42,
-      "community_name": "OrderDto",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s0:0"
-        ]
-      },
-      "norm_label": "completed",
-      "source_file": "api/Models/Enums.cs",
-      "source_location": "L14"
-    },
-    {
-      "id": "api_models_enums_pizzashop_api_models_orderstatus_pending",
-      "label": "Pending",
-      "_origin": "ast",
-      "community": 42,
-      "community_name": "OrderDto",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s0:0"
-        ]
-      },
-      "norm_label": "pending",
-      "source_file": "api/Models/Enums.cs",
-      "source_location": "L11"
-    },
-    {
-      "id": "api_models_enums_pizzashop_api_models_orderstatus_preparing",
-      "label": "Preparing",
-      "_origin": "ast",
-      "community": 42,
-      "community_name": "OrderDto",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s0:0"
-        ]
-      },
-      "norm_label": "preparing",
-      "source_file": "api/Models/Enums.cs",
-      "source_location": "L12"
-    },
-    {
-      "id": "api_models_enums_pizzashop_api_models_orderstatus_ready",
-      "label": "Ready",
-      "_origin": "ast",
-      "community": 42,
-      "community_name": "OrderDto",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s0:0"
-        ]
-      },
-      "norm_label": "ready",
-      "source_file": "api/Models/Enums.cs",
-      "source_location": "L13"
-    },
-    {
       "id": "api_models_enums_pizzashop_api_models_ordertype_delivery",
       "label": "Delivery",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -9220,7 +9277,7 @@
       "label": "DineIn",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -9237,7 +9294,7 @@
       "label": "Takeout",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -9254,7 +9311,7 @@
       "label": "Extra",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -9271,7 +9328,7 @@
       "label": "Light",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -9288,7 +9345,7 @@
       "label": "Standard",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -9305,7 +9362,7 @@
       "label": "LeftHalf",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -9322,7 +9379,7 @@
       "label": "RightHalf",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -9339,7 +9396,7 @@
       "label": "Whole",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -9352,11 +9409,259 @@
       "source_location": "L27"
     },
     {
+      "id": "api_models_orderitem_cs_guid",
+      "label": "Guid",
+      "_origin": "ast",
+      "community": 42,
+      "community_name": "OrderItem",
+      "file_type": "code",
+      "norm_label": "guid",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_models_orderitem_cs_list",
+      "label": "List",
+      "_origin": "ast",
+      "community": 42,
+      "community_name": "OrderItem",
+      "file_type": "code",
+      "norm_label": "list",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_models_orderitem_cs_pizzasize",
+      "label": "PizzaSize",
+      "_origin": "ast",
+      "community": 42,
+      "community_name": "OrderItem",
+      "file_type": "code",
+      "norm_label": "pizzasize",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_models_orderitem_cs_recipe",
+      "label": "Recipe",
+      "_origin": "ast",
+      "community": 42,
+      "community_name": "OrderItem",
+      "file_type": "code",
+      "norm_label": "recipe",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "api_models_orderitem_pizzashop_api_models_orderitem_itemnamesnapshot",
+      "label": "ItemNameSnapshot",
+      "_origin": "ast",
+      "community": 42,
+      "community_name": "OrderItem",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "itemnamesnapshot",
+      "source_file": "api/Models/OrderItem.cs",
+      "source_location": "L30"
+    },
+    {
+      "id": "api_models_orderitem_pizzashop_api_models_orderitem_linetotal",
+      "label": "LineTotal",
+      "_origin": "ast",
+      "community": 42,
+      "community_name": "OrderItem",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "linetotal",
+      "source_file": "api/Models/OrderItem.cs",
+      "source_location": "L27"
+    },
+    {
+      "id": "api_models_orderitem_pizzashop_api_models_orderitem_order",
+      "label": "Order",
+      "_origin": "ast",
+      "community": 42,
+      "community_name": "OrderItem",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "order",
+      "source_file": "api/Models/OrderItem.cs",
+      "source_location": "L12"
+    },
+    {
+      "id": "api_models_orderitem_pizzashop_api_models_orderitem_orderid",
+      "label": "OrderId",
+      "_origin": "ast",
+      "community": 42,
+      "community_name": "OrderItem",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "orderid",
+      "source_file": "api/Models/OrderItem.cs",
+      "source_location": "L15"
+    },
+    {
+      "id": "api_models_orderitem_pizzashop_api_models_orderitem_orderitemid",
+      "label": "OrderItemId",
+      "_origin": "ast",
+      "community": 42,
+      "community_name": "OrderItem",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "orderitemid",
+      "source_file": "api/Models/OrderItem.cs",
+      "source_location": "L9"
+    },
+    {
+      "id": "api_models_orderitem_pizzashop_api_models_orderitem_pizzasize",
+      "label": "PizzaSize",
+      "_origin": "ast",
+      "community": 42,
+      "community_name": "OrderItem",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "pizzasize",
+      "source_file": "api/Models/OrderItem.cs",
+      "source_location": "L33"
+    },
+    {
+      "id": "api_models_orderitem_pizzashop_api_models_orderitem_pizzasizeid",
+      "label": "PizzaSizeId",
+      "_origin": "ast",
+      "community": 42,
+      "community_name": "OrderItem",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "pizzasizeid",
+      "source_file": "api/Models/OrderItem.cs",
+      "source_location": "L36"
+    },
+    {
+      "id": "api_models_orderitem_pizzashop_api_models_orderitem_quantity",
+      "label": "Quantity",
+      "_origin": "ast",
+      "community": 42,
+      "community_name": "OrderItem",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "quantity",
+      "source_file": "api/Models/OrderItem.cs",
+      "source_location": "L22"
+    },
+    {
+      "id": "api_models_orderitem_pizzashop_api_models_orderitem_recipe",
+      "label": "Recipe",
+      "_origin": "ast",
+      "community": 42,
+      "community_name": "OrderItem",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "recipe",
+      "source_file": "api/Models/OrderItem.cs",
+      "source_location": "L17"
+    },
+    {
+      "id": "api_models_orderitem_pizzashop_api_models_orderitem_recipeid",
+      "label": "RecipeId",
+      "_origin": "ast",
+      "community": 42,
+      "community_name": "OrderItem",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "recipeid",
+      "source_file": "api/Models/OrderItem.cs",
+      "source_location": "L20"
+    },
+    {
+      "id": "api_models_orderitem_pizzashop_api_models_orderitem_toppings",
+      "label": "Toppings",
+      "_origin": "ast",
+      "community": 42,
+      "community_name": "OrderItem",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "toppings",
+      "source_file": "api/Models/OrderItem.cs",
+      "source_location": "L38"
+    },
+    {
+      "id": "api_models_orderitem_pizzashop_api_models_orderitem_unitprice",
+      "label": "UnitPrice",
+      "_origin": "ast",
+      "community": 42,
+      "community_name": "OrderItem",
+      "file_type": "code",
+      "metadata": {
+        "namespace": "PizzaShop.Api.Models",
+        "scope_chain": [
+          "s4:0"
+        ]
+      },
+      "norm_label": "unitprice",
+      "source_file": "api/Models/OrderItem.cs",
+      "source_location": "L24"
+    },
+    {
       "id": "api_models_orderitemtopping_cs_guid",
       "label": "Guid",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "norm_label": "guid",
       "source_file": "",
@@ -9367,7 +9672,7 @@
       "label": "Coverage",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -9384,7 +9689,7 @@
       "label": "ExtraAmount",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -9401,7 +9706,7 @@
       "label": "Ingredient",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -9418,7 +9723,7 @@
       "label": "IngredientId",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -9435,7 +9740,7 @@
       "label": "OrderItem",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -9452,7 +9757,7 @@
       "label": "OrderItemId",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -9469,7 +9774,7 @@
       "label": "OrderItemToppingId",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -9486,7 +9791,7 @@
       "label": "PriceAdjustment",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "metadata": {
         "namespace": "PizzaShop.Api.Models",
@@ -9503,7 +9808,7 @@
       "label": "List",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "norm_label": "list",
       "source_file": "",
@@ -9514,7 +9819,7 @@
       "label": "Guid",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "norm_label": "guid",
       "source_file": "",
@@ -9525,7 +9830,7 @@
       "label": "List",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "norm_label": "list",
       "source_file": "",
@@ -9536,110 +9841,11 @@
       "label": "Guid",
       "_origin": "ast",
       "community": 42,
-      "community_name": "OrderDto",
+      "community_name": "OrderItem",
       "file_type": "code",
       "norm_label": "guid",
       "source_file": "",
       "source_location": ""
-    },
-    {
-      "id": "api_endpoints_recipesendpoints_cs_createdatroute",
-      "label": "CreatedAtRoute",
-      "_origin": "ast",
-      "community": 43,
-      "community_name": ".Update",
-      "file_type": "code",
-      "norm_label": "createdatroute",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_endpoints_recipesendpoints_cs_nocontent",
-      "label": "NoContent",
-      "_origin": "ast",
-      "community": 43,
-      "community_name": ".Update",
-      "file_type": "code",
-      "norm_label": "nocontent",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_endpoints_recipesendpoints_cs_notfound",
-      "label": "NotFound",
-      "_origin": "ast",
-      "community": 43,
-      "community_name": ".Update",
-      "file_type": "code",
-      "norm_label": "notfound",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_endpoints_recipesendpoints_cs_problemhttpresult",
-      "label": "ProblemHttpResult",
-      "_origin": "ast",
-      "community": 43,
-      "community_name": ".Update",
-      "file_type": "code",
-      "norm_label": "problemhttpresult",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_endpoints_recipesendpoints_cs_results",
-      "label": "Results",
-      "_origin": "ast",
-      "community": 43,
-      "community_name": ".Update",
-      "file_type": "code",
-      "norm_label": "results",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_endpoints_recipesendpoints_cs_validationproblem",
-      "label": "ValidationProblem",
-      "_origin": "ast",
-      "community": 43,
-      "community_name": ".Update",
-      "file_type": "code",
-      "norm_label": "validationproblem",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "createreciperequest",
-      "label": "CreateRecipeRequest",
-      "_origin": "ast",
-      "community": 43,
-      "community_name": ".Update",
-      "file_type": "code",
-      "norm_label": "createreciperequest",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_db_pizzashopcontext",
-      "label": "PizzaShopContext.cs",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "PizzaShopContext.cs",
-      "file_type": "code",
-      "norm_label": "pizzashopcontext.cs",
-      "source_file": "api/Db/PizzaShopContext.cs",
-      "source_location": "L1"
-    },
-    {
-      "id": "api_models_appuser",
-      "label": "AppUser.cs",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "PizzaShopContext.cs",
-      "file_type": "code",
-      "norm_label": "appuser.cs",
-      "source_file": "api/Models/AppUser.cs",
-      "source_location": "L1"
     },
     {
       "id": "api_migrations_20261019030907_addorderidempotencykey_cs_guid",
@@ -10574,124 +10780,6 @@
       "source_location": ""
     },
     {
-      "id": "api_models_recipe_cs_guid",
-      "label": "Guid",
-      "_origin": "ast",
-      "community": 73,
-      "community_name": "Recipe",
-      "file_type": "code",
-      "norm_label": "guid",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_models_recipe_cs_list",
-      "label": "List",
-      "_origin": "ast",
-      "community": 73,
-      "community_name": "Recipe",
-      "file_type": "code",
-      "norm_label": "list",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_models_recipe_cs_recipeitem",
-      "label": "RecipeItem",
-      "_origin": "ast",
-      "community": 73,
-      "community_name": "Recipe",
-      "file_type": "code",
-      "norm_label": "recipeitem",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_models_recipe_pizzashop_api_models_recipe_baseprice",
-      "label": "BasePrice",
-      "_origin": "ast",
-      "community": 73,
-      "community_name": "Recipe",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "baseprice",
-      "source_file": "api/Models/Recipe.cs",
-      "source_location": "L14"
-    },
-    {
-      "id": "api_models_recipe_pizzashop_api_models_recipe_isactive",
-      "label": "IsActive",
-      "_origin": "ast",
-      "community": 73,
-      "community_name": "Recipe",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "isactive",
-      "source_file": "api/Models/Recipe.cs",
-      "source_location": "L19"
-    },
-    {
-      "id": "api_models_recipe_pizzashop_api_models_recipe_name",
-      "label": "Name",
-      "_origin": "ast",
-      "community": 73,
-      "community_name": "Recipe",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "name",
-      "source_file": "api/Models/Recipe.cs",
-      "source_location": "L11"
-    },
-    {
-      "id": "api_models_recipe_pizzashop_api_models_recipe_recipeid",
-      "label": "RecipeId",
-      "_origin": "ast",
-      "community": 73,
-      "community_name": "Recipe",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "recipeid",
-      "source_file": "api/Models/Recipe.cs",
-      "source_location": "L8"
-    },
-    {
-      "id": "api_models_recipe_pizzashop_api_models_recipe_recipeitems",
-      "label": "RecipeItems",
-      "_origin": "ast",
-      "community": 73,
-      "community_name": "Recipe",
-      "file_type": "code",
-      "metadata": {
-        "namespace": "PizzaShop.Api.Models",
-        "scope_chain": [
-          "s3:0"
-        ]
-      },
-      "norm_label": "recipeitems",
-      "source_file": "api/Models/Recipe.cs",
-      "source_location": "L21"
-    },
-    {
       "id": "api_migrations_20261019024553_addingredienttoppingfields_cs_migrationbuilder",
       "label": "MigrationBuilder",
       "_origin": "ast",
@@ -10732,50 +10820,6 @@
       "community_name": "AddIngredientToppingFields",
       "file_type": "code",
       "norm_label": "modelbuilder",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_dtos_recipedto_cs_expression",
-      "label": "Expression",
-      "_origin": "ast",
-      "community": 75,
-      "community_name": "RecipeDto",
-      "file_type": "code",
-      "norm_label": "expression",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_dtos_recipedto_cs_func",
-      "label": "Func",
-      "_origin": "ast",
-      "community": 75,
-      "community_name": "RecipeDto",
-      "file_type": "code",
-      "norm_label": "func",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_dtos_recipedto_cs_guid",
-      "label": "Guid",
-      "_origin": "ast",
-      "community": 75,
-      "community_name": "RecipeDto",
-      "file_type": "code",
-      "norm_label": "guid",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_dtos_recipedto_cs_list",
-      "label": "List",
-      "_origin": "ast",
-      "community": 75,
-      "community_name": "RecipeDto",
-      "file_type": "code",
-      "norm_label": "list",
       "source_file": "",
       "source_location": ""
     },
@@ -10908,50 +10952,6 @@
       "community_name": "Roles.cs",
       "file_type": "code",
       "norm_label": "ireadonlylist",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "enum",
-      "label": "Enum",
-      "_origin": "ast",
-      "community": 80,
-      "community_name": ".ConfigureConventions",
-      "file_type": "code",
-      "norm_label": "enum",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "modelconfigurationbuilder",
-      "label": "ModelConfigurationBuilder",
-      "_origin": "ast",
-      "community": 80,
-      "community_name": ".ConfigureConventions",
-      "file_type": "code",
-      "norm_label": "modelconfigurationbuilder",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_requests_updatereciperequest_cs_list",
-      "label": "List",
-      "_origin": "ast",
-      "community": 81,
-      "community_name": "UpdateRecipeRequest",
-      "file_type": "code",
-      "norm_label": "list",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "api_requests_updatereciperequest_cs_recipeitemrequest",
-      "label": "RecipeItemRequest",
-      "_origin": "ast",
-      "community": 81,
-      "community_name": "UpdateRecipeRequest",
-      "file_type": "code",
-      "norm_label": "recipeitemrequest",
       "source_file": "",
       "source_location": ""
     },
@@ -11819,10 +11819,21 @@
       "type": "external"
     },
     {
+      "id": "system_linq_expressions",
+      "label": "system_linq_expressions",
+      "community": 24,
+      "community_name": ".Update",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "system_linq_expressions",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "pizzashop_api_models",
       "label": "pizzashop_api_models",
-      "community": 26,
-      "community_name": "PizzaSizeMapper",
+      "community": 38,
+      "community_name": ".Update",
       "external": true,
       "file_type": "concept",
       "norm_label": "pizzashop_api_models",
@@ -11830,76 +11841,10 @@
       "type": "external"
     },
     {
-      "id": "microsoft_entityframeworkcore_infrastructure",
-      "label": "microsoft_entityframeworkcore_infrastructure",
-      "community": 28,
-      "community_name": "PizzaShop.Api.Migrations",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "microsoft_entityframeworkcore_infrastructure",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "microsoft_entityframeworkcore_migrations",
-      "label": "microsoft_entityframeworkcore_migrations",
-      "community": 28,
-      "community_name": "PizzaShop.Api.Migrations",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "microsoft_entityframeworkcore_migrations",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "microsoft_entityframeworkcore_storage_valueconversion",
-      "label": "microsoft_entityframeworkcore_storage_valueconversion",
-      "community": 28,
-      "community_name": "PizzaShop.Api.Migrations",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "microsoft_entityframeworkcore_storage_valueconversion",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "npgsql_entityframeworkcore_postgresql_metadata",
-      "label": "npgsql_entityframeworkcore_postgresql_metadata",
-      "community": 28,
-      "community_name": "PizzaShop.Api.Migrations",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "npgsql_entityframeworkcore_postgresql_metadata",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "pizzashop_api_db",
-      "label": "pizzashop_api_db",
-      "community": 28,
-      "community_name": "PizzaShop.Api.Migrations",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "pizzashop_api_db",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "system",
-      "label": "system",
-      "community": 28,
-      "community_name": "PizzaShop.Api.Migrations",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "system",
-      "source_file": "",
-      "type": "external"
-    },
-    {
       "id": "microsoft_aspnetcore_authentication_bearertoken",
       "label": "microsoft_aspnetcore_authentication_bearertoken",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "external": true,
       "file_type": "concept",
       "norm_label": "microsoft_aspnetcore_authentication_bearertoken",
@@ -11910,7 +11855,7 @@
       "id": "microsoft_aspnetcore_dataprotection",
       "label": "microsoft_aspnetcore_dataprotection",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "external": true,
       "file_type": "concept",
       "norm_label": "microsoft_aspnetcore_dataprotection",
@@ -11918,10 +11863,21 @@
       "type": "external"
     },
     {
+      "id": "microsoft_aspnetcore_dataprotection_entityframeworkcore",
+      "label": "microsoft_aspnetcore_dataprotection_entityframeworkcore",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "microsoft_aspnetcore_dataprotection_entityframeworkcore",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "microsoft_aspnetcore_http_httpresults",
       "label": "microsoft_aspnetcore_http_httpresults",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "external": true,
       "file_type": "concept",
       "norm_label": "microsoft_aspnetcore_http_httpresults",
@@ -11929,10 +11885,32 @@
       "type": "external"
     },
     {
+      "id": "microsoft_aspnetcore_identity",
+      "label": "microsoft_aspnetcore_identity",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "microsoft_aspnetcore_identity",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "microsoft_aspnetcore_identity_entityframeworkcore",
+      "label": "microsoft_aspnetcore_identity_entityframeworkcore",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "microsoft_aspnetcore_identity_entityframeworkcore",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "microsoft_aspnetcore_mvc",
       "label": "microsoft_aspnetcore_mvc",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "external": true,
       "file_type": "concept",
       "norm_label": "microsoft_aspnetcore_mvc",
@@ -11940,10 +11918,54 @@
       "type": "external"
     },
     {
+      "id": "microsoft_entityframeworkcore",
+      "label": "microsoft_entityframeworkcore",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "microsoft_entityframeworkcore",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "microsoft_entityframeworkcore_infrastructure",
+      "label": "microsoft_entityframeworkcore_infrastructure",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "microsoft_entityframeworkcore_infrastructure",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "microsoft_entityframeworkcore_migrations",
+      "label": "microsoft_entityframeworkcore_migrations",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "microsoft_entityframeworkcore_migrations",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "microsoft_entityframeworkcore_storage_valueconversion",
+      "label": "microsoft_entityframeworkcore_storage_valueconversion",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "microsoft_entityframeworkcore_storage_valueconversion",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "microsoft_extensions_options",
       "label": "microsoft_extensions_options",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "external": true,
       "file_type": "concept",
       "norm_label": "microsoft_extensions_options",
@@ -11954,7 +11976,7 @@
       "id": "npgsql",
       "label": "npgsql",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "external": true,
       "file_type": "concept",
       "norm_label": "npgsql",
@@ -11962,10 +11984,65 @@
       "type": "external"
     },
     {
+      "id": "npgsql_entityframeworkcore_postgresql_metadata",
+      "label": "npgsql_entityframeworkcore_postgresql_metadata",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "npgsql_entityframeworkcore_postgresql_metadata",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "pizzashop_api_auth",
+      "label": "pizzashop_api_auth",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "pizzashop_api_auth",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "pizzashop_api_auth_roles",
+      "label": "pizzashop_api_auth_roles",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "pizzashop_api_auth_roles",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "pizzashop_api_db",
+      "label": "pizzashop_api_db",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "pizzashop_api_db",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "pizzashop_api_endpoints",
+      "label": "pizzashop_api_endpoints",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "pizzashop_api_endpoints",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "pizzashop_api_extensions",
       "label": "pizzashop_api_extensions",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "external": true,
       "file_type": "concept",
       "norm_label": "pizzashop_api_extensions",
@@ -11976,7 +12053,7 @@
       "id": "pizzashop_api_options",
       "label": "pizzashop_api_options",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "external": true,
       "file_type": "concept",
       "norm_label": "pizzashop_api_options",
@@ -11987,7 +12064,7 @@
       "id": "scalar_aspnetcore",
       "label": "scalar_aspnetcore",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
+      "community_name": "PizzaShop.Api.Models",
       "external": true,
       "file_type": "concept",
       "norm_label": "scalar_aspnetcore",
@@ -11995,64 +12072,20 @@
       "type": "external"
     },
     {
-      "id": "system_security_claims",
-      "label": "system_security_claims",
+      "id": "system",
+      "label": "system",
       "community": 4,
-      "community_name": "OrdersEndpoints.cs",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "system_security_claims",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "system_security_cryptography",
-      "label": "system_security_cryptography",
-      "community": 4,
-      "community_name": "OrdersEndpoints.cs",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "system_security_cryptography",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "system_text_json",
-      "label": "system_text_json",
-      "community": 4,
-      "community_name": "OrdersEndpoints.cs",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "system_text_json",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "system_text_json_serialization",
-      "label": "system_text_json_serialization",
-      "community": 4,
-      "community_name": "OrdersEndpoints.cs",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "system_text_json_serialization",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "microsoft_entityframeworkcore",
-      "label": "microsoft_entityframeworkcore",
-      "community": 40,
       "community_name": "PizzaShop.Api.Models",
       "external": true,
       "file_type": "concept",
-      "norm_label": "microsoft_entityframeworkcore",
+      "norm_label": "system",
       "source_file": "",
       "type": "external"
     },
     {
       "id": "system_componentmodel_dataannotations",
       "label": "system_componentmodel_dataannotations",
-      "community": 40,
+      "community": 4,
       "community_name": "PizzaShop.Api.Models",
       "external": true,
       "file_type": "concept",
@@ -12063,7 +12096,7 @@
     {
       "id": "system_componentmodel_dataannotations_schema",
       "label": "system_componentmodel_dataannotations_schema",
-      "community": 40,
+      "community": 4,
       "community_name": "PizzaShop.Api.Models",
       "external": true,
       "file_type": "concept",
@@ -12072,13 +12105,46 @@
       "type": "external"
     },
     {
-      "id": "system_linq_expressions",
-      "label": "system_linq_expressions",
-      "community": 40,
+      "id": "system_security_claims",
+      "label": "system_security_claims",
+      "community": 4,
       "community_name": "PizzaShop.Api.Models",
       "external": true,
       "file_type": "concept",
-      "norm_label": "system_linq_expressions",
+      "norm_label": "system_security_claims",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "system_security_cryptography",
+      "label": "system_security_cryptography",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "system_security_cryptography",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "system_text_json",
+      "label": "system_text_json",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "system_text_json",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "system_text_json_serialization",
+      "label": "system_text_json_serialization",
+      "community": 4,
+      "community_name": "PizzaShop.Api.Models",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "system_text_json_serialization",
       "source_file": "",
       "type": "external"
     },
@@ -12101,50 +12167,6 @@
       "external": true,
       "file_type": "concept",
       "norm_label": "microsoft_openapi",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "microsoft_aspnetcore_dataprotection_entityframeworkcore",
-      "label": "microsoft_aspnetcore_dataprotection_entityframeworkcore",
-      "community": 44,
-      "community_name": "PizzaShopContext.cs",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "microsoft_aspnetcore_dataprotection_entityframeworkcore",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "microsoft_aspnetcore_identity",
-      "label": "microsoft_aspnetcore_identity",
-      "community": 44,
-      "community_name": "PizzaShopContext.cs",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "microsoft_aspnetcore_identity",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "microsoft_aspnetcore_identity_entityframeworkcore",
-      "label": "microsoft_aspnetcore_identity_entityframeworkcore",
-      "community": 44,
-      "community_name": "PizzaShopContext.cs",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "microsoft_aspnetcore_identity_entityframeworkcore",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "pizzashop_api_auth_roles",
-      "label": "pizzashop_api_auth_roles",
-      "community": 44,
-      "community_name": "PizzaShopContext.cs",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "pizzashop_api_auth_roles",
       "source_file": "",
       "type": "external"
     }
@@ -19879,7 +19901,7 @@
     },
     {
       "source": "api_program",
-      "target": "csharp_namespace:18c61685bc5e9f19",
+      "target": "pizzashop_api_auth",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -20151,7 +20173,7 @@
     },
     {
       "source": "api_program",
-      "target": "csharp_namespace:41e321ca24ee56c3",
+      "target": "pizzashop_api_db",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -20287,7 +20309,7 @@
     },
     {
       "source": "api_program",
-      "target": "csharp_namespace:67154e65adca4dd6",
+      "target": "pizzashop_api_endpoints",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -30450,5 +30472,5 @@
       "source_file": "web/public/next.svg"
     }
   ],
-  "built_at_commit": "9315c6627d88c001cfd770361fea22462e8d9364"
+  "built_at_commit": "4ae31ffc3aa402e27ef8b39b284230df3562f83c"
 }

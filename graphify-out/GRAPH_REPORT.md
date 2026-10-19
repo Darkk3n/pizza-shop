@@ -1,17 +1,17 @@
 # Graph Report - pizza-shop  (2026-10-18)
 
 ## Corpus Check
-- 81 files · ~19,082 words
+- 81 files · ~19,171 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 5 file(s) not represented in the graph (top: (none) 2, .example 1, .ico 1)
 
 ## Summary
-- 808 nodes · 1338 edges · 104 communities (25 shown, 79 thin omitted)
+- 810 nodes · 1338 edges · 93 communities (23 shown, 70 thin omitted)
 - Extraction: 97% EXTRACTED · 3% INFERRED · 0% AMBIGUOUS · INFERRED: 36 edges (avg confidence: 0.86)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `9315c662`
+- Built from commit: `4ae31ffc`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -20,7 +20,7 @@
 - web/package.json
 - AppShell.tsx
 - compilerOptions
-- OrdersEndpoints.cs
+- PizzaShop.Api.Models
 - package.json
 - http
 - postgres service (postgres:18-alpine, pizzashop-db)
@@ -28,49 +28,41 @@
 - Globe Icon (world/web, 16x16 gray)
 - Next.js Wordmark Logo (black)
 - RecipeItem
-- OrderItem
 - MigrationBuilder
 - .AddPizzaShopAuth
 - PizzaShopContext
 - Order
-- PizzaShop.Api.Requests
 - .UpdateRoles
-- RecipesEndpoints
-- PizzaSizeMapper
+- .Update
 - .Create
-- PizzaShop.Api.Migrations
 - .GetAll
-- Ingredient
+- .Update
 - .Update
 - .Update
 - .BuildModel
-- PizzaShop.Api.Models
 - .TransformAsync
-- OrderDto
+- OrderItem
 - AddOrderIdempotencyKey
 - AddIdentity
 - PizzaSize
 - AddMenuActiveAndOrderCancellation
 - UnitOfMeasure
 - OrderOptions.cs
-- Recipe
 - AddIngredientToppingFields
-- RecipeDto
 - ToppingMapper
 - Roles.cs
-- UpdateRecipeRequest
 
 ## God Nodes (most connected - your core abstractions)
 1. `PizzaShopContext` - 70 edges
 2. `Order` - 32 edges
 3. `PizzaShop.Api.Models` - 26 edges
 4. `PizzaShop.Api.Requests` - 22 edges
-5. `Ingredient` - 19 edges
-6. `OrderItem` - 19 edges
+5. `OrderItem` - 19 edges
+6. `Ingredient` - 19 edges
 7. `OrdersEndpoints` - 18 edges
 8. `compilerOptions` - 16 edges
 9. `OrderDto` - 14 edges
-10. `Recipe` - 14 edges
+10. `OrderItemTopping` - 14 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Next.js Agent Rules (breaking-change docs warning)` --conceptually_related_to--> `Frontend Conventions (Server Components, Zod, feature hooks)`  [INFERRED]
@@ -93,7 +85,7 @@
 - **Price snapshot pattern for historical stability** — claude_price_stability, claude_orderitems, claude_orderitemtoppings, claude_orders [INFERRED 0.85]
 - **create-next-app Default Boilerplate Assets (currently unused)** — web_public_file_file_icon, web_public_globe_globe_icon, web_public_next_next_js_wordmark, web_public_vercel_vercel_logo, web_public_window_window_icon [INFERRED 0.85]
 
-## Communities (104 total, 79 thin omitted)
+## Communities (93 total, 70 thin omitted)
 
 ### Community 0 - "Pizza Shop POS README"
 Cohesion: 0.12
@@ -111,9 +103,9 @@ Nodes (32): next, react, geistMono, geistSans, metadata, RootLayout(), AppShell(
 Cohesion: 0.11
 Nodes (18): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+10 more)
 
-### Community 4 - "OrdersEndpoints.cs"
-Cohesion: 0.15
-Nodes (5): Policies, PizzaShop.Api.Auth, PizzaShop.Api.Db, PizzaShop.Api.Dtos, PizzaShop.Api.Endpoints
+### Community 4 - "PizzaShop.Api.Models"
+Cohesion: 0.05
+Nodes (16): Policies, AdjustIngredientStockRequest, CreateIngredientRequest, CreatePizzaSizeRequest, CreateRecipeRequest, CreateUnitOfMeasureRequest, RecipeItemRequest, UpdatePizzaSizeRequest (+8 more)
 
 ### Community 5 - "package.json"
 Cohesion: 0.12
@@ -139,41 +131,41 @@ Nodes (3): File Icon (document outline, 16x16 gray), Globe Icon (world/web, 16x1
 Cohesion: 0.22
 Nodes (7): RecipeItem, Amount, Ingredient, IngredientId, Recipe, RecipeId, RecipeItemId
 
-### Community 14 - "OrderItem"
-Cohesion: 0.12
-Nodes (13): OrderItem, ItemNameSnapshot, LineTotal, Order, OrderId, OrderItemId, PizzaSize, PizzaSizeId (+5 more)
-
 ### Community 19 - ".AddPizzaShopAuth"
 Cohesion: 0.11
 Nodes (3): AuthExtensions, CorsExtensions, PizzaShop.Api.Extensions
 
 ### Community 20 - "PizzaShopContext"
-Cohesion: 0.10
-Nodes (11): PizzaShopContext, DataProtectionKeys, Ingredients, OrderIngredientUsages, OrderItems, OrderItemToppings, Orders, PizzaSizes (+3 more)
+Cohesion: 0.05
+Nodes (27): PizzaShopContext, DataProtectionKeys, Ingredients, OrderIngredientUsages, OrderItems, OrderItemToppings, Orders, PizzaSizes (+19 more)
 
 ### Community 21 - "Order"
-Cohesion: 0.06
-Nodes (26): Order, CancellationReason, CancelledAt, CancelledBy, CancelledByUserId, CreatedAt, IdempotencyKey, IngredientUsages (+18 more)
-
-### Community 22 - "PizzaShop.Api.Requests"
 Cohesion: 0.08
-Nodes (9): AdjustIngredientStockRequest, CreateIngredientRequest, CreatePizzaSizeRequest, CreateRecipeRequest, CreateUnitOfMeasureRequest, RecipeItemRequest, UpdatePizzaSizeRequest, UpdateUnitOfMeasureRequest (+1 more)
+Nodes (19): Order, CancellationReason, CancelledAt, CancelledBy, CancelledByUserId, CreatedAt, IdempotencyKey, IngredientUsages (+11 more)
 
 ### Community 23 - ".UpdateRoles"
 Cohesion: 0.09
 Nodes (4): UserDto, UsersEndpoints, AppUser, UpdateUserRolesRequest
 
-### Community 26 - "PizzaSizeMapper"
-Cohesion: 0.21
-Nodes (4): PizzaSizeDto, PizzaSizeMapper, UnitOfMeasureDto, UnitOfMeasureMapper
+### Community 24 - ".Update"
+Cohesion: 0.08
+Nodes (11): RecipeDto, RecipeItemDto, RecipeMapper, RecipesEndpoints, Recipe, BasePrice, IsActive, Name (+3 more)
 
-### Community 31 - "Ingredient"
-Cohesion: 0.10
-Nodes (13): IngredientDto, IngredientMapper, IngredientsEndpoints, Ingredient, CurrentStock, IngredientId, IsActive, Name (+5 more)
+### Community 27 - ".Create"
+Cohesion: 0.08
+Nodes (15): OrderDto, OrderItemDto, OrderItemToppingDto, OrderMapper, OrderSummaryDto, PagedResult, OrdersEndpoints, OrderStatus (+7 more)
 
-### Community 42 - "OrderDto"
-Cohesion: 0.06
-Nodes (37): OrderDto, OrderItemDto, OrderItemToppingDto, OrderMapper, OrderSummaryDto, PagedResult, OrderStatus, Cancelled (+29 more)
+### Community 31 - ".Update"
+Cohesion: 0.15
+Nodes (4): IngredientDto, IngredientMapper, IngredientsEndpoints, UpdateIngredientRequest
+
+### Community 38 - ".Update"
+Cohesion: 0.11
+Nodes (5): PizzaSizeDto, PizzaSizeMapper, UnitOfMeasureDto, UnitOfMeasureMapper, PizzaSizesEndpoints
+
+### Community 42 - "OrderItem"
+Cohesion: 0.05
+Nodes (37): OrderType, Delivery, DineIn, Takeout, ToppingAmount, Extra, Light, Standard (+29 more)
 
 ### Community 47 - "PizzaSize"
 Cohesion: 0.40
@@ -187,37 +179,29 @@ Nodes (3): UnitOfMeasure, Name, UnitOfMeasureId
 Cohesion: 0.50
 Nodes (3): OrderOptions, TaxRate, PizzaShop.Api.Options
 
-### Community 73 - "Recipe"
-Cohesion: 0.22
-Nodes (6): Recipe, BasePrice, IsActive, Name, RecipeId, RecipeItems
-
-### Community 75 - "RecipeDto"
-Cohesion: 0.33
-Nodes (3): RecipeDto, RecipeItemDto, RecipeMapper
-
 ## Ambiguous Edges - Review These
 - `pnpm workspace (packages: web)` → `Tech Stack (pnpm, Next.js 16, ASP.NET 10, PostgreSQL, Azure)`  [AMBIGUOUS]
   pnpm-workspace.yaml · relation: conceptually_related_to
 
 ## Knowledge Gaps
-- **122 isolated node(s):** `DataProtectionKeys`, `Ingredients`, `UnitsOfMeasure`, `Orders`, `OrderItems` (+117 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 417 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **79 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **122 isolated node(s):** `react-dom`, `tailwindcss`, `@tailwindcss/turbopack`, `@types/node`, `@types/react` (+117 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 419 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **70 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `PizzaShopContext` connect `PizzaShopContext` to `.Update`, `.Update`, `Recipe`, `.Update`, `PizzaShopContext.cs`, `.ConfigureConventions`, `.AddPizzaShopAuth`, `Order`, `.UpdateRoles`, `RecipesEndpoints`, `.Create`, `.GetAll`, `Ingredient`?**
+- **Why does `PizzaShopContext` connect `PizzaShopContext` to `.Update`, `PizzaShop.Api.Models`, `.Update`, `.AddPizzaShopAuth`, `Order`, `.UpdateRoles`, `.Update`, `.Create`, `.GetAll`, `.Update`?**
   _High betweenness centrality (0.210) - this node is a cross-community bridge._
-- **What connects `DataProtectionKeys`, `Ingredients`, `UnitsOfMeasure` to the rest of the system?**
+- **What connects `react-dom`, `tailwindcss`, `@tailwindcss/turbopack` to the rest of the system?**
   _122 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Pizza Shop POS README` be split into smaller, more focused modules?**
   _Cohesion score 0.1164021164021164 - nodes in this community are weakly interconnected._
-- **Why does `PizzaShop.Api.Models` connect `PizzaShop.Api.Models` to `OrderDto`, `OrdersEndpoints.cs`, `PizzaShopContext.cs`, `PizzaShop.Api.Requests`?**
+- **Why does `PizzaShop.Api.Models` connect `PizzaShop.Api.Models` to `.Update`, `OrderItem`, `.Create`?**
   _High betweenness centrality (0.061) - this node is a cross-community bridge._
 - **Should `web/package.json` be split into smaller, more focused modules?**
   _Cohesion score 0.0625 - nodes in this community are weakly interconnected._
-- **Why does `Order` connect `Order` to `PizzaShop.Api.Models`, `OrderDto`, `.Create`, `PizzaShopContext`?**
+- **Why does `Order` connect `Order` to `OrderItem`, `.Create`, `PizzaShopContext`, `PizzaShop.Api.Models`?**
   _High betweenness centrality (0.058) - this node is a cross-community bridge._
 
 ### Low-confidence Hints

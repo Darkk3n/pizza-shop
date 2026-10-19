@@ -36,6 +36,7 @@ A full-stack POS system for pizza restaurant owners featuring order management, 
 - Use Minimal APIs organized via extension methods or typed endpoint groups (avoid bloated `Program.cs`).
 - Use `DateTimeOffset` (not `DateTime`) for all time-based properties (`CreatedAt`, timestamps).
 - Standardize responses using standard HTTP status codes and typed DTOs.
+- Every error response is Problem Details (`application/problem+json`): return `TypedResults.Problem` / `ValidationProblem`; `UseStatusCodePages` fills empty 401/403/404/405/400 bodies and `UseExceptionHandler` turns unhandled exceptions into a generic 500 outside Development.
 - DB Context maps `Decimal(10,2)` for currency and `Decimal(10,4)` for recipe ingredient measurements.
 
 ## Core Features & Business Rules

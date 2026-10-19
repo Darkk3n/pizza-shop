@@ -27,6 +27,16 @@ builder.Services.AddOpenApi(options => options.AddDocumentTransformer<BearerSecu
 
 var app = builder.Build();
 
+// Every error response is Problem Details (application/problem+json), so the web app needs one
+// parser. Unhandled exceptions become a generic 500 outside Development (where the developer
+// exception page, which also answers JSON clients with problem details, shows the stack trace).
+// Status code pages fill the empty bodies of 401/403/404/405 and binding failures.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler();
+}
+app.UseStatusCodePages();
+
 app.UseCors(CorsExtensions.FrontendPolicy);
 app.UseAuthentication();
 app.UseAuthorization();
