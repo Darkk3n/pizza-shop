@@ -77,6 +77,16 @@ pizza-shop/
 | API      | http://localhost:5261 (https://localhost:7033 on HTTPS) |
 | Postgres | localhost:5432, database `pizzashop_db`                 |
 
+In Development the API seeds sample data on startup: a menu (ingredients, toppings and recipes; only when the database has none) and these accounts, all with the password `Dev!Pass123`:
+
+| Account                  | Role     |
+| ------------------------ | -------- |
+| `admin@pizzashop.dev`    | Admin    |
+| `staff@pizzashop.dev`    | Staff    |
+| `customer@pizzashop.dev` | Customer |
+
+Set `DevSeed:Enabled` to `false` to turn it off. It never runs outside Development.
+
 ## Scripts
 
 | Command        | Description                                         |
@@ -86,6 +96,7 @@ pizza-shop/
 | `pnpm dev:api` | Run only the API with `dotnet watch`                |
 | `pnpm db:up`   | Start the PostgreSQL container                      |
 | `pnpm db:down` | Stop the PostgreSQL container                       |
+| `pnpm test:api` | Run the API integration tests (own `pizzashop_tests` database) |
 
 ### Database migrations
 

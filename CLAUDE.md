@@ -16,7 +16,10 @@ A full-stack POS system for pizza restaurant owners featuring order management, 
 
 - **Frontend:** `web/`
 - **Backend:** `api/`
+- **Backend tests:** `Tests/PizzaShop.Api.Tests/` (xUnit + `WebApplicationFactory`), run with `pnpm test:api`. They use a separate `pizzashop_tests` database, dropped and re-migrated each run, on the server from `api/appsettings.Development.json` (override with `PIZZASHOP_TEST_CONNECTION`). Solution file: `PizzaShop.slnx`.
+- **Health check:** `GET /health` (anonymous, never rate limited) → `Healthy` 200 / `Unhealthy` 503 when the database is unreachable.
 - **Run local dev environment:** `pnpm dev`
+- **Development sample data:** `api/Db/DevelopmentSeeder.cs` runs only in Development (`DevSeed:Enabled`, default true). It creates `admin@`, `staff@` and `customer@pizzashop.dev` (password `Dev!Pass123`), and a menu only when there are no ingredients or recipes. Reference data needed everywhere (units, sizes, roles) stays in `HasData`; sample data must never go there.
 - **Database local docker:** `db:up`
 - **EF Core Migrations:** `dotnet ef migrations add <Name> --project api`
 - **EF Core Update DB:** `dotnet ef database update --project api`
@@ -36,6 +39,7 @@ A full-stack POS system for pizza restaurant owners featuring order management, 
 - Use Minimal APIs organized via extension methods or typed endpoint groups (avoid bloated `Program.cs`).
 - Use `DateTimeOffset` (not `DateTime`) for all time-based properties (`CreatedAt`, timestamps).
 - Standardize responses using standard HTTP status codes and typed DTOs.
+- Cover new endpoints and business rules with integration tests through the public HTTP API (`Tests/PizzaShop.Api.Tests`, helpers in `Infrastructure/TestApi.cs`). Tests create uniquely named data and run sequentially. `SecurityTests` fails if an endpoint lacks authorization metadata, so a new anonymous route must be added to its allowlist on purpose.
 - Every error response is Problem Details (`application/problem+json`): return `TypedResults.Problem` / `ValidationProblem`; `UseStatusCodePages` fills empty 401/403/404/405/400 bodies and `UseExceptionHandler` turns unhandled exceptions into a generic 500 outside Development.
 - DB Context maps `Decimal(10,2)` for currency and `Decimal(10,4)` for recipe ingredient measurements.
 

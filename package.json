@@ -5,6 +5,7 @@
 		"dev": "concurrently -n web,api,open -c cyan,magenta,gray \"pnpm:dev:web\" \"pnpm:dev:api\" \"wait-on http-get://localhost:3000 && open-cli http://localhost:3000\"",
 		"dev:web": "pnpm --filter web dev",
 		"dev:api": "dotnet watch run --project api/PizzaShop.Api.csproj",
+		"test:api": "dotnet test Tests/PizzaShop.Api.Tests/PizzaShop.Api.Tests.csproj",
 		"db:up": "podman compose up -d",
 		"db:down": "podman compose down"
 	},

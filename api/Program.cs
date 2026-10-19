@@ -26,6 +26,9 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 builder.Services.AddProblemDetails();
 builder.Services.AddValidation();
 builder.Services.AddOpenApi(options => options.AddDocumentTransformer<BearerSecuritySchemeTransformer>());
+// Reports Unhealthy (503) when the database can't be reached.
+builder.Services.AddHealthChecks()
+    .AddDbContextCheck<PizzaShopContext>();
 
 var app = builder.Build();
 
@@ -57,7 +60,10 @@ if (app.Environment.IsDevelopment())
 
 // Every resource group requires a signed-in user (role policies per endpoint);
 // only this health check and /api/auth's register/login/refresh are anonymous.
-app.MapGet("/", () => "Hello World!");
+// Azure probes it every few seconds, so it is never rate limited (a throttled probe would mark
+// the instance unhealthy). Plain-text "Healthy"/"Unhealthy" with 200/503.
+app.MapHealthChecks("/health")
+    .DisableRateLimiting();
 app.MapAuthEndpoints();
 app.MapUsersEndpoints();
 app.MapUnitsOfMeasureEndpoints();
@@ -68,5 +74,6 @@ app.MapPizzaSizesEndpoints();
 app.MapOrdersEndpoints();
 
 await app.SeedBootstrapAdminAsync();
+await app.SeedDevelopmentDataAsync();
 
 app.Run();
