@@ -264,6 +264,9 @@ namespace PizzaShop.Api.Migrations
                         .HasColumnType("numeric(10,2)")
                         .HasDefaultValue(0m);
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -291,6 +294,16 @@ namespace PizzaShop.Api.Migrations
                 {
                     b.Property<Guid>("OrderId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("CancellationReason")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<DateTimeOffset?>("CancelledAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("CancelledByUserId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTimeOffset>("CreatedAt")
@@ -339,6 +352,8 @@ namespace PizzaShop.Api.Migrations
 
                     b.HasKey("OrderId");
 
+                    b.HasIndex("CancelledByUserId");
+
                     b.HasIndex("OrderNumber")
                         .IsUnique();
 
@@ -348,6 +363,32 @@ namespace PizzaShop.Api.Migrations
                         .IsUnique();
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("PizzaShop.Api.Models.OrderIngredientUsage", b =>
+                {
+                    b.Property<Guid>("OrderIngredientUsageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Amount")
+                        .HasPrecision(10, 4)
+                        .HasColumnType("numeric(10,4)");
+
+                    b.Property<Guid>("IngredientId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("OrderIngredientUsageId");
+
+                    b.HasIndex("IngredientId");
+
+                    b.HasIndex("OrderId", "IngredientId")
+                        .IsUnique();
+
+                    b.ToTable("OrderIngredientUsages");
                 });
 
             modelBuilder.Entity("PizzaShop.Api.Models.OrderItem", b =>
@@ -483,6 +524,9 @@ namespace PizzaShop.Api.Migrations
                         .HasPrecision(10, 2)
                         .HasColumnType("numeric(10,2)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -616,13 +660,39 @@ namespace PizzaShop.Api.Migrations
 
             modelBuilder.Entity("PizzaShop.Api.Models.Order", b =>
                 {
+                    b.HasOne("PizzaShop.Api.Models.AppUser", "CancelledBy")
+                        .WithMany()
+                        .HasForeignKey("CancelledByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("PizzaShop.Api.Models.AppUser", "PlacedBy")
                         .WithMany()
                         .HasForeignKey("PlacedByUserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("CancelledBy");
+
                     b.Navigation("PlacedBy");
+                });
+
+            modelBuilder.Entity("PizzaShop.Api.Models.OrderIngredientUsage", b =>
+                {
+                    b.HasOne("PizzaShop.Api.Models.Ingredient", "Ingredient")
+                        .WithMany()
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PizzaShop.Api.Models.Order", "Order")
+                        .WithMany("IngredientUsages")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ingredient");
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("PizzaShop.Api.Models.OrderItem", b =>
@@ -690,6 +760,8 @@ namespace PizzaShop.Api.Migrations
 
             modelBuilder.Entity("PizzaShop.Api.Models.Order", b =>
                 {
+                    b.Navigation("IngredientUsages");
+
                     b.Navigation("Items");
                 });
 

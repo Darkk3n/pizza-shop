@@ -19,6 +19,7 @@ namespace PizzaShop.Api.Db
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<OrderItemTopping> OrderItemToppings { get; set; }
+        public DbSet<OrderIngredientUsage> OrderIngredientUsages { get; set; }
         public DbSet<PizzaSize> PizzaSizes { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<RecipeItem> RecipeItems { get; set; }
@@ -84,6 +85,16 @@ namespace PizzaShop.Api.Db
 
             modelBuilder.Entity<Order>()
                 .HasOne(o => o.PlacedBy)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.CancelledBy)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<OrderIngredientUsage>()
+                .HasOne(u => u.Ingredient)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
 

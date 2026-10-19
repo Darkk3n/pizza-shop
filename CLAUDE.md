@@ -40,8 +40,8 @@ A full-stack POS system for pizza restaurant owners featuring order management, 
 
 ## Core Features & Business Rules
 
-1. **Pizza Customizer:** Non-blocking client state handling size, crust, and fractional toppings (`Whole`, `LeftHalf`, `RightHalf`).
-2. **Inventory Deduction:** Creating an order MUST automatically reduce ingredient stock based on `RecipeItems` + `OrderItemToppings`, in the same transaction as the order. Recipe amounts and topping portions are per Small and scale by `PizzaSizes.PriceMultiplier`; toppings also scale by coverage (half = 0.5) and amount (Light 0.5 / Standard 1 / Extra 1.5). Orders may push stock negative; manual stock adjustments (`POST /api/ingredients/{id}/stock-adjustments`, for restocks/waste/recounts) may not.
+1. **Pizza Customizer:** Non-blocking client state handling size and fractional toppings (`Whole`, `LeftHalf`, `RightHalf`).
+2. **Inventory Deduction:** Creating an order MUST automatically reduce ingredient stock based on `RecipeItems` + `OrderItemToppings`, in the same transaction as the order, and record exactly what it deducted in `OrderIngredientUsages`. Recipe amounts and topping portions are per Small and scale by `PizzaSizes.PriceMultiplier`; toppings also scale by coverage (half = 0.5) and amount (Light 0.5 / Standard 1 / Extra 1.5). Orders may push stock negative; manual stock adjustments (`POST /api/ingredients/{id}/stock-adjustments`, for restocks/waste/recounts) may not.
 3. **Price Stability:** Orders store price snapshots (`UnitPrice`, `PriceAdjustment`) so future menu price updates don't alter historic financial data. Prices and tax (`Orders:TaxRate` in appsettings) are computed server-side; clients never send prices.
 4. **Security:** Session timeouts after 30 minutes of inactivity in production environments. Implemented with ASP.NET Core Identity bearer tokens: access token 15 min, refresh token 30 min (`Auth:AccessTokenMinutes` / `Auth:RefreshTokenMinutes`); each refresh issues a new refresh token, so only 30 idle minutes end the session.
 5. **Idempotent Orders:** `POST /api/orders` requires an `Idempotency-Key` header (GUID). Clients generate one per checkout (`crypto.randomUUID()`) and reuse it on every retry; a replay returns the original order, a reused key with a different body (or another user's key) returns 422.
@@ -50,6 +50,12 @@ A full-stack POS system for pizza restaurant owners featuring order management, 
    - **Staff:** all orders, order status, ingredient reads and stock adjustments.
    - **Admin:** catalog writes, `/api/users` role management (can't remove the last admin), statistics.
    - The first admin is created at startup from `Auth:BootstrapAdmin:Email` / `Password` (user-secrets or env vars, never committed).
+7. **Retiring Menu Items:** Recipes and ingredients that appear in orders can't be deleted (409); set `IsActive = false` instead. Inactive recipes are hidden from customers and rejected in new orders (staff/admin still see them). Inactive ingredients are hidden from `/api/toppings`, rejected as toppings, and can't be newly added to recipes (recipes that already contain them stay editable).
+8. **Cancellation:** `POST /api/orders/{id}/cancel` (optional `{ reason }`) is the only way to reach `Cancelled`; `PATCH .../status` rejects it.
+   - **Who/when:** customers may cancel their own orders while `Pending`; staff/admin any order not yet `Completed`. Completed orders can't be cancelled.
+   - **Stock:** a cancellation MUST return exactly the stock the order deducted (from `OrderIngredientUsages`, not recomputed from current recipes), in the same transaction as the status change.
+   - **Safety:** status changes and cancellations update conditionally on the current status, so stock is never returned twice; a repeated cancel returns 200 without restocking.
+   - **Statistics:** cancelled orders keep their items and totals, plus `CancelledAt` / `CancelledByUserId` / `CancellationReason`, and must be reported separately rather than dropped.
 
 ## Database Schema Overview
 
@@ -66,6 +72,7 @@ Identity tables (`AspNetUsers`, `AspNetRoles` seeded with Admin/Staff, `AspNetUs
 - Name: String(50) NOT NULL
 - UnitOfMeasureId: Guid FK -> UnitOfMeasure.UnitOfMeasureId NOT NULL
 - CurrentStock: Decimal(10,2) NOT NULL (Default: 0.00)
+- IsActive: Bool NOT NULL (Default: true) -- false = retired (see rule 7)
 - ToppingPrice: Decimal(10,2) NULL -- Set together with ToppingPortion; both NULL = not offered as a topping
 - ToppingPortion: Decimal(10,4) NULL -- One Small, Whole, Standard serving in the ingredient's unit
 
@@ -80,6 +87,7 @@ Identity tables (`AspNetUsers`, `AspNetRoles` seeded with Admin/Staff, `AspNetUs
 - RecipeId: Guid PK
 - Name: String(50) NOT NULL
 - BasePrice: Decimal(10,2) NOT NULL
+- IsActive: Bool NOT NULL (Default: true) -- false = off the menu (see rule 7)
 
 ### RecipeItems
 
@@ -92,7 +100,7 @@ Identity tables (`AspNetUsers`, `AspNetRoles` seeded with Admin/Staff, `AspNetUs
 
 - OrderId: Guid PK
 - OrderNumber: Int Identity / Auto-increment NOT NULL
-- Status: String(20) NOT NULL -- "Pending", "Preparing", "Ready", "Completed" (forward-only; skipping steps allowed)
+- Status: String(20) NOT NULL -- "Pending", "Preparing", "Ready", "Completed" (forward-only; skipping steps allowed), or "Cancelled" (terminal, via the cancel endpoint only)
 - OrderType: String(20) NOT NULL -- "DineIn", "Takeout", "Delivery"
 - SubTotal: Decimal(10,2) NOT NULL
 - Tax: Decimal(10,2) NOT NULL
@@ -101,6 +109,16 @@ Identity tables (`AspNetUsers`, `AspNetRoles` seeded with Admin/Staff, `AspNetUs
 - PlacedByUserId: Guid FK -> AspNetUsers.Id NOT NULL -- Customer who ordered, or staff member for walk-ins
 - IdempotencyKey: Guid NOT NULL UNIQUE -- From the Idempotency-Key header; not exposed in DTOs
 - RequestHash: String(64) NOT NULL -- SHA-256 of the create request, detects key reuse with a different body
+- CancelledAt: DateTimeOffset NULL
+- CancelledByUserId: Guid FK -> AspNetUsers.Id NULL
+- CancellationReason: String(200) NULL
+
+### OrderIngredientUsages
+
+- OrderIngredientUsageId: Guid PK
+- OrderId: Guid FK -> Orders.OrderId NOT NULL (cascade)
+- IngredientId: Guid FK -> Ingredients.IngredientId NOT NULL -- UNIQUE with OrderId
+- Amount: Decimal(10,4) NOT NULL -- Stock this order deducted (recipe + toppings combined); returned on cancellation
 
 ### OrderItems
 

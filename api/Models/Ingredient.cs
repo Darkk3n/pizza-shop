@@ -20,6 +20,10 @@ namespace PizzaShop.Api.Models
         [Precision(10, 2)]
         public decimal CurrentStock { get; set; }
 
+        // Inactive ingredients can't be added to recipes or ordered as toppings, but stay in
+        // existing recipes and order history (an ingredient that has been used can't be deleted).
+        public bool IsActive { get; set; } = true;
+
         // Both null when the ingredient isn't offered as a topping (e.g. flour, yeast).
         // ToppingPortion is one Small, Whole, Standard serving in the ingredient's unit of measure;
         // orders scale it and ToppingPrice by coverage, amount and size.

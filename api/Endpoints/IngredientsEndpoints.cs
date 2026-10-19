@@ -128,6 +128,7 @@ namespace PizzaShop.Api.Endpoints
             ingredient.UnitOfMeasure = unitOfMeasure;
             ingredient.ToppingPrice = request.ToppingPrice;
             ingredient.ToppingPortion = request.ToppingPortion;
+            ingredient.IsActive = request.IsActive;
             await context.SaveChangesAsync(ct);
 
             return TypedResults.Ok(IngredientMapper.FromEntity(ingredient));
@@ -141,16 +142,17 @@ namespace PizzaShop.Api.Endpoints
                 return TypedResults.NotFound();
             }
 
-            // RecipeItem and OrderItemTopping FKs to Ingredient are Restrict, so check up front
-            // for a clear 409 instead of surfacing a database exception.
+            // RecipeItem, OrderItemTopping and OrderIngredientUsage FKs to Ingredient are Restrict,
+            // so check up front for a clear 409 instead of surfacing a database exception.
             var inUse = await context.RecipeItems.AnyAsync(ri => ri.IngredientId == id, ct)
-                || await context.OrderItemToppings.AnyAsync(t => t.IngredientId == id, ct);
+                || await context.OrderItemToppings.AnyAsync(t => t.IngredientId == id, ct)
+                || await context.OrderIngredientUsages.AnyAsync(u => u.IngredientId == id, ct);
             if (inUse)
             {
                 return TypedResults.Problem(
                     statusCode: StatusCodes.Status409Conflict,
                     title: "Ingredient is in use.",
-                    detail: $"The ingredient '{ingredient.Name}' is used by one or more recipes or orders.");
+                    detail: $"The ingredient '{ingredient.Name}' is used by one or more recipes or orders. Set isActive to false to retire it instead.");
             }
 
             context.Ingredients.Remove(ingredient);

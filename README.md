@@ -6,7 +6,7 @@ A full-stack point-of-sale system for pizza restaurant owners: order management,
 
 ## Features
 
-- **Pizza customizer:** build pizzas by size and crust, with toppings on the whole pie or on the left or right half.
+- **Pizza customizer:** build pizzas by size, with toppings on the whole pie or on the left or right half.
 - **Inventory auto-deduction:** placing an order reduces ingredient stock based on the recipe plus any added toppings.
 - **Recipe and cost management:** define recipes from ingredients with precise measurements.
 - **Price stability:** orders store price snapshots, so later menu price changes don't alter historical sales data.

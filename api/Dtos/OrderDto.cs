@@ -13,6 +13,9 @@ namespace PizzaShop.Api.Dtos
         decimal Total,
         DateTimeOffset CreatedAt,
         string? PlacedByEmail,
+        DateTimeOffset? CancelledAt,
+        string? CancelledByEmail,
+        string? CancellationReason,
         List<OrderItemDto> Items) { }
 
     public record OrderItemDto(
@@ -60,6 +63,9 @@ namespace PizzaShop.Api.Dtos
             o.Total,
             o.CreatedAt,
             o.PlacedBy.Email,
+            o.CancelledAt,
+            o.CancelledBy != null ? o.CancelledBy.Email : null,
+            o.CancellationReason,
             o.Items
                 .OrderBy(i => i.ItemNameSnapshot)
                 .Select(i => new OrderItemDto(

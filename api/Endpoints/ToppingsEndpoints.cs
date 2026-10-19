@@ -23,7 +23,7 @@ namespace PizzaShop.Api.Endpoints
         {
             // ToppingPrice and ToppingPortion are always set together (enforced by the ingredient endpoints).
             var toppings = await context.Ingredients
-                .Where(i => i.ToppingPrice != null)
+                .Where(i => i.IsActive && i.ToppingPrice != null)
                 .OrderBy(i => i.Name)
                 .Select(ToppingMapper.ToDto)
                 .ToListAsync(ct);

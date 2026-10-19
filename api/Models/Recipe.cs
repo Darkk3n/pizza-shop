@@ -14,6 +14,10 @@ namespace PizzaShop.Api.Models
         [Precision(10, 2)]
         public decimal BasePrice { get; set; }
 
+        // Inactive recipes are off the menu: hidden from customers and rejected in new orders,
+        // but kept for order history (a recipe that has been sold can't be deleted).
+        public bool IsActive { get; set; } = true;
+
         public List<RecipeItem> RecipeItems { get; set; } = [];
     }
 }

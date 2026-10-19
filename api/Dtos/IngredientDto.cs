@@ -9,6 +9,7 @@ namespace PizzaShop.Api.Dtos
         Guid UnitOfMeasureId,
         string UnitOfMeasureName,
         decimal CurrentStock,
+        bool IsActive,
         decimal? ToppingPrice,
         decimal? ToppingPortion) { }
 
@@ -20,6 +21,7 @@ namespace PizzaShop.Api.Dtos
             i.UnitOfMeasureId,
             i.UnitOfMeasure.Name,
             i.CurrentStock,
+            i.IsActive,
             i.ToppingPrice,
             i.ToppingPortion);
 

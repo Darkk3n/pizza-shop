@@ -94,6 +94,10 @@ namespace PizzaShop.Api.Auth
             Guid.Parse(user.FindFirstValue(ClaimTypes.NameIdentifier)
                 ?? throw new InvalidOperationException("The user has no NameIdentifier claim."));
 
+        // Mirrors the Staff policy (admins pass too), for handlers that vary by role instead of rejecting.
+        public static bool IsStaff(this ClaimsPrincipal user) =>
+            user.IsInRole(Roles.Admin) || user.IsInRole(Roles.Staff);
+
         private static void ThrowIfFailed(IdentityResult result, string action)
         {
             if (!result.Succeeded)

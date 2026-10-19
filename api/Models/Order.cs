@@ -47,6 +47,22 @@ namespace PizzaShop.Api.Models
         [MaxLength(64)]
         public string RequestHash { get; set; } = string.Empty;
 
+        // Set together when the order is cancelled (Status = Cancelled). Cancelled orders keep
+        // their totals so statistics can report them separately.
+        public DateTimeOffset? CancelledAt { get; set; }
+
+        [ForeignKey(nameof(CancelledByUserId))]
+        public AppUser? CancelledBy { get; set; }
+
+        public Guid? CancelledByUserId { get; set; }
+
+        [MaxLength(200)]
+        public string? CancellationReason { get; set; }
+
         public List<OrderItem> Items { get; set; } = [];
+
+        // Exactly what this order took from stock, so a cancellation returns the same amounts
+        // even if recipes or topping portions have changed since.
+        public List<OrderIngredientUsage> IngredientUsages { get; set; } = [];
     }
 }

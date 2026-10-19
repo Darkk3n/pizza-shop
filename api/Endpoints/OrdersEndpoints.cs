@@ -40,6 +40,9 @@ namespace PizzaShop.Api.Endpoints
                 .RequireAuthorization(Policies.Staff)
                 .ProducesProblem(StatusCodes.Status409Conflict)
                 .ProducesValidationProblem();
+            group.MapPost("/{id:guid}/cancel", Cancel)
+                .ProducesProblem(StatusCodes.Status409Conflict)
+                .ProducesValidationProblem();
 
             return app;
         }
@@ -205,6 +208,12 @@ namespace PizzaShop.Api.Endpoints
             order.Tax = RoundMoney(order.SubTotal * options.Value.TaxRate);
             order.Total = order.SubTotal + order.Tax;
 
+            // Rounded once to the stored precision, so the amount deducted now is exactly the
+            // amount a cancellation returns later.
+            order.IngredientUsages = [.. deductions
+                .Select(d => new OrderIngredientUsage { IngredientId = d.Key, Amount = Math.Round(d.Value, 4, MidpointRounding.AwayFromZero) })
+                .Where(u => u.Amount > 0)];
+
             // The order and its stock deductions commit together or not at all.
             await using var transaction = await context.Database.BeginTransactionAsync(ct);
 
@@ -223,16 +232,9 @@ namespace PizzaShop.Api.Endpoints
                     ?? throw new InvalidOperationException($"Order with idempotency key '{key}' vanished after a unique violation.");
             }
 
-            // Atomic UPDATEs (same approach as stock adjustments) so concurrent orders can't
-            // overwrite each other. Unlike manual adjustments there is no guard: stock may go
-            // negative so a drifting count never blocks a sale. Updating in a fixed order keeps
-            // concurrent orders from locking the same rows in opposite orders (deadlock).
-            foreach (var (ingredientId, amount) in deductions.OrderBy(d => d.Key))
-            {
-                await context.Ingredients
-                    .Where(i => i.IngredientId == ingredientId)
-                    .ExecuteUpdateAsync(s => s.SetProperty(i => i.CurrentStock, i => i.CurrentStock - amount), ct);
-            }
+            // Unlike manual adjustments there is no guard: stock may go negative so a drifting
+            // count never blocks a sale.
+            await ApplyStockChangesAsync(context, order.IngredientUsages.Select(u => (u.IngredientId, -u.Amount)), ct);
 
             await transaction.CommitAsync(ct);
 
@@ -241,15 +243,27 @@ namespace PizzaShop.Api.Endpoints
             return TypedResults.CreatedAtRoute(dto, GetByIdRouteName, new { id = order.OrderId });
         }
 
-        private static async Task<Results<Ok<OrderDto>, NotFound, ProblemHttpResult>> UpdateStatus(Guid id, UpdateOrderStatusRequest request, PizzaShopContext context, CancellationToken ct)
+        private static async Task<Results<Ok<OrderDto>, NotFound, ValidationProblem, ProblemHttpResult>> UpdateStatus(Guid id, UpdateOrderStatusRequest request, PizzaShopContext context, CancellationToken ct)
         {
-            var order = await context.Orders.FindAsync([id], ct);
+            if (request.Status == OrderStatus.Cancelled)
+            {
+                return TypedResults.ValidationProblem(new Dictionary<string, string[]>
+                {
+                    [nameof(UpdateOrderStatusRequest.Status)] = ["Use POST /api/orders/{id}/cancel to cancel an order; it also returns the stock."],
+                });
+            }
+
+            var order = await context.Orders
+                .Where(o => o.OrderId == id)
+                .Select(o => new { o.Status, o.OrderNumber })
+                .FirstOrDefaultAsync(ct);
             if (order is null)
             {
                 return TypedResults.NotFound();
             }
 
-            // OrderStatus members are declared in workflow order, so a larger value is a later step.
+            // Pending..Completed are declared in workflow order, so a larger value is a later step.
+            // Cancelled sorts last, so a cancelled order is rejected here too.
             if (request.Status <= order.Status)
             {
                 return TypedResults.Problem(
@@ -258,12 +272,118 @@ namespace PizzaShop.Api.Endpoints
                     detail: $"Order #{order.OrderNumber} is {order.Status}; it can only move forward, not to {request.Status}.");
             }
 
-            order.Status = request.Status;
-            await context.SaveChangesAsync(ct);
+            // Conditional on the status just read, so a concurrent cancellation can't be
+            // overwritten (which would leave a "Ready" order whose stock was already returned).
+            var updated = await context.Orders
+                .Where(o => o.OrderId == id && o.Status == order.Status)
+                .ExecuteUpdateAsync(s => s.SetProperty(o => o.Status, request.Status), ct);
+            if (updated == 0)
+            {
+                return ChangedConcurrently(order.OrderNumber);
+            }
 
             var dto = await FindDtoAsync(context, id, ct);
             return dto is null ? TypedResults.NotFound() : TypedResults.Ok(dto);
         }
+
+        // Customers can cancel their own orders while Pending; staff any order not yet Completed.
+        // Every cancellation returns exactly the stock the order deducted (OrderIngredientUsages).
+        // The order keeps its items and totals, so statistics can still report it.
+        private static async Task<Results<Ok<OrderDto>, NotFound, ProblemHttpResult>> Cancel(Guid id, CancelOrderRequest? request, ClaimsPrincipal user, PizzaShopContext context, CancellationToken ct)
+        {
+            var order = await VisibleOrders(context, user)
+                .Where(o => o.OrderId == id)
+                .Select(o => new { o.Status, o.OrderNumber })
+                .FirstOrDefaultAsync(ct);
+            if (order is null)
+            {
+                return TypedResults.NotFound();
+            }
+
+            // A retry of a cancellation that already went through: answer the same, restock nothing.
+            if (order.Status == OrderStatus.Cancelled)
+            {
+                var cancelledDto = await FindDtoAsync(context, id, ct);
+                return cancelledDto is null ? TypedResults.NotFound() : TypedResults.Ok(cancelledDto);
+            }
+
+            var isStaff = user.IsStaff();
+            var cancellable = isStaff
+                ? order.Status is OrderStatus.Pending or OrderStatus.Preparing or OrderStatus.Ready
+                : order.Status is OrderStatus.Pending;
+            if (!cancellable)
+            {
+                return TypedResults.Problem(
+                    statusCode: StatusCodes.Status409Conflict,
+                    title: "Order can't be cancelled.",
+                    detail: isStaff
+                        ? $"Order #{order.OrderNumber} is {order.Status}; completed orders can't be cancelled."
+                        : $"Order #{order.OrderNumber} is already {order.Status}; ask the staff to cancel it.");
+            }
+
+            var reason = string.IsNullOrWhiteSpace(request?.Reason) ? null : request.Reason.Trim();
+            var userId = user.GetUserId();
+            var now = DateTimeOffset.UtcNow;
+
+            await using var transaction = await context.Database.BeginTransactionAsync(ct);
+
+            // Conditional on the status read above: the row lock makes a concurrent cancel (or
+            // status change) wait and then match nothing, so stock is never returned twice.
+            var cancelled = await context.Orders
+                .Where(o => o.OrderId == id && o.Status == order.Status)
+                .ExecuteUpdateAsync(s => s
+                    .SetProperty(o => o.Status, OrderStatus.Cancelled)
+                    .SetProperty(o => o.CancelledAt, now)
+                    .SetProperty(o => o.CancelledByUserId, userId)
+                    .SetProperty(o => o.CancellationReason, reason), ct);
+            if (cancelled == 0)
+            {
+                await transaction.RollbackAsync(ct);
+                var current = await context.Orders
+                    .Where(o => o.OrderId == id)
+                    .Select(o => o.Status)
+                    .FirstAsync(ct);
+                if (current != OrderStatus.Cancelled)
+                {
+                    return ChangedConcurrently(order.OrderNumber);
+                }
+
+                // A duplicate cancel won the race and already restocked: same answer as a retry.
+                var raceDto = await FindDtoAsync(context, id, ct);
+                return raceDto is null ? TypedResults.NotFound() : TypedResults.Ok(raceDto);
+            }
+
+            var usages = await context.OrderIngredientUsages
+                .Where(u => u.OrderId == id)
+                .Select(u => new { u.IngredientId, u.Amount })
+                .ToListAsync(ct);
+            await ApplyStockChangesAsync(context, usages.Select(u => (u.IngredientId, u.Amount)), ct);
+
+            await transaction.CommitAsync(ct);
+
+            var dto = await FindDtoAsync(context, id, ct);
+            return dto is null ? TypedResults.NotFound() : TypedResults.Ok(dto);
+        }
+
+        // Atomic UPDATEs (same approach as stock adjustments) so concurrent orders and
+        // cancellations can't overwrite each other. Applied in ingredient-id order (in memory,
+        // so every caller uses the same ordering) to keep two transactions from locking the
+        // same rows in opposite orders (deadlock). Must run inside the caller's transaction.
+        private static async Task ApplyStockChangesAsync(PizzaShopContext context, IEnumerable<(Guid IngredientId, decimal Delta)> changes, CancellationToken ct)
+        {
+            foreach (var (ingredientId, delta) in changes.OrderBy(c => c.IngredientId))
+            {
+                await context.Ingredients
+                    .Where(i => i.IngredientId == ingredientId)
+                    .ExecuteUpdateAsync(s => s.SetProperty(i => i.CurrentStock, i => i.CurrentStock + delta), ct);
+            }
+        }
+
+        private static ProblemHttpResult ChangedConcurrently(int orderNumber) =>
+            TypedResults.Problem(
+                statusCode: StatusCodes.Status409Conflict,
+                title: "Order changed.",
+                detail: $"Order #{orderNumber} was changed by someone else just now. Reload it and try again.");
 
         // Returns the order already created with this key (same 201 response as the original),
         // a 422 if the key was used for a different request or by another user, or null if the key is new.
@@ -300,7 +420,7 @@ namespace PizzaShop.Api.Endpoints
         // Staff and admins see every order; customers only the ones they placed.
         private static IQueryable<Order> VisibleOrders(PizzaShopContext context, ClaimsPrincipal user)
         {
-            if (user.IsInRole(Roles.Admin) || user.IsInRole(Roles.Staff))
+            if (user.IsStaff())
             {
                 return context.Orders;
             }
@@ -331,9 +451,13 @@ namespace PizzaShop.Api.Endpoints
                 var item = items[i];
                 var prefix = $"{nameof(CreateOrderRequest.Items)}[{i}]";
 
-                if (!recipes.ContainsKey(item.RecipeId))
+                if (!recipes.TryGetValue(item.RecipeId, out var recipe))
                 {
                     errors[$"{prefix}.{nameof(OrderItemRequest.RecipeId)}"] = [$"Recipe '{item.RecipeId}' does not exist."];
+                }
+                else if (!recipe.IsActive)
+                {
+                    errors[$"{prefix}.{nameof(OrderItemRequest.RecipeId)}"] = [$"'{recipe.Name}' is not on the menu."];
                 }
 
                 if (item.PizzaSizeId is { } sizeId && !sizes.ContainsKey(sizeId))
@@ -356,7 +480,7 @@ namespace PizzaShop.Api.Endpoints
                     {
                         errors[key] = [$"Ingredient '{ingredientId}' does not exist."];
                     }
-                    else if (ingredient.ToppingPrice is null || ingredient.ToppingPortion is null)
+                    else if (!ingredient.IsActive || ingredient.ToppingPrice is null || ingredient.ToppingPortion is null)
                     {
                         errors[key] = [$"'{ingredient.Name}' is not offered as a topping."];
                     }

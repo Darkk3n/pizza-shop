@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using PizzaShop.Api.Auth;
@@ -36,24 +37,27 @@ namespace PizzaShop.Api.Endpoints
             return app;
         }
 
-        private static async Task<Ok<List<RecipeDto>>> GetAll(PizzaShopContext context, CancellationToken ct)
+        private static async Task<Ok<List<RecipeDto>>> GetAll(ClaimsPrincipal user, PizzaShopContext context, CancellationToken ct)
         {
-            var recipes = await context.Recipes
+            var recipes = await VisibleRecipes(context, user)
                 .OrderBy(r => r.Name)
                 .Select(RecipeMapper.ToDto)
                 .ToListAsync(ct);
             return TypedResults.Ok(recipes);
         }
 
-        private static async Task<Results<Ok<RecipeDto>, NotFound>> GetById(Guid id, PizzaShopContext context, CancellationToken ct)
+        private static async Task<Results<Ok<RecipeDto>, NotFound>> GetById(Guid id, ClaimsPrincipal user, PizzaShopContext context, CancellationToken ct)
         {
-            var recipe = await FindDtoAsync(context, id, ct);
+            var recipe = await VisibleRecipes(context, user)
+                .Where(r => r.RecipeId == id)
+                .Select(RecipeMapper.ToDto)
+                .FirstOrDefaultAsync(ct);
             return recipe is null ? TypedResults.NotFound() : TypedResults.Ok(recipe);
         }
 
         private static async Task<Results<CreatedAtRoute<RecipeDto>, ValidationProblem, ProblemHttpResult>> Create(CreateRecipeRequest request, PizzaShopContext context, CancellationToken ct)
         {
-            var itemErrors = await ValidateItemsAsync(context, request.Items, ct);
+            var itemErrors = await ValidateItemsAsync(context, request.Items, alreadyInRecipe: new HashSet<Guid>(), ct);
             if (itemErrors is not null)
             {
                 return TypedResults.ValidationProblem(itemErrors);
@@ -90,7 +94,9 @@ namespace PizzaShop.Api.Endpoints
                 return TypedResults.NotFound();
             }
 
-            var itemErrors = await ValidateItemsAsync(context, request.Items, ct);
+            // Ingredients retired after being added stay allowed, so existing recipes remain editable.
+            var alreadyInRecipe = recipe.RecipeItems.Select(ri => ri.IngredientId).ToHashSet();
+            var itemErrors = await ValidateItemsAsync(context, request.Items, alreadyInRecipe, ct);
             if (itemErrors is not null)
             {
                 return TypedResults.ValidationProblem(itemErrors);
@@ -105,6 +111,7 @@ namespace PizzaShop.Api.Endpoints
 
             recipe.Name = name;
             recipe.BasePrice = request.BasePrice;
+            recipe.IsActive = request.IsActive;
 
             // Sync items by ingredient: keep and update matches (stable RecipeItemIds),
             // drop the ones no longer listed (deleted as orphans on save), add the new ones.
@@ -147,7 +154,7 @@ namespace PizzaShop.Api.Endpoints
                 return TypedResults.Problem(
                     statusCode: StatusCodes.Status409Conflict,
                     title: "Recipe is in use.",
-                    detail: $"The recipe '{recipe.Name}' appears in one or more orders.");
+                    detail: $"The recipe '{recipe.Name}' appears in one or more orders. Set isActive to false to take it off the menu instead.");
             }
 
             context.Recipes.Remove(recipe);
@@ -162,9 +169,16 @@ namespace PizzaShop.Api.Endpoints
                 .Select(RecipeMapper.ToDto)
                 .FirstOrDefaultAsync(ct);
 
+        // Staff and admins see the whole catalog (to manage it); customers only the active menu.
+        private static IQueryable<Recipe> VisibleRecipes(PizzaShopContext context, ClaimsPrincipal user) =>
+            user.IsStaff()
+                ? context.Recipes
+                : context.Recipes.Where(r => r.IsActive);
+
         // Attribute validation already covers each item's Amount; this checks what needs the
-        // whole list or the database: no repeated ingredients, and every ingredient exists.
-        private static async Task<Dictionary<string, string[]>?> ValidateItemsAsync(PizzaShopContext context, List<RecipeItemRequest> items, CancellationToken ct)
+        // whole list or the database: no repeated ingredients, every ingredient exists, and
+        // inactive ingredients aren't newly added (ones already in the recipe may stay).
+        private static async Task<Dictionary<string, string[]>?> ValidateItemsAsync(PizzaShopContext context, List<RecipeItemRequest> items, IReadOnlySet<Guid> alreadyInRecipe, CancellationToken ct)
         {
             var repeated = items
                 .GroupBy(item => item.IngredientId)
@@ -182,14 +196,26 @@ namespace PizzaShop.Api.Endpoints
             var ingredientIds = items.Select(item => item.IngredientId).ToList();
             var found = await context.Ingredients
                 .Where(i => ingredientIds.Contains(i.IngredientId))
-                .Select(i => i.IngredientId)
+                .Select(i => new { i.IngredientId, i.Name, i.IsActive })
                 .ToListAsync(ct);
-            var missing = ingredientIds.Except(found).ToList();
+            var missing = ingredientIds.Except(found.Select(i => i.IngredientId)).ToList();
             if (missing.Count > 0)
             {
                 return new()
                 {
                     [nameof(CreateRecipeRequest.Items)] = [$"Ingredients not found: {string.Join(", ", missing)}."],
+                };
+            }
+
+            var newlyInactive = found
+                .Where(i => !i.IsActive && !alreadyInRecipe.Contains(i.IngredientId))
+                .Select(i => i.Name)
+                .ToList();
+            if (newlyInactive.Count > 0)
+            {
+                return new()
+                {
+                    [nameof(CreateRecipeRequest.Items)] = [$"Inactive ingredients can't be added: {string.Join(", ", newlyInactive)}."],
                 };
             }
 

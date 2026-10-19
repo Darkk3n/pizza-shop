@@ -7,6 +7,7 @@ namespace PizzaShop.Api.Dtos
         Guid RecipeId,
         string Name,
         decimal BasePrice,
+        bool IsActive,
         List<RecipeItemDto> Items) { }
 
     public record RecipeItemDto(
@@ -22,6 +23,7 @@ namespace PizzaShop.Api.Dtos
             r.RecipeId,
             r.Name,
             r.BasePrice,
+            r.IsActive,
             r.RecipeItems
                 .OrderBy(ri => ri.Ingredient.Name)
                 .Select(ri => new RecipeItemDto(

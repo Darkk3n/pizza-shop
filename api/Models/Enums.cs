@@ -3,13 +3,16 @@ namespace PizzaShop.Api.Models
     // Stored as strings (see PizzaShopContext.ConfigureConventions), so member
     // names are the database values: renaming a member requires a data migration.
 
-    // Declared in workflow order: status changes may only move to a later member.
+    // Pending..Completed are declared in workflow order: status changes may only move to a
+    // later member. Cancelled is terminal and outside that flow: it is only reached through
+    // POST /api/orders/{id}/cancel, which also returns the order's stock.
     public enum OrderStatus
     {
         Pending,
         Preparing,
         Ready,
         Completed,
+        Cancelled,
     }
 
     public enum OrderType
