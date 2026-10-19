@@ -43,10 +43,17 @@ A full-stack POS system for pizza restaurant owners featuring order management, 
 1. **Pizza Customizer:** Non-blocking client state handling size, crust, and fractional toppings (`Whole`, `LeftHalf`, `RightHalf`).
 2. **Inventory Deduction:** Creating an order MUST automatically reduce ingredient stock based on `RecipeItems` + `OrderItemToppings`, in the same transaction as the order. Recipe amounts and topping portions are per Small and scale by `PizzaSizes.PriceMultiplier`; toppings also scale by coverage (half = 0.5) and amount (Light 0.5 / Standard 1 / Extra 1.5). Orders may push stock negative; manual stock adjustments (`POST /api/ingredients/{id}/stock-adjustments`, for restocks/waste/recounts) may not.
 3. **Price Stability:** Orders store price snapshots (`UnitPrice`, `PriceAdjustment`) so future menu price updates don't alter historic financial data. Prices and tax (`Orders:TaxRate` in appsettings) are computed server-side; clients never send prices.
-4. **Security:** Session timeouts after 30 minutes of inactivity in production environments.
-5. **Idempotent Orders:** `POST /api/orders` requires an `Idempotency-Key` header (GUID). Clients generate one per checkout (`crypto.randomUUID()`) and reuse it on every retry; a replay returns the original order, a reused key with a different body returns 422.
+4. **Security:** Session timeouts after 30 minutes of inactivity in production environments. Implemented with ASP.NET Core Identity bearer tokens: access token 15 min, refresh token 30 min (`Auth:AccessTokenMinutes` / `Auth:RefreshTokenMinutes`); each refresh issues a new refresh token, so only 30 idle minutes end the session.
+5. **Idempotent Orders:** `POST /api/orders` requires an `Idempotency-Key` header (GUID). Clients generate one per checkout (`crypto.randomUUID()`) and reuse it on every retry; a replay returns the original order, a reused key with a different body (or another user's key) returns 422.
+6. **Roles & Access:** Accounts come from `/api/auth/register` (Identity `MapIdentityApi`); a user with no role is a **Customer**. Stored roles are **Admin** and **Staff** (`api/Auth/Roles.cs`), enforced with the `Admin`/`Staff` policies (`api/Auth/Policies.cs`; Admin passes Staff). Every endpoint group calls `.RequireAuthorization()` (no global fallback policy, so new groups must opt in); only `/` and the anonymous Identity endpoints are public.
+   - **Customer:** read units, sizes, recipes and `/api/toppings`; place orders; see only their own orders (others' are 404).
+   - **Staff:** all orders, order status, ingredient reads and stock adjustments.
+   - **Admin:** catalog writes, `/api/users` role management (can't remove the last admin), statistics.
+   - The first admin is created at startup from `Auth:BootstrapAdmin:Email` / `Password` (user-secrets or env vars, never committed).
 
 ## Database Schema Overview
+
+Identity tables (`AspNetUsers`, `AspNetRoles` seeded with Admin/Staff, `AspNetUserRoles`, ...) and `DataProtectionKeys` (encrypt the bearer tokens; must persist across deploys) live in the same database via `IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>`.
 
 ### UnitOfMeasure (Seeded)
 
@@ -91,6 +98,7 @@ A full-stack POS system for pizza restaurant owners featuring order management, 
 - Tax: Decimal(10,2) NOT NULL
 - Total: Decimal(10,2) NOT NULL
 - CreatedAt: DateTimeOffset NOT NULL
+- PlacedByUserId: Guid FK -> AspNetUsers.Id NOT NULL -- Customer who ordered, or staff member for walk-ins
 - IdempotencyKey: Guid NOT NULL UNIQUE -- From the Idempotency-Key header; not exposed in DTOs
 - RequestHash: String(64) NOT NULL -- SHA-256 of the create request, detects key reuse with a different body
 

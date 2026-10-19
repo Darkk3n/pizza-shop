@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using PizzaShop.Api.Auth;
 using PizzaShop.Api.Db;
 using PizzaShop.Api.Dtos;
 using PizzaShop.Api.Models;
@@ -14,20 +15,28 @@ namespace PizzaShop.Api.Endpoints
         public static IEndpointRouteBuilder MapIngredientsEndpoints(this IEndpointRouteBuilder app)
         {
             var group = app.MapGroup("/api/ingredients")
-                .WithTags("Ingredients");
+                .WithTags("Ingredients")
+                .RequireAuthorization();
 
-            group.MapGet("/", GetAll);
+            // Stock levels are for staff; customers get toppings from /api/toppings.
+            group.MapGet("/", GetAll)
+                .RequireAuthorization(Policies.Staff);
             group.MapGet("/{id:guid}", GetById)
+                .RequireAuthorization(Policies.Staff)
                 .WithName(GetByIdRouteName);
             group.MapPost("/", Create)
+                .RequireAuthorization(Policies.Admin)
                 .ProducesProblem(StatusCodes.Status409Conflict)
                 .ProducesValidationProblem();
             group.MapPut("/{id:guid}", Update)
+                .RequireAuthorization(Policies.Admin)
                 .ProducesProblem(StatusCodes.Status409Conflict)
                 .ProducesValidationProblem();
             group.MapDelete("/{id:guid}", Delete)
+                .RequireAuthorization(Policies.Admin)
                 .ProducesProblem(StatusCodes.Status409Conflict);
             group.MapPost("/{id:guid}/stock-adjustments", AdjustStock)
+                .RequireAuthorization(Policies.Staff)
                 .ProducesProblem(StatusCodes.Status409Conflict)
                 .ProducesValidationProblem();
 

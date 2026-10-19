@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -5,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Npgsql;
+using PizzaShop.Api.Auth;
 using PizzaShop.Api.Db;
 using PizzaShop.Api.Dtos;
 using PizzaShop.Api.Models;
@@ -21,9 +24,11 @@ namespace PizzaShop.Api.Endpoints
         public static IEndpointRouteBuilder MapOrdersEndpoints(this IEndpointRouteBuilder app)
         {
             var group = app.MapGroup("/api/orders")
-                .WithTags("Orders");
+                .WithTags("Orders")
+                .RequireAuthorization();
 
             // No PUT or DELETE: orders keep price snapshots and have already deducted stock.
+            // Any signed-in user can order; customers only see their own orders (see VisibleOrders).
             group.MapGet("/", GetAll)
                 .ProducesValidationProblem();
             group.MapGet("/{id:guid}", GetById)
@@ -32,54 +37,70 @@ namespace PizzaShop.Api.Endpoints
                 .ProducesProblem(StatusCodes.Status422UnprocessableEntity)
                 .ProducesValidationProblem();
             group.MapPatch("/{id:guid}/status", UpdateStatus)
+                .RequireAuthorization(Policies.Staff)
                 .ProducesProblem(StatusCodes.Status409Conflict)
                 .ProducesValidationProblem();
 
             return app;
         }
 
-        private static async Task<Ok<PagedResult<OrderSummaryDto>>> GetAll([AsParameters] GetOrdersQuery query, PizzaShopContext context, CancellationToken ct)
+        // Query string: status, from (inclusive), to (exclusive), page, pageSize. Plain parameters rather
+        // than an [AsParameters] record: OpenAPI generation throws on validation attributes there.
+        private static async Task<Ok<PagedResult<OrderSummaryDto>>> GetAll(
+            ClaimsPrincipal user,
+            PizzaShopContext context,
+            OrderStatus? status,
+            DateTimeOffset? from,
+            DateTimeOffset? to,
+            [Range(1, 100000)] int page = 1,
+            [Range(1, 100)] int pageSize = 25,
+            CancellationToken ct = default)
         {
-            var orders = context.Orders.AsQueryable();
+            var orders = VisibleOrders(context, user);
 
-            if (query.Status is { } status)
+            if (status is { } statusFilter)
             {
-                orders = orders.Where(o => o.Status == status);
+                orders = orders.Where(o => o.Status == statusFilter);
             }
 
             // Npgsql only accepts UTC offsets for timestamptz parameters.
-            if (query.From is { } from)
+            if (from is { } fromValue)
             {
-                var fromUtc = from.ToUniversalTime();
+                var fromUtc = fromValue.ToUniversalTime();
                 orders = orders.Where(o => o.CreatedAt >= fromUtc);
             }
 
-            if (query.To is { } to)
+            if (to is { } toValue)
             {
-                var toUtc = to.ToUniversalTime();
+                var toUtc = toValue.ToUniversalTime();
                 orders = orders.Where(o => o.CreatedAt < toUtc);
             }
 
             var totalCount = await orders.CountAsync(ct);
-            var page = await orders
+            var items = await orders
                 .OrderByDescending(o => o.OrderNumber)
-                .Skip((query.Page - 1) * query.PageSize)
-                .Take(query.PageSize)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .Select(OrderMapper.ToSummaryDto)
                 .ToListAsync(ct);
 
-            return TypedResults.Ok(new PagedResult<OrderSummaryDto>(page, query.Page, query.PageSize, totalCount));
+            return TypedResults.Ok(new PagedResult<OrderSummaryDto>(items, page, pageSize, totalCount));
         }
 
-        private static async Task<Results<Ok<OrderDto>, NotFound>> GetById(Guid id, PizzaShopContext context, CancellationToken ct)
+        private static async Task<Results<Ok<OrderDto>, NotFound>> GetById(Guid id, ClaimsPrincipal user, PizzaShopContext context, CancellationToken ct)
         {
-            var order = await FindDtoAsync(context, id, ct);
+            // Another customer's order is a 404, not a 403, so its existence isn't revealed.
+            var order = await VisibleOrders(context, user)
+                .Where(o => o.OrderId == id)
+                .Select(OrderMapper.ToDto)
+                .FirstOrDefaultAsync(ct);
             return order is null ? TypedResults.NotFound() : TypedResults.Ok(order);
         }
 
         private static async Task<Results<CreatedAtRoute<OrderDto>, ValidationProblem, ProblemHttpResult>> Create(
             CreateOrderRequest request,
             [FromHeader(Name = IdempotencyKeyHeader)] Guid? idempotencyKey,
+            ClaimsPrincipal user,
             PizzaShopContext context,
             IOptions<OrderOptions> options,
             CancellationToken ct)
@@ -96,8 +117,9 @@ namespace PizzaShop.Api.Endpoints
 
             // Checked before catalog validation so a retry still gets its original order
             // even if the menu changed in between.
+            var userId = user.GetUserId();
             var requestHash = HashRequest(request);
-            if (await TryReplayAsync(context, key, requestHash, ct) is { } replay)
+            if (await TryReplayAsync(context, key, userId, requestHash, ct) is { } replay)
             {
                 return replay;
             }
@@ -132,6 +154,7 @@ namespace PizzaShop.Api.Endpoints
             {
                 Status = OrderStatus.Pending,
                 OrderType = request.OrderType,
+                PlacedByUserId = userId,
                 IdempotencyKey = key,
                 RequestHash = requestHash,
             };
@@ -196,7 +219,7 @@ namespace PizzaShop.Api.Endpoints
                 // the unique index until it does), so this one is a retry: answer with that order.
                 await transaction.RollbackAsync(ct);
                 context.ChangeTracker.Clear();
-                return await TryReplayAsync(context, key, requestHash, ct)
+                return await TryReplayAsync(context, key, userId, requestHash, ct)
                     ?? throw new InvalidOperationException($"Order with idempotency key '{key}' vanished after a unique violation.");
             }
 
@@ -243,19 +266,21 @@ namespace PizzaShop.Api.Endpoints
         }
 
         // Returns the order already created with this key (same 201 response as the original),
-        // a 422 if the key was used for a different request, or null if the key is new.
-        private static async Task<Results<CreatedAtRoute<OrderDto>, ValidationProblem, ProblemHttpResult>?> TryReplayAsync(PizzaShopContext context, Guid key, string requestHash, CancellationToken ct)
+        // a 422 if the key was used for a different request or by another user, or null if the key is new.
+        private static async Task<Results<CreatedAtRoute<OrderDto>, ValidationProblem, ProblemHttpResult>?> TryReplayAsync(PizzaShopContext context, Guid key, Guid userId, string requestHash, CancellationToken ct)
         {
             var previous = await context.Orders
                 .Where(o => o.IdempotencyKey == key)
-                .Select(o => new { o.OrderId, o.RequestHash })
+                .Select(o => new { o.OrderId, o.PlacedByUserId, o.RequestHash })
                 .FirstOrDefaultAsync(ct);
             if (previous is null)
             {
                 return null;
             }
 
-            if (previous.RequestHash != requestHash)
+            // Same answer for another user's key as for a changed body, so a replayed key
+            // never hands back someone else's order or confirms that it exists.
+            if (previous.PlacedByUserId != userId || previous.RequestHash != requestHash)
             {
                 return TypedResults.Problem(
                     statusCode: StatusCodes.Status422UnprocessableEntity,
@@ -271,6 +296,18 @@ namespace PizzaShop.Api.Endpoints
         // defaults (e.g. Quantity) don't make a genuine retry look like a different request.
         private static string HashRequest(CreateOrderRequest request) =>
             Convert.ToHexString(SHA256.HashData(JsonSerializer.SerializeToUtf8Bytes(request)));
+
+        // Staff and admins see every order; customers only the ones they placed.
+        private static IQueryable<Order> VisibleOrders(PizzaShopContext context, ClaimsPrincipal user)
+        {
+            if (user.IsInRole(Roles.Admin) || user.IsInRole(Roles.Staff))
+            {
+                return context.Orders;
+            }
+
+            var userId = user.GetUserId();
+            return context.Orders.Where(o => o.PlacedByUserId == userId);
+        }
 
         private static Task<OrderDto?> FindDtoAsync(PizzaShopContext context, Guid id, CancellationToken ct) =>
             context.Orders

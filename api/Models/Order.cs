@@ -33,6 +33,12 @@ namespace PizzaShop.Api.Models
 
         public DateTimeOffset CreatedAt { get; set; }
 
+        // The customer who ordered, or the staff member who rang up a walk-in.
+        [ForeignKey(nameof(PlacedByUserId))]
+        public AppUser PlacedBy { get; set; } = null!;
+
+        public Guid PlacedByUserId { get; set; }
+
         // Client-generated key from the Idempotency-Key header: a retried POST with the
         // same key returns this order instead of creating (and deducting stock for) another.
         public Guid IdempotencyKey { get; set; }

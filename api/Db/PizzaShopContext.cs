@@ -1,10 +1,19 @@
+using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using AppRoles = PizzaShop.Api.Auth.Roles; // "Roles" alone is IdentityDbContext.Roles here.
 using PizzaShop.Api.Models;
 
 namespace PizzaShop.Api.Db
 {
-    public class PizzaShopContext(DbContextOptions<PizzaShopContext> options) : DbContext(options)
+    // Identity tables (AspNetUsers, AspNetRoles, ...) live alongside the shop data.
+    // Data Protection keys are stored here too: they encrypt the Identity bearer tokens,
+    // and keys kept on local disk would be lost on every redeploy, signing everyone out.
+    public class PizzaShopContext(DbContextOptions<PizzaShopContext> options)
+        : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>(options), IDataProtectionKeyContext
     {
+        public DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<UnitOfMeasure> UnitsOfMeasure { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -22,6 +31,9 @@ namespace PizzaShop.Api.Db
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Maps the Identity tables; must run before the configuration below.
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Ingredient>()
                 .Property(i => i.CurrentStock)
                 .HasDefaultValue(0m);
@@ -69,6 +81,16 @@ namespace PizzaShop.Api.Db
                 .HasOne(t => t.Ingredient)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.PlacedBy)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Fixed ConcurrencyStamps keep HasData from producing a new migration every time.
+            modelBuilder.Entity<IdentityRole<Guid>>().HasData(
+                new IdentityRole<Guid> { Id = Guid.Parse("3f0c8a52-6d1e-4b7a-9c2d-8e5f1a7b4c60"), Name = AppRoles.Admin, NormalizedName = "ADMIN", ConcurrencyStamp = "b1d6f0e2-0a3c-4e5f-8a9b-1c2d3e4f5a60" },
+                new IdentityRole<Guid> { Id = Guid.Parse("7a9e2b14-3c5d-4f6e-8b7a-0d1c2e3f4a51"), Name = AppRoles.Staff, NormalizedName = "STAFF", ConcurrencyStamp = "c2e7a1f3-1b4d-4f6a-9b0c-2d3e4f5a6b71" });
 
             modelBuilder.Entity<PizzaSize>().HasData(
                 new PizzaSize { PizzaSizeId = Guid.Parse("dd64f6fa-4a2d-4e4d-aa26-ba77dcd3c496"), Name = "Small", PriceMultiplier = 1.00m },

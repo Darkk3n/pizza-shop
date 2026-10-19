@@ -12,6 +12,7 @@ namespace PizzaShop.Api.Dtos
         decimal Tax,
         decimal Total,
         DateTimeOffset CreatedAt,
+        string? PlacedByEmail,
         List<OrderItemDto> Items) { }
 
     public record OrderItemDto(
@@ -42,6 +43,7 @@ namespace PizzaShop.Api.Dtos
         decimal Tax,
         decimal Total,
         DateTimeOffset CreatedAt,
+        string? PlacedByEmail,
         int ItemCount) { }
 
     public record PagedResult<T>(List<T> Items, int Page, int PageSize, int TotalCount) { }
@@ -57,6 +59,7 @@ namespace PizzaShop.Api.Dtos
             o.Tax,
             o.Total,
             o.CreatedAt,
+            o.PlacedBy.Email,
             o.Items
                 .OrderBy(i => i.ItemNameSnapshot)
                 .Select(i => new OrderItemDto(
@@ -88,6 +91,7 @@ namespace PizzaShop.Api.Dtos
             o.Tax,
             o.Total,
             o.CreatedAt,
+            o.PlacedBy.Email,
             o.Items.Sum(i => i.Quantity));
     }
 }

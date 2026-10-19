@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using PizzaShop.Api.Auth;
 using PizzaShop.Api.Db;
 using PizzaShop.Api.Dtos;
 using PizzaShop.Api.Models;
@@ -14,18 +15,22 @@ namespace PizzaShop.Api.Endpoints
         public static IEndpointRouteBuilder MapPizzaSizesEndpoints(this IEndpointRouteBuilder app)
         {
             var group = app.MapGroup("/api/pizza-sizes")
-                .WithTags("PizzaSizes");
+                .WithTags("PizzaSizes")
+                .RequireAuthorization();
 
             group.MapGet("/", GetAll);
             group.MapGet("/{id:guid}", GetById)
                 .WithName(GetByIdRouteName);
             group.MapPost("/", Create)
+                .RequireAuthorization(Policies.Admin)
                 .ProducesProblem(StatusCodes.Status409Conflict)
                 .ProducesValidationProblem();
             group.MapPut("/{id:guid}", Update)
+                .RequireAuthorization(Policies.Admin)
                 .ProducesProblem(StatusCodes.Status409Conflict)
                 .ProducesValidationProblem();
             group.MapDelete("/{id:guid}", Delete)
+                .RequireAuthorization(Policies.Admin)
                 .ProducesProblem(StatusCodes.Status409Conflict);
 
             return app;

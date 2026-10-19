@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using PizzaShop.Api.Auth;
 using PizzaShop.Api.Db;
 using PizzaShop.Api.Endpoints;
 using PizzaShop.Api.Extensions;
@@ -12,6 +13,7 @@ var connectionString = builder.Configuration.GetConnectionString("PizzaShop")
     ?? throw new InvalidOperationException("Connection string 'PizzaShop' not found.");
 builder.Services.AddDbContext<PizzaShopContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddFrontendCors(builder.Configuration);
+builder.Services.AddPizzaShopAuth(builder.Configuration);
 builder.Services.AddOptions<OrderOptions>()
     .BindConfiguration(OrderOptions.SectionName)
     .ValidateDataAnnotations()
@@ -21,11 +23,13 @@ builder.Services.ConfigureHttpJsonOptions(options =>
     options.SerializerOptions.Converters.Add(new JsonStringEnumConverter(allowIntegerValues: false)));
 builder.Services.AddProblemDetails();
 builder.Services.AddValidation();
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(options => options.AddDocumentTransformer<BearerSecuritySchemeTransformer>());
 
 var app = builder.Build();
 
 app.UseCors(CorsExtensions.FrontendPolicy);
+app.UseAuthentication();
+app.UseAuthorization();
 
 if (app.Environment.IsDevelopment())
 {
@@ -34,11 +38,18 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
+// Every resource group requires a signed-in user (role policies per endpoint);
+// only this health check and /api/auth's register/login/refresh are anonymous.
 app.MapGet("/", () => "Hello World!");
+app.MapAuthEndpoints();
+app.MapUsersEndpoints();
 app.MapUnitsOfMeasureEndpoints();
 app.MapIngredientsEndpoints();
+app.MapToppingsEndpoints();
 app.MapRecipesEndpoints();
 app.MapPizzaSizesEndpoints();
 app.MapOrdersEndpoints();
+
+await app.SeedBootstrapAdminAsync();
 
 app.Run();
