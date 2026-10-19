@@ -13,7 +13,9 @@ var connectionString = builder.Configuration.GetConnectionString("PizzaShop")
     ?? throw new InvalidOperationException("Connection string 'PizzaShop' not found.");
 builder.Services.AddDbContext<PizzaShopContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddFrontendCors(builder.Configuration);
+builder.Services.AddClientIpForwarding(builder.Configuration);
 builder.Services.AddPizzaShopAuth(builder.Configuration);
+builder.Services.AddPizzaShopRateLimiting();
 builder.Services.AddOptions<OrderOptions>()
     .BindConfiguration(OrderOptions.SectionName)
     .ValidateDataAnnotations()
@@ -27,6 +29,9 @@ builder.Services.AddOpenApi(options => options.AddDocumentTransformer<BearerSecu
 
 var app = builder.Build();
 
+// First, so everything after it (rate limits, logs) sees the browser's IP rather than the proxy's.
+app.UseForwardedHeaders();
+
 // Every error response is Problem Details (application/problem+json), so the web app needs one
 // parser. Unhandled exceptions become a generic 500 outside Development (where the developer
 // exception page, which also answers JSON clients with problem details, shows the stack trace).
@@ -39,6 +44,8 @@ app.UseStatusCodePages();
 
 app.UseCors(CorsExtensions.FrontendPolicy);
 app.UseAuthentication();
+// After authentication so limits can be per user; before authorization so floods stop early.
+app.UseRateLimiter();
 app.UseAuthorization();
 
 if (app.Environment.IsDevelopment())

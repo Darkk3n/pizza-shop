@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using PizzaShop.Api.Db;
 using PizzaShop.Api.Dtos;
+using PizzaShop.Api.Extensions;
 using PizzaShop.Api.Models;
 
 namespace PizzaShop.Api.Auth
@@ -54,7 +55,9 @@ namespace PizzaShop.Api.Auth
             var group = app.MapGroup("/api/auth")
                 .WithTags("Auth");
 
-            group.MapIdentityApi<AppUser>();
+            // Per client IP against password spraying and mass sign-ups; /me only has the per-user limit.
+            group.MapIdentityApi<AppUser>()
+                .RequireRateLimiting(RateLimitPolicies.Auth);
             group.MapGet("/me", GetCurrentUser)
                 .RequireAuthorization();
 

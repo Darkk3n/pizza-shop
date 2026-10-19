@@ -58,6 +58,12 @@ A full-stack POS system for pizza restaurant owners featuring order management, 
    - **Stock:** a cancellation MUST return exactly the stock the order deducted (from `OrderIngredientUsages`, not recomputed from current recipes), in the same transaction as the status change.
    - **Safety:** status changes and cancellations update conditionally on the current status, so stock is never returned twice; a repeated cancel returns 200 without restocking.
    - **Statistics:** cancelled orders keep their items and totals, plus `CancelledAt` / `CancelledByUserId` / `CancellationReason`, and must be reported separately rather than dropped.
+9. **Rate Limiting:** built-in ASP.NET rate limiter, in memory per instance (`api/Extensions/RateLimitingExtensions.cs`, limits in `RateLimiting` config). Rejections are 429 Problem Details with `Retry-After`.
+   - **Limits (per minute):**
+     - **Global:** 300 per signed-in user (per client IP when anonymous) on every endpoint.
+     - **`Auth` policy:** 20 per client IP on the Identity endpoints (never per account, because password spraying hits many accounts).
+     - **`OrderCreate` policy:** 20 per user on `POST /api/orders`.
+   - **Client IP:** comes from `X-Forwarded-For`, honored only from `ForwardedHeaders:KnownProxies` / `KnownNetworks` (loopback when empty). The Next.js BFF must forward the browser's IP, and production config must list the real proxies, or every client shares one bucket (or can spoof its IP).
 
 ## Database Schema Overview
 

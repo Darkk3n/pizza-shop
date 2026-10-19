@@ -10,6 +10,7 @@ using Npgsql;
 using PizzaShop.Api.Auth;
 using PizzaShop.Api.Db;
 using PizzaShop.Api.Dtos;
+using PizzaShop.Api.Extensions;
 using PizzaShop.Api.Models;
 using PizzaShop.Api.Options;
 using PizzaShop.Api.Requests;
@@ -34,6 +35,7 @@ namespace PizzaShop.Api.Endpoints
             group.MapGet("/{id:guid}", GetById)
                 .WithName(GetByIdRouteName);
             group.MapPost("/", Create)
+                .RequireRateLimiting(RateLimitPolicies.OrderCreate)
                 .ProducesProblem(StatusCodes.Status422UnprocessableEntity)
                 .ProducesValidationProblem();
             group.MapPatch("/{id:guid}/status", UpdateStatus)
