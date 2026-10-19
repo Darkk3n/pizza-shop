@@ -34,5 +34,7 @@ namespace PizzaShop.Api.Models
         public PizzaSize? PizzaSize { get; set; }
 
         public Guid? PizzaSizeId { get; set; }
+
+        public List<OrderItemTopping> Toppings { get; set; } = [];
     }
 }

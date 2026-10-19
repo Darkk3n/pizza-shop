@@ -8,7 +8,9 @@ namespace PizzaShop.Api.Dtos
         string Name,
         Guid UnitOfMeasureId,
         string UnitOfMeasureName,
-        decimal CurrentStock) { }
+        decimal CurrentStock,
+        decimal? ToppingPrice,
+        decimal? ToppingPortion) { }
 
     public static class IngredientMapper
     {
@@ -17,7 +19,9 @@ namespace PizzaShop.Api.Dtos
             i.Name,
             i.UnitOfMeasureId,
             i.UnitOfMeasure.Name,
-            i.CurrentStock);
+            i.CurrentStock,
+            i.ToppingPrice,
+            i.ToppingPortion);
 
         // Same mapping for entities already in memory (e.g. right after an insert);
         // compiled once so ToDto stays the single source of truth.

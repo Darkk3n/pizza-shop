@@ -39,6 +39,14 @@ namespace PizzaShop.Api.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
+                    b.Property<decimal?>("ToppingPortion")
+                        .HasPrecision(10, 4)
+                        .HasColumnType("numeric(10,4)");
+
+                    b.Property<decimal?>("ToppingPrice")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("numeric(10,2)");
+
                     b.Property<Guid>("UnitOfMeasureId")
                         .HasColumnType("uuid");
 
@@ -60,6 +68,9 @@ namespace PizzaShop.Api.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("now()");
 
+                    b.Property<Guid>("IdempotencyKey")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("OrderNumber")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
@@ -70,6 +81,11 @@ namespace PizzaShop.Api.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
+
+                    b.Property<string>("RequestHash")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -91,6 +107,9 @@ namespace PizzaShop.Api.Migrations
                     b.HasKey("OrderId");
 
                     b.HasIndex("OrderNumber")
+                        .IsUnique();
+
+                    b.HasIndex(new[] { "IdempotencyKey" }, "IX_Orders_IdempotencyKey")
                         .IsUnique();
 
                     b.ToTable("Orders");
@@ -312,7 +331,7 @@ namespace PizzaShop.Api.Migrations
             modelBuilder.Entity("PizzaShop.Api.Models.OrderItem", b =>
                 {
                     b.HasOne("PizzaShop.Api.Models.Order", "Order")
-                        .WithMany()
+                        .WithMany("Items")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -343,7 +362,7 @@ namespace PizzaShop.Api.Migrations
                         .IsRequired();
 
                     b.HasOne("PizzaShop.Api.Models.OrderItem", "OrderItem")
-                        .WithMany()
+                        .WithMany("Toppings")
                         .HasForeignKey("OrderItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -370,6 +389,16 @@ namespace PizzaShop.Api.Migrations
                     b.Navigation("Ingredient");
 
                     b.Navigation("Recipe");
+                });
+
+            modelBuilder.Entity("PizzaShop.Api.Models.Order", b =>
+                {
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("PizzaShop.Api.Models.OrderItem", b =>
+                {
+                    b.Navigation("Toppings");
                 });
 
             modelBuilder.Entity("PizzaShop.Api.Models.Recipe", b =>

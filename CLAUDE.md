@@ -41,9 +41,10 @@ A full-stack POS system for pizza restaurant owners featuring order management, 
 ## Core Features & Business Rules
 
 1. **Pizza Customizer:** Non-blocking client state handling size, crust, and fractional toppings (`Whole`, `LeftHalf`, `RightHalf`).
-2. **Inventory Deduction:** Creating an order MUST automatically reduce ingredient stock based on `RecipeItems` + `OrderItemToppings`.
-3. **Price Stability:** Orders store price snapshots (`UnitPrice`, `PriceAdjustment`) so future menu price updates don't alter historic financial data.
+2. **Inventory Deduction:** Creating an order MUST automatically reduce ingredient stock based on `RecipeItems` + `OrderItemToppings`, in the same transaction as the order. Recipe amounts and topping portions are per Small and scale by `PizzaSizes.PriceMultiplier`; toppings also scale by coverage (half = 0.5) and amount (Light 0.5 / Standard 1 / Extra 1.5). Orders may push stock negative; manual stock adjustments (`POST /api/ingredients/{id}/stock-adjustments`, for restocks/waste/recounts) may not.
+3. **Price Stability:** Orders store price snapshots (`UnitPrice`, `PriceAdjustment`) so future menu price updates don't alter historic financial data. Prices and tax (`Orders:TaxRate` in appsettings) are computed server-side; clients never send prices.
 4. **Security:** Session timeouts after 30 minutes of inactivity in production environments.
+5. **Idempotent Orders:** `POST /api/orders` requires an `Idempotency-Key` header (GUID). Clients generate one per checkout (`crypto.randomUUID()`) and reuse it on every retry; a replay returns the original order, a reused key with a different body returns 422.
 
 ## Database Schema Overview
 
@@ -58,6 +59,8 @@ A full-stack POS system for pizza restaurant owners featuring order management, 
 - Name: String(50) NOT NULL
 - UnitOfMeasureId: Guid FK -> UnitOfMeasure.UnitOfMeasureId NOT NULL
 - CurrentStock: Decimal(10,2) NOT NULL (Default: 0.00)
+- ToppingPrice: Decimal(10,2) NULL -- Set together with ToppingPortion; both NULL = not offered as a topping
+- ToppingPortion: Decimal(10,4) NULL -- One Small, Whole, Standard serving in the ingredient's unit
 
 ### PizzaSizes (Seeded)
 
@@ -82,12 +85,14 @@ A full-stack POS system for pizza restaurant owners featuring order management, 
 
 - OrderId: Guid PK
 - OrderNumber: Int Identity / Auto-increment NOT NULL
-- Status: String(20) NOT NULL -- "Pending", "Preparing", "Ready", "Completed"
+- Status: String(20) NOT NULL -- "Pending", "Preparing", "Ready", "Completed" (forward-only; skipping steps allowed)
 - OrderType: String(20) NOT NULL -- "DineIn", "Takeout", "Delivery"
 - SubTotal: Decimal(10,2) NOT NULL
 - Tax: Decimal(10,2) NOT NULL
 - Total: Decimal(10,2) NOT NULL
 - CreatedAt: DateTimeOffset NOT NULL
+- IdempotencyKey: Guid NOT NULL UNIQUE -- From the Idempotency-Key header; not exposed in DTOs
+- RequestHash: String(64) NOT NULL -- SHA-256 of the create request, detects key reuse with a different body
 
 ### OrderItems
 

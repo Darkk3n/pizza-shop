@@ -56,6 +56,11 @@ namespace PizzaShop.Api.Endpoints
         {
             var name = request.Name.Trim();
 
+            if (request.ToppingPrice.HasValue != request.ToppingPortion.HasValue)
+            {
+                return IncompleteTopping();
+            }
+
             var unitOfMeasure = await context.UnitsOfMeasure.FindAsync([request.UnitOfMeasureId], ct);
             if (unitOfMeasure is null)
             {
@@ -72,6 +77,8 @@ namespace PizzaShop.Api.Endpoints
                 Name = name,
                 UnitOfMeasure = unitOfMeasure,
                 CurrentStock = request.CurrentStock,
+                ToppingPrice = request.ToppingPrice,
+                ToppingPortion = request.ToppingPortion,
             };
             context.Ingredients.Add(ingredient);
             await context.SaveChangesAsync(ct);
@@ -90,6 +97,11 @@ namespace PizzaShop.Api.Endpoints
                 return TypedResults.NotFound();
             }
 
+            if (request.ToppingPrice.HasValue != request.ToppingPortion.HasValue)
+            {
+                return IncompleteTopping();
+            }
+
             var unitOfMeasure = await context.UnitsOfMeasure.FindAsync([request.UnitOfMeasureId], ct);
             if (unitOfMeasure is null)
             {
@@ -105,6 +117,8 @@ namespace PizzaShop.Api.Endpoints
 
             ingredient.Name = name;
             ingredient.UnitOfMeasure = unitOfMeasure;
+            ingredient.ToppingPrice = request.ToppingPrice;
+            ingredient.ToppingPortion = request.ToppingPortion;
             await context.SaveChangesAsync(ct);
 
             return TypedResults.Ok(IngredientMapper.FromEntity(ingredient));
@@ -183,6 +197,12 @@ namespace PizzaShop.Api.Endpoints
             TypedResults.ValidationProblem(new Dictionary<string, string[]>
             {
                 [nameof(CreateIngredientRequest.UnitOfMeasureId)] = [$"Unit of measure '{unitOfMeasureId}' does not exist."],
+            });
+
+        private static ValidationProblem IncompleteTopping() =>
+            TypedResults.ValidationProblem(new Dictionary<string, string[]>
+            {
+                [nameof(CreateIngredientRequest.ToppingPortion)] = ["ToppingPrice and ToppingPortion must both be set or both be omitted."],
             });
     }
 }

@@ -19,5 +19,14 @@ namespace PizzaShop.Api.Models
 
         [Precision(10, 2)]
         public decimal CurrentStock { get; set; }
+
+        // Both null when the ingredient isn't offered as a topping (e.g. flour, yeast).
+        // ToppingPortion is one Small, Whole, Standard serving in the ingredient's unit of measure;
+        // orders scale it and ToppingPrice by coverage, amount and size.
+        [Precision(10, 2)]
+        public decimal? ToppingPrice { get; set; }
+
+        [Precision(10, 4)]
+        public decimal? ToppingPortion { get; set; }
     }
 }
