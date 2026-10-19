@@ -50,6 +50,7 @@ A full-stack POS system for pizza restaurant owners featuring order management, 
    - **Customer:** read units, sizes, recipes and `/api/toppings`; place orders; see only their own orders (others' are 404).
    - **Staff:** all orders, order status, ingredient reads and stock adjustments.
    - **Admin:** catalog writes, `/api/users` role management (can't remove the last admin), statistics.
+   - `GET /api/auth/me` returns the caller's `{ email, roles }` from the token's claims (not the DB, so it matches what the API enforces; `Cache-Control: no-store`). It drives which screens the UI shows and is not a security boundary.
    - The first admin is created at startup from `Auth:BootstrapAdmin:Email` / `Password` (user-secrets or env vars, never committed).
 7. **Retiring Menu Items:** Recipes and ingredients that appear in orders can't be deleted (409); set `IsActive = false` instead. Inactive recipes are hidden from customers and rejected in new orders (staff/admin still see them). Inactive ingredients are hidden from `/api/toppings`, rejected as toppings, and can't be newly added to recipes (recipes that already contain them stay editable).
 8. **Cancellation:** `POST /api/orders/{id}/cancel` (optional `{ reason }`) is the only way to reach `Cancelled`; `PATCH .../status` rejects it.

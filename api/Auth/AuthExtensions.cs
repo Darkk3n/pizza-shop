@@ -1,8 +1,10 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using PizzaShop.Api.Db;
+using PizzaShop.Api.Dtos;
 using PizzaShop.Api.Models;
 
 namespace PizzaShop.Api.Auth
@@ -45,15 +47,33 @@ namespace PizzaShop.Api.Auth
 
         /// <summary>
         /// /api/auth/register, /login, /refresh, /manage/info, /forgotPassword, /resetPassword...
-        /// Register and login are anonymous; /manage requires a token.
+        /// Register and login are anonymous; /manage and /me require a token.
         /// </summary>
         public static IEndpointRouteBuilder MapAuthEndpoints(this IEndpointRouteBuilder app)
         {
-            app.MapGroup("/api/auth")
-                .WithTags("Auth")
-                .MapIdentityApi<AppUser>();
+            var group = app.MapGroup("/api/auth")
+                .WithTags("Auth");
+
+            group.MapIdentityApi<AppUser>();
+            group.MapGet("/me", GetCurrentUser)
+                .RequireAuthorization();
 
             return app;
+        }
+
+        // Read from the token's claims, not the database: these are exactly the roles the API
+        // enforces for this token, so the UI never offers an action that would get a 403. A role
+        // change shows up after the user's next /refresh, the same moment the API applies it.
+        private static Ok<CurrentUserDto> GetCurrentUser(ClaimsPrincipal user, HttpResponse response)
+        {
+            // One user's identity must never be stored by a browser cache or proxy.
+            response.Headers.CacheControl = "no-store";
+
+            var roles = user.FindAll(ClaimTypes.Role)
+                .Select(c => c.Value)
+                .Order()
+                .ToList();
+            return TypedResults.Ok(new CurrentUserDto(user.FindFirstValue(ClaimTypes.Email), roles));
         }
 
         /// <summary>
