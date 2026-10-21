@@ -39,6 +39,9 @@ namespace PizzaShop.Api.Endpoints
                 .RequireRateLimiting(RateLimitPolicies.OrderCreate)
                 .ProducesProblem(StatusCodes.Status422UnprocessableEntity)
                 .ProducesValidationProblem();
+            // Live price for the pizza builder; any signed-in user, nothing is saved.
+            group.MapPost("/quote", Quote)
+                .ProducesValidationProblem();
             group.MapPatch("/{id:guid}/status", UpdateStatus)
                 .RequireAuthorization(Policies.Staff)
                 .ProducesProblem(StatusCodes.Status409Conflict)
@@ -130,33 +133,14 @@ namespace PizzaShop.Api.Endpoints
                 return replay;
             }
 
-            // Load every referenced catalog row up front: one query per table.
-            var recipeIds = request.Items.Select(i => i.RecipeId).Distinct().ToList();
-            var recipes = await context.Recipes
-                .Include(r => r.RecipeItems)
-                .Where(r => recipeIds.Contains(r.RecipeId))
-                .ToDictionaryAsync(r => r.RecipeId, ct);
-
-            var sizeIds = request.Items.Where(i => i.PizzaSizeId.HasValue).Select(i => i.PizzaSizeId!.Value).Distinct().ToList();
-            var sizes = await context.PizzaSizes
-                .Where(s => sizeIds.Contains(s.PizzaSizeId))
-                .ToDictionaryAsync(s => s.PizzaSizeId, ct);
-
-            var toppingIds = request.Items.SelectMany(i => i.Toppings ?? [])
-                .Select(t => t.IngredientId)
-                .Distinct()
-                .ToList();
-            var toppingIngredients = await context.Ingredients
-                .Where(i => toppingIds.Contains(i.IngredientId))
-                .ToDictionaryAsync(i => i.IngredientId, ct);
-
-            var errors = ValidateItems(request.Items, recipes, sizes, toppingIngredients);
+            var catalog = await LoadCatalogAsync(context, request.Items, ct);
+            var errors = ValidateItems(request.Items, catalog.Recipes, catalog.Sizes, catalog.ToppingIngredients);
             if (errors is not null)
             {
                 return TypedResults.ValidationProblem(errors);
             }
 
-            var priced = OrderCalculator.Price(request.Items, recipes, sizes, toppingIngredients, options.Value.TaxRate);
+            var priced = OrderCalculator.Price(request.Items, catalog.Recipes, catalog.Sizes, catalog.ToppingIngredients, options.Value.TaxRate);
             var order = new Order
             {
                 Status = OrderStatus.Pending,
@@ -198,6 +182,55 @@ namespace PizzaShop.Api.Endpoints
             // Re-read through the projection so the response carries topping names.
             var dto = await FindDtoAsync(context, order.OrderId, ct);
             return TypedResults.CreatedAtRoute(dto, GetByIdRouteName, new { id = order.OrderId });
+        }
+
+        // Same validation and pricing as Create, so the builder shows exactly what an order would cost
+        // right now. No Idempotency-Key, no stock change, no order row.
+        private static async Task<Results<Ok<OrderQuoteDto>, ValidationProblem>> Quote(
+            QuoteOrderRequest request,
+            PizzaShopContext context,
+            IOptions<OrderOptions> options,
+            CancellationToken ct)
+        {
+            var catalog = await LoadCatalogAsync(context, request.Items, ct);
+            var errors = ValidateItems(request.Items, catalog.Recipes, catalog.Sizes, catalog.ToppingIngredients);
+            if (errors is not null)
+            {
+                return TypedResults.ValidationProblem(errors);
+            }
+
+            var priced = OrderCalculator.Price(request.Items, catalog.Recipes, catalog.Sizes, catalog.ToppingIngredients, options.Value.TaxRate);
+            return TypedResults.Ok(OrderQuoteMapper.FromPriced(priced, catalog.ToppingIngredients));
+        }
+
+        private sealed record OrderCatalog(
+            Dictionary<Guid, Recipe> Recipes,
+            Dictionary<Guid, PizzaSize> Sizes,
+            Dictionary<Guid, Ingredient> ToppingIngredients);
+
+        // Every catalog row the items reference, loaded up front: one query per table.
+        private static async Task<OrderCatalog> LoadCatalogAsync(PizzaShopContext context, List<OrderItemRequest> items, CancellationToken ct)
+        {
+            var recipeIds = items.Select(i => i.RecipeId).Distinct().ToList();
+            var recipes = await context.Recipes
+                .Include(r => r.RecipeItems)
+                .Where(r => recipeIds.Contains(r.RecipeId))
+                .ToDictionaryAsync(r => r.RecipeId, ct);
+
+            var sizeIds = items.Where(i => i.PizzaSizeId.HasValue).Select(i => i.PizzaSizeId!.Value).Distinct().ToList();
+            var sizes = await context.PizzaSizes
+                .Where(s => sizeIds.Contains(s.PizzaSizeId))
+                .ToDictionaryAsync(s => s.PizzaSizeId, ct);
+
+            var toppingIds = items.SelectMany(i => i.Toppings ?? [])
+                .Select(t => t.IngredientId)
+                .Distinct()
+                .ToList();
+            var toppingIngredients = await context.Ingredients
+                .Where(i => toppingIds.Contains(i.IngredientId))
+                .ToDictionaryAsync(i => i.IngredientId, ct);
+
+            return new OrderCatalog(recipes, sizes, toppingIngredients);
         }
 
         private static async Task<Results<Ok<OrderDto>, NotFound, ValidationProblem, ProblemHttpResult>> UpdateStatus(Guid id, UpdateOrderStatusRequest request, PizzaShopContext context, CancellationToken ct)

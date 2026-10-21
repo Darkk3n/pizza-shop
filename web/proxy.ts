@@ -18,11 +18,19 @@ const PUBLIC_PATHS = ["/login", "/register"];
 const REFRESH_WINDOW_MS = 60_000;
 
 const toLogin = (request: NextRequest) => {
-  const url = new URL("/login", request.url);
-  const next = `${request.nextUrl.pathname}${request.nextUrl.search}`;
-  if (next !== "/") url.searchParams.set("next", next);
-
-  const response = NextResponse.redirect(url);
+  let response: NextResponse;
+  if (request.nextUrl.pathname.startsWith("/api/")) {
+    // Route Handlers are called by fetch(), which would follow a redirect to the login HTML.
+    response = NextResponse.json(
+      { title: "Your session has ended.", status: 401 },
+      { status: 401, headers: { "Content-Type": "application/problem+json" } },
+    );
+  } else {
+    const url = new URL("/login", request.url);
+    const next = `${request.nextUrl.pathname}${request.nextUrl.search}`;
+    if (next !== "/") url.searchParams.set("next", next);
+    response = NextResponse.redirect(url);
+  }
   for (const name of SESSION_COOKIES) response.cookies.delete(name);
   return response;
 };

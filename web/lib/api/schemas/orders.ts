@@ -10,7 +10,60 @@ export const orderTypeSchema = z.enum(["DineIn", "Takeout", "Delivery"]);
 export type OrderType = z.infer<typeof orderTypeSchema>;
 
 export const toppingCoverageSchema = z.enum(["Whole", "LeftHalf", "RightHalf"]);
+export type ToppingCoverage = z.infer<typeof toppingCoverageSchema>;
 export const toppingAmountSchema = z.enum(["Light", "Standard", "Extra"]);
+export type ToppingAmount = z.infer<typeof toppingAmountSchema>;
+
+// One order line as POST /api/orders and /api/orders/quote take it. No prices: the API computes them.
+export const orderItemRequestSchema = z.object({
+  recipeId: z.uuid(),
+  pizzaSizeId: z.uuid().nullable(),
+  quantity: z.number().int().min(1).max(100),
+  toppings: z
+    .array(
+      z.object({
+        ingredientId: z.uuid(),
+        coverage: toppingCoverageSchema,
+        extraAmount: toppingAmountSchema,
+      }),
+    )
+    // The API allows each ingredient once per item.
+    .refine((toppings) => new Set(toppings.map((t) => t.ingredientId)).size === toppings.length, {
+      message: "Each topping can be added once.",
+    }),
+});
+
+export type OrderItemRequest = z.infer<typeof orderItemRequestSchema>;
+
+export const quoteRequestSchema = z.object({ items: z.array(orderItemRequestSchema).min(1) });
+
+// POST /api/orders/quote: what the items cost right now. Nothing is saved.
+export const orderQuoteSchema = z.object({
+  items: z.array(
+    z.object({
+      recipeId: z.uuid(),
+      pizzaSizeId: z.uuid().nullable(),
+      itemNameSnapshot: z.string(),
+      quantity: z.number().int(),
+      unitPrice: z.number(),
+      lineTotal: z.number(),
+      toppings: z.array(
+        z.object({
+          ingredientId: z.uuid(),
+          ingredientName: z.string(),
+          coverage: toppingCoverageSchema,
+          extraAmount: toppingAmountSchema,
+          priceAdjustment: z.number(),
+        }),
+      ),
+    }),
+  ),
+  subTotal: z.number(),
+  tax: z.number(),
+  total: z.number(),
+});
+
+export type OrderQuote = z.infer<typeof orderQuoteSchema>;
 
 export const orderSummarySchema = z.object({
   orderId: z.uuid(),

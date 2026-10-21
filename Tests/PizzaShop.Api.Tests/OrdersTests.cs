@@ -213,5 +213,52 @@ namespace PizzaShop.Api.Tests
             var problem = await TestApi.ReadProblemAsync(tooBig, HttpStatusCode.BadRequest);
             Assert.Contains("pageSize", problem.Errors.Keys);
         }
+
+        [Fact]
+        public async Task Quote_PricesLikeCreate_WithoutSavingOrDeductingStock()
+        {
+            var (admin, dough, cheese, recipe) = await MenuAsync();
+            var customer = await api.NewUserAsync();
+            var items = LargeWithExtraCheeseOnLeftHalf(recipe.RecipeId, cheese.IngredientId).Items;
+
+            var response = await customer.Client.PostAsJsonAsync("/api/orders/quote", new QuoteOrderRequest(items), TestApi.Json);
+
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            var quote = await TestApi.ReadAsync<OrderQuoteDto>(response);
+            var item = Assert.Single(quote.Items);
+            var topping = Assert.Single(item.Toppings);
+            // Same numbers as Create_ComputesPricesServerSide_AndDeductsStock.
+            Assert.Equal(1.28m, topping.PriceAdjustment);
+            Assert.Equal(cheese.Name, topping.IngredientName);
+            Assert.Equal(18.28m, item.UnitPrice);
+            Assert.Equal(36.56m, item.LineTotal);
+            Assert.Equal(3.02m, quote.Tax);
+            Assert.Equal(39.58m, quote.Total);
+            Assert.StartsWith("Large ", item.ItemNameSnapshot);
+
+            Assert.Equal(1000.00m, await TestApi.StockAsync(admin, dough.IngredientId));
+            Assert.Equal(1000.00m, await TestApi.StockAsync(admin, cheese.IngredientId));
+            var orders = await TestApi.ReadAsync<PagedResult<OrderSummaryDto>>(await customer.Client.GetAsync("/api/orders"));
+            Assert.Equal(0, orders.TotalCount);
+        }
+
+        [Fact]
+        public async Task Quote_ValidatesItemsLikeCreate()
+        {
+            var (admin, _, cheese, recipe) = await MenuAsync();
+            var customer = await api.NewUserAsync();
+            var retire = await admin.Client.PutAsJsonAsync($"/api/recipes/{recipe.RecipeId}",
+                new UpdateRecipeRequest(recipe.Name, recipe.BasePrice, [.. recipe.Items.Select(i => new RecipeItemRequest(i.IngredientId, i.Amount))], IsActive: false),
+                TestApi.Json);
+            Assert.Equal(HttpStatusCode.OK, retire.StatusCode);
+
+            var inactive = await customer.Client.PostAsJsonAsync("/api/orders/quote",
+                new QuoteOrderRequest(LargeWithExtraCheeseOnLeftHalf(recipe.RecipeId, cheese.IngredientId).Items), TestApi.Json);
+            var problem = await TestApi.ReadProblemAsync(inactive, HttpStatusCode.BadRequest);
+            Assert.Contains("Items[0].RecipeId", problem.Errors.Keys);
+
+            var empty = await customer.Client.PostAsJsonAsync("/api/orders/quote", new QuoteOrderRequest([]), TestApi.Json);
+            await TestApi.ReadProblemAsync(empty, HttpStatusCode.BadRequest);
+        }
     }
 }
