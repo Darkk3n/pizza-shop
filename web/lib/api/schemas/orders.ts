@@ -37,6 +37,14 @@ export type OrderItemRequest = z.infer<typeof orderItemRequestSchema>;
 
 export const quoteRequestSchema = z.object({ items: z.array(orderItemRequestSchema).min(1) });
 
+// POST /api/orders body (the Idempotency-Key goes in a header).
+export const createOrderSchema = z.object({
+  orderType: orderTypeSchema,
+  items: z.array(orderItemRequestSchema).min(1, "Your cart is empty."),
+});
+
+export type CreateOrderInput = z.infer<typeof createOrderSchema>;
+
 // POST /api/orders/quote: what the items cost right now. Nothing is saved.
 export const orderQuoteSchema = z.object({
   items: z.array(

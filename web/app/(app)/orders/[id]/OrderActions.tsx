@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import type { ActionResult } from "@/lib/helpers/actions";
+import type { ActionFailure } from "@/lib/helpers/actions";
 import {
   cancelOrderSchema,
   isCancellable,
@@ -32,7 +32,7 @@ import { advanceStatus, cancelOrder } from "../actions";
 type OrderActionsProps = { orderId: string; orderNumber: number; status: OrderStatus };
 
 // 409 means someone else changed the order first; the action already refreshed the page.
-const reportFailure = (result: Extract<ActionResult, { ok: false }>) => {
+const reportFailure = (result: ActionFailure) => {
   if (result.status === 409) {
     toast.warning(result.message ?? "This order changed. Showing the latest version.");
   } else {

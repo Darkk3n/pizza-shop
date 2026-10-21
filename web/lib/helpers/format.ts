@@ -26,3 +26,16 @@ export const ORDER_STATUS_LABELS: Record<OrderStatus, string> = {
 
 export const COVERAGE_LABELS = { Whole: "Whole", LeftHalf: "Left half", RightHalf: "Right half" } as const;
 export const AMOUNT_LABELS = { Light: "Light", Standard: "Standard", Extra: "Extra" } as const;
+
+// "Black Olives (left half, extra)"; whole and standard are the defaults, so they're left out.
+export const describeTopping = (topping: {
+  ingredientName: string;
+  coverage: keyof typeof COVERAGE_LABELS;
+  extraAmount: keyof typeof AMOUNT_LABELS;
+}) => {
+  const notes = [
+    topping.coverage !== "Whole" && COVERAGE_LABELS[topping.coverage].toLowerCase(),
+    topping.extraAmount !== "Standard" && AMOUNT_LABELS[topping.extraAmount].toLowerCase(),
+  ].filter(Boolean);
+  return notes.length > 0 ? `${topping.ingredientName} (${notes.join(", ")})` : topping.ingredientName;
+};

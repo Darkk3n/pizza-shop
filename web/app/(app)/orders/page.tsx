@@ -9,7 +9,7 @@ import { requireStaff } from "@/lib/auth/currentUser";
 import { formatDateTime, formatMoney, ORDER_STATUS_LABELS, ORDER_TYPE_LABELS } from "@/lib/helpers/format";
 import { listOrders, ORDERS_PAGE_SIZE } from "@/lib/api/orders";
 import { cn } from "@/lib/utils";
-import { StatusBadge } from "./StatusBadge";
+import { StatusBadge } from "@/components/orders/StatusBadge";
 
 export const metadata: Metadata = { title: "Orders · Pizza Shop POS" };
 

@@ -1,14 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useReducer, useRef, useState } from "react";
-import { describeApiError, readApiError } from "@/lib/api/problem";
-import {
-  orderQuoteSchema,
-  type OrderItemRequest,
-  type OrderQuote,
-  type ToppingAmount,
-  type ToppingCoverage,
-} from "@/lib/api/schemas/orders";
+import { useMemo, useReducer } from "react";
+import type { OrderItemRequest, OrderQuote, ToppingAmount, ToppingCoverage } from "@/lib/api/schemas/orders";
+import { useQuote } from "./useQuote";
 
 export type ToppingChoice = { ingredientId: string; coverage: ToppingCoverage; extraAmount: ToppingAmount };
 
@@ -23,16 +17,20 @@ type BuilderAction =
   | { type: "setSize"; sizeId: string }
   | { type: "setQuantity"; quantity: number }
   | { type: "toggleTopping"; ingredientId: string }
-  | { type: "updateTopping"; ingredientId: string; changes: Partial<Omit<ToppingChoice, "ingredientId">> };
+  | { type: "updateTopping"; ingredientId: string; changes: Partial<Omit<ToppingChoice, "ingredientId">> }
+  | { type: "reset"; sizeId: string | null };
 
+// The API's per-line limit (OrderItemRequest.Quantity is [Range(1, 100)]).
 export const MAX_QUANTITY = 100;
+
+export const clampQuantity = (quantity: number) => Math.min(MAX_QUANTITY, Math.max(1, Math.round(quantity)));
 
 const reducer = (state: BuilderState, action: BuilderAction): BuilderState => {
   switch (action.type) {
     case "setSize":
       return { ...state, sizeId: action.sizeId };
     case "setQuantity":
-      return { ...state, quantity: Math.min(MAX_QUANTITY, Math.max(1, Math.round(action.quantity))) };
+      return { ...state, quantity: clampQuantity(action.quantity) };
     case "toggleTopping":
       return state.toppings.some((t) => t.ingredientId === action.ingredientId)
         ? { ...state, toppings: state.toppings.filter((t) => t.ingredientId !== action.ingredientId) }
@@ -45,13 +43,10 @@ const reducer = (state: BuilderState, action: BuilderAction): BuilderState => {
         ...state,
         toppings: state.toppings.map((t) => (t.ingredientId === action.ingredientId ? { ...t, ...action.changes } : t)),
       };
+    case "reset":
+      return { sizeId: action.sizeId, quantity: 1, toppings: [] };
   }
 };
-
-// Wait for the user to pause before asking for a price; each change cancels the previous request.
-const QUOTE_DELAY_MS = 250;
-
-const quoteKey = (item: OrderItemRequest) => JSON.stringify(item);
 
 type UsePizzaBuilderOptions = {
   recipeId: string;
@@ -60,8 +55,7 @@ type UsePizzaBuilderOptions = {
   initialQuote: OrderQuote | null;
 };
 
-// Builder state stays local and instant; prices come from POST /api/orders/quote (server-side
-// math, never computed here). The last good price stays visible while a new one loads.
+// Builder state stays local and instant; prices come from the server through useQuote.
 export const usePizzaBuilder = ({ recipeId, defaultSizeId, initialQuote }: UsePizzaBuilderOptions) => {
   const [state, dispatch] = useReducer(reducer, { sizeId: defaultSizeId, quantity: 1, toppings: [] });
 
@@ -69,70 +63,16 @@ export const usePizzaBuilder = ({ recipeId, defaultSizeId, initialQuote }: UsePi
     () => ({ recipeId, pizzaSizeId: state.sizeId, quantity: state.quantity, toppings: state.toppings }),
     [recipeId, state],
   );
-  const key = quoteKey(item);
-
-  // Quotes by configuration: going back to an earlier choice shows its price without a request.
-  const [quotes, setQuotes] = useState<Map<string, OrderQuote>>(() => {
-    const initial = new Map<string, OrderQuote>();
-    if (initialQuote) {
-      initial.set(quoteKey({ recipeId, pizzaSizeId: defaultSizeId, quantity: 1, toppings: [] }), initialQuote);
-    }
-    return initial;
+  const items = useMemo(() => [item], [item]);
+  const pricing = useQuote(items, {
+    items: [{ recipeId, pizzaSizeId: defaultSizeId, quantity: 1, toppings: [] }],
+    quote: initialQuote,
   });
-  const quotesRef = useRef(quotes);
-  const [lastQuote, setLastQuote] = useState<OrderQuote | null>(initialQuote);
-  const [failure, setFailure] = useState<{ key: string; message: string } | null>(null);
-  const [retries, setRetries] = useState(0);
-
-  useEffect(() => {
-    if (quotesRef.current.has(key)) return;
-
-    const controller = new AbortController();
-    const timer = setTimeout(async () => {
-      try {
-        const response = await fetch("/api/orders/quote", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ items: [JSON.parse(key)] }),
-          signal: controller.signal,
-        });
-        if (!response.ok) {
-          setFailure({ key, message: describeApiError(await readApiError(response)) });
-          return;
-        }
-        const quote = orderQuoteSchema.parse(await response.json());
-        quotesRef.current = new Map(quotesRef.current).set(key, quote);
-        setQuotes(quotesRef.current);
-        setLastQuote(quote);
-      } catch (error) {
-        if (controller.signal.aborted) return;
-        console.error(error);
-        setFailure({ key, message: "Couldn't update the price. Check your connection and try again." });
-      }
-    }, QUOTE_DELAY_MS);
-
-    return () => {
-      clearTimeout(timer);
-      controller.abort();
-    };
-  }, [key, retries]);
-
-  const quote = quotes.get(key) ?? null;
-  const error = !quote && failure?.key === key ? failure.message : null;
 
   return {
     ...state,
     item,
-    // The price for exactly this configuration, or null while it loads (or failed).
-    quote,
-    // What to show meanwhile: the latest price we have, marked as updating.
-    displayQuote: quote ?? lastQuote,
-    isQuoting: !quote && !error,
-    quoteError: error,
-    retryQuote: () => {
-      setFailure(null);
-      setRetries((n) => n + 1);
-    },
+    ...pricing,
     setSize: (sizeId: string) => dispatch({ type: "setSize", sizeId }),
     setQuantity: (quantity: number) => dispatch({ type: "setQuantity", quantity }),
     toggleTopping: (ingredientId: string) => dispatch({ type: "toggleTopping", ingredientId }),
@@ -140,5 +80,7 @@ export const usePizzaBuilder = ({ recipeId, defaultSizeId, initialQuote }: UsePi
       dispatch({ type: "updateTopping", ingredientId, changes: { coverage } }),
     setToppingAmount: (ingredientId: string, extraAmount: ToppingAmount) =>
       dispatch({ type: "updateTopping", ingredientId, changes: { extraAmount } }),
+    // Back to the default pizza, e.g. after adding it to the cart.
+    reset: () => dispatch({ type: "reset", sizeId: defaultSizeId }),
   };
 };

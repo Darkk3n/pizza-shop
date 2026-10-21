@@ -1,6 +1,9 @@
 "use client";
 
 import { MinusIcon, PlusIcon, RotateCwIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { useCart } from "@/components/cart/CartProvider";
 import { ChoiceGroup } from "@/components/forms/ChoiceGroup";
 import { FormAlert } from "@/components/forms/FormAlert";
 import { Button } from "@/components/ui/button";
@@ -8,7 +11,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { MAX_QUANTITY, usePizzaBuilder } from "@/hooks/usePizzaBuilder";
 import type { PizzaSize, Recipe, Topping } from "@/lib/api/schemas/menu";
 import type { OrderQuote, ToppingAmount, ToppingCoverage } from "@/lib/api/schemas/orders";
-import { AMOUNT_LABELS, COVERAGE_LABELS, formatMoney } from "@/lib/helpers/format";
+import { AMOUNT_LABELS, COVERAGE_LABELS, describeTopping, formatMoney } from "@/lib/helpers/format";
 import { cn } from "@/lib/utils";
 
 const COVERAGE_CHOICES = (["Whole", "LeftHalf", "RightHalf"] as const).map((value) => ({
@@ -34,6 +37,22 @@ export const PizzaBuilder = ({ recipe, sizes, toppings, initialQuote }: PizzaBui
     initialQuote,
   });
   const quotedItem = builder.displayQuote?.items[0];
+  const cart = useCart();
+  const router = useRouter();
+
+  // Only once the price for exactly this pizza is in: the cart line takes its name from it.
+  const addToOrder = () => {
+    const priced = builder.quote?.items[0];
+    if (!priced) return;
+    cart.addItem(builder.item, {
+      name: priced.itemNameSnapshot,
+      details: priced.toppings.map((topping) => `+ ${describeTopping(topping)}`),
+    });
+    toast.success(`${priced.quantity} × ${priced.itemNameSnapshot} added`, {
+      action: { label: "View cart", onClick: () => router.push("/cart") },
+    });
+    builder.reset();
+  };
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_20rem] lg:items-start">
@@ -173,11 +192,7 @@ export const PizzaBuilder = ({ recipe, sizes, toppings, initialQuote }: PizzaBui
                 </div>
                 {quotedItem.toppings.map((topping) => (
                   <div key={topping.ingredientId} className="flex justify-between gap-4">
-                    <dt className="text-muted-foreground">
-                      + {topping.ingredientName}
-                      {topping.coverage !== "Whole" && ` (${COVERAGE_LABELS[topping.coverage].toLowerCase()})`}
-                      {topping.extraAmount !== "Standard" && `, ${AMOUNT_LABELS[topping.extraAmount].toLowerCase()}`}
-                    </dt>
+                    <dt className="text-muted-foreground">+ {describeTopping(topping)}</dt>
                     <dd className="font-mono tabular-nums">{formatMoney(topping.priceAdjustment)}</dd>
                   </div>
                 ))}
@@ -197,11 +212,14 @@ export const PizzaBuilder = ({ recipe, sizes, toppings, initialQuote }: PizzaBui
           </dl>
         </CardContent>
         <CardFooter className="flex-col items-stretch gap-2">
-          {/* The cart comes in the next step; the button is here so the layout is final. */}
-          <Button size="lg" disabled>
-            Add to order
+          <Button size="lg" disabled={!builder.quote} onClick={addToOrder}>
+            {builder.quote ? "Add to order" : builder.quoteError ? "Price unavailable" : "Updating price…"}
           </Button>
-          <p className="text-center text-xs text-muted-foreground">Ordering opens soon.</p>
+          {cart.count > 0 && (
+            <Button variant="outline" onClick={() => router.push("/cart")}>
+              View cart ({cart.count})
+            </Button>
+          )}
         </CardFooter>
       </Card>
     </div>

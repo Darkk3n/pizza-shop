@@ -1,10 +1,10 @@
 import type { FieldValues, Path, UseFormSetError } from "react-hook-form";
-import type { ActionResult } from "@/lib/helpers/actions";
+import type { ActionFailure } from "@/lib/helpers/actions";
 
 // Puts a failed Server Action's errors onto React Hook Form fields; returns the message
 // to show above the form (including field errors for fields the form doesn't have).
 export const applyActionErrors = <T extends FieldValues>(
-  result: Extract<ActionResult, { ok: false }>,
+  result: ActionFailure,
   setError: UseFormSetError<T>,
   fields: readonly Path<T>[],
 ) => {
