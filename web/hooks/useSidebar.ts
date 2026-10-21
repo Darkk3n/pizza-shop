@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useSyncExternalStore } from "react";
-import { SIDEBAR_STORAGE_KEY } from "@/lib/sidebar";
+import { SIDEBAR_STORAGE_KEY } from "@/lib/helpers/sidebar";
 
 const DESKTOP_QUERY = "(min-width: 48rem)"; // Tailwind `md`
 

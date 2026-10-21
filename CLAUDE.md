@@ -32,7 +32,12 @@ A full-stack POS system for pizza restaurant owners featuring order management, 
 - Default to Server Components; explicitly place `"use client";` at the top of files handling UI interactivity or React Hook Form.
 - Always use Zod schemas to validate form inputs and API request payloads. Derive TypeScript types using `z.infer<typeof schema>`.
 - Keep complex form logic inside feature-specific hooks (`hooks/usePizzaBuilder.ts`).
-- Always use arrow functions (`const Name = () => {}`) for components, hooks, helpers, and handlers; never `function` declarations. For default exports (pages, layouts), declare the const and then `export default Name;`.
+- Always use arrow functions (`const Name = () => {}`) for components, hooks, helpers, and handlers; never `function` declarations. For default exports (pages, layouts), declare the const and then `export default Name;`. Exception: `components/ui/` is shadcn/ui-generated (`pnpm dlx shadcn@latest add <name>` from `web/`); leave it as generated.
+- **BFF auth:** the browser never calls the API or sees tokens. Tokens live in httpOnly cookies (`lib/auth/cookies.ts`); login/register/logout are Server Actions (`lib/auth/actions.ts`); `proxy.ts` refreshes the access token shortly before expiry and sends signed-out visitors to `/login?next=`. Server code calls the API through `lib/api/client.ts` (`apiFetch` / `apiJson`, adds the bearer token and `X-Forwarded-For`) with Zod response schemas in `lib/api/schemas/`. `API_BASE_URL` goes in `web/.env.local` (see `web/.env.example`).
+- **`lib/` layout:** `lib/api/` (HTTP client, Problem Details, Zod schemas, data functions like `api/orders.ts`), `lib/auth/` (session, current user, auth actions), `lib/helpers/` (pure helpers: formatting, form/action errors, nav per role, sidebar). `lib/utils.ts` stays at the root: it is shadcn's `cn()` and `components.json` points there.
+- **Access checks:** `proxy.ts` only checks for a session cookie. Every page and Server Action that needs a role calls `requireStaff()` / `requireAdmin()` (`lib/auth/currentUser.ts`), which renders `app/forbidden.tsx`. Nav per role is in `lib/helpers/navigation.ts`.
+- **Cache Components is on:** anything that reads cookies, `searchParams` or `params` must sit inside `<Suspense>` (the build fails otherwise). Signed-in screens live in `app/(app)/` (with the shell); sign-in screens in `app/(auth)/`.
+- **Server Action errors:** return `ActionResult` (`lib/helpers/actions.ts`: `apiFailure` maps Problem Details, including indexed keys like `Items[0].RecipeId` to RHF paths) and apply them with `applyActionErrors` (`lib/helpers/forms.ts`). Call `refresh()` after mutations.
 
 ### Backend (`api`)
 

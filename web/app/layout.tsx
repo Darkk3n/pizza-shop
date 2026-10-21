@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { AppShell } from "@/components/app-shell/AppShell";
-import { sidebarInitScript } from "@/lib/sidebar";
+import { Toaster } from "@/components/ui/sonner";
+import { sidebarInitScript } from "@/lib/helpers/sidebar";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -19,6 +19,7 @@ export const metadata: Metadata = {
   description: "Point of sale, inventory, and sales analytics for pizza restaurants.",
 };
 
+// The app shell lives in app/(app)/layout.tsx so the sign-in screens in app/(auth) don't get it.
 const RootLayout = ({ children }: LayoutProps<"/">) => {
   return (
     // suppressHydrationWarning: the inline script may set data-sidebar before hydration.
@@ -31,7 +32,8 @@ const RootLayout = ({ children }: LayoutProps<"/">) => {
         <script dangerouslySetInnerHTML={{ __html: sidebarInitScript }} />
       </head>
       <body className="flex min-h-full flex-col">
-        <AppShell>{children}</AppShell>
+        {children}
+        <Toaster richColors closeButton />
       </body>
     </html>
   );

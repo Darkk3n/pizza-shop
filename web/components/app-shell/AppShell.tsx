@@ -2,34 +2,11 @@
 
 import { useIsDesktop, useSidebarCollapsed } from "@/hooks/useSidebar";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import {
-	AnalyticsIcon,
-	BrandLogo,
-	CloseIcon,
-	DashboardIcon,
-	InventoryIcon,
-	MenuIcon,
-	OrdersIcon,
-	RecipesIcon,
-} from "./icons";
-
-const NAV_ITEMS = [
-	{ href: "/", label: "Dashboard", icon: DashboardIcon },
-	{ href: "/orders", label: "Orders", icon: OrdersIcon },
-	{ href: "/recipes", label: "Recipes", icon: RecipesIcon },
-	{ href: "/inventory", label: "Inventory", icon: InventoryIcon },
-	{ href: "/analytics", label: "Analytics", icon: AnalyticsIcon },
-] as const;
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { BrandLogo, CloseIcon, MenuIcon } from "./icons";
+import { ShellContext } from "./ShellContext";
 
 const SIDEBAR_ID = "app-sidebar";
-
-const isActive = (pathname: string, href: string) => {
-	return href === "/"
-		? pathname === "/"
-		: pathname === href || pathname.startsWith(`${href}/`);
-};
 
 const Brand = () => {
 	return (
@@ -43,8 +20,15 @@ const Brand = () => {
 	);
 };
 
-export const AppShell = ({ children }: { children: ReactNode }) => {
-	const pathname = usePathname();
+type AppShellProps = {
+	children: ReactNode;
+	// Server-rendered slots: they depend on the signed-in user, so they stream in
+	// behind their own Suspense boundaries while the shell itself stays static.
+	nav: ReactNode;
+	userMenu: ReactNode;
+};
+
+export const AppShell = ({ children, nav, userMenu }: AppShellProps) => {
 	const isDesktop = useIsDesktop();
 	const { collapsed, toggleCollapsed } = useSidebarCollapsed();
 	const [mobileOpen, setMobileOpen] = useState(false);
@@ -86,8 +70,13 @@ export const AppShell = ({ children }: { children: ReactNode }) => {
 
 	const expanded = isDesktop ? !collapsed : mobileOpen;
 
+	const shellState = useMemo(
+		() => ({ collapsed, isDesktop, closeMobileNav: () => setMobileOpen(false) }),
+		[collapsed, isDesktop],
+	);
+
 	return (
-		<>
+		<ShellContext value={shellState}>
 			<a
 				href="#main-content"
 				className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-60 focus:rounded-md focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:shadow-md dark:focus:bg-zinc-900"
@@ -108,6 +97,7 @@ export const AppShell = ({ children }: { children: ReactNode }) => {
 					<MenuIcon className="size-5" />
 				</button>
 				<Brand />
+				<div className="ml-auto">{userMenu}</div>
 			</header>
 
 			<div className="flex flex-1">
@@ -141,31 +131,7 @@ export const AppShell = ({ children }: { children: ReactNode }) => {
 					</div>
 
 					<nav className="flex-1 overflow-y-auto overflow-x-hidden p-3 md:sidebar-collapsed:px-2">
-						<ul className="flex flex-col gap-1">
-							{NAV_ITEMS.map(({ href, label, icon: NavIcon }) => {
-								const active = isActive(pathname, href);
-								return (
-									<li key={href}>
-										<Link
-											href={href}
-											onClick={() => setMobileOpen(false)}
-											aria-current={active ? "page" : undefined}
-											title={isDesktop && collapsed ? label : undefined}
-											className={`flex h-10 items-center gap-3 rounded-md px-3 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600 md:sidebar-collapsed:justify-center md:sidebar-collapsed:px-0 ${
-												active
-													? "bg-orange-50 text-orange-700 dark:bg-orange-500/10 dark:text-orange-400"
-													: "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
-											}`}
-										>
-											<NavIcon className="size-5 shrink-0" />
-											<span className="truncate md:sidebar-collapsed:sr-only">
-												{label}
-											</span>
-										</Link>
-									</li>
-								);
-							})}
-						</ul>
+						{nav}
 					</nav>
 				</aside>
 
@@ -179,6 +145,6 @@ export const AppShell = ({ children }: { children: ReactNode }) => {
 					</div>
 				</main>
 			</div>
-		</>
+		</ShellContext>
 	);
 };
