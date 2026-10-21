@@ -58,9 +58,9 @@ namespace PizzaShop.Api.Endpoints
         {
             var name = request.Name.Trim();
 
-            if (await NameTakenAsync(context, name, excludeId: null, ct))
+            if (await context.UnitsOfMeasure.NameTakenAsync(name, excludeId: null, ct))
             {
-                return DuplicateName(name);
+                return UniqueNames.DuplicateName("Unit of measure", name);
             }
 
             var unitOfMeasure = new UnitOfMeasure { Name = name };
@@ -83,9 +83,9 @@ namespace PizzaShop.Api.Endpoints
 
             var name = request.Name.Trim();
 
-            if (await NameTakenAsync(context, name, excludeId: id, ct))
+            if (await context.UnitsOfMeasure.NameTakenAsync(name, excludeId: id, ct))
             {
-                return DuplicateName(name);
+                return UniqueNames.DuplicateName("Unit of measure", name);
             }
 
             unitOfMeasure.Name = name;
@@ -118,20 +118,5 @@ namespace PizzaShop.Api.Endpoints
 
             return TypedResults.NoContent();
         }
-
-        // Case-insensitive via ToLower(), which EF Core translates to SQL lower();
-        // string.Equals with a StringComparison has no SQL translation.
-        private static Task<bool> NameTakenAsync(PizzaShopContext context, string name, Guid? excludeId, CancellationToken ct)
-        {
-            var lowered = name.ToLower();
-            return context.UnitsOfMeasure
-                .AnyAsync(uom => uom.Name.ToLower() == lowered && uom.UnitOfMeasureId != excludeId, ct);
-        }
-
-        private static ProblemHttpResult DuplicateName(string name) =>
-            TypedResults.Problem(
-                statusCode: StatusCodes.Status409Conflict,
-                title: "Unit of measure already exists.",
-                detail: $"A unit of measure named '{name}' already exists.");
     }
 }

@@ -40,6 +40,7 @@ A full-stack POS system for pizza restaurant owners featuring order management, 
 - Use `DateTimeOffset` (not `DateTime`) for all time-based properties (`CreatedAt`, timestamps).
 - Standardize responses using standard HTTP status codes and typed DTOs.
 - Cover new endpoints and business rules with integration tests through the public HTTP API (`Tests/PizzaShop.Api.Tests`, helpers in `Infrastructure/TestApi.cs`). Tests create uniquely named data and run sequentially. `SecurityTests` fails if an endpoint lacks authorization metadata, so a new anonymous route must be added to its allowlist on purpose.
+- Keep pure business math out of endpoint handlers when it's worth unit testing: order pricing and stock deductions live in `api/Orders/OrderCalculator.cs` (no DB/HTTP), unit-tested in `OrderCalculatorTests` without the API host.
 - Every error response is Problem Details (`application/problem+json`): return `TypedResults.Problem` / `ValidationProblem`; `UseStatusCodePages` fills empty 401/403/404/405/400 bodies and `UseExceptionHandler` turns unhandled exceptions into a generic 500 outside Development.
 - DB Context maps `Decimal(10,2)` for currency and `Decimal(10,4)` for recipe ingredient measurements.
 

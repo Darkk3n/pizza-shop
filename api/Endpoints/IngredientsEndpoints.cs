@@ -76,9 +76,9 @@ namespace PizzaShop.Api.Endpoints
                 return UnknownUnitOfMeasure(request.UnitOfMeasureId);
             }
 
-            if (await NameTakenAsync(context, name, excludeId: null, ct))
+            if (await context.Ingredients.NameTakenAsync(name, excludeId: null, ct))
             {
-                return DuplicateName(name);
+                return UniqueNames.DuplicateName("Ingredient", name);
             }
 
             var ingredient = new Ingredient
@@ -119,9 +119,9 @@ namespace PizzaShop.Api.Endpoints
 
             var name = request.Name.Trim();
 
-            if (await NameTakenAsync(context, name, excludeId: id, ct))
+            if (await context.Ingredients.NameTakenAsync(name, excludeId: id, ct))
             {
-                return DuplicateName(name);
+                return UniqueNames.DuplicateName("Ingredient", name);
             }
 
             ingredient.Name = name;
@@ -188,21 +188,6 @@ namespace PizzaShop.Api.Endpoints
             // Covers the rare case of the ingredient being deleted right after the update.
             return ingredient is null ? TypedResults.NotFound() : TypedResults.Ok(ingredient);
         }
-
-        // Case-insensitive via ToLower(), which EF Core translates to SQL lower();
-        // string.Equals with a StringComparison has no SQL translation.
-        private static Task<bool> NameTakenAsync(PizzaShopContext context, string name, Guid? excludeId, CancellationToken ct)
-        {
-            var lowered = name.ToLower();
-            return context.Ingredients
-                .AnyAsync(i => i.Name.ToLower() == lowered && i.IngredientId != excludeId, ct);
-        }
-
-        private static ProblemHttpResult DuplicateName(string name) =>
-            TypedResults.Problem(
-                statusCode: StatusCodes.Status409Conflict,
-                title: "Ingredient already exists.",
-                detail: $"An ingredient named '{name}' already exists.");
 
         private static ValidationProblem UnknownUnitOfMeasure(Guid unitOfMeasureId) =>
             TypedResults.ValidationProblem(new Dictionary<string, string[]>

@@ -65,9 +65,9 @@ namespace PizzaShop.Api.Endpoints
 
             var name = request.Name.Trim();
 
-            if (await NameTakenAsync(context, name, excludeId: null, ct))
+            if (await context.Recipes.NameTakenAsync(name, excludeId: null, ct))
             {
-                return DuplicateName(name);
+                return UniqueNames.DuplicateName("Recipe", name);
             }
 
             var recipe = new Recipe
@@ -104,9 +104,9 @@ namespace PizzaShop.Api.Endpoints
 
             var name = request.Name.Trim();
 
-            if (await NameTakenAsync(context, name, excludeId: id, ct))
+            if (await context.Recipes.NameTakenAsync(name, excludeId: id, ct))
             {
-                return DuplicateName(name);
+                return UniqueNames.DuplicateName("Recipe", name);
             }
 
             recipe.Name = name;
@@ -221,20 +221,5 @@ namespace PizzaShop.Api.Endpoints
 
             return null;
         }
-
-        // Case-insensitive via ToLower(), which EF Core translates to SQL lower();
-        // string.Equals with a StringComparison has no SQL translation.
-        private static Task<bool> NameTakenAsync(PizzaShopContext context, string name, Guid? excludeId, CancellationToken ct)
-        {
-            var lowered = name.ToLower();
-            return context.Recipes
-                .AnyAsync(r => r.Name.ToLower() == lowered && r.RecipeId != excludeId, ct);
-        }
-
-        private static ProblemHttpResult DuplicateName(string name) =>
-            TypedResults.Problem(
-                statusCode: StatusCodes.Status409Conflict,
-                title: "Recipe already exists.",
-                detail: $"A recipe named '{name}' already exists.");
     }
 }

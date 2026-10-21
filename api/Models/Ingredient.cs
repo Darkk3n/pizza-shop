@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PizzaShop.Api.Models
 {
-    public class Ingredient
+    public class Ingredient : INamedEntity
     {
         [Key]
         public Guid IngredientId { get; set; }

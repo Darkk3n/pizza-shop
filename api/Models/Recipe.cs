@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PizzaShop.Api.Models
 {
-    public class Recipe
+    public class Recipe : INamedEntity
     {
         [Key]
         public Guid RecipeId { get; set; }

@@ -111,5 +111,33 @@ namespace PizzaShop.Api.Tests
             await TestApi.ReadProblemAsync(tooMuch, HttpStatusCode.Conflict);
             Assert.Equal(15.00m, await TestApi.StockAsync(admin, flour.IngredientId));
         }
+
+        [Fact]
+        public async Task DuplicateName_IsCaseInsensitive409_ButRenamingToItselfIsAllowed()
+        {
+            var admin = await api.AdminAsync();
+            var dough = await TestApi.CreateIngredientAsync(admin, stock: 100);
+            var first = await TestApi.CreateRecipeAsync(admin, 8m, (dough.IngredientId, 10));
+            var second = await TestApi.CreateRecipeAsync(admin, 8m, (dough.IngredientId, 10));
+            var items = new[] { new RecipeItemRequest(dough.IngredientId, 10) };
+
+            var create = await admin.Client.PostAsJsonAsync("/api/recipes",
+                new CreateRecipeRequest(first.Name.ToUpperInvariant(), 9m, [.. items]), TestApi.Json);
+            await TestApi.ReadProblemAsync(create, HttpStatusCode.Conflict);
+
+            var renameToOther = await admin.Client.PutAsJsonAsync($"/api/recipes/{second.RecipeId}",
+                new UpdateRecipeRequest(first.Name.ToLowerInvariant(), 8m, [.. items], true), TestApi.Json);
+            await TestApi.ReadProblemAsync(renameToOther, HttpStatusCode.Conflict);
+
+            var renameToSelf = await admin.Client.PutAsJsonAsync($"/api/recipes/{first.RecipeId}",
+                new UpdateRecipeRequest(first.Name.ToUpperInvariant(), 8m, [.. items], true), TestApi.Json);
+            Assert.Equal(HttpStatusCode.OK, renameToSelf.StatusCode);
+
+            var unitName = $"Unit {TestApi.Unique()}";
+            var unit = await admin.Client.PostAsJsonAsync("/api/units-of-measure", new CreateUnitOfMeasureRequest(unitName), TestApi.Json);
+            Assert.Equal(HttpStatusCode.Created, unit.StatusCode);
+            var duplicateUnit = await admin.Client.PostAsJsonAsync("/api/units-of-measure", new CreateUnitOfMeasureRequest(unitName.ToUpperInvariant()), TestApi.Json);
+            await TestApi.ReadProblemAsync(duplicateUnit, HttpStatusCode.Conflict);
+        }
     }
 }

@@ -60,9 +60,9 @@ namespace PizzaShop.Api.Endpoints
         {
             var name = request.Name.Trim();
 
-            if (await NameTakenAsync(context, name, excludeId: null, ct))
+            if (await context.PizzaSizes.NameTakenAsync(name, excludeId: null, ct))
             {
-                return DuplicateName(name);
+                return UniqueNames.DuplicateName("Pizza size", name);
             }
 
             var pizzaSize = new PizzaSize { Name = name, PriceMultiplier = request.PriceMultiplier };
@@ -85,9 +85,9 @@ namespace PizzaShop.Api.Endpoints
 
             var name = request.Name.Trim();
 
-            if (await NameTakenAsync(context, name, excludeId: id, ct))
+            if (await context.PizzaSizes.NameTakenAsync(name, excludeId: id, ct))
             {
-                return DuplicateName(name);
+                return UniqueNames.DuplicateName("Pizza size", name);
             }
 
             // Past orders keep their own UnitPrice snapshot, so changing the multiplier
@@ -123,20 +123,5 @@ namespace PizzaShop.Api.Endpoints
 
             return TypedResults.NoContent();
         }
-
-        // Case-insensitive via ToLower(), which EF Core translates to SQL lower();
-        // string.Equals with a StringComparison has no SQL translation.
-        private static Task<bool> NameTakenAsync(PizzaShopContext context, string name, Guid? excludeId, CancellationToken ct)
-        {
-            var lowered = name.ToLower();
-            return context.PizzaSizes
-                .AnyAsync(s => s.Name.ToLower() == lowered && s.PizzaSizeId != excludeId, ct);
-        }
-
-        private static ProblemHttpResult DuplicateName(string name) =>
-            TypedResults.Problem(
-                statusCode: StatusCodes.Status409Conflict,
-                title: "Pizza size already exists.",
-                detail: $"A pizza size named '{name}' already exists.");
     }
 }
