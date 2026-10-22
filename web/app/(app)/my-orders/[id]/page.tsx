@@ -2,6 +2,7 @@ import { ArrowLeftIcon, CircleCheckIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
+import { CancelOrderDialog } from "@/components/orders/CancelOrderDialog";
 import { OrderItemsTable } from "@/components/orders/OrderItemsTable";
 import { StatusBadge } from "@/components/orders/StatusBadge";
 import { buttonVariants } from "@/components/ui/button";
@@ -57,7 +58,28 @@ const MyOrder = async ({ params }: { params: PageProps<"/my-orders/[id]">["param
         <Link href="/menu" className={buttonVariants({ variant: "outline" })}>
           Order something else
         </Link>
+        {/* Staff manage (and can cancel more) from the board. */}
+        {user.isStaff && (
+          <Link href={`/orders/${order.orderId}`} className={buttonVariants({ variant: "outline" })}>
+            Manage on the board
+          </Link>
+        )}
+        {/* Customers may cancel only while Pending; once the kitchen starts, staff have to. */}
+        {!user.isStaff && order.status === "Pending" && (
+          <CancelOrderDialog
+            orderId={order.orderId}
+            orderNumber={order.orderNumber}
+            description="You can cancel while the kitchen hasn't started on it yet. This can't be undone."
+            successMessage={`Order #${order.orderNumber} cancelled.`}
+            reasonPlaceholder="e.g. Ordered by mistake"
+          />
+        )}
       </div>
+      {!user.isStaff && (order.status === "Preparing" || order.status === "Ready") && (
+        <p className="text-sm text-muted-foreground">
+          The kitchen has started on this order, so it can&apos;t be cancelled here. Ask the staff if you need to.
+        </p>
+      )}
     </div>
   );
 };

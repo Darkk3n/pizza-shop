@@ -1,26 +1,26 @@
-# Graph Report - pizza-shop  (2026-10-21)
+# Graph Report - pizza-shop  (2026-10-22)
 
 ## Corpus Check
-- 179 files · ~41,413 words
+- 180 files · ~41,675 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 6 file(s) not represented in the graph (top: .example 2, (none) 2, .ico 1)
 
 ## Summary
-- 1479 nodes · 3169 edges · 129 communities (51 shown, 78 thin omitted)
+- 1481 nodes · 3181 edges · 134 communities (54 shown, 80 thin omitted)
 - Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 132 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `552607cf`
+- Built from commit: `0e514af3`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - Pizza Shop POS README
 - web/package.json
-- NavLinks.tsx
+- (app)/layout.tsx
 - compilerOptions
-- OrderActions.tsx
+- CancelOrderDialog.tsx
 - package.json
 - http
 - postgres service (postgres:18-alpine, pizzashop-db)
@@ -29,7 +29,7 @@
 - orders/page.tsx
 - Next.js Wordmark Logo (black)
 - ApiFactory
-- PizzaShop.Api.Models
+- system_componentmodel_dataannotations
 - MigrationBuilder
 - .AddPizzaShopRateLimiting
 - RecipeItem
@@ -38,7 +38,7 @@
 - PizzaShop.Api.Migrations
 - .UpdateRoles
 - .Update
-- ForwardedHeadersExtensions.cs
+- RateLimitingExtensions.cs
 - .Create
 - OrderDto.cs
 - .GetAll
@@ -48,14 +48,15 @@
 - .BuildModel
 - .TransformAsync
 - OrderItem
+- PizzaShop.Api.Models
 - OrderType
-- orders/[id]/page.tsx
-- react
-- Ingredient
-- RateLimitingExtensions.cs
-- .Update
-- TestApi.cs
+- currentUser.ts
 - PizzaBuilder.tsx
+- Ingredient
+- orders/actions.ts
+- .Update
+- system_net
+- NavLinks.tsx
 - OrderIngredientUsage
 - OrderStatus
 - .NameTakenAsync
@@ -65,21 +66,26 @@
 - LoginForm.tsx
 - schemas/orders.ts
 - PizzaShop.Api.Dtos
-- orders/actions.ts
+- problem.ts
 - AddMenuActiveAndOrderCancellation
-- next
-- currentUser.ts
-- PizzaShop.Api.Auth
-- auth/actions.ts
+- client.ts
+- UsersEndpoints.cs
+- proxy.ts
 - dependencies
 - AddIngredientToppingFields
 - AddOrderIdempotencyKey
 - .FromPriced
 - OrderItemTopping
 - devDependencies
-- OrdersEndpoints.cs
+- AuthExtensions.cs
 - scripts
 - eslint.config.mjs
+- AppShell.tsx
+- app/layout.tsx
+- auth/actions.ts
+- useSidebar.ts
+- UserMenu.tsx
+- getCurrentUser
 
 ## God Nodes (most connected - your core abstractions)
 1. `PizzaShopContext` - 32 edges
@@ -87,7 +93,7 @@
 3. `Order` - 30 edges
 4. `PizzaShop.Api.Models` - 29 edges
 5. `Ingredient` - 28 edges
-6. `react` - 27 edges
+6. `react` - 28 edges
 7. `TestApi` - 24 edges
 8. `Recipe` - 23 edges
 9. `PizzaShop.Api.Requests` - 20 edges
@@ -114,27 +120,23 @@
 - **Price snapshot pattern for historical stability** — claude_price_stability, claude_orderitems, claude_orderitemtoppings, claude_orders [INFERRED 0.85]
 - **create-next-app Default Boilerplate Assets (currently unused)** — web_public_file_file_icon, web_public_globe_globe_icon, web_public_next_next_js_wordmark, web_public_vercel_vercel_logo, web_public_window_window_icon [INFERRED 0.85]
 
-## Communities (129 total, 78 thin omitted)
+## Communities (134 total, 80 thin omitted)
 
 ### Community 0 - "Pizza Shop POS README"
 Cohesion: 0.12
 Nodes (19): Ingredients table, OrderItems table, OrderItemToppings table, Orders table, Pizza Customizer (size, crust, fractional toppings), Pizza Shop POS, PizzaSizes table, RecipeItems table (+11 more)
 
 ### Community 1 - "web/package.json"
-Cohesion: 0.12
-Nodes (16): class-variance-authority, cn, next-themes, radix-ui, react-dom, shadcn, tailwindcss, @tailwindcss/turbopack (+8 more)
+Cohesion: 0.11
+Nodes (17): class-variance-authority, cn, next-themes, radix-ui, react-dom, server-only, shadcn, tailwindcss (+9 more)
 
-### Community 2 - "NavLinks.tsx"
-Cohesion: 0.05
-Nodes (48): AppLayout(), AuthLayout(), geistMono, geistSans, metadata, AppShell(), AppShellProps, Brand() (+40 more)
+### Community 2 - "(app)/layout.tsx"
+Cohesion: 0.22
+Nodes (12): AppLayout(), NavLinksSkeleton(), RoleNav(), SessionUserMenu(), UserMenu(), CartButton(), CurrentUser, ADMIN (+4 more)
 
 ### Community 3 - "compilerOptions"
 Cohesion: 0.11
 Nodes (18): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+10 more)
-
-### Community 4 - "OrderActions.tsx"
-Cohesion: 0.13
-Nodes (8): CancelOrderDialog(), OrderActions(), OrderActionsProps, reportFailure(), CancelOrderInput, cancelOrderSchema, isCancellable(), nextStatuses()
 
 ### Community 5 - "package.json"
 Cohesion: 0.11
@@ -157,16 +159,16 @@ Cohesion: 0.67
 Nodes (3): File Icon (document outline, 16x16 gray), Globe Icon (world/web, 16x16 gray), Browser Window Icon (16x16 gray)
 
 ### Community 11 - "orders/page.tsx"
-Cohesion: 0.12
-Nodes (18): metadata, MyOrdersPage(), MyOrdersSkeleton(), FILTERS, hrefFor(), metadata, OrdersPage(), OrdersTable() (+10 more)
+Cohesion: 0.09
+Nodes (31): hrefForPage(), metadata, MyOrdersPage(), MyOrdersSkeleton(), MyOrdersTable(), FILTERS, hrefFor(), metadata (+23 more)
 
 ### Community 13 - "ApiFactory"
 Cohesion: 0.07
 Nodes (12): HealthTests, ApiCollection, ApiFactory, Environment, Settings, DevelopmentApiFactory, Environment, RateLimitedApiFactory (+4 more)
 
-### Community 14 - "PizzaShop.Api.Models"
-Cohesion: 0.09
-Nodes (10): AdjustIngredientStockRequest, CancelOrderRequest, CreateIngredientRequest, CreatePizzaSizeRequest, CreateUnitOfMeasureRequest, UpdateIngredientRequest, UpdatePizzaSizeRequest, UpdateUnitOfMeasureRequest (+2 more)
+### Community 14 - "system_componentmodel_dataannotations"
+Cohesion: 0.12
+Nodes (8): AdjustIngredientStockRequest, CreateIngredientRequest, CreatePizzaSizeRequest, CreateUnitOfMeasureRequest, UpdateIngredientRequest, UpdatePizzaSizeRequest, UpdateUnitOfMeasureRequest, PizzaShop.Api.Requests
 
 ### Community 15 - "MigrationBuilder"
 Cohesion: 0.17
@@ -192,9 +194,9 @@ Nodes (19): Order, CancellationReason, CancelledAt, CancelledBy, CancelledByUser
 Cohesion: 0.10
 Nodes (3): UserDto, UsersEndpoints, AppUser
 
-### Community 26 - "ForwardedHeadersExtensions.cs"
-Cohesion: 0.15
-Nodes (3): CorsExtensions, ForwardedHeadersExtensions, PizzaShop.Api.Extensions
+### Community 26 - "RateLimitingExtensions.cs"
+Cohesion: 0.09
+Nodes (7): CorsExtensions, ForwardedHeadersExtensions, RateLimitPolicies, OrderOptions, TaxRate, PizzaShop.Api.Extensions, PizzaShop.Api.Options
 
 ### Community 28 - "OrderDto.cs"
 Cohesion: 0.32
@@ -220,33 +222,29 @@ Nodes (13): OrderItem, ItemNameSnapshot, LineTotal, Order, OrderId, OrderItemId,
 Cohesion: 0.22
 Nodes (6): OrderType, Delivery, DineIn, Takeout, CreateOrderRequest, OrderItemRequest
 
-### Community 45 - "orders/[id]/page.tsx"
-Cohesion: 0.17
-Nodes (19): metadata, MyOrder(), MyOrderPage(), MyOrderSkeleton(), hrefForPage(), MyOrdersTable(), Detail(), metadata (+11 more)
+### Community 45 - "currentUser.ts"
+Cohesion: 0.16
+Nodes (20): sonner, metadata, MyOrder(), MyOrderPage(), MyOrderSkeleton(), OrderActions(), OrderActionsProps, reportFailure() (+12 more)
 
-### Community 46 - "react"
-Cohesion: 0.22
-Nodes (7): react, MenuPage(), metadata, RecipeGrid(), RecipeGridSkeleton(), metadata, metadata
+### Community 46 - "PizzaBuilder.tsx"
+Cohesion: 0.09
+Nodes (28): lucide-react, next, react, CartView(), ORDER_TYPE_CHOICES, CartPage(), metadata, MenuPage() (+20 more)
 
 ### Community 47 - "Ingredient"
 Cohesion: 0.05
 Nodes (28): INamedEntity, Name, Ingredient, CurrentStock, IngredientId, IsActive, Name, ToppingPortion (+20 more)
 
-### Community 48 - "RateLimitingExtensions.cs"
-Cohesion: 0.20
-Nodes (4): RateLimitPolicies, OrderOptions, TaxRate, PizzaShop.Api.Options
+### Community 48 - "orders/actions.ts"
+Cohesion: 0.19
+Nodes (17): idempotencyKeySchema, placeOrder(), advanceStatus(), cancelOrder(), orderFailure(), orderIdSchema, apiFetch(), CancelOrderInput (+9 more)
 
 ### Community 49 - ".Update"
-Cohesion: 0.08
-Nodes (8): PizzaSizeDto, PizzaSizeMapper, RecipeDto, RecipeItemDto, RecipeMapper, ToppingDto, ToppingMapper, PizzaSizesEndpoints
-
-### Community 50 - "TestApi.cs"
 Cohesion: 0.15
-Nodes (3): PizzaShop.Api.Tests, PizzaShop.Api.Orders, PizzaShop.Api.Tests.Infrastructure
+Nodes (3): PizzaSizeDto, PizzaSizeMapper, PizzaSizesEndpoints
 
-### Community 51 - "PizzaBuilder.tsx"
-Cohesion: 0.16
-Nodes (21): lucide-react, sonner, CartView(), ORDER_TYPE_CHOICES, CartPage(), metadata, AMOUNT_CHOICES, COVERAGE_CHOICES (+13 more)
+### Community 51 - "NavLinks.tsx"
+Cohesion: 0.26
+Nodes (13): AnalyticsIcon(), DashboardIcon(), Icon(), IconProps, InventoryIcon(), MenuIcon(), OrdersIcon(), RecipesIcon() (+5 more)
 
 ### Community 52 - "OrderIngredientUsage"
 Cohesion: 0.25
@@ -262,39 +260,39 @@ Nodes (9): AnalyticsPage(), InventoryPage(), RecipesPage(), UsersPage(), ComingS
 
 ### Community 57 - ".NewUserAsync"
 Cohesion: 0.05
-Nodes (15): CreateRecipeRequest, QuoteOrderRequest, RecipeItemRequest, UpdateOrderStatusRequest, UpdateRecipeRequest, UpdateUserRolesRequest, CancellationTests, CatalogTests (+7 more)
+Nodes (16): CancelOrderRequest, CreateRecipeRequest, QuoteOrderRequest, RecipeItemRequest, UpdateOrderStatusRequest, UpdateRecipeRequest, UpdateUserRolesRequest, CancellationTests (+8 more)
 
 ### Community 58 - "api/menu.ts"
-Cohesion: 0.15
-Nodes (19): POST(), problemJson(), Builder(), BuilderPage(), BuilderSkeleton(), metadata, getRecipe(), listPizzaSizes() (+11 more)
+Cohesion: 0.26
+Nodes (14): POST(), problemJson(), Builder(), BuilderPage(), BuilderSkeleton(), metadata, PizzaBuilder(), apiJson() (+6 more)
 
 ### Community 68 - "LoginForm.tsx"
-Cohesion: 0.13
-Nodes (15): @hookform/resolvers, react-hook-form, FIELDS, LoginForm(), LoginPage(), RegisterPage(), FIELDS, RegisterForm() (+7 more)
+Cohesion: 0.14
+Nodes (12): @hookform/resolvers, react-hook-form, FIELDS, LoginForm(), LoginPage(), RegisterPage(), FIELDS, RegisterForm() (+4 more)
 
 ### Community 69 - "schemas/orders.ts"
 Cohesion: 0.08
-Nodes (31): CartContext, CartLine, CartProvider(), CartState, sameConfiguration(), BuilderAction, BuilderState, clampQuantity() (+23 more)
+Nodes (34): CartContext, CartLine, CartProvider(), CartState, sameConfiguration(), BuilderAction, BuilderState, clampQuantity() (+26 more)
 
-### Community 72 - "orders/actions.ts"
-Cohesion: 0.19
-Nodes (19): RFC-9457, zod, idempotencyKeySchema, placeOrder(), advanceStatus(), cancelOrder(), orderFailure(), orderIdSchema (+11 more)
+### Community 71 - "PizzaShop.Api.Dtos"
+Cohesion: 0.12
+Nodes (7): CurrentUserDto, RecipeDto, RecipeItemDto, RecipeMapper, ToppingDto, ToppingMapper, PizzaShop.Api.Dtos
 
-### Community 74 - "next"
-Cohesion: 0.20
-Nodes (5): next, Choice, ChoiceGroupProps, PagerProps, nextConfig
+### Community 72 - "problem.ts"
+Cohesion: 0.23
+Nodes (10): RFC-9457, zod, ApiError, describeApiError(), lowerFirst(), Problem, problemSchema, toFieldErrors() (+2 more)
 
-### Community 75 - "currentUser.ts"
-Cohesion: 0.20
-Nodes (17): server-only, CustomerRedirect(), Home(), ApiFetchOptions, apiJson(), getClientIp(), withSession(), apiBaseUrl() (+9 more)
+### Community 75 - "client.ts"
+Cohesion: 0.36
+Nodes (8): ApiFetchOptions, getClientIp(), withSession(), apiBaseUrl(), callApi(), callApiJson(), CallApiOptions, getAccessToken()
 
-### Community 76 - "PizzaShop.Api.Auth"
-Cohesion: 0.33
+### Community 76 - "UsersEndpoints.cs"
+Cohesion: 0.29
 Nodes (3): Policies, Roles, PizzaShop.Api.Auth
 
-### Community 77 - "auth/actions.ts"
-Cohesion: 0.17
-Nodes (21): Credentials, credentialsSchema, currentUserSchema, LoginResponse, loginResponseSchema, RegisterInput, registerSchema, logout() (+13 more)
+### Community 77 - "proxy.ts"
+Cohesion: 0.27
+Nodes (12): ACCESS_COOKIE, ACCESS_EXPIRES_COOKIE, cookieOptions, REFRESH_COOKIE, SESSION_COOKIES, sessionCookieValues(), setSessionCookies(), clientIp() (+4 more)
 
 ### Community 78 - "dependencies"
 Cohesion: 0.12
@@ -320,30 +318,50 @@ Nodes (5): scripts, build, dev, lint, start
 Cohesion: 0.50
 Nodes (3): eslint, eslint-config-next, eslintConfig
 
+### Community 128 - "AppShell.tsx"
+Cohesion: 0.29
+Nodes (8): AuthLayout(), AppShell(), AppShellProps, Brand(), BrandLogo(), CloseIcon(), ShellContext, ShellState
+
+### Community 129 - "app/layout.tsx"
+Cohesion: 0.20
+Nodes (5): geistMono, geistSans, metadata, SIDEBAR_STORAGE_KEY, sidebarInitScript
+
+### Community 130 - "auth/actions.ts"
+Cohesion: 0.33
+Nodes (9): Credentials, credentialsSchema, currentUserSchema, LoginResponse, loginResponseSchema, RegisterInput, registerSchema, logout() (+1 more)
+
+### Community 131 - "useSidebar.ts"
+Cohesion: 0.36
+Nodes (9): getCollapsed(), getIsDesktop(), getServerFalse(), listeners, setCollapsed(), subscribeCollapsed(), subscribeDesktop(), useIsDesktop() (+1 more)
+
+### Community 133 - "getCurrentUser"
+Cohesion: 0.70
+Nodes (4): CustomerRedirect(), Home(), getCurrentUser, homePathFor()
+
 ## Ambiguous Edges - Review These
 - `pnpm workspace (packages: web)` → `Tech Stack (pnpm, Next.js 16, ASP.NET 10, PostgreSQL, Azure)`  [AMBIGUOUS]
   pnpm-workspace.yaml · relation: conceptually_related_to
 
 ## Knowledge Gaps
 - **146 isolated node(s):** `class-variance-authority`, `cn`, `next-themes`, `radix-ui`, `react-dom` (+141 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 611 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **78 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 612 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **80 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `PizzaShopContext` connect `PizzaShopContext` to `PizzaShopContext.cs`, `Ingredient`, `OrderIngredientUsage`, `Order`, `.NameTakenAsync`, `.UpdateRoles`, `.ConfigureConventions`, `.GetAll`?**
-  _High betweenness centrality (0.048) - this node is a cross-community bridge._
+- **Why does `PizzaShopContext` connect `PizzaShopContext` to `PizzaShop.Api.Models`, `Ingredient`, `OrderIngredientUsage`, `Order`, `.NameTakenAsync`, `.UpdateRoles`, `.ConfigureConventions`, `.GetAll`?**
+  _High betweenness centrality (0.038) - this node is a cross-community bridge._
 - **Are the 6 inferred relationships involving `Ingredient` (e.g. with `.Create()` and `.SameIngredientAcrossItemsAndToppings_IsOneUsage()`) actually correct?**
   _`Ingredient` has 6 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `class-variance-authority`, `cn`, `next-themes` to the rest of the system?**
   _146 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Pizza Shop POS README` be split into smaller, more focused modules?**
   _Cohesion score 0.1164021164021164 - nodes in this community are weakly interconnected._
-- **Why does `PizzaShop.Api.Models` connect `PizzaShop.Api.Models` to `ToppingAmount`, `PizzaShop.Api.Dtos`, `PizzaShopContext.cs`, `Ingredient`, `.Update`, `OrdersEndpoints.cs`, `TestApi.cs`, `OrderDto.cs`?**
-  _High betweenness centrality (0.046) - this node is a cross-community bridge._
+- **Why does `Ingredient` connect `Ingredient` to `OrderItemTopping`, `PizzaShop.Api.Models`, `PizzaShopContext`, `OrderIngredientUsage`, `.Update`?**
+  _High betweenness centrality (0.032) - this node is a cross-community bridge._
 - **Should `web/package.json` be split into smaller, more focused modules?**
-  _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.1111111111111111 - nodes in this community are weakly interconnected._
 
 ### Low-confidence Hints
 _AMBIGUOUS edges — the extractor was unsure. Verify before acting on these._

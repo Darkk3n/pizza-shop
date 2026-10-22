@@ -6,7 +6,7 @@ import { apiFailure, invalidInput, type ActionResult } from "@/lib/helpers/actio
 import { apiFetch } from "@/lib/api/client";
 import { ApiError } from "@/lib/api/problem";
 import { cancelOrderSchema, orderStatusSchema, type CancelOrderInput, type OrderStatus } from "@/lib/api/schemas/orders";
-import { requireStaff } from "@/lib/auth/currentUser";
+import { requireStaff, requireUser } from "@/lib/auth/currentUser";
 
 const orderIdSchema = z.uuid();
 
@@ -16,7 +16,7 @@ const orderFailure = (error: unknown) => {
   return apiFailure(error);
 };
 
-// Server Actions are public endpoints: check the role here too, not only on the page.
+// Server Actions are public endpoints: check the caller here too, not only on the page.
 
 export const advanceStatus = async (orderId: string, status: OrderStatus): Promise<ActionResult> => {
   await requireStaff();
@@ -34,8 +34,10 @@ export const advanceStatus = async (orderId: string, status: OrderStatus): Promi
   return { ok: true };
 };
 
+// Staff and customers both cancel through here. The API decides who may: customers only their own
+// orders while Pending (409 "ask the staff" otherwise), staff anything not yet Completed.
 export const cancelOrder = async (orderId: string, input: CancelOrderInput): Promise<ActionResult> => {
-  await requireStaff();
+  await requireUser();
   const id = orderIdSchema.safeParse(orderId);
   const parsed = cancelOrderSchema.safeParse(input);
   if (!id.success) return invalidInput(id.error);
