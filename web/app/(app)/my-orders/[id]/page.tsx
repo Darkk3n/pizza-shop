@@ -1,4 +1,4 @@
-import { CircleCheckIcon } from "lucide-react";
+import { ArrowLeftIcon, CircleCheckIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -13,14 +13,22 @@ import { formatDateTime, ORDER_TYPE_LABELS } from "@/lib/helpers/format";
 
 export const metadata: Metadata = { title: "Your order · Pizza Shop POS" };
 
-// Checkout lands here. The API only returns the caller's own orders (404 otherwise, even for
-// an existing order), so no extra ownership check is needed.
+// Checkout lands here, and My orders links here. The API only returns the caller's own orders
+// (404 otherwise, even for an existing order), so no extra ownership check is needed.
 const MyOrder = async ({ params }: { params: PageProps<"/my-orders/[id]">["params"] }) => {
-  await requireUser();
+  const user = await requireUser();
   const order = await getOrder((await params).id);
 
   return (
     <div className="flex flex-col gap-6">
+      {/* Staff land here after placing an order themselves; their list is the board. */}
+      <Link
+        href={user.isStaff ? "/orders" : "/my-orders"}
+        className="flex w-fit items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+      >
+        <ArrowLeftIcon className="size-4" />
+        {user.isStaff ? "All orders" : "My orders"}
+      </Link>
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-3">
           {order.status === "Pending" && <CircleCheckIcon className="size-7 text-primary" aria-hidden="true" />}

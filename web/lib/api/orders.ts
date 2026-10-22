@@ -4,7 +4,7 @@ import { apiJson } from "@/lib/api/client";
 import { ApiError } from "@/lib/api/problem";
 import { orderSchema, orderSummaryPageSchema, type OrderStatus } from "@/lib/api/schemas/orders";
 
-export const ORDERS_PAGE_SIZE = 25;
+export const ORDERS_PAGE_SIZE = 10;
 
 // GET /api/orders: newest first. Staff see every order; customers only their own (the API decides).
 export const listOrders = async ({ status, page }: { status?: OrderStatus; page: number }) => {

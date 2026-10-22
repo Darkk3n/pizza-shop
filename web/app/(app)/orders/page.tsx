@@ -8,7 +8,7 @@ import { orderListQuerySchema, orderStatusSchema, type OrderStatus } from "@/lib
 import { requireStaff } from "@/lib/auth/currentUser";
 import { formatDateTime, formatMoney, ORDER_STATUS_LABELS, ORDER_TYPE_LABELS } from "@/lib/helpers/format";
 import { listOrders, ORDERS_PAGE_SIZE } from "@/lib/api/orders";
-import { cn } from "@/lib/utils";
+import { Pager } from "@/components/orders/Pager";
 import { StatusBadge } from "@/components/orders/StatusBadge";
 
 export const metadata: Metadata = { title: "Orders · Pizza Shop POS" };
@@ -100,32 +100,12 @@ const OrdersTable = async ({ searchParams }: { searchParams: PageProps<"/orders"
         </div>
       )}
 
-      {pageCount > 1 && (
-        <nav aria-label="Pages" className="flex items-center justify-between gap-4 text-sm">
-          <span className="text-muted-foreground">
-            Page {result.page} of {pageCount} · {result.totalCount} orders
-          </span>
-          <div className="flex gap-2">
-            <Link
-              href={hrefFor(status, page - 1)}
-              aria-disabled={page <= 1}
-              className={cn(buttonVariants({ variant: "outline", size: "sm" }), page <= 1 && "pointer-events-none opacity-50")}
-            >
-              Previous
-            </Link>
-            <Link
-              href={hrefFor(status, page + 1)}
-              aria-disabled={page >= pageCount}
-              className={cn(
-                buttonVariants({ variant: "outline", size: "sm" }),
-                page >= pageCount && "pointer-events-none opacity-50",
-              )}
-            >
-              Next
-            </Link>
-          </div>
-        </nav>
-      )}
+      <Pager
+        page={result.page}
+        pageCount={pageCount}
+        totalCount={result.totalCount}
+        hrefForPage={(target) => hrefFor(status, target)}
+      />
     </div>
   );
 };
