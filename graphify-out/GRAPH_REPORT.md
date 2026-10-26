@@ -11,7 +11,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `0405fe82`
+- Built from commit: `e84ab90c`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -111,12 +111,12 @@
   web/AGENTS.md → CLAUDE.md
 - `OrderCalculatorTests` --references--> `PizzaSize`  [EXTRACTED]
   Tests/PizzaShop.Api.Tests/OrderCalculatorTests.cs → api/Models/PizzaSize.cs
-- `StaffOnly()` --calls--> `requireStaff()`  [EXTRACTED]
-  web/components/RoleGuard.tsx → web/lib/auth/currentUser.ts
 - `LoginPage()` --calls--> `LoginForm()`  [EXTRACTED]
   web/app/(auth)/login/page.tsx → web/app/(auth)/login/LoginForm.tsx
 - `RegisterPage()` --calls--> `RegisterForm()`  [EXTRACTED]
   web/app/(auth)/register/page.tsx → web/app/(auth)/register/RegisterForm.tsx
+- `StaffOnly()` --calls--> `requireStaff()`  [EXTRACTED]
+  web/components/RoleGuard.tsx → web/lib/auth/currentUser.ts
 
 ## Import Cycles
 - None detected.
@@ -310,8 +310,8 @@ Cohesion: 0.16
 Nodes (23): Credentials, credentialsSchema, currentUserSchema, LoginResponse, loginResponseSchema, RegisterInput, registerSchema, logout() (+15 more)
 
 ### Community 78 - "dependencies"
-Cohesion: 0.12
-Nodes (16): dependencies, class-variance-authority, cn, @hookform/resolvers, lucide-react, next, next-themes, radix-ui (+8 more)
+Cohesion: 0.13
+Nodes (15): dependencies, class-variance-authority, cn, @hookform/resolvers, lucide-react, next, next-themes, radix-ui (+7 more)
 
 ### Community 103 - ".FromPriced"
 Cohesion: 0.26
@@ -322,8 +322,8 @@ Cohesion: 0.20
 Nodes (9): OrderItemTopping, Coverage, ExtraAmount, Ingredient, IngredientId, OrderItem, OrderItemId, OrderItemToppingId (+1 more)
 
 ### Community 112 - "devDependencies"
-Cohesion: 0.22
-Nodes (9): devDependencies, eslint, eslint-config-next, tailwindcss, @tailwindcss/turbopack, @types/node, @types/react, @types/react-dom (+1 more)
+Cohesion: 0.20
+Nodes (10): devDependencies, eslint, eslint-config-next, shadcn, tailwindcss, @tailwindcss/turbopack, @types/node, @types/react (+2 more)
 
 ### Community 114 - "OrdersEndpoints.cs"
 Cohesion: 0.14
@@ -382,16 +382,16 @@ Nodes (5): Inventory(), InventoryPage(), InventorySkeleton(), metadata, listIngr
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `PizzaShopContext` connect `PizzaShopContext` to `.Update`, `PizzaShop.Api.Models`, `Ingredient`, `OrderIngredientUsage`, `Order`, `.UpdateRoles`, `.ConfigureConventions`, `.GetAll`?**
-  _High betweenness centrality (0.032) - this node is a cross-community bridge._
+  _High betweenness centrality (0.031) - this node is a cross-community bridge._
 - **What connects `class-variance-authority`, `cn`, `next-themes` to the rest of the system?**
   _146 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Pizza Shop POS README` be split into smaller, more focused modules?**
   _Cohesion score 0.1164021164021164 - nodes in this community are weakly interconnected._
-- **Why does `Ingredient` connect `Ingredient` to `OrderItemTopping`, `PizzaShop.Api.Models`, `PizzaShopContext`, `OrderIngredientUsage`, `.Update`?**
-  _High betweenness centrality (0.031) - this node is a cross-community bridge._
+- **Why does `Order` connect `Order` to `PizzaShop.Api.Models`, `OrderType`, `PizzaShopContext`, `OrderStatus`, `OrderIngredientUsage`, `OrderDto.cs`?**
+  _High betweenness centrality (0.030) - this node is a cross-community bridge._
 - **Should `web/package.json` be split into smaller, more focused modules?**
   _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
-- **Why does `react` connect `react` to `AppShell.tsx`, `web/package.json`, `useSidebar.ts`, `AdjustStockDialog.tsx`, `schemas/orders.ts`, `CartProvider.tsx`, `next`, `LoginForm.tsx`, `inventory/page.tsx`, `orders/page.tsx`, `PizzaBuilder.tsx`, `orders/[id]/page.tsx`, `CartView.tsx`, `NavLinks.tsx`, `RoleGuard.tsx`, `api/menu.ts`?**
+- **Why does `Ingredient` connect `Ingredient` to `OrderItemTopping`, `PizzaShop.Api.Models`, `PizzaShopContext`, `OrderIngredientUsage`, `.Update`?**
   _High betweenness centrality (0.029) - this node is a cross-community bridge._
 
 ### Low-confidence Hints

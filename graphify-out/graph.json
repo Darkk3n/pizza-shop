@@ -9928,7 +9928,7 @@
       "file_type": "concept",
       "norm_label": "shadcn",
       "source_file": "web/package.json",
-      "source_location": "L23"
+      "source_location": "L34"
     },
     {
       "id": "ref_tailwindcss",
@@ -9950,7 +9950,7 @@
       "file_type": "concept",
       "norm_label": "@tailwindcss/turbopack",
       "source_file": "web/package.json",
-      "source_location": "L29"
+      "source_location": "L28"
     },
     {
       "id": "ref_tw_animate_css",
@@ -9961,7 +9961,7 @@
       "file_type": "concept",
       "norm_label": "tw-animate-css",
       "source_file": "web/package.json",
-      "source_location": "L25"
+      "source_location": "L24"
     },
     {
       "id": "ref_types_node",
@@ -9972,7 +9972,7 @@
       "file_type": "concept",
       "norm_label": "@types/node",
       "source_file": "web/package.json",
-      "source_location": "L30"
+      "source_location": "L29"
     },
     {
       "id": "ref_types_react",
@@ -9983,7 +9983,7 @@
       "file_type": "concept",
       "norm_label": "@types/react",
       "source_file": "web/package.json",
-      "source_location": "L31"
+      "source_location": "L30"
     },
     {
       "id": "ref_types_react_dom",
@@ -9994,7 +9994,7 @@
       "file_type": "concept",
       "norm_label": "@types/react-dom",
       "source_file": "web/package.json",
-      "source_location": "L32"
+      "source_location": "L31"
     },
     {
       "id": "ref_typescript",
@@ -10471,7 +10471,7 @@
       "file_type": "code",
       "norm_label": "devdependencies",
       "source_file": "web/package.json",
-      "source_location": "L28"
+      "source_location": "L27"
     },
     {
       "id": "web_package_devdependencies_eslint",
@@ -10482,7 +10482,7 @@
       "file_type": "code",
       "norm_label": "eslint",
       "source_file": "web/package.json",
-      "source_location": "L33"
+      "source_location": "L32"
     },
     {
       "id": "web_package_devdependencies_eslint_config_next",
@@ -10492,6 +10492,17 @@
       "community_name": "devDependencies",
       "file_type": "code",
       "norm_label": "eslint-config-next",
+      "source_file": "web/package.json",
+      "source_location": "L33"
+    },
+    {
+      "id": "web_package_devdependencies_shadcn",
+      "label": "shadcn",
+      "_origin": "ast",
+      "community": 112,
+      "community_name": "devDependencies",
+      "file_type": "code",
+      "norm_label": "shadcn",
       "source_file": "web/package.json",
       "source_location": "L34"
     },
@@ -10515,7 +10526,7 @@
       "file_type": "code",
       "norm_label": "@tailwindcss/turbopack",
       "source_file": "web/package.json",
-      "source_location": "L29"
+      "source_location": "L28"
     },
     {
       "id": "web_package_devdependencies_types_node",
@@ -10526,7 +10537,7 @@
       "file_type": "code",
       "norm_label": "@types/node",
       "source_file": "web/package.json",
-      "source_location": "L30"
+      "source_location": "L29"
     },
     {
       "id": "web_package_devdependencies_types_react",
@@ -10537,7 +10548,7 @@
       "file_type": "code",
       "norm_label": "@types/react",
       "source_file": "web/package.json",
-      "source_location": "L31"
+      "source_location": "L30"
     },
     {
       "id": "web_package_devdependencies_types_react_dom",
@@ -10548,7 +10559,7 @@
       "file_type": "code",
       "norm_label": "@types/react-dom",
       "source_file": "web/package.json",
-      "source_location": "L32"
+      "source_location": "L31"
     },
     {
       "id": "web_package_devdependencies_typescript",
@@ -10811,7 +10822,7 @@
       "file_type": "concept",
       "norm_label": "eslint",
       "source_file": "web/package.json",
-      "source_location": "L33"
+      "source_location": "L32"
     },
     {
       "id": "ref_eslint_config_next",
@@ -10822,7 +10833,7 @@
       "file_type": "concept",
       "norm_label": "eslint-config-next",
       "source_file": "web/package.json",
-      "source_location": "L34"
+      "source_location": "L33"
     },
     {
       "id": "api_endpoints_ordersendpoints_cs_validationproblem",
@@ -15739,7 +15750,7 @@
       "file_type": "concept",
       "norm_label": "sonner",
       "source_file": "web/package.json",
-      "source_location": "L24"
+      "source_location": "L23"
     },
     {
       "id": "api_auth_authextensions_cs_appuser",
@@ -17246,7 +17257,7 @@
       "file_type": "concept",
       "norm_label": "zod",
       "source_file": "web/package.json",
-      "source_location": "L26"
+      "source_location": "L25"
     },
     {
       "id": "api_requests_updateuserrolesrequest_cs_list",
@@ -19722,17 +19733,6 @@
       "source_location": "L22"
     },
     {
-      "id": "web_package_dependencies_shadcn",
-      "label": "shadcn",
-      "_origin": "ast",
-      "community": 78,
-      "community_name": "dependencies",
-      "file_type": "code",
-      "norm_label": "shadcn",
-      "source_file": "web/package.json",
-      "source_location": "L23"
-    },
-    {
       "id": "web_package_dependencies_sonner",
       "label": "sonner",
       "_origin": "ast",
@@ -19741,7 +19741,7 @@
       "file_type": "code",
       "norm_label": "sonner",
       "source_file": "web/package.json",
-      "source_location": "L24"
+      "source_location": "L23"
     },
     {
       "id": "web_package_dependencies_tw_animate_css",
@@ -19752,7 +19752,7 @@
       "file_type": "code",
       "norm_label": "tw-animate-css",
       "source_file": "web/package.json",
-      "source_location": "L25"
+      "source_location": "L24"
     },
     {
       "id": "web_package_dependencies_zod",
@@ -19763,7 +19763,7 @@
       "file_type": "code",
       "norm_label": "zod",
       "source_file": "web/package.json",
-      "source_location": "L26"
+      "source_location": "L25"
     },
     {
       "id": "api_migrations_20261019024553_addingredienttoppingfields",
@@ -44660,7 +44660,7 @@
     },
     {
       "source": "web_package",
-      "target": "ref_shadcn",
+      "target": "ref_sonner",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -44672,7 +44672,7 @@
     },
     {
       "source": "web_package",
-      "target": "ref_sonner",
+      "target": "ref_tw_animate_css",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -44684,7 +44684,7 @@
     },
     {
       "source": "web_package",
-      "target": "ref_tw_animate_css",
+      "target": "ref_zod",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -44696,18 +44696,6 @@
     },
     {
       "source": "web_package",
-      "target": "ref_zod",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "web/package.json",
-      "source_location": "L26",
-      "weight": 1.0
-    },
-    {
-      "source": "web_package",
       "target": "ref_tailwindcss_turbopack",
       "relation": "imports",
       "_origin": "ast",
@@ -44715,7 +44703,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "web/package.json",
-      "source_location": "L29",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -44727,7 +44715,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "web/package.json",
-      "source_location": "L30",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -44739,7 +44727,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "web/package.json",
-      "source_location": "L31",
+      "source_location": "L30",
       "weight": 1.0
     },
     {
@@ -44751,7 +44739,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "web/package.json",
-      "source_location": "L32",
+      "source_location": "L31",
       "weight": 1.0
     },
     {
@@ -44763,12 +44751,24 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "web/package.json",
-      "source_location": "L33",
+      "source_location": "L32",
       "weight": 1.0
     },
     {
       "source": "web_package",
       "target": "ref_eslint_config_next",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "web/package.json",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "web_package",
+      "target": "ref_shadcn",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -60104,7 +60104,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "web/package.json",
-      "source_location": "L28",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -60263,7 +60263,7 @@
     },
     {
       "source": "web_package_dependencies",
-      "target": "web_package_dependencies_shadcn",
+      "target": "web_package_dependencies_sonner",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -60274,7 +60274,7 @@
     },
     {
       "source": "web_package_dependencies",
-      "target": "web_package_dependencies_sonner",
+      "target": "web_package_dependencies_tw_animate_css",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -60285,24 +60285,13 @@
     },
     {
       "source": "web_package_dependencies",
-      "target": "web_package_dependencies_tw_animate_css",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "web/package.json",
-      "source_location": "L25",
-      "weight": 1.0
-    },
-    {
-      "source": "web_package_dependencies",
       "target": "web_package_dependencies_zod",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "web/package.json",
-      "source_location": "L26",
+      "source_location": "L25",
       "weight": 1.0
     },
     {
@@ -60313,7 +60302,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "web/package.json",
-      "source_location": "L29",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -60324,7 +60313,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "web/package.json",
-      "source_location": "L30",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -60335,7 +60324,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "web/package.json",
-      "source_location": "L31",
+      "source_location": "L30",
       "weight": 1.0
     },
     {
@@ -60346,7 +60335,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "web/package.json",
-      "source_location": "L32",
+      "source_location": "L31",
       "weight": 1.0
     },
     {
@@ -60357,12 +60346,23 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "web/package.json",
-      "source_location": "L33",
+      "source_location": "L32",
       "weight": 1.0
     },
     {
       "source": "web_package_devdependencies",
       "target": "web_package_devdependencies_eslint_config_next",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "web/package.json",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "web_package_devdependencies",
+      "target": "web_package_devdependencies_shadcn",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -64851,5 +64851,5 @@
       "source_file": "web/public/next.svg"
     }
   ],
-  "built_at_commit": "0405fe827f8269c592ba18bee894096e02d57202"
+  "built_at_commit": "e84ab90c4f1b95c9756a34dd2e47c1cfab69254a"
 }
