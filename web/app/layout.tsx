@@ -33,7 +33,8 @@ const RootLayout = ({ children }: LayoutProps<"/">) => {
       </head>
       <body className="flex min-h-full flex-col">
         {children}
-        <Toaster richColors closeButton />
+        {/* Below the sticky 64px (h-16) app header, so toasts don't cover the cart and user menu. */}
+        <Toaster richColors closeButton position="top-right" offset={{ top: 76 }} mobileOffset={{ top: 72 }} />
       </body>
     </html>
   );
