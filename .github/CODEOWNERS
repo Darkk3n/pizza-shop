@@ -1,0 +1,4 @@
+# Every file is owned by the repository owner. GitHub requests their review on every pull request;
+# it only blocks merges once a branch ruleset turns on "Require review from Code Owners" for main
+# (planned for when the app is deployed to Azure).
+* @Darkk3n
