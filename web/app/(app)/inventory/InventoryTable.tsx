@@ -5,10 +5,11 @@ import { ChoiceGroup } from "@/components/forms/ChoiceGroup";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import type { Ingredient } from "@/lib/api/schemas/ingredients";
+import type { Ingredient, UnitOfMeasure } from "@/lib/api/schemas/ingredients";
 import { formatMoney, formatQuantity } from "@/lib/helpers/format";
 import { cn } from "@/lib/utils";
 import { AdjustStockDialog } from "./AdjustStockDialog";
+import { IngredientAdminActions, NewIngredientButton } from "./IngredientAdminActions";
 
 type View = "active" | "out" | "retired" | "all";
 
@@ -24,7 +25,13 @@ const VIEWS: Record<View, { label: string; matches: (ingredient: Ingredient) => 
 
 // The API returns every ingredient at once (a restaurant has dozens, not thousands), so
 // filtering happens here and stays instant.
-export const InventoryTable = ({ ingredients }: { ingredients: Ingredient[] }) => {
+type InventoryTableProps = {
+  ingredients: Ingredient[];
+  // Only passed for admins, who also manage the catalog (create, edit, retire, delete).
+  units?: UnitOfMeasure[];
+};
+
+export const InventoryTable = ({ ingredients, units }: InventoryTableProps) => {
   const [view, setView] = useState<View>("active");
   const [search, setSearch] = useState("");
 
@@ -40,14 +47,17 @@ export const InventoryTable = ({ ingredients }: { ingredients: Ingredient[] }) =
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <ChoiceGroup legend="Show" hideLegend size="sm" value={view} choices={choices} onChange={setView} />
-        <Input
-          type="search"
-          placeholder="Search ingredients"
-          aria-label="Search ingredients"
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-          className="sm:max-w-64"
-        />
+        <div className="flex gap-2">
+          <Input
+            type="search"
+            placeholder="Search ingredients"
+            aria-label="Search ingredients"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            className="sm:w-64"
+          />
+          {units && <NewIngredientButton units={units} />}
+        </div>
       </div>
 
       {rows.length === 0 ? (
@@ -97,8 +107,11 @@ export const InventoryTable = ({ ingredients }: { ingredients: Ingredient[] }) =
                   <TableCell className="hidden text-muted-foreground md:table-cell">
                     {ingredient.toppingPrice === null ? "—" : formatMoney(ingredient.toppingPrice)}
                   </TableCell>
-                  <TableCell className="text-right">
-                    <AdjustStockDialog ingredient={ingredient} />
+                  <TableCell>
+                    <div className="flex items-center justify-end gap-1">
+                      <AdjustStockDialog ingredient={ingredient} />
+                      {units && <IngredientAdminActions ingredient={ingredient} units={units} />}
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}

@@ -17,9 +17,82 @@ export const ingredientSchema = z.object({
 
 export type Ingredient = z.infer<typeof ingredientSchema>;
 
+// GET /api/units-of-measure (seeded: grams, ounces, ...).
+export const unitOfMeasureSchema = z.object({
+  unitOfMeasureId: z.uuid(),
+  name: z.string(),
+});
+
+export type UnitOfMeasure = z.infer<typeof unitOfMeasureSchema>;
+
 // CurrentStock is Decimal(10,2) and the API takes deltas up to ±99,999,999.99.
 const MAX_STOCK = 99_999_999.99;
 const hasTwoDecimals = hasMaxDecimals(2);
+
+// Empty number inputs read as NaN; these fields only matter in some cases (a topping, a new
+// ingredient), so NaN is allowed here and checked by the rules below when it counts.
+const optionalNumber = z.union([z.number(), z.nan()]);
+
+const ingredientFormShape = {
+  name: z.string().trim().min(1, "Enter a name.").max(50, "Keep the name under 50 characters."),
+  unitOfMeasureId: z.uuid({ error: "Pick a unit." }),
+  isActive: z.boolean(),
+  isTopping: z.boolean(),
+  // Per Small, Whole, Standard serving; the API scales by size, coverage and amount.
+  toppingPrice: optionalNumber,
+  toppingPortion: optionalNumber,
+  currentStock: optionalNumber,
+};
+
+type IngredientFormShape = { [K in keyof typeof ingredientFormShape]: z.infer<(typeof ingredientFormShape)[K]> };
+
+// The API takes ToppingPrice and ToppingPortion together or not at all.
+const checkTopping = (value: IngredientFormShape, ctx: z.RefinementCtx) => {
+  if (!value.isTopping) return;
+  const price = value.toppingPrice;
+  const portion = value.toppingPortion;
+  const priceError = Number.isNaN(price)
+    ? "Enter a price."
+    : price < 0
+      ? "The price can't be negative."
+      : price > MAX_STOCK
+        ? "That price is too large."
+        : !hasTwoDecimals(price) && "Use at most two decimals.";
+  const portionError = Number.isNaN(portion)
+    ? "Enter a portion."
+    : portion <= 0
+      ? "Enter more than zero."
+      : portion > 999_999.9999
+        ? "That portion is too large."
+        : !hasMaxDecimals(4)(portion) && "Use at most four decimals.";
+  if (priceError) ctx.addIssue({ code: "custom", path: ["toppingPrice"], message: priceError });
+  if (portionError) ctx.addIssue({ code: "custom", path: ["toppingPortion"], message: portionError });
+};
+
+// PUT /api/ingredients/{id}: stock isn't editable here (adjustments and orders change it).
+export const ingredientFormSchema = z.object(ingredientFormShape).superRefine(checkTopping);
+
+// POST /api/ingredients also takes the starting stock, which can't be negative.
+export const newIngredientFormSchema = z.object(ingredientFormShape).superRefine((value, ctx) => {
+  checkTopping(value, ctx);
+  const stock = value.currentStock;
+  const stockError = Number.isNaN(stock)
+    ? "Enter the starting stock (0 if none yet)."
+    : stock < 0
+      ? "Stock can't be negative."
+      : stock > MAX_STOCK
+        ? "That's more than the stock can hold."
+        : !hasTwoDecimals(stock) && "Use at most two decimals.";
+  if (stockError) ctx.addIssue({ code: "custom", path: ["currentStock"], message: stockError });
+});
+
+export type IngredientForm = z.infer<typeof ingredientFormSchema>;
+
+// Both topping fields or neither, as the API expects.
+export const toppingFields = (form: IngredientForm) =>
+  form.isTopping
+    ? { toppingPrice: form.toppingPrice, toppingPortion: form.toppingPortion }
+    : { toppingPrice: null, toppingPortion: null };
 
 const quantity = z
   .number({ error: "Enter a quantity." })

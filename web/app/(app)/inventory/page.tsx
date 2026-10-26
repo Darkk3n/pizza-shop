@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { listIngredients } from "@/lib/api/ingredients";
+import { listIngredients, listUnitsOfMeasure } from "@/lib/api/ingredients";
 import { requireStaff } from "@/lib/auth/currentUser";
 import { InventoryTable } from "./InventoryTable";
 
 export const metadata: Metadata = { title: "Inventory · Pizza Shop POS" };
 
 const Inventory = async () => {
-  await requireStaff();
-  const ingredients = await listIngredients();
-  return <InventoryTable ingredients={ingredients} />;
+  const user = await requireStaff();
+  // Units are only needed for the admin catalog forms.
+  const [ingredients, units] = await Promise.all([
+    listIngredients(),
+    user.isAdmin ? listUnitsOfMeasure() : undefined,
+  ]);
+  return <InventoryTable ingredients={ingredients} units={units} />;
 };
 
 const InventorySkeleton = () => {
