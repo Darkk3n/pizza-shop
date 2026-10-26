@@ -1,0 +1,104 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A newer push to the same branch or PR supersedes the run in progress.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  api:
+    name: API (build, tests, migrations)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # Throwaway database server for the run; the tests create, drop and migrate pizzashop_tests on it.
+    services:
+      postgres:
+        image: docker.io/library/postgres:18-alpine
+        env:
+          POSTGRES_USER: pizza_ci
+          POSTGRES_PASSWORD: pizza_ci
+          POSTGRES_DB: pizzashop_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U pizza_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+      # Read by Tests/PizzaShop.Api.Tests/Infrastructure/TestDatabase.cs instead of appsettings.Development.json.
+      PIZZASHOP_TEST_CONNECTION: Host=localhost;Port=5432;Database=pizzashop_tests;Username=pizza_ci;Password=pizza_ci
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v6
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj') }}
+          restore-keys: nuget-${{ runner.os }}-
+
+      - name: Restore
+        run: dotnet restore PizzaShop.slnx
+
+      - name: Build
+        run: dotnet build PizzaShop.slnx --no-restore
+
+      - name: Test
+        run: dotnet test Tests/PizzaShop.Api.Tests/PizzaShop.Api.Tests.csproj --no-build
+
+      # Fails when a model change has no migration yet (dotnet ef migrations add <Name> --project api).
+      - name: Migrations are up to date
+        env:
+          # Program.cs needs a connection string to build the host; nothing connects to it here.
+          ConnectionStrings__PizzaShop: Host=localhost;Port=5432;Database=pizzashop_ci;Username=pizza_ci;Password=pizza_ci
+        run: |
+          dotnet tool install --global dotnet-ef --version 10.0.12
+          dotnet ef migrations has-pending-model-changes --project api --no-build
+
+  web:
+    name: Web (typecheck, lint, build)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NEXT_TELEMETRY_DISABLED: 1
+      # Only read at request time; set so nothing that touches it during the build throws.
+      API_BASE_URL: http://localhost:5261
+    steps:
+      - uses: actions/checkout@v7
+
+      # Version comes from "packageManager" in the root package.json.
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm --filter web exec tsc --noEmit
+
+      - name: Lint
+        run: pnpm --filter web lint
+
+      # Also catches Cache Components mistakes (dynamic data outside <Suspense> fails the build).
+      - name: Build
+        run: pnpm --filter web build
