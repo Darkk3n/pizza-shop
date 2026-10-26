@@ -62,11 +62,9 @@ jobs:
       - name: Test
         run: dotnet test Tests/PizzaShop.Api.Tests/PizzaShop.Api.Tests.csproj --no-build
 
-      # Global tools land in ~/.dotnet/tools, which is only on PATH for the steps after this one.
-      - name: Install dotnet-ef
-        run: |
-          dotnet tool install --global dotnet-ef --version 10.0.12
-          echo "$HOME/.dotnet/tools" >> "$GITHUB_PATH"
+      # dotnet-ef is pinned in the repo's local tool manifest (dotnet-tools.json).
+      - name: Restore dotnet tools
+        run: dotnet tool restore
 
       # Fails when a model change has no migration yet (dotnet ef migrations add <Name> --project api).
       - name: Migrations are up to date
