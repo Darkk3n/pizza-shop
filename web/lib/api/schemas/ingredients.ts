@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { hasMaxDecimals } from "@/lib/api/schemas/numbers";
 
 // GET /api/ingredients (staff), by name. Orders may push currentStock negative; manual
 // adjustments may not.
@@ -18,7 +19,7 @@ export type Ingredient = z.infer<typeof ingredientSchema>;
 
 // CurrentStock is Decimal(10,2) and the API takes deltas up to ±99,999,999.99.
 const MAX_STOCK = 99_999_999.99;
-const hasTwoDecimals = (value: number) => Math.abs(Math.round(value * 100) - value * 100) < 1e-6;
+const hasTwoDecimals = hasMaxDecimals(2);
 
 const quantity = z
   .number({ error: "Enter a quantity." })
