@@ -21,13 +21,13 @@ namespace PizzaShop.Api.Statistics
         public const int DefaultDays = 7;
         public const int MaxDays = 366;
 
-        // Missing dates default to the last DefaultDays days ending today (local): `to` alone
-        // counts back from it, `from` alone runs up to today.
-        public static RangeResult ResolveRange(DateOnly? from, DateOnly? to, TimeZoneInfo zone, DateTimeOffset now)
+        // Missing dates default to the last `days` days ending today (local): `to` alone counts
+        // back `days` from it, `from` alone runs up to today (and `days` is ignored).
+        public static RangeResult ResolveRange(DateOnly? from, DateOnly? to, TimeZoneInfo zone, DateTimeOffset now, int days = DefaultDays)
         {
             var today = LocalDate(now, zone);
             var end = to ?? (from is null ? today : Max(from.Value, today));
-            var start = from ?? end.AddDays(-(DefaultDays - 1));
+            var start = from ?? end.AddDays(-(days - 1));
 
             if (start > end)
             {

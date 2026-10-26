@@ -57,6 +57,19 @@ namespace PizzaShop.Api.Tests
         }
 
         [Fact]
+        public void Days_CountBackFromToday_AndAreIgnoredWhenFromIsGiven()
+        {
+            var lastThirty = StatisticsCalculator.ResolveRange(null, null, MexicoCity, Now, days: 30).Range!;
+            Assert.Equal((new DateOnly(2026, 9, 27), new DateOnly(2026, 10, 26), 30), (lastThirty.From, lastThirty.To, lastThirty.Days));
+
+            var today = StatisticsCalculator.ResolveRange(null, null, MexicoCity, Now, days: 1).Range!;
+            Assert.Equal(today.To, today.From);
+
+            var explicitFrom = StatisticsCalculator.ResolveRange(new DateOnly(2026, 10, 25), null, MexicoCity, Now, days: 30).Range!;
+            Assert.Equal(2, explicitFrom.Days);
+        }
+
+        [Fact]
         public void FromAfterTo_IsRejected()
         {
             var result = StatisticsCalculator.ResolveRange(new DateOnly(2026, 10, 5), new DateOnly(2026, 10, 4), MexicoCity, Now);

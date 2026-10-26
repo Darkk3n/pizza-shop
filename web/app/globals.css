@@ -70,7 +70,8 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.646 0.222 41.116);
-  --chart-1: oklch(0.87 0 0);
+  /* Chart slot 1 (daily sales). Brand orange, validated for both surfaces (dataviz validator). */
+  --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
@@ -107,7 +108,8 @@
     --border: oklch(1 0 0 / 10%);
     --input: oklch(1 0 0 / 15%);
     --ring: oklch(0.705 0.213 47.604);
-    --chart-1: oklch(0.87 0 0);
+    /* Same step as light: the lighter dark-mode --primary falls outside the dark lightness band. */
+    --chart-1: oklch(0.646 0.222 41.116);
     --chart-2: oklch(0.556 0 0);
     --chart-3: oklch(0.439 0 0);
     --chart-4: oklch(0.371 0 0);

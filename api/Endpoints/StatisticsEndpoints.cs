@@ -13,9 +13,9 @@ namespace PizzaShop.Api.Endpoints
 {
     // Admin-only reports. A sale is every non-cancelled order, counted when it was placed;
     // cancelled orders are always reported separately, never dropped. Every endpoint takes the same
-    // `from`/`to` local dates (both inclusive, in Statistics:TimeZone) and filters on CreatedAt, so
-    // the sections of a dashboard cover the same orders. One endpoint per section lets a client
-    // load them in parallel.
+    // `from`/`to` local dates (both inclusive, in Statistics:TimeZone), or `days` back from today,
+    // and filters on CreatedAt, so the sections of a dashboard cover the same orders. One endpoint
+    // per section lets a client load them in parallel.
     public static class StatisticsEndpoints
     {
         public static IEndpointRouteBuilder MapStatisticsEndpoints(this IEndpointRouteBuilder app)
@@ -41,9 +41,10 @@ namespace PizzaShop.Api.Endpoints
             IOptions<StatisticsOptions> options,
             DateOnly? from,
             DateOnly? to,
-            CancellationToken ct)
+            [Range(1, StatisticsCalculator.MaxDays)] int days = StatisticsCalculator.DefaultDays,
+            CancellationToken ct = default)
         {
-            var (zone, range, problem) = Resolve(options, from, to);
+            var (zone, range, problem) = Resolve(options, from, to, days);
             if (range is null)
             {
                 return problem!;
@@ -64,10 +65,11 @@ namespace PizzaShop.Api.Endpoints
             IOptions<StatisticsOptions> options,
             DateOnly? from,
             DateOnly? to,
+            [Range(1, StatisticsCalculator.MaxDays)] int days = StatisticsCalculator.DefaultDays,
             [Range(1, 50)] int limit = 10,
             CancellationToken ct = default)
         {
-            var (zone, range, problem) = Resolve(options, from, to);
+            var (zone, range, problem) = Resolve(options, from, to, days);
             if (range is null)
             {
                 return problem!;
@@ -121,10 +123,11 @@ namespace PizzaShop.Api.Endpoints
             IOptions<StatisticsOptions> options,
             DateOnly? from,
             DateOnly? to,
+            [Range(1, StatisticsCalculator.MaxDays)] int days = StatisticsCalculator.DefaultDays,
             [Range(1, 100)] int limit = 20,
             CancellationToken ct = default)
         {
-            var (zone, range, problem) = Resolve(options, from, to);
+            var (zone, range, problem) = Resolve(options, from, to, days);
             if (range is null)
             {
                 return problem!;
@@ -176,9 +179,10 @@ namespace PizzaShop.Api.Endpoints
             IOptions<StatisticsOptions> options,
             DateOnly? from,
             DateOnly? to,
-            CancellationToken ct)
+            [Range(1, StatisticsCalculator.MaxDays)] int days = StatisticsCalculator.DefaultDays,
+            CancellationToken ct = default)
         {
-            var (zone, range, problem) = Resolve(options, from, to);
+            var (zone, range, problem) = Resolve(options, from, to, days);
             if (range is null)
             {
                 return problem!;
@@ -219,10 +223,11 @@ namespace PizzaShop.Api.Endpoints
         private static (TimeZoneInfo Zone, StatisticsRange? Range, ValidationProblem? Problem) Resolve(
             IOptions<StatisticsOptions> options,
             DateOnly? from,
-            DateOnly? to)
+            DateOnly? to,
+            int days)
         {
             var zone = TimeZoneInfo.FindSystemTimeZoneById(options.Value.TimeZone);
-            var result = StatisticsCalculator.ResolveRange(from, to, zone, DateTimeOffset.UtcNow);
+            var result = StatisticsCalculator.ResolveRange(from, to, zone, DateTimeOffset.UtcNow, days);
             var problem = result.Range is null
                 ? TypedResults.ValidationProblem(new Dictionary<string, string[]> { [result.ErrorField!] = [result.Error!] })
                 : null;

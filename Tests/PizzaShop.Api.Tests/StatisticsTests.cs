@@ -75,6 +75,8 @@ namespace PizzaShop.Api.Tests
         [InlineData("sales?from=2026-13-01")]
         [InlineData("items?limit=0")]
         [InlineData("cancellations?limit=101")]
+        [InlineData("sales?days=0")]
+        [InlineData("ingredient-usage?days=367")]
         public async Task MalformedParameters_Are400(string pathAndQuery)
         {
             var admin = await api.AdminAsync();
@@ -92,6 +94,17 @@ namespace PizzaShop.Api.Tests
             Assert.Equal("America/Mexico_City", sales.TimeZone);
             Assert.Equal(7, sales.Days.Count);
             Assert.Equal(sales.To, sales.Days[^1].Date);
+        }
+
+        [Fact]
+        public async Task Days_SetsHowManyDaysBackFromToday()
+        {
+            var admin = await api.AdminAsync();
+
+            var sales = await TestApi.ReadAsync<SalesStatisticsDto>(await admin.Client.GetAsync("/api/statistics/sales?days=30"));
+
+            Assert.Equal(30, sales.Days.Count);
+            Assert.Equal(sales.To.AddDays(-29), sales.From);
         }
 
         [Fact]
