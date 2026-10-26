@@ -8,10 +8,12 @@ type PagerProps = {
   totalCount: number;
   // Server Component only: builds each page's URL (keeping the page's other filters).
   hrefForPage: (page: number) => string;
+  // Plural noun for the total, e.g. "users".
+  itemLabel?: string;
 };
 
 // Previous / Next links for a paged list; hidden when everything fits on one page.
-export const Pager = ({ page, pageCount, totalCount, hrefForPage }: PagerProps) => {
+export const Pager = ({ page, pageCount, totalCount, hrefForPage, itemLabel = "orders" }: PagerProps) => {
   if (pageCount <= 1) return null;
 
   const link = (target: number, label: string, disabled: boolean) => (
@@ -28,7 +30,7 @@ export const Pager = ({ page, pageCount, totalCount, hrefForPage }: PagerProps) 
   return (
     <nav aria-label="Pages" className="flex items-center justify-between gap-4 text-sm">
       <span className="text-muted-foreground">
-        Page {page} of {pageCount} · {totalCount} orders
+        Page {page} of {pageCount} · {totalCount} {itemLabel}
       </span>
       <div className="flex gap-2">
         {link(page - 1, "Previous", page <= 1)}
