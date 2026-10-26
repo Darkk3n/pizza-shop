@@ -62,14 +62,18 @@ jobs:
       - name: Test
         run: dotnet test Tests/PizzaShop.Api.Tests/PizzaShop.Api.Tests.csproj --no-build
 
+      # Global tools land in ~/.dotnet/tools, which is only on PATH for the steps after this one.
+      - name: Install dotnet-ef
+        run: |
+          dotnet tool install --global dotnet-ef --version 10.0.12
+          echo "$HOME/.dotnet/tools" >> "$GITHUB_PATH"
+
       # Fails when a model change has no migration yet (dotnet ef migrations add <Name> --project api).
       - name: Migrations are up to date
         env:
           # Program.cs needs a connection string to build the host; nothing connects to it here.
           ConnectionStrings__PizzaShop: Host=localhost;Port=5432;Database=pizzashop_ci;Username=pizza_ci;Password=pizza_ci
-        run: |
-          dotnet tool install --global dotnet-ef --version 10.0.12
-          dotnet ef migrations has-pending-model-changes --project api --no-build
+        run: dotnet ef migrations has-pending-model-changes --project api --no-build
 
   web:
     name: Web (typecheck, lint, build)
@@ -92,6 +96,10 @@ jobs:
 
       - name: Install
         run: pnpm install --frozen-lockfile
+
+      # PageProps / LayoutProps are generated into .next/types (gitignored), so tsc needs them first.
+      - name: Generate route types
+        run: pnpm --filter web exec next typegen
 
       - name: Typecheck
         run: pnpm --filter web exec tsc --noEmit
