@@ -4,6 +4,11 @@ const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "
 
 export const formatMoney = (amount: number) => currency.format(amount);
 
+const quantity = new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 });
+
+// Stock levels, up to the two decimals CurrentStock keeps ("1,250.5").
+export const formatQuantity = (amount: number) => quantity.format(amount);
+
 const dateTime = new Intl.DateTimeFormat("en-US", { dateStyle: "medium", timeStyle: "short" });
 
 // API timestamps are DateTimeOffset (ISO 8601 with offset). Server-rendered, so this uses the
