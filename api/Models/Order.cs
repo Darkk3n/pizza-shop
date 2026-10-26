@@ -6,6 +6,8 @@ namespace PizzaShop.Api.Models
 {
     [Index(nameof(OrderNumber), IsUnique = true)]
     [Index(nameof(IdempotencyKey), IsUnique = true, Name = IdempotencyKeyIndexName)]
+    // Statistics filter every query on a CreatedAt range.
+    [Index(nameof(CreatedAt))]
     public class Order
     {
         public const string IdempotencyKeyIndexName = "IX_Orders_IdempotencyKey";

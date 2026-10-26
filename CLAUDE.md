@@ -74,6 +74,10 @@ A full-stack POS system for pizza restaurant owners featuring order management, 
      - **`Auth` policy:** 20 per client IP on the Identity endpoints (never per account, because password spraying hits many accounts).
      - **`OrderCreate` policy:** 20 per user on `POST /api/orders`.
    - **Client IP:** comes from `X-Forwarded-For`, honored only from `ForwardedHeaders:KnownProxies` / `KnownNetworks` (loopback when empty). The Next.js BFF must forward the browser's IP, and production config must list the real proxies, or every client shares one bucket (or can spoof its IP).
+10. **Statistics:** Admin only, one endpoint per dashboard section under `/api/statistics`: `sales`, `items`, `cancellations` and `ingredient-usage` (`api/Endpoints/StatisticsEndpoints.cs`).
+    - **What counts:** a sale is every non-cancelled order, counted when it's placed. Cancelled orders are always reported separately, never dropped. Ingredient usage sums the recorded `OrderIngredientUsages` of non-cancelled orders.
+    - **Range:** `from` / `to` are local dates, both inclusive, in `Statistics:TimeZone` (IANA id, validated at startup; `America/Mexico_City`). Without dates the range is the last 7 days including today; at most 366 days. Every endpoint filters `Orders.CreatedAt` (indexed) on the same UTC bounds.
+    - **Pure math:** range resolution and the zero-filled daily buckets live in `api/Statistics/StatisticsCalculator.cs`, unit-tested in `StatisticsCalculatorTests`.
 
 ## Database Schema Overview
 

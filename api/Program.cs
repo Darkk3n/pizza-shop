@@ -20,6 +20,11 @@ builder.Services.AddOptions<OrderOptions>()
     .BindConfiguration(OrderOptions.SectionName)
     .ValidateDataAnnotations()
     .ValidateOnStart();
+builder.Services.AddOptions<StatisticsOptions>()
+    .BindConfiguration(StatisticsOptions.SectionName)
+    .ValidateDataAnnotations()
+    .Validate(o => TimeZoneInfo.TryFindSystemTimeZoneById(o.TimeZone, out _), "Statistics:TimeZone must be an IANA time zone id, e.g. America/Mexico_City.")
+    .ValidateOnStart();
 // Enums travel as their names ("DineIn", "LeftHalf"), matching how they're stored; numbers are rejected.
 builder.Services.ConfigureHttpJsonOptions(options =>
     options.SerializerOptions.Converters.Add(new JsonStringEnumConverter(allowIntegerValues: false)));
@@ -72,6 +77,7 @@ app.MapToppingsEndpoints();
 app.MapRecipesEndpoints();
 app.MapPizzaSizesEndpoints();
 app.MapOrdersEndpoints();
+app.MapStatisticsEndpoints();
 
 await app.SeedBootstrapAdminAsync();
 await app.SeedDevelopmentDataAsync();
