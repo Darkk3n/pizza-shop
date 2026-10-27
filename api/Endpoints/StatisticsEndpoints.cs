@@ -32,6 +32,8 @@ namespace PizzaShop.Api.Endpoints
                 .ProducesValidationProblem();
             group.MapGet("/ingredient-usage", GetIngredientUsage)
                 .ProducesValidationProblem();
+            // Not tied to the dashboard's range: always the last complete week.
+            group.MapGet("/restock", GetRestock);
 
             return app;
         }
@@ -214,6 +216,38 @@ namespace PizzaShop.Api.Endpoints
                 .ToList();
 
             return TypedResults.Ok(new IngredientUsageStatisticsDto(range.From, range.To, zone.Id, rows));
+        }
+
+        private static async Task<Ok<RestockProjectionDto>> GetRestock(
+            PizzaShopContext context,
+            IOptions<StatisticsOptions> options,
+            CancellationToken ct = default)
+        {
+            var zone = TimeZoneInfo.FindSystemTimeZoneById(options.Value.TimeZone);
+            var range = StatisticsCalculator.RestockRange(zone, DateTimeOffset.UtcNow);
+
+            // Same source as /ingredient-usage: recorded deductions of non-cancelled orders.
+            var used = await context.OrderIngredientUsages
+                .Where(u => u.Order.Status != OrderStatus.Cancelled
+                    && u.Order.CreatedAt >= range.StartUtc
+                    && u.Order.CreatedAt < range.EndUtc)
+                .GroupBy(u => u.IngredientId)
+                .Select(g => new { IngredientId = g.Key, Used = g.Sum(u => u.Amount) })
+                .ToDictionaryAsync(u => u.IngredientId, u => u.Used, ct);
+
+            var ingredients = await context.Ingredients
+                .Select(i => new { i.IngredientId, i.Name, UnitOfMeasureName = i.UnitOfMeasure.Name, i.IsActive, i.CurrentStock })
+                .ToListAsync(ct);
+            var snapshots = ingredients.Select(i => new IngredientStockSnapshot(
+                i.IngredientId, i.Name, i.UnitOfMeasureName, i.IsActive, i.CurrentStock, used.GetValueOrDefault(i.IngredientId)));
+
+            return TypedResults.Ok(new RestockProjectionDto(
+                range.From,
+                range.To,
+                zone.Id,
+                StatisticsCalculator.RestockLookbackDays,
+                StatisticsCalculator.RestockCoverDays,
+                StatisticsCalculator.Restock(snapshots, StatisticsCalculator.RestockLookbackDays, StatisticsCalculator.RestockCoverDays)));
         }
 
         private static IQueryable<Order> InRange(IQueryable<Order> orders, StatisticsRange range) =>

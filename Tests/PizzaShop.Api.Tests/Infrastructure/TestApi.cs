@@ -5,6 +5,9 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using PizzaShop.Api.Db;
 using PizzaShop.Api.Dtos;
 using PizzaShop.Api.Models;
 using PizzaShop.Api.Requests;
@@ -123,6 +126,19 @@ namespace PizzaShop.Api.Tests.Infrastructure
             };
             message.Headers.Add("Idempotency-Key", (idempotencyKey ?? Guid.NewGuid()).ToString());
             return client.SendAsync(message);
+        }
+
+        // Statistics read orders by when they were placed, and the API never changes CreatedAt, so this
+        // is the one helper that writes to the database directly: it moves an order into the past.
+        public async Task BackdateOrderAsync(Guid orderId, TimeSpan ago)
+        {
+            using var scope = factory.Services.CreateScope();
+            var context = scope.ServiceProvider.GetRequiredService<PizzaShopContext>();
+            var createdAt = DateTimeOffset.UtcNow - ago;
+            var updated = await context.Orders
+                .Where(o => o.OrderId == orderId)
+                .ExecuteUpdateAsync(s => s.SetProperty(o => o.CreatedAt, createdAt));
+            Assert.Equal(1, updated);
         }
 
         // A one-item takeout order; asserts it was created.

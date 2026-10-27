@@ -154,5 +154,63 @@ namespace PizzaShop.Api.Tests
             Assert.Equal(0m, sales.Cancelled.Rate);
             Assert.Single(sales.Days);
         }
+
+        [Fact]
+        public void RestockRange_IsTheLastSevenCompleteDays_EndingYesterday()
+        {
+            var range = StatisticsCalculator.RestockRange(MexicoCity, Now);
+
+            Assert.Equal(new DateOnly(2026, 10, 19), range.From);
+            Assert.Equal(new DateOnly(2026, 10, 25), range.To);
+            Assert.Equal(new DateTimeOffset(2026, 10, 26, 6, 0, 0, TimeSpan.Zero), range.EndUtc);
+        }
+
+        private static IngredientStockSnapshot Stock(string name, decimal currentStock, decimal used, bool isActive = true) =>
+            new(Guid.NewGuid(), name, "g", isActive, currentStock, used);
+
+        [Fact]
+        public void Restock_CoversTheNextWeekAtLastWeeksPace()
+        {
+            var rows = StatisticsCalculator.Restock(
+            [
+                Stock("Cheese", currentStock: 300, used: 700),   // 100/day: 3 days left, needs 400
+                Stock("Dough", currentStock: 2000, used: 700),   // 20 days left, needs nothing
+                Stock("Basil", currentStock: 10, used: 10),      // ~1.43/day: 7 days left, 0.00 needed
+                Stock("Olives", currentStock: 5, used: 0.01m),   // barely used: thousands of days left
+            ], lookbackDays: 7, coverDays: 7);
+
+            Assert.Equal(["Cheese", "Basil", "Dough", "Olives"], rows.Select(r => r.Name));
+            var cheese = rows[0];
+            Assert.Equal(100m, cheese.AverageDailyUse);
+            Assert.Equal(3, cheese.DaysOfStockLeft);
+            Assert.Equal(400m, cheese.SuggestedRestock);
+            Assert.Equal(0m, rows.Single(r => r.Name == "Dough").SuggestedRestock);
+            Assert.Equal(20, rows.Single(r => r.Name == "Dough").DaysOfStockLeft);
+            Assert.Equal(0m, rows.Single(r => r.Name == "Basil").SuggestedRestock);
+            Assert.Equal(7, rows.Single(r => r.Name == "Basil").DaysOfStockLeft);
+        }
+
+        [Fact]
+        public void Restock_MakesUpNegativeStock_AndRoundsUpToCents()
+        {
+            var rows = StatisticsCalculator.Restock(
+            [
+                Stock("Pepperoni", currentStock: -50, used: 100),     // 100 for the week + 50 owed
+                Stock("Ham", currentStock: -20, used: 0),             // unused but below zero: back to zero
+                Stock("Anchovies", currentStock: -5, used: 0, isActive: false), // retired and unused: left out
+                Stock("Onion", currentStock: 100, used: 0),           // unused, in stock: left out
+                Stock("Garlic", currentStock: 0, used: 1),            // 1/7 per day x 7 = 1.0000...
+                Stock("Oregano", currentStock: 0, used: 0.001m),      // rounds up to 0.01, not down to 0
+            ], lookbackDays: 7, coverDays: 7);
+
+            Assert.Equal(["Garlic", "Oregano", "Pepperoni", "Ham"], rows.Select(r => r.Name));
+            Assert.Equal(150m, rows.Single(r => r.Name == "Pepperoni").SuggestedRestock);
+            Assert.Equal(0, rows.Single(r => r.Name == "Pepperoni").DaysOfStockLeft);
+            var ham = rows.Single(r => r.Name == "Ham");
+            Assert.Null(ham.DaysOfStockLeft);
+            Assert.Equal(20m, ham.SuggestedRestock);
+            Assert.Equal(1m, rows.Single(r => r.Name == "Garlic").SuggestedRestock);
+            Assert.Equal(0.01m, rows.Single(r => r.Name == "Oregano").SuggestedRestock);
+        }
     }
 }

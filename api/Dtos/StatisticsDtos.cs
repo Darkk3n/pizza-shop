@@ -59,4 +59,26 @@ namespace PizzaShop.Api.Dtos
         DateOnly To,
         string TimeZone,
         List<IngredientUsageDto> Ingredients) { }
+
+    // One ingredient's projection: enough stock for the next CoverDays at the pace of the lookback.
+    // DaysOfStockLeft is null when it wasn't used (no pace to project); SuggestedRestock is never negative.
+    public record RestockRowDto(
+        Guid IngredientId,
+        string Name,
+        string UnitOfMeasureName,
+        bool IsActive,
+        decimal Used,
+        decimal AverageDailyUse,
+        decimal CurrentStock,
+        int? DaysOfStockLeft,
+        decimal SuggestedRestock) { }
+
+    // From/To are the lookback's local dates: the last LookbackDays complete days, ending yesterday.
+    public record RestockProjectionDto(
+        DateOnly From,
+        DateOnly To,
+        string TimeZone,
+        int LookbackDays,
+        int CoverDays,
+        List<RestockRowDto> Ingredients) { }
 }

@@ -223,5 +223,40 @@ namespace PizzaShop.Api.Tests
             Assert.Equal(9660m, row.CurrentStock);
             Assert.Equal("Gram", row.UnitOfMeasureName);
         }
+
+        [Fact]
+        public async Task Restock_ProjectsLastCompleteWeek_FromNonCancelledOrders()
+        {
+            var admin = await api.AdminAsync();
+            var dough = await TestApi.CreateIngredientAsync(admin, stock: 1000);
+            var recipe = await TestApi.CreateRecipeAsync(admin, 10.00m, (dough.IngredientId, 100));
+            var customer = await api.NewUserAsync();
+
+            // Inside the lookback (3 days ago): 4 Large = 4 x 100 x 1.70 = 680 used, 320 left.
+            var counted = await TestApi.PlaceSimpleOrderAsync(customer.Client, recipe.RecipeId, TestApi.LargeSizeId, quantity: 4);
+            await api.BackdateOrderAsync(counted.OrderId, TimeSpan.FromDays(3));
+            // Cancelled (stock returned) and today's orders (after the lookback) don't count as usage,
+            // though today's still lowers the stock: 320 - 100 = 220.
+            var cancelled = await TestApi.PlaceSimpleOrderAsync(customer.Client, recipe.RecipeId, quantity: 2);
+            await api.BackdateOrderAsync(cancelled.OrderId, TimeSpan.FromDays(3));
+            await CancelAsync(customer, cancelled.OrderId);
+            await TestApi.PlaceSimpleOrderAsync(customer.Client, recipe.RecipeId);
+
+            var response = await admin.Client.GetAsync("/api/statistics/restock");
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            var restock = await TestApi.ReadAsync<RestockProjectionDto>(response);
+
+            Assert.Equal((7, 7), (restock.LookbackDays, restock.CoverDays));
+            Assert.Equal(6, restock.To.DayNumber - restock.From.DayNumber);
+            var row = Assert.Single(restock.Ingredients, i => i.IngredientId == dough.IngredientId);
+            Assert.Equal(680m, row.Used);
+            Assert.Equal(97.14m, row.AverageDailyUse);
+            Assert.Equal(220m, row.CurrentStock);
+            Assert.Equal(2, row.DaysOfStockLeft); // 220 / 97.14 = 2.26, rounded down
+            Assert.Equal(460m, row.SuggestedRestock); // 680 for the next week - 220 on hand
+
+            var staff = await api.NewUserAsync("Staff");
+            Assert.Equal(HttpStatusCode.Forbidden, (await staff.Client.GetAsync("/api/statistics/restock")).StatusCode);
+        }
     }
 }

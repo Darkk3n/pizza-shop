@@ -12,6 +12,7 @@ import {
   getCancellationStatistics,
   getIngredientUsage,
   getItemStatistics,
+  getRestockProjection,
   getSalesStatistics,
 } from "@/lib/api/statistics";
 import { requireAdmin } from "@/lib/auth/currentUser";
@@ -270,6 +271,91 @@ const UsageSection = async ({ searchParams }: { searchParams: SearchParams }) =>
   );
 };
 
+// Not tied to the range filter: always the last complete week, so it reads no searchParams.
+const RestockSection = async () => {
+  await requireAdmin();
+  const { from, to, lookbackDays, coverDays, ingredients } = await getRestockProjection();
+  const toRestock = ingredients.filter((ingredient) => ingredient.suggestedRestock > 0).length;
+
+  return (
+    <Section
+      title="Restock projection"
+      description={
+        <>
+          Usage over the last {lookbackDays} complete days ({formatDay(from)} – {formatDay(to)}), and what to add so
+          stock lasts the next {coverDays} days at that pace.{" "}
+          {toRestock > 0 && (
+            <span className="font-medium text-foreground">
+              {toRestock} {toRestock === 1 ? "ingredient needs" : "ingredients need"} restocking.
+            </span>
+          )}
+        </>
+      }
+    >
+      {ingredients.length === 0 ? (
+        <Empty>No stock was used in the last {lookbackDays} days.</Empty>
+      ) : (
+        <div className="flex flex-col gap-3">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Ingredient</TableHead>
+                <TableHead className="hidden text-right sm:table-cell">Used</TableHead>
+                <TableHead className="hidden text-right md:table-cell">Per day</TableHead>
+                <TableHead className="text-right">In stock</TableHead>
+                <TableHead className="text-right">Days left</TableHead>
+                <TableHead className="text-right">To restock</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {ingredients.map((ingredient) => (
+                <TableRow key={ingredient.ingredientId}>
+                  <TableCell className="font-medium">
+                    {ingredient.name}
+                    {!ingredient.isActive && <span className="ml-2 text-xs text-muted-foreground">Retired</span>}
+                  </TableCell>
+                  <TableCell className="hidden text-right font-mono tabular-nums sm:table-cell">
+                    {formatQuantity(ingredient.used)}
+                  </TableCell>
+                  <TableCell className="hidden text-right font-mono tabular-nums md:table-cell">
+                    {formatQuantity(ingredient.averageDailyUse)}
+                  </TableCell>
+                  <TableCell
+                    className={cn(
+                      "text-right font-mono tabular-nums",
+                      ingredient.currentStock < 0 && "text-destructive",
+                    )}
+                  >
+                    {formatQuantity(ingredient.currentStock)}
+                  </TableCell>
+                  <TableCell className="text-right font-mono tabular-nums">
+                    {ingredient.daysOfStockLeft === null ? "—" : ingredient.daysOfStockLeft === 0 ? "< 1" : ingredient.daysOfStockLeft}
+                  </TableCell>
+                  <TableCell className="text-right font-mono tabular-nums">
+                    {ingredient.suggestedRestock > 0 ? (
+                      <span className="font-semibold">
+                        {formatQuantity(ingredient.suggestedRestock)}{" "}
+                        <span className="font-normal text-muted-foreground">{ingredient.unitOfMeasureName}</span>
+                      </span>
+                    ) : (
+                      <span className="text-muted-foreground">—</span>
+                    )}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+          <p className="text-xs text-muted-foreground">
+            To restock = last week&apos;s usage minus what&apos;s in stock: enough for another week like it (— means you already
+            have that). Days left are whole days at last week&apos;s pace. Amounts are in each ingredient&apos;s own unit;
+            ingredients not used that week aren&apos;t listed unless their stock is below zero.
+          </p>
+        </div>
+      )}
+    </Section>
+  );
+};
+
 const SectionSkeleton = ({ className }: { className?: string }) => (
   <Skeleton className={cn("h-64 w-full rounded-xl", className)} aria-busy="true" aria-label="Loading" />
 );
@@ -294,10 +380,13 @@ const AnalyticsPage = ({ searchParams }: PageProps<"/analytics">) => {
         <ItemsSection searchParams={searchParams} />
       </Suspense>
       <Suspense fallback={<SectionSkeleton />}>
-        <CancellationsSection searchParams={searchParams} />
+        <UsageSection searchParams={searchParams} />
       </Suspense>
       <Suspense fallback={<SectionSkeleton />}>
-        <UsageSection searchParams={searchParams} />
+        <RestockSection />
+      </Suspense>
+      <Suspense fallback={<SectionSkeleton />}>
+        <CancellationsSection searchParams={searchParams} />
       </Suspense>
     </div>
   );

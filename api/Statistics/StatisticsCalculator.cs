@@ -12,6 +12,9 @@ namespace PizzaShop.Api.Statistics
     // Either a range or the request field that made it invalid and why.
     public record RangeResult(StatisticsRange? Range, string? ErrorField = null, string? Error = null);
 
+    // What /restock knows about an ingredient: its stock now and what orders used in the lookback.
+    public record IngredientStockSnapshot(Guid IngredientId, string Name, string UnitOfMeasureName, bool IsActive, decimal CurrentStock, decimal Used);
+
     // The columns /sales needs from each order in the range.
     public record OrderSnapshot(DateTimeOffset CreatedAt, bool IsCancelled, decimal SubTotal, decimal Tax, decimal Total);
 
@@ -20,6 +23,8 @@ namespace PizzaShop.Api.Statistics
     {
         public const int DefaultDays = 7;
         public const int MaxDays = 366;
+        public const int RestockLookbackDays = 7;
+        public const int RestockCoverDays = 7;
 
         // Missing dates default to the last `days` days ending today (local): `to` alone counts
         // back `days` from it, `from` alone runs up to today (and `days` is ignored).
@@ -96,6 +101,45 @@ namespace PizzaShop.Api.Statistics
 
         public static CancelledSummaryDto CancelledSummary(int cancelledCount, decimal cancelledTotal, int allOrders) =>
             new(cancelledCount, cancelledTotal, allOrders == 0 ? 0m : Math.Round((decimal)cancelledCount / allOrders, 4, MidpointRounding.AwayFromZero));
+
+        // The restock lookback: the last `days` complete local days, ending yesterday, so the
+        // projection doesn't move while today's orders come in.
+        public static StatisticsRange RestockRange(TimeZoneInfo zone, DateTimeOffset now, int days = RestockLookbackDays) =>
+            ResolveRange(null, LocalDate(now, zone).AddDays(-1), zone, now, days).Range!;
+
+        // Suggested restock = what the next `coverDays` will use at the lookback's average pace, minus
+        // the stock on hand (a negative stock is made up too). Listed: ingredients used in the lookback,
+        // plus active ones below zero. Most urgent first (fewest days left), unused ones last.
+        public static List<RestockRowDto> Restock(IEnumerable<IngredientStockSnapshot> ingredients, int lookbackDays, int coverDays)
+        {
+            return ingredients
+                .Where(i => i.Used > 0 || (i.IsActive && i.CurrentStock < 0))
+                .Select(i =>
+                {
+                    var daily = i.Used / lookbackDays;
+                    // Whole days, rounded down: 7.8 days of stock covers 7 full days, not 8. Computed from Used
+                    // directly (not the rounded daily pace), so 10 in stock at 10 a week is exactly 7.
+                    int? daysLeft = i.Used > 0 ? (int)Math.Floor(Math.Max(0, i.CurrentStock) * lookbackDays / i.Used) : null;
+                    // Multiply before dividing, and drop noise past the 4 decimals usage is stored with,
+                    // so 1 used over 7 days projects exactly 1 for the next 7 (not 1.0000...1 -> 1.01).
+                    var needed = Math.Round(i.Used * coverDays / lookbackDays - i.CurrentStock, 4, MidpointRounding.AwayFromZero);
+                    return new RestockRowDto(
+                        i.IngredientId,
+                        i.Name,
+                        i.UnitOfMeasureName,
+                        i.IsActive,
+                        i.Used,
+                        Math.Round(daily, 2, MidpointRounding.AwayFromZero),
+                        i.CurrentStock,
+                        daysLeft,
+                        // Rounded up to the 2 decimals CurrentStock keeps, so restocking it is enough.
+                        needed > 0 ? Math.Ceiling(needed * 100) / 100 : 0m);
+                })
+                .OrderBy(r => r.DaysOfStockLeft is null)
+                .ThenBy(r => r.DaysOfStockLeft)
+                .ThenBy(r => r.Name)
+                .ToList();
+        }
 
         private static DateOnly Max(DateOnly a, DateOnly b) => a > b ? a : b;
 

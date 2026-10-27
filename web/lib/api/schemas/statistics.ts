@@ -104,3 +104,25 @@ export const customRangeError = ({ from, to }: StatisticsQuery) => {
   if (dayNumber(to) - dayNumber(from) + 1 > MAX_RANGE_DAYS) return `Pick at most ${MAX_RANGE_DAYS} days.`;
   return null;
 };
+
+// GET /api/statistics/restock: not tied to the page's range; always the last complete week.
+export const restockProjectionSchema = z.object({
+  ...rangeFields,
+  lookbackDays: z.number().int(),
+  coverDays: z.number().int(),
+  ingredients: z.array(
+    z.object({
+      ingredientId: z.uuid(),
+      name: z.string(),
+      unitOfMeasureName: z.string(),
+      isActive: z.boolean(),
+      used: z.number(),
+      averageDailyUse: z.number(),
+      currentStock: z.number(),
+      // Null when it wasn't used in the lookback (no pace to project from).
+      // Whole days, rounded down (0 = less than a day).
+      daysOfStockLeft: z.number().int().nullable(),
+      suggestedRestock: z.number(),
+    }),
+  ),
+});

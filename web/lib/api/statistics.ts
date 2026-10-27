@@ -4,6 +4,7 @@ import {
   cancellationStatisticsSchema,
   ingredientUsageStatisticsSchema,
   itemStatisticsSchema,
+  restockProjectionSchema,
   salesStatisticsSchema,
   type StatisticsQuery,
 } from "@/lib/api/schemas/statistics";
@@ -29,3 +30,5 @@ export const getCancellationStatistics = async (range: StatisticsQuery, limit = 
 
 export const getIngredientUsage = async (range: StatisticsQuery) =>
   apiJson(`/api/statistics/ingredient-usage?${query(range)}`, ingredientUsageStatisticsSchema);
+
+export const getRestockProjection = async () => apiJson("/api/statistics/restock", restockProjectionSchema);
