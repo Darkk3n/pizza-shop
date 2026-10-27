@@ -3,7 +3,13 @@ import { notFound } from "next/navigation";
 import { z } from "zod";
 import { apiJson } from "@/lib/api/client";
 import { ApiError } from "@/lib/api/problem";
-import { orderSchema, orderSummaryPageSchema, type OrderStatus } from "@/lib/api/schemas/orders";
+import {
+  orderFeedSchema,
+  orderSchema,
+  orderSummaryPageSchema,
+  type OrderFeedQuery,
+  type OrderStatus,
+} from "@/lib/api/schemas/orders";
 
 export const ORDERS_PAGE_SIZE = 10;
 
@@ -26,3 +32,12 @@ export const getOrder = async (id: string) => {
 
 // GET /api/orders/active (staff): every Pending, Preparing and Ready order with its items, oldest first.
 export const listActiveOrders = async () => apiJson("/api/orders/active", z.array(orderSchema));
+
+// GET /api/orders/feed (staff): new customer orders and cancellations since the cursors, plus the
+// active queue's version.
+export const getOrderFeed = async ({ after, cancelledAfter }: OrderFeedQuery) => {
+  const query = new URLSearchParams();
+  if (after !== undefined) query.set("after", String(after));
+  if (cancelledAfter) query.set("cancelledAfter", cancelledAfter);
+  return apiJson(`/api/orders/feed?${query}`, orderFeedSchema);
+};

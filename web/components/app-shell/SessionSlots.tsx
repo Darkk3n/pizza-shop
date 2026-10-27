@@ -1,4 +1,5 @@
 import { getCurrentUser } from "@/lib/auth/currentUser";
+import { OrderFeed } from "@/components/orders/OrderFeed";
 import { navKeysFor } from "@/lib/helpers/navigation";
 import { NavLinks } from "./NavLinks";
 import { UserMenu } from "./UserMenu";
@@ -16,4 +17,10 @@ export const SessionUserMenu = async () => {
   if (!user) return null;
   const roleLabel = user.isAdmin ? "Admin" : user.isStaff ? "Staff" : "Customer";
   return <UserMenu email={user.email} roleLabel={roleLabel} />;
+};
+
+// New-order toasts and live dashboard updates, for staff and admins only.
+export const StaffOrderFeed = async () => {
+  const user = await getCurrentUser();
+  return user?.isStaff ? <OrderFeed /> : null;
 };

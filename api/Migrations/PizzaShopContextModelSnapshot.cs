@@ -352,6 +352,8 @@ namespace PizzaShop.Api.Migrations
 
                     b.HasKey("OrderId");
 
+                    b.HasIndex("CancelledAt");
+
                     b.HasIndex("CancelledByUserId");
 
                     b.HasIndex("CreatedAt");

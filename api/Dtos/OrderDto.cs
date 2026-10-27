@@ -49,6 +49,30 @@ namespace PizzaShop.Api.Dtos
         string? PlacedByEmail,
         int ItemCount) { }
 
+    // GET /api/orders/feed, polled by the staff screens. ActiveVersion changes whenever an order
+    // joins, leaves or moves within the active queue; NewOrders are customer orders after the
+    // order-number cursor, CancelledOrders cancellations after the CancelledSince cursor.
+    public record OrderFeedDto(
+        int LatestOrderNumber,
+        DateTimeOffset CancelledSince,
+        string ActiveVersion,
+        List<OrderFeedItemDto> NewOrders,
+        List<CancelledOrderFeedItemDto> CancelledOrders) { }
+
+    public record CancelledOrderFeedItemDto(
+        Guid OrderId,
+        int OrderNumber,
+        string? CancelledByEmail,
+        string? CancellationReason) { }
+
+    public record OrderFeedItemDto(
+        Guid OrderId,
+        int OrderNumber,
+        OrderType OrderType,
+        decimal Total,
+        string? PlacedByEmail,
+        int ItemCount) { }
+
     public record PagedResult<T>(List<T> Items, int Page, int PageSize, int TotalCount) { }
 
     public static class OrderMapper

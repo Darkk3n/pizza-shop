@@ -10,6 +10,8 @@ namespace PizzaShop.Api.Models
     [Index(nameof(CreatedAt))]
     // The dashboard's active queue (Pending/Preparing/Ready) is a small slice of all orders.
     [Index(nameof(Status))]
+    // The staff feed polls for cancellations after a CancelledAt cursor.
+    [Index(nameof(CancelledAt))]
     public class Order
     {
         public const string IdempotencyKeyIndexName = "IX_Orders_IdempotencyKey";

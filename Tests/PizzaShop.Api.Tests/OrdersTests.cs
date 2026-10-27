@@ -254,6 +254,88 @@ namespace PizzaShop.Api.Tests
         }
 
         [Fact]
+        public async Task Feed_ListsCustomerOrdersAfterTheCursor_AndVersionsTheActiveQueue()
+        {
+            var (_, _, _, recipe) = await MenuAsync();
+            var customer = await api.NewUserAsync();
+            var staff = await api.NewUserAsync("Staff");
+            var feed = async (int? after) => (await staff.Client.GetFromJsonAsync<OrderFeedDto>(
+                after is null ? "/api/orders/feed" : $"/api/orders/feed?after={after}", TestApi.Json))!;
+
+            // The first poll only sets the cursor.
+            var first = await feed(null);
+            Assert.Empty(first.NewOrders);
+
+            var customerOrder = await TestApi.PlaceSimpleOrderAsync(customer.Client, recipe.RecipeId, quantity: 2);
+            await TestApi.PlaceSimpleOrderAsync(staff.Client, recipe.RecipeId); // a walk-in: no toast
+
+            var second = await feed(first.LatestOrderNumber);
+            var item = Assert.Single(second.NewOrders);
+            Assert.Equal(customerOrder.OrderId, item.OrderId);
+            Assert.Equal(customer.Email, item.PlacedByEmail);
+            Assert.Equal(2, item.ItemCount);
+            Assert.True(second.LatestOrderNumber > customerOrder.OrderNumber);
+            Assert.NotEqual(first.ActiveVersion, second.ActiveVersion);
+
+            // Caught up: nothing new, same version until the queue changes.
+            var third = await feed(second.LatestOrderNumber);
+            Assert.Empty(third.NewOrders);
+            Assert.Equal(second.ActiveVersion, third.ActiveVersion);
+
+            (await staff.Client.PatchAsJsonAsync($"/api/orders/{customerOrder.OrderId}/status", new UpdateOrderStatusRequest(OrderStatus.Preparing), TestApi.Json))
+                .EnsureSuccessStatusCode();
+            Assert.NotEqual(third.ActiveVersion, (await feed(third.LatestOrderNumber)).ActiveVersion);
+        }
+
+        [Fact]
+        public async Task Feed_ListsCancellationsAfterTheCursor_ExceptTheCallersOwn()
+        {
+            var (_, _, _, recipe) = await MenuAsync();
+            var customer = await api.NewUserAsync();
+            var staff = await api.NewUserAsync("Staff");
+            var otherStaff = await api.NewUserAsync("Staff");
+            var feed = async (TestUser caller, DateTimeOffset? since) => (await caller.Client.GetFromJsonAsync<OrderFeedDto>(
+                since is { } value ? $"/api/orders/feed?cancelledAfter={Uri.EscapeDataString(value.ToString("O"))}" : "/api/orders/feed",
+                TestApi.Json))!;
+            var cancel = async (TestUser caller, Guid orderId, string reason) =>
+                (await caller.Client.PostAsJsonAsync($"/api/orders/{orderId}/cancel", new CancelOrderRequest(reason), TestApi.Json)).EnsureSuccessStatusCode();
+
+            var byCustomer = await TestApi.PlaceSimpleOrderAsync(customer.Client, recipe.RecipeId);
+            var byOtherStaff = await TestApi.PlaceSimpleOrderAsync(customer.Client, recipe.RecipeId);
+            var first = await feed(staff, null);
+            Assert.Empty(first.CancelledOrders);
+
+            await cancel(customer, byCustomer.OrderId, "Changed my mind");
+            await cancel(otherStaff, byOtherStaff.OrderId, "Out of dough");
+
+            var second = await feed(staff, first.CancelledSince);
+            Assert.Equal([byCustomer.OrderId, byOtherStaff.OrderId], second.CancelledOrders.Select(o => o.OrderId));
+            var fromCustomer = second.CancelledOrders[0];
+            Assert.Equal(customer.Email, fromCustomer.CancelledByEmail);
+            Assert.Equal("Changed my mind", fromCustomer.CancellationReason);
+            Assert.True(second.CancelledSince > first.CancelledSince);
+
+            // The other staff member cancelled one of them, so they're only told about the other.
+            var others = await feed(otherStaff, first.CancelledSince);
+            Assert.Equal([byCustomer.OrderId], others.CancelledOrders.Select(o => o.OrderId));
+
+            // Caught up.
+            Assert.Empty((await feed(staff, second.CancelledSince)).CancelledOrders);
+        }
+
+        [Fact]
+        public async Task Feed_IsForStaffOnly_AndValidatesTheCursor()
+        {
+            var customer = await api.NewUserAsync();
+            var staff = await api.NewUserAsync("Staff");
+
+            Assert.Equal(HttpStatusCode.Forbidden, (await customer.Client.GetAsync("/api/orders/feed")).StatusCode);
+            var negative = await staff.Client.GetAsync("/api/orders/feed?after=-1");
+            var problem = await TestApi.ReadProblemAsync(negative, HttpStatusCode.BadRequest);
+            Assert.Contains("after", problem.Errors.Keys);
+        }
+
+        [Fact]
         public async Task Quote_PricesLikeCreate_WithoutSavingOrDeductingStock()
         {
             var (admin, dough, cheese, recipe) = await MenuAsync();

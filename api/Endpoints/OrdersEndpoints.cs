@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +37,10 @@ namespace PizzaShop.Api.Endpoints
             // The kitchen queue for the dashboard: every Pending, Preparing and Ready order, with items.
             group.MapGet("/active", GetActive)
                 .RequireAuthorization(Policies.Staff);
+            // Polled every few seconds by the staff screens (new-order toasts, dashboard refresh).
+            group.MapGet("/feed", GetFeed)
+                .RequireAuthorization(Policies.Staff)
+                .ProducesValidationProblem();
             group.MapGet("/{id:guid}", GetById)
                 .WithName(GetByIdRouteName);
             group.MapPost("/", Create)
@@ -110,6 +115,65 @@ namespace PizzaShop.Api.Endpoints
                 .Select(OrderMapper.ToDto)
                 .ToListAsync(ct);
             return TypedResults.Ok(orders);
+        }
+
+        private const int FeedMaxItems = 20;
+
+        // Two cursors, both echoed back from the previous response; without them (the first poll)
+        // nothing counts as new, so opening a screen doesn't replay old orders.
+        // - after: the LatestOrderNumber seen. Only customer orders are listed: staff entering a
+        //   walk-in don't need to be told.
+        // - cancelledAfter: the CancelledSince seen. The caller's own cancellations are left out (they
+        //   already got a confirmation).
+        // Cheap on purpose: the active queue is small (IX_Orders_Status) and the cursors are indexed.
+        private static async Task<Ok<OrderFeedDto>> GetFeed(
+            ClaimsPrincipal user,
+            PizzaShopContext context,
+            [Range(0, int.MaxValue)] int? after,
+            DateTimeOffset? cancelledAfter,
+            CancellationToken ct = default)
+        {
+            var latest = await context.Orders.MaxAsync(o => (int?)o.OrderNumber, ct) ?? 0;
+            // With no cancellations yet, "now" still lets the next poll pick up the first one.
+            var cancelledSince = await context.Orders.MaxAsync(o => o.CancelledAt, ct) ?? DateTimeOffset.UtcNow;
+
+            var active = await context.Orders
+                .Where(o => o.Status == OrderStatus.Pending || o.Status == OrderStatus.Preparing || o.Status == OrderStatus.Ready)
+                .OrderBy(o => o.OrderNumber)
+                .Select(o => new { o.OrderNumber, o.Status })
+                .ToListAsync(ct);
+            var version = Convert.ToHexString(SHA256.HashData(
+                Encoding.UTF8.GetBytes(string.Join(',', active.Select(o => $"{o.OrderNumber}:{o.Status}")))))[..16];
+
+            List<OrderFeedItemDto> newOrders = [];
+            if (after is { } cursor && cursor < latest)
+            {
+                // Users with any stored role are Staff or Admin; no role means Customer.
+                newOrders = await context.Orders
+                    .Where(o => o.OrderNumber > cursor && !context.UserRoles.Any(r => r.UserId == o.PlacedByUserId))
+                    .OrderByDescending(o => o.OrderNumber)
+                    .Take(FeedMaxItems)
+                    .Select(o => new OrderFeedItemDto(o.OrderId, o.OrderNumber, o.OrderType, o.Total, o.PlacedBy.Email, o.Items.Sum(i => i.Quantity)))
+                    .ToListAsync(ct);
+                newOrders.Reverse();
+            }
+
+            List<CancelledOrderFeedItemDto> cancelledOrders = [];
+            if (cancelledAfter is { } since)
+            {
+                // Npgsql only accepts UTC offsets for timestamptz parameters.
+                var sinceUtc = since.ToUniversalTime();
+                var userId = user.GetUserId();
+                cancelledOrders = await context.Orders
+                    .Where(o => o.CancelledAt > sinceUtc && o.CancelledByUserId != userId)
+                    .OrderByDescending(o => o.CancelledAt)
+                    .Take(FeedMaxItems)
+                    .Select(o => new CancelledOrderFeedItemDto(o.OrderId, o.OrderNumber, o.CancelledBy != null ? o.CancelledBy.Email : null, o.CancellationReason))
+                    .ToListAsync(ct);
+                cancelledOrders.Reverse();
+            }
+
+            return TypedResults.Ok(new OrderFeedDto(latest, cancelledSince, version, newOrders, cancelledOrders));
         }
 
         private static async Task<Results<Ok<OrderDto>, NotFound>> GetById(Guid id, ClaimsPrincipal user, PizzaShopContext context, CancellationToken ct)

@@ -157,3 +157,38 @@ export const nextStatuses = (status: OrderStatus): OrderStatus[] => {
 // Staff can cancel anything not yet Completed (customers only Pending, handled by the API).
 export const isCancellable = (status: OrderStatus) =>
   status === "Pending" || status === "Preparing" || status === "Ready";
+
+// GET /api/orders/feed, polled by staff screens through the BFF route app/api/orders/feed.
+export const orderFeedSchema = z.object({
+  latestOrderNumber: z.number().int(),
+  cancelledSince: z.string(),
+  activeVersion: z.string(),
+  newOrders: z.array(
+    z.object({
+      orderId: z.uuid(),
+      orderNumber: z.number().int(),
+      orderType: orderTypeSchema,
+      total: z.number(),
+      placedByEmail: z.string().nullable(),
+      itemCount: z.number().int(),
+    }),
+  ),
+  cancelledOrders: z.array(
+    z.object({
+      orderId: z.uuid(),
+      orderNumber: z.number().int(),
+      cancelledByEmail: z.string().nullable(),
+      cancellationReason: z.string().nullable(),
+    }),
+  ),
+});
+
+export type OrderFeed = z.infer<typeof orderFeedSchema>;
+
+// Both cursors come back verbatim from the previous feed response.
+export const orderFeedQuerySchema = z.object({
+  after: z.coerce.number().int().min(0).optional(),
+  cancelledAfter: z.iso.datetime({ offset: true }).optional(),
+});
+
+export type OrderFeedQuery = z.infer<typeof orderFeedQuerySchema>;

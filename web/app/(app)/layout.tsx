@@ -1,12 +1,12 @@
 import { Suspense } from "react";
 import { AppShell } from "@/components/app-shell/AppShell";
 import { NavLinksSkeleton } from "@/components/app-shell/NavLinks";
-import { RoleNav, SessionUserMenu } from "@/components/app-shell/SessionSlots";
+import { RoleNav, SessionUserMenu, StaffOrderFeed } from "@/components/app-shell/SessionSlots";
 import { CartButton } from "@/components/cart/CartButton";
 import { CartProvider } from "@/components/cart/CartProvider";
 
 // Signed-in screens. The shell prerenders; the role-specific nav and user menu stream in.
-// The cart lives here so it survives navigation between signed-in screens.
+// The cart and the staff order feed live here so they survive navigation between signed-in screens.
 const AppLayout = ({ children }: LayoutProps<"/">) => {
   return (
     <CartProvider>
@@ -27,6 +27,9 @@ const AppLayout = ({ children }: LayoutProps<"/">) => {
       >
         {children}
       </AppShell>
+      <Suspense>
+        <StaffOrderFeed />
+      </Suspense>
     </CartProvider>
   );
 };
