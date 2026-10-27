@@ -49,9 +49,9 @@ export const RangeFilter = ({ query }: { query: StatisticsQuery }) => {
         <Button type="submit" variant={custom ? "default" : "outline"} size="sm">
           Apply
         </Button>
-        {/* Back to the default (last 7 days); a link, so it also empties the date inputs. Only
-            offered when something else is selected, so it never shows as a no-op. */}
-        {(custom || activeDays !== 7) && (
+        {/* Clears the custom range (back to the default last 7 days); a link, so it also empties the
+            date inputs. Only shown while a custom range is applied: presets have their own buttons. */}
+        {custom && (
           <Link href="/analytics" className={buttonVariants({ variant: "outline", size: "sm" })}>
             Clear
           </Link>
