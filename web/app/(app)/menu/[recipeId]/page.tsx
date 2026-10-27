@@ -14,9 +14,11 @@ export const metadata: Metadata = { title: "Build your pizza · Pizza Shop POS" 
 const Builder = async ({ params }: { params: PageProps<"/menu/[recipeId]">["params"] }) => {
   await requireUser();
   const { recipeId } = await params;
-  const [recipe, sizes, toppings] = await Promise.all([getRecipe(recipeId), listPizzaSizes(), listToppings()]);
+  const [recipe, allSizes, toppings] = await Promise.all([getRecipe(recipeId), listPizzaSizes(), listToppings()]);
   // Staff can open a retired recipe by URL; it can't be ordered, so don't offer it.
   if (!recipe.isActive) notFound();
+  // Staff and admins also get retired sizes, which can't be ordered either.
+  const sizes = allSizes.filter((size) => size.isActive);
 
   // Price for the default pizza (smallest size, no extras), so the panel isn't empty on first paint.
   let initialQuote = null;

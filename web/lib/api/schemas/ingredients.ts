@@ -17,13 +17,20 @@ export const ingredientSchema = z.object({
 
 export type Ingredient = z.infer<typeof ingredientSchema>;
 
-// GET /api/units-of-measure (seeded: grams, ounces, ...).
+// GET /api/units-of-measure, by name (Gram, Milliliter, Piece are seeded; admins add more).
 export const unitOfMeasureSchema = z.object({
   unitOfMeasureId: z.uuid(),
   name: z.string(),
 });
 
 export type UnitOfMeasure = z.infer<typeof unitOfMeasureSchema>;
+
+// POST/PUT /api/units-of-measure (admin).
+export const unitOfMeasureFormSchema = z.object({
+  name: z.string().trim().min(1, "Enter a name.").max(20, "Keep the name under 20 characters."),
+});
+
+export type UnitOfMeasureForm = z.infer<typeof unitOfMeasureFormSchema>;
 
 // CurrentStock is Decimal(10,2) and the API takes deltas up to ±99,999,999.99.
 const MAX_STOCK = 99_999_999.99;

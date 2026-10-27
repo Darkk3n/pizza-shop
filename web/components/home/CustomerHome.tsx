@@ -4,7 +4,7 @@ import { RecipeCard } from "@/components/menu/RecipeCard";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { listPopularRecipes, listRecipes, listToppings } from "@/lib/api/menu";
+import { listPizzaSizes, listPopularRecipes, listRecipes, listToppings } from "@/lib/api/menu";
 import { findOrder, listActiveOrders, listOrders } from "@/lib/api/orders";
 import type { Order } from "@/lib/api/schemas/orders";
 import { describeTopping, formatDateTime, formatMoney } from "@/lib/helpers/format";
@@ -21,12 +21,20 @@ const InProgress = async () => {
   return <OrderTracker key={orders.map((o) => `${o.orderId}:${o.status}`).join()} initialOrders={orders} />;
 };
 
-// What can be ordered again today: the recipe is still on the menu and every topping still offered.
-const reorderLines = (order: Order, recipeIds: Set<string>, toppingIds: Set<string>) => {
+type Available = { recipeIds: Set<string>; sizeIds: Set<string>; toppingIds: Set<string> };
+
+// What can be ordered again today: the recipe and size are still on the menu and every topping
+// still offered.
+const reorderLines = (order: Order, { recipeIds, sizeIds, toppingIds }: Available) => {
   const lines: ReorderLine[] = [];
   let unavailable = 0;
   for (const item of order.items) {
-    if (!item.recipeId || !recipeIds.has(item.recipeId) || item.toppings.some((t) => !toppingIds.has(t.ingredientId))) {
+    if (
+      !item.recipeId ||
+      !recipeIds.has(item.recipeId) ||
+      (item.pizzaSizeId !== null && !sizeIds.has(item.pizzaSizeId)) ||
+      item.toppings.some((t) => !toppingIds.has(t.ingredientId))
+    ) {
       unavailable += item.quantity;
       continue;
     }
@@ -45,9 +53,10 @@ const reorderLines = (order: Order, recipeIds: Set<string>, toppingIds: Set<stri
 };
 
 const OrderAgain = async () => {
-  const [completed, recipes, toppings] = await Promise.all([
+  const [completed, recipes, sizes, toppings] = await Promise.all([
     listOrders({ status: "Completed", page: 1 }),
     listRecipes(),
+    listPizzaSizes(),
     listToppings(),
   ]);
   const orders = (
@@ -55,8 +64,11 @@ const OrderAgain = async () => {
   ).filter((order) => order !== null);
   if (orders.length === 0) return null;
 
-  const recipeIds = new Set(recipes.filter((recipe) => recipe.isActive).map((recipe) => recipe.recipeId));
-  const toppingIds = new Set(toppings.map((topping) => topping.ingredientId));
+  const available: Available = {
+    recipeIds: new Set(recipes.filter((recipe) => recipe.isActive).map((recipe) => recipe.recipeId)),
+    sizeIds: new Set(sizes.filter((size) => size.isActive).map((size) => size.pizzaSizeId)),
+    toppingIds: new Set(toppings.map((topping) => topping.ingredientId)),
+  };
 
   return (
     <section aria-labelledby="order-again" className="flex flex-col gap-3">
@@ -70,7 +82,7 @@ const OrderAgain = async () => {
       </div>
       <ul className="grid gap-4 md:grid-cols-3">
         {orders.map((order) => {
-          const { lines, unavailable } = reorderLines(order, recipeIds, toppingIds);
+          const { lines, unavailable } = reorderLines(order, available);
           return (
             <li key={order.orderId}>
               <Card size="sm" className="h-full">

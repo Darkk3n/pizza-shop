@@ -1,6 +1,6 @@
 "use client";
 
-import { HouseIcon, PizzaIcon, ReceiptTextIcon, UsersIcon } from "lucide-react";
+import { HouseIcon, PizzaIcon, ReceiptTextIcon, TagsIcon, UsersIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ComponentType, SVGProps } from "react";
@@ -18,6 +18,7 @@ const NAV_ITEMS: Record<NavKey, NavItem> = {
   orders: { href: "/orders", label: "Orders", icon: OrdersIcon },
   inventory: { href: "/inventory", label: "Inventory", icon: InventoryIcon },
   recipes: { href: "/recipes", label: "Recipes", icon: RecipesIcon },
+  catalogs: { href: "/catalogs", label: "Catalogs", icon: TagsIcon },
   analytics: { href: "/analytics", label: "Analytics", icon: AnalyticsIcon },
   users: { href: "/users", label: "Users", icon: UsersIcon },
 };
