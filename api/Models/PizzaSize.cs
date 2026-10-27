@@ -13,5 +13,9 @@ namespace PizzaShop.Api.Models
 
         [Precision(3, 2)]
         public decimal PriceMultiplier { get; set; }
+
+        // Inactive sizes are off the menu: hidden from customers and rejected in new orders,
+        // but kept for order history (a size that has been sold can't be deleted).
+        public bool IsActive { get; set; } = true;
     }
 }

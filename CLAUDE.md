@@ -63,7 +63,7 @@ A full-stack POS system for pizza restaurant owners featuring order management, 
    - **Admin:** catalog writes, `/api/users` role management (can't remove the last admin), statistics.
    - `GET /api/auth/me` returns the caller's `{ email, roles }` from the token's claims (not the DB, so it matches what the API enforces; `Cache-Control: no-store`). It drives which screens the UI shows and is not a security boundary.
    - The first admin is created at startup from `Auth:BootstrapAdmin:Email` / `Password` (user-secrets or env vars, never committed).
-7. **Retiring Menu Items:** Recipes and ingredients that appear in orders can't be deleted (409); set `IsActive = false` instead. Inactive recipes are hidden from customers and rejected in new orders (staff/admin still see them). Inactive ingredients are hidden from `/api/toppings`, rejected as toppings, and can't be newly added to recipes (recipes that already contain them stay editable).
+7. **Retiring Menu Items:** Recipes, pizza sizes and ingredients that appear in orders can't be deleted (409); set `IsActive = false` instead. Inactive recipes and sizes are hidden from customers and rejected in new orders and quotes (staff/admin still see them). Inactive ingredients are hidden from `/api/toppings`, rejected as toppings, and can't be newly added to recipes (recipes that already contain them stay editable).
 8. **Cancellation:** `POST /api/orders/{id}/cancel` (optional `{ reason }`) is the only way to reach `Cancelled`; `PATCH .../status` rejects it.
    - **Who/when:** customers may cancel their own orders while `Pending`; staff/admin any order not yet `Completed`. Completed orders can't be cancelled.
    - **Stock:** a cancellation MUST return exactly the stock the order deducted (from `OrderIngredientUsages`, not recomputed from current recipes), in the same transaction as the status change.
@@ -109,7 +109,8 @@ Identity tables (`AspNetUsers`, `AspNetRoles` seeded with Admin/Staff, `AspNetUs
 
 - PizzaSizeId: Guid PK
 - Name: String(20) NOT NULL -- e.g., "Small", "Medium", "Large"
-- PriceMultiplier: Decimal(3,2) NOT NULL (Default: 1.00) -- e.g., 1.00, 1.25, 1.50
+- PriceMultiplier: Decimal(3,2) NOT NULL (Default: 1.00) -- e.g., 1.00, 1.25, 1.50; scales both price and ingredient usage
+- IsActive: Bool NOT NULL (Default: true) -- false = off the menu (see rule 7)
 
 ### Recipes
 

@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using PizzaShop.Api.Auth;
@@ -36,10 +37,10 @@ namespace PizzaShop.Api.Endpoints
             return app;
         }
 
-        private static async Task<Ok<List<PizzaSizeDto>>> GetAll(PizzaShopContext context, CancellationToken ct)
+        private static async Task<Ok<List<PizzaSizeDto>>> GetAll(PizzaShopContext context, ClaimsPrincipal user, CancellationToken ct)
         {
             // Smallest to largest (Small, Medium, Large) rather than alphabetical.
-            var pizzaSizes = await context.PizzaSizes
+            var pizzaSizes = await VisibleSizes(context, user)
                 .OrderBy(s => s.PriceMultiplier)
                 .ThenBy(s => s.Name)
                 .Select(PizzaSizeMapper.ToDto)
@@ -47,9 +48,9 @@ namespace PizzaShop.Api.Endpoints
             return TypedResults.Ok(pizzaSizes);
         }
 
-        private static async Task<Results<Ok<PizzaSizeDto>, NotFound>> GetById(Guid id, PizzaShopContext context, CancellationToken ct)
+        private static async Task<Results<Ok<PizzaSizeDto>, NotFound>> GetById(Guid id, PizzaShopContext context, ClaimsPrincipal user, CancellationToken ct)
         {
-            var pizzaSize = await context.PizzaSizes
+            var pizzaSize = await VisibleSizes(context, user)
                 .Where(s => s.PizzaSizeId == id)
                 .Select(PizzaSizeMapper.ToDto)
                 .FirstOrDefaultAsync(ct);
@@ -94,6 +95,7 @@ namespace PizzaShop.Api.Endpoints
             // only affects new orders.
             pizzaSize.Name = name;
             pizzaSize.PriceMultiplier = request.PriceMultiplier;
+            pizzaSize.IsActive = request.IsActive;
             await context.SaveChangesAsync(ct);
 
             return TypedResults.Ok(PizzaSizeMapper.FromEntity(pizzaSize));
@@ -115,7 +117,7 @@ namespace PizzaShop.Api.Endpoints
                 return TypedResults.Problem(
                     statusCode: StatusCodes.Status409Conflict,
                     title: "Pizza size is in use.",
-                    detail: $"The pizza size '{pizzaSize.Name}' appears in one or more orders.");
+                    detail: $"The pizza size '{pizzaSize.Name}' appears in one or more orders. Set isActive to false to take it off the menu instead.");
             }
 
             context.PizzaSizes.Remove(pizzaSize);
@@ -123,5 +125,11 @@ namespace PizzaShop.Api.Endpoints
 
             return TypedResults.NoContent();
         }
+
+        // Staff and admins see every size (to manage them); customers only the ones on the menu.
+        private static IQueryable<PizzaSize> VisibleSizes(PizzaShopContext context, ClaimsPrincipal user) =>
+            user.IsStaff()
+                ? context.PizzaSizes
+                : context.PizzaSizes.Where(s => s.IsActive);
     }
 }

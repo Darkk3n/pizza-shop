@@ -506,7 +506,8 @@ namespace PizzaShop.Api.Endpoints
                 .FirstOrDefaultAsync(ct);
 
         // Attribute validation already covers quantities and enums; this checks what needs the
-        // database: recipes, sizes and topping ingredients exist, and toppings aren't repeated.
+        // database: recipes, sizes and topping ingredients exist (recipes and sizes on the menu),
+        // and toppings aren't repeated.
         // Keys are indexed (Items[0].Toppings[1].IngredientId) so a form can point at the field.
         private static Dictionary<string, string[]>? ValidateItems(
             List<OrderItemRequest> items,
@@ -530,9 +531,16 @@ namespace PizzaShop.Api.Endpoints
                     errors[$"{prefix}.{nameof(OrderItemRequest.RecipeId)}"] = [$"'{recipe.Name}' is not on the menu."];
                 }
 
-                if (item.PizzaSizeId is { } sizeId && !sizes.ContainsKey(sizeId))
+                if (item.PizzaSizeId is { } sizeId)
                 {
-                    errors[$"{prefix}.{nameof(OrderItemRequest.PizzaSizeId)}"] = [$"Pizza size '{sizeId}' does not exist."];
+                    if (!sizes.TryGetValue(sizeId, out var size))
+                    {
+                        errors[$"{prefix}.{nameof(OrderItemRequest.PizzaSizeId)}"] = [$"Pizza size '{sizeId}' does not exist."];
+                    }
+                    else if (!size.IsActive)
+                    {
+                        errors[$"{prefix}.{nameof(OrderItemRequest.PizzaSizeId)}"] = [$"The '{size.Name}' size is not on the menu."];
+                    }
                 }
 
                 var toppings = item.Toppings ?? [];

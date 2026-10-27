@@ -484,6 +484,9 @@ namespace PizzaShop.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -503,18 +506,21 @@ namespace PizzaShop.Api.Migrations
                         new
                         {
                             PizzaSizeId = new Guid("dd64f6fa-4a2d-4e4d-aa26-ba77dcd3c496"),
+                            IsActive = true,
                             Name = "Small",
                             PriceMultiplier = 1.00m
                         },
                         new
                         {
                             PizzaSizeId = new Guid("8a5ab672-b4da-48fc-876b-4ca5b87754ee"),
+                            IsActive = true,
                             Name = "Medium",
                             PriceMultiplier = 1.20m
                         },
                         new
                         {
                             PizzaSizeId = new Guid("6818c0cd-1560-4a1a-8e57-3c870284a646"),
+                            IsActive = true,
                             Name = "Large",
                             PriceMultiplier = 1.70m
                         });

@@ -178,5 +178,73 @@ namespace PizzaShop.Api.Tests
             var tooMany = await customer.Client.GetAsync("/api/recipes/popular?limit=21");
             Assert.Contains("limit", (await TestApi.ReadProblemAsync(tooMany, HttpStatusCode.BadRequest)).Errors.Keys);
         }
+
+        private static async Task<PizzaSizeDto> CreateSizeAsync(TestUser admin, decimal priceMultiplier)
+        {
+            var response = await admin.Client.PostAsJsonAsync("/api/pizza-sizes",
+                new CreatePizzaSizeRequest($"Size {TestApi.Unique()}", priceMultiplier), TestApi.Json);
+            return await TestApi.ReadAsync<PizzaSizeDto>(response);
+        }
+
+        private static Task<HttpResponseMessage> SetSizeActiveAsync(TestUser admin, PizzaSizeDto size, bool isActive) =>
+            admin.Client.PutAsJsonAsync($"/api/pizza-sizes/{size.PizzaSizeId}",
+                new UpdatePizzaSizeRequest(size.Name, size.PriceMultiplier, isActive), TestApi.Json);
+
+        [Fact]
+        public async Task InactiveSize_IsHiddenFromCustomers_VisibleToStaff_AndCannotBeOrderedOrQuoted()
+        {
+            var admin = await api.AdminAsync();
+            var dough = await TestApi.CreateIngredientAsync(admin, stock: 100);
+            var recipe = await TestApi.CreateRecipeAsync(admin, 8m, (dough.IngredientId, 10));
+            var size = await CreateSizeAsync(admin, 2.00m);
+            Assert.True(size.IsActive);
+            (await SetSizeActiveAsync(admin, size, isActive: false)).EnsureSuccessStatusCode();
+            var customer = await api.NewUserAsync();
+            var staff = await api.NewUserAsync("Staff");
+
+            var customerSizes = await customer.Client.GetFromJsonAsync<List<PizzaSizeDto>>("/api/pizza-sizes", TestApi.Json);
+            Assert.DoesNotContain(customerSizes!, s => s.PizzaSizeId == size.PizzaSizeId);
+            Assert.Equal(HttpStatusCode.NotFound, (await customer.Client.GetAsync($"/api/pizza-sizes/{size.PizzaSizeId}")).StatusCode);
+
+            var staffSizes = await staff.Client.GetFromJsonAsync<List<PizzaSizeDto>>("/api/pizza-sizes", TestApi.Json);
+            Assert.Contains(staffSizes!, s => s.PizzaSizeId == size.PizzaSizeId && !s.IsActive);
+
+            var item = new OrderItemRequest(recipe.RecipeId, size.PizzaSizeId);
+            var order = await TestApi.PlaceOrderAsync(customer.Client, new CreateOrderRequest(OrderType.Takeout, [item]));
+            Assert.Contains("Items[0].PizzaSizeId", (await TestApi.ReadProblemAsync(order, HttpStatusCode.BadRequest)).Errors.Keys);
+
+            var quote = await customer.Client.PostAsJsonAsync("/api/orders/quote", new QuoteOrderRequest([item]), TestApi.Json);
+            Assert.Contains("Items[0].PizzaSizeId", (await TestApi.ReadProblemAsync(quote, HttpStatusCode.BadRequest)).Errors.Keys);
+
+            // Back on the menu, it orders again.
+            (await SetSizeActiveAsync(admin, size, isActive: true)).EnsureSuccessStatusCode();
+            await TestApi.PlaceSimpleOrderAsync(customer.Client, recipe.RecipeId, size.PizzaSizeId);
+        }
+
+        [Fact]
+        public async Task DeletingSizesAndUnits_OnlyWhenUnused()
+        {
+            var admin = await api.AdminAsync();
+            var staff = await api.NewUserAsync("Staff");
+            var dough = await TestApi.CreateIngredientAsync(admin, stock: 100);
+            var recipe = await TestApi.CreateRecipeAsync(admin, 8m, (dough.IngredientId, 10));
+
+            var usedSize = await CreateSizeAsync(admin, 1.50m);
+            await TestApi.PlaceSimpleOrderAsync(admin.Client, recipe.RecipeId, usedSize.PizzaSizeId);
+            var sizeInUse = await admin.Client.DeleteAsync($"/api/pizza-sizes/{usedSize.PizzaSizeId}");
+            Assert.Contains("isActive", (await TestApi.ReadProblemAsync(sizeInUse, HttpStatusCode.Conflict)).Detail);
+
+            var unusedSize = await CreateSizeAsync(admin, 1.50m);
+            Assert.Equal(HttpStatusCode.Forbidden, (await staff.Client.DeleteAsync($"/api/pizza-sizes/{unusedSize.PizzaSizeId}")).StatusCode);
+            Assert.Equal(HttpStatusCode.NoContent, (await admin.Client.DeleteAsync($"/api/pizza-sizes/{unusedSize.PizzaSizeId}")).StatusCode);
+
+            var unitInUse = await admin.Client.DeleteAsync($"/api/units-of-measure/{TestApi.GramUnitId}");
+            await TestApi.ReadProblemAsync(unitInUse, HttpStatusCode.Conflict);
+
+            var unit = await TestApi.ReadAsync<UnitOfMeasureDto>(await admin.Client.PostAsJsonAsync("/api/units-of-measure",
+                new CreateUnitOfMeasureRequest($"Unit {TestApi.Unique()}"), TestApi.Json));
+            Assert.Equal(HttpStatusCode.Forbidden, (await staff.Client.DeleteAsync($"/api/units-of-measure/{unit.UnitOfMeasureId}")).StatusCode);
+            Assert.Equal(HttpStatusCode.NoContent, (await admin.Client.DeleteAsync($"/api/units-of-measure/{unit.UnitOfMeasureId}")).StatusCode);
+        }
     }
 }
