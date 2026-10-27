@@ -33,6 +33,9 @@ namespace PizzaShop.Api.Endpoints
             // Any signed-in user can order; customers only see their own orders (see VisibleOrders).
             group.MapGet("/", GetAll)
                 .ProducesValidationProblem();
+            // The kitchen queue for the dashboard: every Pending, Preparing and Ready order, with items.
+            group.MapGet("/active", GetActive)
+                .RequireAuthorization(Policies.Staff);
             group.MapGet("/{id:guid}", GetById)
                 .WithName(GetByIdRouteName);
             group.MapPost("/", Create)
@@ -94,6 +97,19 @@ namespace PizzaShop.Api.Endpoints
                 .ToListAsync(ct);
 
             return TypedResults.Ok(new PagedResult<OrderSummaryDto>(items, page, pageSize, totalCount));
+        }
+
+        // Not paged: the active queue is what the kitchen works on right now, so all of it is shown.
+        // Oldest first, the order it gets cooked in.
+        private static async Task<Ok<List<OrderDto>>> GetActive(PizzaShopContext context, CancellationToken ct)
+        {
+            var orders = await context.Orders
+                .Where(o => o.Status == OrderStatus.Pending || o.Status == OrderStatus.Preparing || o.Status == OrderStatus.Ready)
+                .OrderBy(o => o.CreatedAt)
+                .ThenBy(o => o.OrderNumber)
+                .Select(OrderMapper.ToDto)
+                .ToListAsync(ct);
+            return TypedResults.Ok(orders);
         }
 
         private static async Task<Results<Ok<OrderDto>, NotFound>> GetById(Guid id, ClaimsPrincipal user, PizzaShopContext context, CancellationToken ct)

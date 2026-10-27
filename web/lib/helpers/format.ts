@@ -70,3 +70,17 @@ export const describeTopping = (topping: {
   ].filter(Boolean);
   return notes.length > 0 ? `${topping.ingredientName} (${notes.join(", ")})` : topping.ingredientName;
 };
+
+const time = new Intl.DateTimeFormat("en-US", { timeStyle: "short" });
+
+// "4:05 PM", for today's orders on the dashboard (server time zone, like formatDateTime).
+export const formatTime = (iso: string) => time.format(new Date(iso));
+
+// Whole minutes since an order was placed: "Just now", "12 min", "1 h 5 min".
+export const formatElapsed = (minutes: number) => {
+  if (minutes < 1) return "Just now";
+  if (minutes < 60) return `${minutes} min`;
+  const hours = Math.floor(minutes / 60);
+  const rest = minutes % 60;
+  return rest === 0 ? `${hours} h` : `${hours} h ${rest} min`;
+};

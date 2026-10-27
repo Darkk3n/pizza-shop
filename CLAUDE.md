@@ -58,7 +58,7 @@ A full-stack POS system for pizza restaurant owners featuring order management, 
 5. **Idempotent Orders:** `POST /api/orders` requires an `Idempotency-Key` header (GUID). Clients generate one per checkout (`crypto.randomUUID()`) and reuse it on every retry; a replay returns the original order, a reused key with a different body (or another user's key) returns 422.
 6. **Roles & Access:** Accounts come from `/api/auth/register` (Identity `MapIdentityApi`); a user with no role is a **Customer**. Stored roles are **Admin** and **Staff** (`api/Auth/Roles.cs`), enforced with the `Admin`/`Staff` policies (`api/Auth/Policies.cs`; Admin passes Staff). Every endpoint group calls `.RequireAuthorization()` (no global fallback policy, so new groups must opt in); only `/` and the anonymous Identity endpoints are public.
    - **Customer:** read units, sizes, recipes and `/api/toppings`; place orders; see only their own orders (others' are 404).
-   - **Staff:** all orders, order status, ingredient reads and stock adjustments.
+   - **Staff:** all orders (plus `GET /api/orders/active`, the dashboard's Pending/Preparing/Ready queue with items, oldest first), order status, ingredient reads and stock adjustments. Staff and admins land on the dashboard (`/`); customers on `/menu`.
    - **Admin:** catalog writes, `/api/users` role management (can't remove the last admin), statistics.
    - `GET /api/auth/me` returns the caller's `{ email, roles }` from the token's claims (not the DB, so it matches what the API enforces; `Cache-Control: no-store`). It drives which screens the UI shows and is not a security boundary.
    - The first admin is created at startup from `Auth:BootstrapAdmin:Email` / `Password` (user-secrets or env vars, never committed).

@@ -53,4 +53,4 @@ export const requireAdmin = async () => {
   return user;
 };
 
-export const homePathFor = (user: Pick<CurrentUser, "isStaff">) => (user.isStaff ? "/orders" : "/menu");
+export const homePathFor = (user: Pick<CurrentUser, "isStaff">) => (user.isStaff ? "/" : "/menu");

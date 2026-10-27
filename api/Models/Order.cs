@@ -8,6 +8,8 @@ namespace PizzaShop.Api.Models
     [Index(nameof(IdempotencyKey), IsUnique = true, Name = IdempotencyKeyIndexName)]
     // Statistics filter every query on a CreatedAt range.
     [Index(nameof(CreatedAt))]
+    // The dashboard's active queue (Pending/Preparing/Ready) is a small slice of all orders.
+    [Index(nameof(Status))]
     public class Order
     {
         public const string IdempotencyKeyIndexName = "IX_Orders_IdempotencyKey";

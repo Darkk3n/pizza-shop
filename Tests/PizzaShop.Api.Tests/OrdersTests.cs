@@ -215,6 +215,45 @@ namespace PizzaShop.Api.Tests
         }
 
         [Fact]
+        public async Task Active_ListsPendingPreparingAndReady_OldestFirst_WithItems()
+        {
+            var (_, _, cheese, recipe) = await MenuAsync();
+            var customer = await api.NewUserAsync();
+            var staff = await api.NewUserAsync("Staff");
+            var setStatus = (Guid id, OrderStatus status) =>
+                staff.Client.PatchAsJsonAsync($"/api/orders/{id}/status", new UpdateOrderStatusRequest(status), TestApi.Json);
+
+            var pending = await TestApi.ReadAsync<OrderDto>(
+                await TestApi.PlaceOrderAsync(customer.Client, LargeWithExtraCheeseOnLeftHalf(recipe.RecipeId, cheese.IngredientId)));
+            var preparing = await TestApi.PlaceSimpleOrderAsync(customer.Client, recipe.RecipeId);
+            var ready = await TestApi.PlaceSimpleOrderAsync(customer.Client, recipe.RecipeId);
+            var completed = await TestApi.PlaceSimpleOrderAsync(customer.Client, recipe.RecipeId);
+            var cancelled = await TestApi.PlaceSimpleOrderAsync(customer.Client, recipe.RecipeId);
+            (await setStatus(preparing.OrderId, OrderStatus.Preparing)).EnsureSuccessStatusCode();
+            (await setStatus(ready.OrderId, OrderStatus.Ready)).EnsureSuccessStatusCode();
+            (await setStatus(completed.OrderId, OrderStatus.Completed)).EnsureSuccessStatusCode();
+            (await staff.Client.PostAsJsonAsync($"/api/orders/{cancelled.OrderId}/cancel", new CancelOrderRequest(null), TestApi.Json)).EnsureSuccessStatusCode();
+
+            var active = (await staff.Client.GetFromJsonAsync<List<OrderDto>>("/api/orders/active", TestApi.Json))!;
+
+            // Other tests leave active orders behind, so only this test's orders are checked.
+            Assert.All(active, o => Assert.Contains(o.Status, new[] { OrderStatus.Pending, OrderStatus.Preparing, OrderStatus.Ready }));
+            var mine = active.Where(o => o.PlacedByEmail == customer.Email).Select(o => o.OrderId).ToList();
+            Assert.Equal([pending.OrderId, preparing.OrderId, ready.OrderId], mine);
+            Assert.Equal(cheese.IngredientId, Assert.Single(Assert.Single(active.Single(o => o.OrderId == pending.OrderId).Items).Toppings).IngredientId);
+            Assert.Equal(active.Select(o => o.CreatedAt).Order(), active.Select(o => o.CreatedAt));
+        }
+
+        [Fact]
+        public async Task Active_IsForStaffOnly()
+        {
+            var customer = await api.NewUserAsync();
+
+            Assert.Equal(HttpStatusCode.Forbidden, (await customer.Client.GetAsync("/api/orders/active")).StatusCode);
+            Assert.Equal(HttpStatusCode.Unauthorized, (await api.Anonymous().GetAsync("/api/orders/active")).StatusCode);
+        }
+
+        [Fact]
         public async Task Quote_PricesLikeCreate_WithoutSavingOrDeductingStock()
         {
             var (admin, dough, cheese, recipe) = await MenuAsync();

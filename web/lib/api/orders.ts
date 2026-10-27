@@ -1,5 +1,6 @@
 import "server-only";
 import { notFound } from "next/navigation";
+import { z } from "zod";
 import { apiJson } from "@/lib/api/client";
 import { ApiError } from "@/lib/api/problem";
 import { orderSchema, orderSummaryPageSchema, type OrderStatus } from "@/lib/api/schemas/orders";
@@ -22,3 +23,6 @@ export const getOrder = async (id: string) => {
     throw error;
   }
 };
+
+// GET /api/orders/active (staff): every Pending, Preparing and Ready order with its items, oldest first.
+export const listActiveOrders = async () => apiJson("/api/orders/active", z.array(orderSchema));

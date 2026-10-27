@@ -361,6 +361,8 @@ namespace PizzaShop.Api.Migrations
 
                     b.HasIndex("PlacedByUserId");
 
+                    b.HasIndex("Status");
+
                     b.HasIndex(new[] { "IdempotencyKey" }, "IX_Orders_IdempotencyKey")
                         .IsUnique();
 
