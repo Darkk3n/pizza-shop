@@ -6,7 +6,8 @@ import { CartButton } from "@/components/cart/CartButton";
 import { CartProvider } from "@/components/cart/CartProvider";
 
 // Signed-in screens. The shell prerenders; the role-specific nav and user menu stream in.
-// The cart and the staff order feed live here so they survive navigation between signed-in screens.
+// The cart and the staff order feed (with its sound toggle in the header) live here so they survive
+// navigation between signed-in screens.
 const AppLayout = ({ children }: LayoutProps<"/">) => {
   return (
     <CartProvider>
@@ -18,6 +19,9 @@ const AppLayout = ({ children }: LayoutProps<"/">) => {
         }
         userMenu={
           <div className="flex items-center gap-1">
+            <Suspense>
+              <StaffOrderFeed />
+            </Suspense>
             <CartButton />
             <Suspense>
               <SessionUserMenu />
@@ -27,9 +31,6 @@ const AppLayout = ({ children }: LayoutProps<"/">) => {
       >
         {children}
       </AppShell>
-      <Suspense>
-        <StaffOrderFeed />
-      </Suspense>
     </CartProvider>
   );
 };

@@ -19,7 +19,7 @@ export const SessionUserMenu = async () => {
   return <UserMenu email={user.email} roleLabel={roleLabel} />;
 };
 
-// New-order toasts and live dashboard updates, for staff and admins only.
+// Order toasts, sounds and live dashboard updates, for staff and admins only (renders the sound toggle).
 export const StaffOrderFeed = async () => {
   const user = await getCurrentUser();
   return user?.isStaff ? <OrderFeed /> : null;

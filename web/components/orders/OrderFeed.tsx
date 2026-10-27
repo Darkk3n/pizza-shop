@@ -5,16 +5,21 @@ import { useEffect, useEffectEvent } from "react";
 import { toast } from "sonner";
 import { orderFeedSchema, type OrderFeed as Feed } from "@/lib/api/schemas/orders";
 import { formatMoney, ORDER_TYPE_LABELS } from "@/lib/helpers/format";
+import { OrderSoundToggle } from "./OrderSoundToggle";
+import { isSoundEnabled, playOrderSound, unlockOrderSounds } from "./orderSounds";
 
 const VISIBLE_INTERVAL_MS = 10_000;
 // A background tab polls slower, but often enough that the session stays alive.
 const HIDDEN_INTERVAL_MS = 60_000;
 // More new orders than this at once (e.g. after the tab slept) get one summary toast.
 const MAX_ORDER_TOASTS = 3;
+// When one poll brings both, the cancellation sound follows the new-order one.
+const SECOND_SOUND_DELAY_MS = 600;
 
 // Staff only (rendered by app/(app)/layout.tsx): polls the BFF feed, toasts each new customer order
 // and each cancellation someone else made, and refreshes the dashboard when the active queue
-// changes. Lives in the layout, so it keeps its cursors across navigation.
+// changes, with a sound for each kind (OrderSoundToggle mutes them). Lives in the layout's header,
+// so it keeps its cursors across navigation.
 export const OrderFeed = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -49,6 +54,16 @@ export const OrderFeed = () => {
         action: { label: "View", onClick: () => router.push(`/orders/${order.orderId}`) },
         duration: 10_000,
       });
+    }
+  });
+
+  // One sound per kind and poll, however many orders it brought.
+  const chime = useEffectEvent((feed: Feed) => {
+    if (!isSoundEnabled()) return;
+    const hasNew = feed.newOrders.length > 0;
+    if (hasNew) playOrderSound("new");
+    if (feed.cancelledOrders.length > 0) {
+      setTimeout(() => playOrderSound("cancelled"), hasNew ? SECOND_SOUND_DELAY_MS : 0);
     }
   });
 
@@ -93,6 +108,7 @@ export const OrderFeed = () => {
           const feed = orderFeedSchema.parse(await response.json());
           if (feed.newOrders.length > 0) announce(feed.newOrders);
           if (feed.cancelledOrders.length > 0) announceCancellations(feed.cancelledOrders);
+          chime(feed);
           if (version !== undefined && feed.activeVersion !== version) queueChanged();
           cursor = feed.latestOrderNumber;
           cancelledCursor = feed.cancelledSince;
@@ -110,9 +126,11 @@ export const OrderFeed = () => {
       if (!document.hidden) void poll();
     };
 
+    const lockSounds = unlockOrderSounds();
     void poll();
     document.addEventListener("visibilitychange", onVisibilityChange);
     return () => {
+      lockSounds();
       stopped = true;
       clearTimeout(timer);
       controller?.abort();
@@ -120,5 +138,5 @@ export const OrderFeed = () => {
     };
   }, []);
 
-  return null;
+  return <OrderSoundToggle />;
 };
