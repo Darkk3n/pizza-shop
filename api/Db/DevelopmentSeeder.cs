@@ -47,7 +47,8 @@ namespace PizzaShop.Api.Db
                     continue;
                 }
 
-                var user = new AppUser { UserName = email, Email = email };
+                // Confirmed so the sample accounts sign in without a trip through Mailpit.
+                var user = new AppUser { UserName = email, Email = email, EmailConfirmed = true };
                 ThrowIfFailed(await userManager.CreateAsync(user, Password), email);
                 if (role is not null)
                 {

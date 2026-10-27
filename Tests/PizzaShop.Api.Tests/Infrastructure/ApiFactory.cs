@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
+using PizzaShop.Api.Email;
 
 namespace PizzaShop.Api.Tests.Infrastructure
 {
@@ -9,8 +12,12 @@ namespace PizzaShop.Api.Tests.Infrastructure
     {
         public const string AdminEmail = "admin@tests.local";
         public const string AdminPassword = "Tests!Admin1";
+        public const string WebBaseUrl = "https://web.tests.local";
 
         protected virtual string Environment => "Testing";
+
+        // Every email the API sends in this host, instead of SMTP.
+        public RecordingEmailDelivery Emails { get; } = new();
 
         protected virtual Dictionary<string, string?> Settings => new()
         {
@@ -21,6 +28,8 @@ namespace PizzaShop.Api.Tests.Infrastructure
             ["Orders:TaxRate"] = "0.0825",
             // Keeps the Development-only sample data (and its extra admin) out of the test database.
             ["DevSeed:Enabled"] = "false",
+            // Pinned so link assertions don't depend on appsettings.json; nothing is served there.
+            ["Email:WebBaseUrl"] = WebBaseUrl,
             ["RateLimiting:AuthPerMinute"] = "100000",
             ["RateLimiting:UserPerMinute"] = "100000",
             ["RateLimiting:OrderCreatePerMinute"] = "100000",
@@ -33,6 +42,7 @@ namespace PizzaShop.Api.Tests.Infrastructure
             {
                 builder.UseSetting(key, value);
             }
+            builder.ConfigureTestServices(services => services.AddSingleton<IEmailDelivery>(Emails));
         }
 
         public async Task InitializeAsync()

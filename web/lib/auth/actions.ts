@@ -8,11 +8,16 @@ import { ApiError } from "@/lib/api/problem";
 import {
   credentialsSchema,
   currentUserSchema,
+  emailOnlySchema,
   loginResponseSchema,
   registerSchema,
+  resetLinkSchema,
+  resetPasswordSchema,
   type Credentials,
+  type EmailOnlyInput,
   type LoginResponse,
   type RegisterInput,
+  type ResetPasswordInput,
 } from "@/lib/api/schemas/auth";
 import { homePathFor } from "./currentUser";
 import { clearSessionCookies, setSessionCookies } from "./session";
@@ -44,6 +49,16 @@ export const login = async (input: Credentials, next?: string): Promise<ActionRe
   try {
     destination = await startSession(parsed.data, next);
   } catch (error) {
+    // Identity answers 401 "NotAllowed" for an unconfirmed account. It checks that before the
+    // password, so this says the address has an account; sign-up reveals that too ("Email is
+    // already taken"), so it adds nothing an attacker couldn't learn.
+    if (error instanceof ApiError && error.status === 401 && error.problem.detail === "NotAllowed") {
+      return {
+        ok: false,
+        code: "EmailNotConfirmed",
+        message: "Confirm your email before signing in. We sent you a link when you signed up.",
+      };
+    }
     if (error instanceof ApiError && error.status === 401) {
       return { ok: false, message: "Incorrect email or password." };
     }
@@ -57,7 +72,24 @@ export const login = async (input: Credentials, next?: string): Promise<ActionRe
 const identityFieldFor = (code: string) =>
   code.includes("Password") ? "password" : code.includes("Email") || code.includes("UserName") ? "email" : null;
 
-export const register = async (input: RegisterInput, next?: string): Promise<ActionResult> => {
+// Turns Identity's error codes ("DuplicateEmail", "PasswordTooShort", "InvalidToken") into form errors.
+const identityFailure = (error: ApiError) => {
+  const fieldErrors: Record<string, string> = {};
+  const other: string[] = [];
+  // Email codes first, so a duplicate reads "Email ... is already taken", not "Username ...".
+  const entries = Object.entries(error.problem.errors ?? {}).sort(([a], [b]) => Number(b.includes("Email")) - Number(a.includes("Email")));
+  for (const [code, messages] of entries) {
+    const field = identityFieldFor(code);
+    // One message per field: the email is also the username, so a duplicate reports both.
+    if (field) fieldErrors[field] ??= messages[0];
+    else other.push(...messages);
+  }
+  return { ok: false as const, fieldErrors, message: other.length > 0 ? other.join(" ") : undefined };
+};
+
+// Accounts must confirm their email before they can sign in, so registering doesn't start a
+// session: the form switches to "check your inbox" (with a resend button).
+export const register = async (input: RegisterInput): Promise<ActionResult<{ email: string }>> => {
   const parsed = registerSchema.safeParse(input);
   if (!parsed.success) return invalidInput(parsed.error);
   const credentials = { email: parsed.data.email, password: parsed.data.password };
@@ -65,29 +97,51 @@ export const register = async (input: RegisterInput, next?: string): Promise<Act
   try {
     await callApi("/api/auth/register", { method: "POST", body: credentials, clientIp: await getClientIp() });
   } catch (error) {
-    if (error instanceof ApiError && error.status === 400 && error.problem.errors) {
-      const fieldErrors: Record<string, string> = {};
-      const other: string[] = [];
-      // Email codes first, so a duplicate reads "Email ... is already taken", not "Username ...".
-      const entries = Object.entries(error.problem.errors).sort(([a], [b]) => Number(b.includes("Email")) - Number(a.includes("Email")));
-      for (const [code, messages] of entries) {
-        const field = identityFieldFor(code);
-        // One message per field: the email is also the username, so a duplicate reports both.
-        if (field) fieldErrors[field] ??= messages[0];
-        else other.push(...messages);
-      }
-      return { ok: false, fieldErrors, message: other.length > 0 ? other.join(" ") : undefined };
-    }
+    if (error instanceof ApiError && error.status === 400 && error.problem.errors) return identityFailure(error);
     return apiFailure(error);
   }
+  return { ok: true, email: credentials.email };
+};
 
-  let destination: string;
+// Both endpoints answer 200 for any address (no account enumeration), so "ok" only means the
+// request was accepted; the email goes out only if there's an account it applies to.
+const postEmailOnly = async (path: string, input: EmailOnlyInput): Promise<ActionResult> => {
+  const parsed = emailOnlySchema.safeParse(input);
+  if (!parsed.success) return invalidInput(parsed.error);
   try {
-    destination = await startSession(credentials, next);
+    await callApi(path, { method: "POST", body: parsed.data, clientIp: await getClientIp() });
   } catch (error) {
     return apiFailure(error);
   }
-  redirect(destination);
+  return { ok: true };
+};
+
+export const resendConfirmation = async (input: EmailOnlyInput) => postEmailOnly("/api/auth/resendConfirmationEmail", input);
+
+export const requestPasswordReset = async (input: EmailOnlyInput) => postEmailOnly("/api/auth/forgotPassword", input);
+
+// The email and code come from the reset link (/reset-password?email=&code=), the password from the form.
+export const resetPassword = async (email: string, code: string, input: ResetPasswordInput): Promise<ActionResult> => {
+  const link = resetLinkSchema.safeParse({ email, code });
+  const parsed = resetPasswordSchema.safeParse(input);
+  if (!link.success) return { ok: false, code: "InvalidLink", message: "This reset link is incomplete. Ask for a new one." };
+  if (!parsed.success) return invalidInput(parsed.error);
+
+  try {
+    await callApi("/api/auth/resetPassword", {
+      method: "POST",
+      body: { email: link.data.email, resetCode: link.data.code, newPassword: parsed.data.password },
+      clientIp: await getClientIp(),
+    });
+  } catch (error) {
+    // Identity reports an expired, used or wrong code (or an unknown email) as InvalidToken.
+    if (error instanceof ApiError && error.status === 400 && error.problem.errors?.InvalidToken) {
+      return { ok: false, code: "InvalidLink", message: "This reset link has expired or was already used. Ask for a new one." };
+    }
+    if (error instanceof ApiError && error.status === 400 && error.problem.errors) return identityFailure(error);
+    return apiFailure(error);
+  }
+  return { ok: true };
 };
 
 // Bearer tokens have no server-side logout in Identity; dropping the cookies ends the session here,

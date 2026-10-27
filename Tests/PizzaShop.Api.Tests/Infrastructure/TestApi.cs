@@ -37,12 +37,13 @@ namespace PizzaShop.Api.Tests.Infrastructure
         public async Task<TestUser> AdminAsync() =>
             await LoginAsync(ApiFactory.AdminEmail, ApiFactory.AdminPassword);
 
+        public RecordingEmailDelivery Emails => factory.Emails;
+
         // A new customer, optionally promoted (by the admin) before logging in so the token carries the roles.
         public async Task<TestUser> NewUserAsync(params string[] roles)
         {
-            var email = $"user-{Unique()}@tests.local";
-            var register = await Anonymous().PostAsJsonAsync("/api/auth/register", new { email, password = Password }, Json);
-            register.EnsureSuccessStatusCode();
+            var email = await RegisterAsync();
+            await ConfirmEmailAsync(email);
 
             if (roles.Length > 0)
             {
@@ -53,6 +54,25 @@ namespace PizzaShop.Api.Tests.Infrastructure
             }
 
             return await LoginAsync(email, Password);
+        }
+
+        // A new, unconfirmed account (it can't sign in until ConfirmEmailAsync).
+        public async Task<string> RegisterAsync()
+        {
+            var email = $"user-{Unique()}@tests.local";
+            var register = await Anonymous().PostAsJsonAsync("/api/auth/register", new { email, password = Password }, Json);
+            register.EnsureSuccessStatusCode();
+            return email;
+        }
+
+        // Opens the latest confirmation email's link the way the web app's /confirm-email page
+        // does: its userId and code go to the API's confirmEmail endpoint.
+        public async Task ConfirmEmailAsync(string email)
+        {
+            var query = RecordingEmailDelivery.QueryOf(RecordingEmailDelivery.LinkIn(Emails.LatestTo(email)));
+            var confirm = await Anonymous().GetAsync(
+                $"/api/auth/confirmEmail?userId={Uri.EscapeDataString(query["userId"])}&code={Uri.EscapeDataString(query["code"])}");
+            confirm.EnsureSuccessStatusCode();
         }
 
         public async Task<TestUser> LoginAsync(string email, string password)

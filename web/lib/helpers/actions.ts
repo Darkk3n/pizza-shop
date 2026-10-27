@@ -3,7 +3,14 @@ import { ApiError, describeApiError, toFieldErrors } from "@/lib/api/problem";
 
 // What a Server Action hands back to its form (plus any data on success, e.g. a new id).
 // Redirects throw instead of returning.
-export type ActionFailure = { ok: false; message?: string; fieldErrors?: Record<string, string>; status?: number };
+// `code` names a failure the form handles specially (e.g. "EmailNotConfirmed" offers a resend).
+export type ActionFailure = {
+  ok: false;
+  message?: string;
+  fieldErrors?: Record<string, string>;
+  status?: number;
+  code?: string;
+};
 export type ActionResult<T extends object = Record<never, never>> = ({ ok: true } & T) | ActionFailure;
 
 // First message per field, matching what the client-side resolver shows.

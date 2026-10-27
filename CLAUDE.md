@@ -20,7 +20,7 @@ A full-stack POS system for pizza restaurant owners featuring order management, 
 - **Health check:** `GET /health` (anonymous, never rate limited) → `Healthy` 200 / `Unhealthy` 503 when the database is unreachable.
 - **Run local dev environment:** `pnpm dev`
 - **Development sample data:** `api/Db/DevelopmentSeeder.cs` runs only in Development (`DevSeed:Enabled`, default true). It creates `admin@`, `staff@` and `customer@pizzashop.dev` (password `Dev!Pass123`), and a menu only when there are no ingredients or recipes. Reference data needed everywhere (units, sizes, roles) stays in `HasData`; sample data must never go there.
-- **Database local docker:** `db:up`
+- **Database local docker:** `db:up` (PostgreSQL plus **Mailpit**, the local email catcher: SMTP on 1025, inbox at http://localhost:8025; nothing reaches real addresses)
 - **EF Core Migrations:** `dotnet ef migrations add <Name> --project api`
 - **EF Core Update DB:** `dotnet ef database update --project api`
 
@@ -78,6 +78,11 @@ A full-stack POS system for pizza restaurant owners featuring order management, 
     - **What counts:** a sale is every non-cancelled order, counted when it's placed. Cancelled orders are always reported separately, never dropped. Ingredient usage sums the recorded `OrderIngredientUsages` of non-cancelled orders.
     - **Range:** `from` / `to` are local dates, both inclusive, in `Statistics:TimeZone` (IANA id, validated at startup; `America/Mexico_City`). Without dates the range is the last `days` days including today (default 7; ignored when `from` is given); at most 366 days. Every endpoint filters `Orders.CreatedAt` (indexed) on the same UTC bounds.
     - **Pure math:** range resolution and the zero-filled daily buckets live in `api/Statistics/StatisticsCalculator.cs`, unit-tested in `StatisticsCalculatorTests`.
+11. **Account emails:** sign-in requires a confirmed email (`Auth:RequireConfirmedEmail`, default true; login answers 401 `NotAllowed` until then). Identity's `MapIdentityApi` endpoints (`register`, `resendConfirmationEmail`, `forgotPassword`, `resetPassword`, `confirmEmail`) send through `api/Email/IdentityEmailSender.cs`.
+    - **Links go to the web app** (`Email:WebBaseUrl`): `/confirm-email?userId=&code=` forwards to `GET /api/auth/confirmEmail`, and `/reset-password?email=&code=` posts to `/api/auth/resetPassword`. Identity HTML-encodes the link it hands over (`&amp;`), so `AccountEmails` decodes it before reading the query. A non-GUID `userId` gets 401 (an endpoint filter), not Identity's 500.
+    - **Delivery is SMTP** (`Email:Smtp`, MailKit): Mailpit locally; any SMTP provider (Azure Communication Services, SendGrid, ...) is configuration only. A failed send is logged, never thrown, so these endpoints answer the same whether or not an account exists.
+    - **Existing accounts:** accounts from before confirmation was required are marked confirmed (migration `ConfirmExistingUserEmails`); the bootstrap admin and dev seed accounts are created confirmed.
+    - **Tests** swap SMTP for `Infrastructure/RecordingEmailDelivery.cs`; `TestApi.NewUserAsync` registers and confirms through the recorded link.
 
 ## Database Schema Overview
 

@@ -11,5 +11,15 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql
 
+  # Local email catcher: the API sends confirmation and reset emails to its SMTP port (1025, see
+  # Email:Smtp in api/appsettings.json) and they show up in the inbox at http://localhost:8025.
+  # Nothing is delivered to real addresses.
+  mailpit:
+    image: docker.io/axllent/mailpit:v1.31.4
+    container_name: pizzashop-mail
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
 volumes:
   postgres_data:

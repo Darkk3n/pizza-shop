@@ -11,8 +11,9 @@ import {
   sessionCookieValues,
 } from "@/lib/auth/cookies";
 
-// Pages reachable without a session. Everything else needs one (the API agrees: only login/register are anonymous).
-const PUBLIC_PATHS = ["/login", "/register"];
+// Pages reachable without a session. Everything else needs one (the API agrees: only Identity's
+// sign-in endpoints are anonymous). The last three are opened from emailed links.
+const PUBLIC_PATHS = ["/login", "/register", "/forgot-password", "/reset-password", "/confirm-email"];
 
 // Refresh this long before the access token expires, so a request never reaches the API with a dying token.
 const REFRESH_WINDOW_MS = 60_000;
