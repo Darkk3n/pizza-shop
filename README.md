@@ -1,4 +1,4 @@
-# Pizza Shop POS
+# Pizza Shop
 
 A full-stack point-of-sale system for pizza restaurants: customer ordering, a live kitchen board, automatic inventory deduction, recipe and cost management, and sales analytics.
 
@@ -38,14 +38,14 @@ A full-stack point-of-sale system for pizza restaurants: customer ordering, a li
 
 ## Tech Stack
 
-| Layer    | Technology                                                              |
-| -------- | ----------------------------------------------------------------------- |
-| Monorepo | pnpm workspaces                                                         |
-| Frontend | Next.js 16 (App Router), React 19, Tailwind CSS 4, React Hook Form, Zod |
-| Backend  | ASP.NET 10 Minimal APIs, C# 14, Entity Framework Core                   |
-| Database | PostgreSQL 18 (container locally)                                       |
-| Email    | SMTP via MailKit (Mailpit locally)                                      |
-| CI       | GitHub Actions: API build, tests and migration check; web typecheck, lint and build |
+| Layer    | Technology                                                                                          |
+| -------- | --------------------------------------------------------------------------------------------------- |
+| Monorepo | pnpm workspaces                                                                                     |
+| Frontend | Next.js 16 (App Router), React 19, Tailwind CSS 4, React Hook Form, Zod                             |
+| Backend  | ASP.NET 10 Minimal APIs, C# 14, Entity Framework Core                                               |
+| Database | PostgreSQL 18 (container locally)                                                                   |
+| Email    | SMTP via MailKit (Mailpit locally)                                                                  |
+| CI       | GitHub Actions: API build, tests and migration check; web typecheck, lint and build                 |
 | Cloud    | Azure (planned): App Service (Linux) for web and api, Azure Database for PostgreSQL Flexible Server |
 
 ## Repository Structure
@@ -81,17 +81,17 @@ UnitOfMeasure ─< Ingredients ─< RecipeItems >─ Recipes
                      └──────< OrderIngredientUsages >────────────┘
 ```
 
-| Table                   | Purpose                                                                                   |
-| ----------------------- | ----------------------------------------------------------------------------------------- |
-| `UnitOfMeasure`         | Units ingredients are stocked and measured in                                              |
-| `Ingredients`           | Stock on hand; optionally a topping with a price and portion; can be retired               |
-| `PizzaSizes`            | Sizes with a multiplier for price and ingredient usage; can be retired                     |
-| `Recipes`               | Menu pizzas with a base (Small) price; can be retired                                      |
-| `RecipeItems`           | Ingredient amounts per recipe (high precision, `decimal(10,4)`)                            |
-| `Orders`                | Number, status, type, totals, who placed it, idempotency key, cancellation details         |
-| `OrderItems`            | Line items with name and unit price snapshots                                              |
-| `OrderItemToppings`     | Per-item toppings with coverage (Whole/LeftHalf/RightHalf), amount and price snapshot      |
-| `OrderIngredientUsages` | Exactly what each order deducted from stock, returned on cancellation                      |
+| Table                   | Purpose                                                                               |
+| ----------------------- | ------------------------------------------------------------------------------------- |
+| `UnitOfMeasure`         | Units ingredients are stocked and measured in                                         |
+| `Ingredients`           | Stock on hand; optionally a topping with a price and portion; can be retired          |
+| `PizzaSizes`            | Sizes with a multiplier for price and ingredient usage; can be retired                |
+| `Recipes`               | Menu pizzas with a base (Small) price; can be retired                                 |
+| `RecipeItems`           | Ingredient amounts per recipe (high precision, `decimal(10,4)`)                       |
+| `Orders`                | Number, status, type, totals, who placed it, idempotency key, cancellation details    |
+| `OrderItems`            | Line items with name and unit price snapshots                                         |
+| `OrderItemToppings`     | Per-item toppings with coverage (Whole/LeftHalf/RightHalf), amount and price snapshot |
+| `OrderIngredientUsages` | Exactly what each order deducted from stock, returned on cancellation                 |
 
 Users and roles live in the same database (ASP.NET Core Identity). Currency uses `decimal(10,2)` and timestamps use `DateTimeOffset`.
 
