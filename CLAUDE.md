@@ -10,7 +10,7 @@ A full-stack POS system for pizza restaurant owners featuring order management, 
 - **Frontend:** Next.js 16 (App Router), React 19, Tailwind CSS, React Hook Form, Zod
 - **Backend:** ASP.NET 10 Minimal APIs, C# 14, Entity Framework Core
 - **Database:** PostgreSQL (Docker locally, Managed Postgres on cloud)
-- **Cloud/Infra:** Azure (Static Web Apps for Web, App Service/Container Apps for API)
+- **Cloud/Infra:** Azure (planned): App Service (Linux) for both Web (Node, `next start`) and API, Azure Database for PostgreSQL Flexible Server. Not Static Web Apps: its hybrid Next.js support is in preview and limited for `proxy.ts`, Server Actions and polling route handlers.
 
 ## Repository Structure & Commands
 
