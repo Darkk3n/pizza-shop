@@ -1,19 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { ActiveOrdersBoard, ActiveOrdersBoardSkeleton } from "@/components/dashboard/ActiveOrdersBoard";
+import { CustomerHome } from "@/components/home/CustomerHome";
 import { buttonVariants } from "@/components/ui/button";
-import { homePathFor, requireUser } from "@/lib/auth/currentUser";
+import { Skeleton } from "@/components/ui/skeleton";
+import { requireUser } from "@/lib/auth/currentUser";
 
-export const metadata: Metadata = { title: "Dashboard · Pizza Shop POS" };
+export const metadata: Metadata = { title: "Home · Pizza Shop POS" };
 
-// Staff and admins land here. Customers have no dashboard yet; send them to their home screen
-// before anything staff-only renders.
-const StaffDashboard = async () => {
-  const user = await requireUser();
-  if (!user.isStaff) redirect(homePathFor(user));
-
+const StaffDashboard = () => {
   return (
     <>
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -32,11 +28,18 @@ const StaffDashboard = async () => {
   );
 };
 
+// Everyone lands here after signing in: staff and admins get the kitchen dashboard, customers their
+// home page. Decided before anything renders, so neither sees the other's screen.
+const HomeForRole = async () => {
+  const user = await requireUser();
+  return user.isStaff ? <StaffDashboard /> : <CustomerHome />;
+};
+
 const Home = () => {
   return (
     <div className="flex flex-col gap-6">
-      <Suspense fallback={<ActiveOrdersBoardSkeleton />}>
-        <StaffDashboard />
+      <Suspense fallback={<Skeleton className="h-96 w-full rounded-xl" aria-busy="true" aria-label="Loading" />}>
+        <HomeForRole />
       </Suspense>
     </div>
   );

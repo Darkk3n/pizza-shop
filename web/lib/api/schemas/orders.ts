@@ -192,3 +192,27 @@ export const orderFeedQuerySchema = z.object({
 });
 
 export type OrderFeedQuery = z.infer<typeof orderFeedQuerySchema>;
+
+// GET app/api/orders/active (the customer home page's status checks): `track` = the orders it showed
+// last time, so the ones that left the active list can be reported as completed or cancelled.
+export const activeOrdersQuerySchema = z.object({
+  track: z
+    .string()
+    .optional()
+    .transform((value) => (value ? value.split(",") : []))
+    .pipe(z.array(z.uuid()).max(10)),
+});
+
+export const activeOrdersUpdateSchema = z.object({
+  active: z.array(orderSchema),
+  finished: z.array(
+    z.object({
+      orderId: z.uuid(),
+      orderNumber: z.number().int(),
+      status: orderStatusSchema,
+      cancellationReason: z.string().nullable(),
+    }),
+  ),
+});
+
+export type ActiveOrdersUpdate = z.infer<typeof activeOrdersUpdateSchema>;

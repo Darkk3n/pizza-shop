@@ -139,5 +139,44 @@ namespace PizzaShop.Api.Tests
             var duplicateUnit = await admin.Client.PostAsJsonAsync("/api/units-of-measure", new CreateUnitOfMeasureRequest(unitName.ToUpperInvariant()), TestApi.Json);
             await TestApi.ReadProblemAsync(duplicateUnit, HttpStatusCode.Conflict);
         }
+
+        [Fact]
+        public async Task PopularRecipes_RankRecentNonCancelledOrders_OfActiveRecipesOnly()
+        {
+            var admin = await api.AdminAsync();
+            var dough = await TestApi.CreateIngredientAsync(admin, stock: 100000);
+            var recipe = async () => await TestApi.CreateRecipeAsync(admin, 10.00m, (dough.IngredientId, 1));
+            var (first, second, retired, cancelled, old) = (await recipe(), await recipe(), await recipe(), await recipe(), await recipe());
+            var customer = await api.NewUserAsync();
+            var order = (RecipeDto r, int quantity) => TestApi.PlaceSimpleOrderAsync(customer.Client, r.RecipeId, quantity: quantity);
+
+            // Far more than other tests order of their own recipes, so these two lead the shared database.
+            await order(first, 99);
+            await order(second, 98);
+            await order(retired, 100);
+            Assert.Equal(HttpStatusCode.OK, (await SetRecipeActiveAsync(admin, retired, isActive: false)).StatusCode);
+            var cancelledOrder = await order(cancelled, 100);
+            (await customer.Client.PostAsJsonAsync($"/api/orders/{cancelledOrder.OrderId}/cancel", new CancelOrderRequest(null), TestApi.Json)).EnsureSuccessStatusCode();
+            var oldOrder = await order(old, 100);
+            await api.BackdateOrderAsync(oldOrder.OrderId, TimeSpan.FromDays(40));
+
+            // Other tests' recipes share the database (some ordered in bulk), so only this test's
+            // recipes are compared with each other.
+            var popular = (await customer.Client.GetFromJsonAsync<List<RecipeDto>>("/api/recipes/popular?limit=20", TestApi.Json))!
+                .Select(r => r.RecipeId)
+                .ToList();
+            Assert.Contains(first.RecipeId, popular);
+            Assert.Contains(second.RecipeId, popular);
+            Assert.True(popular.IndexOf(first.RecipeId) < popular.IndexOf(second.RecipeId));
+            Assert.DoesNotContain(retired.RecipeId, popular);
+            Assert.DoesNotContain(cancelled.RecipeId, popular);
+            Assert.DoesNotContain(old.RecipeId, popular);
+
+            var top = await customer.Client.GetFromJsonAsync<List<RecipeDto>>("/api/recipes/popular?limit=1", TestApi.Json);
+            Assert.Single(top!);
+
+            var tooMany = await customer.Client.GetAsync("/api/recipes/popular?limit=21");
+            Assert.Contains("limit", (await TestApi.ReadProblemAsync(tooMany, HttpStatusCode.BadRequest)).Errors.Keys);
+        }
     }
 }

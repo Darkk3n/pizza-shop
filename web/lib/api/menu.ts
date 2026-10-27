@@ -26,3 +26,7 @@ export const listToppings = async () => apiJson("/api/toppings", z.array(topping
 
 export const quoteItems = async (items: OrderItemRequest[]) =>
   apiJson("/api/orders/quote", orderQuoteSchema, { method: "POST", body: { items } });
+
+// GET /api/recipes/popular: active recipes ordered most in the last 30 days (only ones ordered at all).
+export const listPopularRecipes = async (limit = 4) =>
+  apiJson(`/api/recipes/popular?limit=${limit}`, z.array(recipeSchema));

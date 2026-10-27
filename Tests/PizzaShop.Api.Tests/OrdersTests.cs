@@ -245,11 +245,17 @@ namespace PizzaShop.Api.Tests
         }
 
         [Fact]
-        public async Task Active_IsForStaffOnly()
+        public async Task Active_ShowsCustomersOnlyTheirOwnOrders()
         {
+            var (_, _, _, recipe) = await MenuAsync();
             var customer = await api.NewUserAsync();
+            var someoneElse = await api.NewUserAsync();
+            var mine = await TestApi.PlaceSimpleOrderAsync(customer.Client, recipe.RecipeId);
+            await TestApi.PlaceSimpleOrderAsync(someoneElse.Client, recipe.RecipeId);
 
-            Assert.Equal(HttpStatusCode.Forbidden, (await customer.Client.GetAsync("/api/orders/active")).StatusCode);
+            var active = await customer.Client.GetFromJsonAsync<List<OrderDto>>("/api/orders/active", TestApi.Json);
+
+            Assert.Equal(mine.OrderId, Assert.Single(active!).OrderId);
             Assert.Equal(HttpStatusCode.Unauthorized, (await api.Anonymous().GetAsync("/api/orders/active")).StatusCode);
         }
 

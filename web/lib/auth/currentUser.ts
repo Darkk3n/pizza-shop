@@ -52,5 +52,3 @@ export const requireAdmin = async () => {
   if (!user.isAdmin) forbidden();
   return user;
 };
-
-export const homePathFor = (user: Pick<CurrentUser, "isStaff">) => (user.isStaff ? "/" : "/menu");

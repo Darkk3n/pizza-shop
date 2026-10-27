@@ -18,6 +18,13 @@ const PUBLIC_PATHS = ["/login", "/register", "/forgot-password", "/reset-passwor
 // Refresh this long before the access token expires, so a request never reaches the API with a dying token.
 const REFRESH_WINDOW_MS = 60_000;
 
+// Background polls that must not count as activity: the customer home page checks its orders in
+// progress, and refreshing the session there would keep an idle customer signed in forever (rule 4).
+// They run while the access token is valid; after that they get a 401 that keeps the cookies, so the
+// next real navigation can still refresh within the 30 idle minutes. (Staff polls use
+// /api/orders/feed, which does refresh: an open staff screen stays signed in on purpose.)
+const PASSIVE_PATHS = ["/api/orders/active"];
+
 const toLogin = (request: NextRequest) => {
   let response: NextResponse;
   if (request.nextUrl.pathname.startsWith("/api/")) {
@@ -49,6 +56,14 @@ export const proxy = async (request: NextRequest) => {
 
   const expiresAt = Number(request.cookies.get(ACCESS_EXPIRES_COOKIE)?.value);
   const hasAccess = request.cookies.has(ACCESS_COOKIE);
+  if (PASSIVE_PATHS.includes(request.nextUrl.pathname)) {
+    return hasAccess && Number.isFinite(expiresAt) && expiresAt > Date.now()
+      ? NextResponse.next()
+      : NextResponse.json(
+          { title: "Paused until you're active again.", status: 401 },
+          { status: 401, headers: { "Content-Type": "application/problem+json" } },
+        );
+  }
   if (hasAccess && Number.isFinite(expiresAt) && expiresAt - Date.now() > REFRESH_WINDOW_MS) {
     return NextResponse.next();
   }

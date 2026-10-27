@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,9 @@ namespace PizzaShop.Api.Endpoints
                 .RequireAuthorization();
 
             group.MapGet("/", GetAll);
+            // Customer home page: what's been ordered most lately. Any signed-in user.
+            group.MapGet("/popular", GetPopular)
+                .ProducesValidationProblem();
             group.MapGet("/{id:guid}", GetById)
                 .WithName(GetByIdRouteName);
             group.MapPost("/", Create)
@@ -44,6 +48,35 @@ namespace PizzaShop.Api.Endpoints
                 .Select(RecipeMapper.ToDto)
                 .ToListAsync(ct);
             return TypedResults.Ok(recipes);
+        }
+
+        // Active recipes ranked by pizzas ordered (non-cancelled orders) in the last `days` days. Only
+        // ones ordered at least once are listed, so a quiet shop gets a short list, not a made-up one.
+        private static async Task<Ok<List<RecipeDto>>> GetPopular(
+            PizzaShopContext context,
+            [Range(1, 365)] int days = 30,
+            [Range(1, 20)] int limit = 4,
+            CancellationToken ct = default)
+        {
+            var since = DateTimeOffset.UtcNow.AddDays(-days);
+            var ranked = await context.OrderItems
+                .Where(i => i.RecipeId != null
+                    && i.Recipe!.IsActive
+                    && i.Order.Status != OrderStatus.Cancelled
+                    && i.Order.CreatedAt >= since)
+                .GroupBy(i => i.RecipeId!.Value)
+                .Select(g => new { RecipeId = g.Key, Quantity = g.Sum(i => i.Quantity) })
+                .OrderByDescending(r => r.Quantity)
+                .ThenBy(r => r.RecipeId)
+                .Take(limit)
+                .ToListAsync(ct);
+
+            var ids = ranked.Select(r => r.RecipeId).ToList();
+            var recipes = await context.Recipes
+                .Where(r => ids.Contains(r.RecipeId))
+                .Select(RecipeMapper.ToDto)
+                .ToDictionaryAsync(r => r.RecipeId, ct);
+            return TypedResults.Ok(ids.Select(id => recipes[id]).ToList());
         }
 
         private static async Task<Results<Ok<RecipeDto>, NotFound>> GetById(Guid id, ClaimsPrincipal user, PizzaShopContext context, CancellationToken ct)

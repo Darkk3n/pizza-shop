@@ -1,6 +1,6 @@
 "use client";
 
-import { PizzaIcon, ReceiptTextIcon, UsersIcon } from "lucide-react";
+import { HouseIcon, PizzaIcon, ReceiptTextIcon, UsersIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ComponentType, SVGProps } from "react";
@@ -12,6 +12,7 @@ type NavItem = { href: string; label: string; icon: ComponentType<SVGProps<SVGSV
 
 const NAV_ITEMS: Record<NavKey, NavItem> = {
   dashboard: { href: "/", label: "Dashboard", icon: DashboardIcon },
+  home: { href: "/", label: "Home", icon: HouseIcon },
   menu: { href: "/menu", label: "Menu", icon: PizzaIcon },
   myOrders: { href: "/my-orders", label: "My orders", icon: ReceiptTextIcon },
   orders: { href: "/orders", label: "Orders", icon: OrdersIcon },

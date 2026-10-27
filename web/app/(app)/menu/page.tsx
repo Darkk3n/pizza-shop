@@ -1,12 +1,9 @@
-import { PizzaIcon } from "lucide-react";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Suspense } from "react";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { RecipeCard } from "@/components/menu/RecipeCard";
 import { Skeleton } from "@/components/ui/skeleton";
 import { listRecipes } from "@/lib/api/menu";
 import { requireUser } from "@/lib/auth/currentUser";
-import { formatMoney } from "@/lib/helpers/format";
 
 export const metadata: Metadata = { title: "Menu · Pizza Shop POS" };
 
@@ -27,26 +24,7 @@ const RecipeGrid = async () => {
     <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {recipes.map((recipe) => (
         <li key={recipe.recipeId}>
-          <Card className="relative h-full transition-colors hover:bg-muted/50">
-            <CardHeader className="gap-3">
-              <div className="flex items-start justify-between gap-3">
-                <PizzaIcon className="size-8 shrink-0 text-primary" aria-hidden="true" />
-                <span className="font-mono text-sm text-muted-foreground">
-                  from <span className="font-semibold text-foreground">{formatMoney(recipe.basePrice)}</span>
-                </span>
-              </div>
-              <CardTitle className="text-lg">
-                {/* Stretched link: the whole card opens the builder. */}
-                <Link
-                  href={`/menu/${recipe.recipeId}`}
-                  className="after:absolute after:inset-0 after:rounded-xl focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-ring"
-                >
-                  {recipe.name}
-                </Link>
-              </CardTitle>
-              <CardDescription>{recipe.items.map((item) => item.ingredientName).join(", ")}</CardDescription>
-            </CardHeader>
-          </Card>
+          <RecipeCard recipe={recipe} />
         </li>
       ))}
     </ul>

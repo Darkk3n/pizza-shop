@@ -20,17 +20,21 @@ export const listOrders = async ({ status, page }: { status?: OrderStatus; page:
   return apiJson(`/api/orders?${query}`, orderSummaryPageSchema);
 };
 
-// GET /api/orders/{id}: 404 (missing, or another customer's order) renders the not-found page.
-export const getOrder = async (id: string) => {
+// GET /api/orders/{id}: null when missing, or another customer's order (both 404).
+export const findOrder = async (id: string) => {
   try {
     return await apiJson(`/api/orders/${encodeURIComponent(id)}`, orderSchema);
   } catch (error) {
-    if (error instanceof ApiError && error.status === 404) notFound();
+    if (error instanceof ApiError && error.status === 404) return null;
     throw error;
   }
 };
 
-// GET /api/orders/active (staff): every Pending, Preparing and Ready order with its items, oldest first.
+// For pages: a missing order renders the not-found page.
+export const getOrder = async (id: string) => (await findOrder(id)) ?? notFound();
+
+// GET /api/orders/active: Pending, Preparing and Ready orders with items, oldest first. Staff get the
+// whole kitchen queue, customers their own orders in progress.
 export const listActiveOrders = async () => apiJson("/api/orders/active", z.array(orderSchema));
 
 // GET /api/orders/feed (staff): new customer orders and cancellations since the cursors, plus the

@@ -7,7 +7,6 @@ import { callApi, callApiJson } from "@/lib/api/http";
 import { ApiError } from "@/lib/api/problem";
 import {
   credentialsSchema,
-  currentUserSchema,
   emailOnlySchema,
   loginResponseSchema,
   registerSchema,
@@ -19,7 +18,6 @@ import {
   type RegisterInput,
   type ResetPasswordInput,
 } from "@/lib/api/schemas/auth";
-import { homePathFor } from "./currentUser";
 import { clearSessionCookies, setSessionCookies } from "./session";
 
 // Only same-site paths, so ?next= can't send someone to another domain after login.
@@ -35,10 +33,8 @@ const startSession = async (credentials: Credentials, next: string | undefined) 
     clientIp,
   });
   await setSessionCookies(tokens);
-
-  const me = await callApiJson("/api/auth/me", currentUserSchema, { accessToken: tokens.accessToken, clientIp });
-  const isStaff = me.roles.includes("Admin") || me.roles.includes("Staff");
-  return safeNext(next) ?? homePathFor({ isStaff });
+  // Everyone's home is /, which shows the dashboard or the customer home page by role.
+  return safeNext(next) ?? "/";
 };
 
 export const login = async (input: Credentials, next?: string): Promise<ActionResult> => {
