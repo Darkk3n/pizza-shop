@@ -7,7 +7,7 @@ import { requireAdmin } from "@/lib/auth/currentUser";
 import { CatalogTabs } from "./CatalogTabs";
 import { isCatalogTab } from "./tabs";
 
-export const metadata: Metadata = { title: "Catalogs · Pizza Shop POS" };
+export const metadata: Metadata = { title: "Catalogs · Rubencinis & Mate Pizza" };
 
 const Catalog = async ({ searchParams }: { searchParams: PageProps<"/catalogs">["searchParams"] }) => {
   await requireAdmin();

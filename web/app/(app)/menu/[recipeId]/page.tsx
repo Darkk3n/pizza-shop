@@ -9,7 +9,7 @@ import { ApiError } from "@/lib/api/problem";
 import { requireUser } from "@/lib/auth/currentUser";
 import { PizzaBuilder } from "./PizzaBuilder";
 
-export const metadata: Metadata = { title: "Build your pizza · Pizza Shop POS" };
+export const metadata: Metadata = { title: "Build your pizza · Rubencinis & Mate Pizza" };
 
 const Builder = async ({ params }: { params: PageProps<"/menu/[recipeId]">["params"] }) => {
   await requireUser();

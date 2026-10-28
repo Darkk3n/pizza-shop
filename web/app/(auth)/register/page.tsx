@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { RegisterForm } from "./RegisterForm";
 
-export const metadata: Metadata = { title: "Create account · Pizza Shop POS" };
+export const metadata: Metadata = { title: "Create account · Rubencinis & Mate Pizza" };
 
 const RegisterPage = () => {
   return (

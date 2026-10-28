@@ -10,7 +10,7 @@ import { requireAdmin } from "@/lib/auth/currentUser";
 import { DeleteRecipeDialog } from "../DeleteRecipeDialog";
 import { RecipeForm } from "../RecipeForm";
 
-export const metadata: Metadata = { title: "Edit recipe · Pizza Shop POS" };
+export const metadata: Metadata = { title: "Edit recipe · Rubencinis & Mate Pizza" };
 
 const EditRecipe = async ({ params }: { params: PageProps<"/recipes/[id]">["params"] }) => {
   await requireAdmin();

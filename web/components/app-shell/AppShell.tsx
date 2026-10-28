@@ -3,7 +3,9 @@
 import { useIsDesktop, useSidebarCollapsed } from "@/hooks/useSidebar";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { BrandLogo, CloseIcon, MenuIcon } from "./icons";
+import { BrandLogo } from "@/components/BrandLogo";
+import { restaurant } from "@/lib/restaurant";
+import { CloseIcon, MenuIcon } from "./icons";
 import { ShellContext } from "./ShellContext";
 
 const SIDEBAR_ID = "app-sidebar";
@@ -12,10 +14,10 @@ const Brand = () => {
 	return (
 		<Link
 			href="/"
-			className="flex items-center gap-2.5 rounded-md font-semibold tracking-tight"
+			className="flex min-w-0 items-center gap-2.5 rounded-md font-semibold tracking-tight"
 		>
-			<BrandLogo className="size-8 shrink-0" />
-			<span className="text-base">Pizza Shop</span>
+			<BrandLogo size={40} />
+			<span className="truncate text-base">{restaurant.name}</span>
 		</Link>
 	);
 };
@@ -79,12 +81,12 @@ export const AppShell = ({ children, nav, userMenu }: AppShellProps) => {
 		<ShellContext value={shellState}>
 			<a
 				href="#main-content"
-				className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-60 focus:rounded-md focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:shadow-md dark:focus:bg-zinc-900"
+				className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-60 focus:rounded-md focus:bg-popover focus:px-3 focus:py-2 focus:text-sm focus:text-popover-foreground focus:shadow-md"
 			>
 				Skip to content
 			</a>
 
-			<header className="sticky top-0 z-30 flex h-16 shrink-0 items-center gap-3 border-b border-zinc-200 bg-white/90 px-3 backdrop-blur sm:px-4 dark:border-zinc-800 dark:bg-zinc-950/90">
+			<header className="sticky top-0 z-30 flex h-16 shrink-0 items-center gap-3 border-b border-border bg-card/90 px-3 backdrop-blur sm:px-4">
 				<button
 					ref={toggleRef}
 					type="button"
@@ -92,7 +94,7 @@ export const AppShell = ({ children, nav, userMenu }: AppShellProps) => {
 					aria-controls={SIDEBAR_ID}
 					aria-expanded={expanded}
 					aria-label={expanded ? "Collapse navigation" : "Expand navigation"}
-					className="inline-flex size-10 items-center justify-center rounded-md text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+					className="inline-flex size-10 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 				>
 					<MenuIcon className="size-5" />
 				</button>
@@ -114,17 +116,17 @@ export const AppShell = ({ children, nav, userMenu }: AppShellProps) => {
 					id={SIDEBAR_ID}
 					aria-label="Main navigation"
 					data-open={mobileOpen}
-					className="invisible fixed inset-y-0 left-0 z-50 flex w-72 max-w-[85vw] -translate-x-full flex-col border-r border-zinc-200 bg-white transition-[translate,visibility] duration-200 ease-out data-[open=true]:visible data-[open=true]:translate-x-0 dark:border-zinc-800 dark:bg-zinc-950 md:visible md:sticky md:top-16 md:z-auto md:h-[calc(100dvh-4rem)] md:w-60 md:max-w-none md:shrink-0 md:translate-x-0 md:transition-[width] md:sidebar-collapsed:w-16"
+					className="invisible fixed inset-y-0 left-0 z-50 flex w-72 max-w-[85vw] -translate-x-full flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-[translate,visibility] duration-200 ease-out data-[open=true]:visible data-[open=true]:translate-x-0 md:visible md:sticky md:top-16 md:z-auto md:h-[calc(100dvh-4rem)] md:w-60 md:max-w-none md:shrink-0 md:translate-x-0 md:transition-[width] md:sidebar-collapsed:w-16"
 				>
 					{/* Drawer header: mobile only, since the desktop sidebar sits under the app header */}
-					<div className="flex h-16 shrink-0 items-center justify-between border-b border-zinc-200 px-3 md:hidden dark:border-zinc-800">
+					<div className="flex h-16 shrink-0 items-center justify-between border-b border-sidebar-border px-3 md:hidden">
 						<Brand />
 						<button
 							ref={closeRef}
 							type="button"
 							onClick={closeDrawer}
 							aria-label="Close navigation"
-							className="inline-flex size-10 items-center justify-center rounded-md text-zinc-600 hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600 dark:text-zinc-400 dark:hover:bg-zinc-800"
+							className="inline-flex size-10 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 						>
 							<CloseIcon className="size-5" />
 						</button>

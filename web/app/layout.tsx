@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pizza Shop POS",
+  title: "Rubencinis & Mate Pizza",
   description: "Point of sale, inventory, and sales analytics for pizza restaurants.",
 };
 

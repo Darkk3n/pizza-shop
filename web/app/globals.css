@@ -26,6 +26,14 @@
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-status-pending: var(--status-pending);
+  --color-status-pending-foreground: var(--status-pending-foreground);
+  --color-status-preparing: var(--status-preparing);
+  --color-status-preparing-foreground: var(--status-preparing-foreground);
+  --color-status-ready: var(--status-ready);
+  --color-status-ready-foreground: var(--status-ready-foreground);
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
@@ -50,41 +58,53 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* Brand palette from the logo (Rubencinis & Mate Pizza): tomato red, basil green, cheese yellow
+   on a warm cream. Every text pair is WCAG AA (4.5:1) on the surfaces it's used on. */
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  /* Brand orange (orange-600), the same accent AppShell uses. */
-  --primary: oklch(0.646 0.222 41.116);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.646 0.222 41.116);
-  /* Chart slot 1 (daily sales). Brand orange, validated for both surfaces (dataviz validator). */
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --background: #fffbf2;
+  --foreground: #1a1410;
+  --card: #ffffff;
+  --card-foreground: #1a1410;
+  --popover: #ffffff;
+  --popover-foreground: #1a1410;
+  --primary: #d32f2f;
+  --primary-foreground: #ffffff;
+  --secondary: #2e7d32;
+  --secondary-foreground: #ffffff;
+  --muted: #f5efe0;
+  --muted-foreground: #5c5648;
+  --accent: #f5c518;
+  --accent-foreground: #1a1410;
+  --destructive: #9b1c1c;
+  --border: #e5dcc8;
+  --input: #e5dcc8;
+  /* Not the brand yellow: focus rings need 3:1, and shadcn draws them at 50% opacity. */
+  --ring: #1a1410;
+  /* Inline warnings and warning toasts. */
+  --warning: #ffebd6;
+  --warning-foreground: #8a3a0c;
+  /* Order status badges (Completed uses muted, Cancelled uses destructive). */
+  --status-pending: #fcefc0;
+  --status-pending-foreground: #6b4a00;
+  --status-preparing: #ffe0c2;
+  --status-preparing-foreground: #9a3412;
+  --status-ready: #dcefd8;
+  --status-ready-foreground: #1e5a22;
+  /* Chart slot 1 (daily sales) is the brand red: 4.98:1 on the card. */
+  --chart-1: #d32f2f;
+  --chart-2: #2e7d32;
+  --chart-3: #5c5648;
+  --chart-4: #8a3a0c;
+  --chart-5: #1a1410;
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1a1410;
+  --sidebar-primary: #d32f2f;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f5efe0;
+  --sidebar-accent-foreground: #1a1410;
+  --sidebar-border: #e5dcc8;
+  --sidebar-ring: #1a1410;
 }
 
 /* Follows the OS setting, like the `dark:` variant used across the app. */
@@ -108,6 +128,14 @@
     --border: oklch(1 0 0 / 10%);
     --input: oklch(1 0 0 / 15%);
     --ring: oklch(0.705 0.213 47.604);
+    --warning: oklch(0.769 0.188 70.08 / 15%);
+    --warning-foreground: oklch(0.828 0.189 84.429);
+    --status-pending: oklch(0.769 0.188 70.08 / 15%);
+    --status-pending-foreground: oklch(0.879 0.169 91.605);
+    --status-preparing: oklch(0.705 0.213 47.604 / 15%);
+    --status-preparing-foreground: oklch(0.837 0.128 66.29);
+    --status-ready: oklch(0.696 0.17 162.48 / 15%);
+    --status-ready-foreground: oklch(0.845 0.143 164.978);
     /* Same step as light: the lighter dark-mode --primary falls outside the dark lightness band. */
     --chart-1: oklch(0.646 0.222 41.116);
     --chart-2: oklch(0.556 0 0);
@@ -123,6 +151,23 @@
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
   }
+}
+
+/* Sonner's richColors toasts (light theme only; dark keeps Sonner's own until the dark palette task).
+   The extra :root outranks the stylesheet Sonner injects at runtime. */
+:root [data-sonner-toaster][data-sonner-theme="light"] {
+  --success-bg: var(--status-ready);
+  --success-border: color-mix(in srgb, var(--status-ready-foreground) 25%, transparent);
+  --success-text: var(--status-ready-foreground);
+  --info-bg: var(--status-pending);
+  --info-border: color-mix(in srgb, var(--status-pending-foreground) 25%, transparent);
+  --info-text: var(--status-pending-foreground);
+  --warning-bg: var(--warning);
+  --warning-border: color-mix(in srgb, var(--warning-foreground) 25%, transparent);
+  --warning-text: var(--warning-foreground);
+  --error-bg: color-mix(in srgb, var(--destructive) 8%, var(--card));
+  --error-border: color-mix(in srgb, var(--destructive) 25%, transparent);
+  --error-text: var(--destructive);
 }
 
 @layer base {

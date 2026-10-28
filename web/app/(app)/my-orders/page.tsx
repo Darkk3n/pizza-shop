@@ -12,7 +12,7 @@ import { orderListQuerySchema } from "@/lib/api/schemas/orders";
 import { requireUser } from "@/lib/auth/currentUser";
 import { formatDateTime, formatMoney, ORDER_TYPE_LABELS } from "@/lib/helpers/format";
 
-export const metadata: Metadata = { title: "My orders · Pizza Shop POS" };
+export const metadata: Metadata = { title: "My orders · Rubencinis & Mate Pizza" };
 
 const hrefForPage = (page: number) => (page > 1 ? `/my-orders?page=${page}` : "/my-orders");
 

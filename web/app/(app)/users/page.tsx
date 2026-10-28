@@ -13,7 +13,7 @@ import { listUsers, USERS_PAGE_SIZE } from "@/lib/api/users";
 import { requireAdmin } from "@/lib/auth/currentUser";
 import { UserRoleControl } from "./UserRoleControl";
 
-export const metadata: Metadata = { title: "Users · Pizza Shop POS" };
+export const metadata: Metadata = { title: "Users · Rubencinis & Mate Pizza" };
 
 const hrefFor = (email: string | undefined, page = 1) => {
   const query = new URLSearchParams();
@@ -24,8 +24,8 @@ const hrefFor = (email: string | undefined, page = 1) => {
 };
 
 const ROLE_BADGE_CLASSES: Record<UserRole, string> = {
-  Admin: "bg-primary/10 text-primary",
-  Staff: "bg-sky-100 text-sky-800 dark:bg-sky-500/15 dark:text-sky-300",
+  Admin: "bg-primary text-primary-foreground",
+  Staff: "bg-secondary text-secondary-foreground",
   Customer: "bg-muted text-muted-foreground",
 };
 

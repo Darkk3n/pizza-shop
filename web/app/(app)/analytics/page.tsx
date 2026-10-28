@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils";
 import { RangeFilter } from "./RangeFilter";
 import { SalesChart } from "./SalesChart";
 
-export const metadata: Metadata = { title: "Analytics · Pizza Shop POS" };
+export const metadata: Metadata = { title: "Analytics · Rubencinis & Mate Pizza" };
 
 type SearchParams = PageProps<"/analytics">["searchParams"];
 

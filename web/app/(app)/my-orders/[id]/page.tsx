@@ -12,7 +12,7 @@ import { getOrder } from "@/lib/api/orders";
 import { requireUser } from "@/lib/auth/currentUser";
 import { formatDateTime, ORDER_TYPE_LABELS } from "@/lib/helpers/format";
 
-export const metadata: Metadata = { title: "Your order · Pizza Shop POS" };
+export const metadata: Metadata = { title: "Your order · Rubencinis & Mate Pizza" };
 
 // Checkout lands here, and My orders links here. The API only returns the caller's own orders
 // (404 otherwise, even for an existing order), so no extra ownership check is needed.

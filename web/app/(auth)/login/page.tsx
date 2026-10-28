@@ -4,14 +4,14 @@ import { Suspense } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { LoginForm } from "./LoginForm";
 
-export const metadata: Metadata = { title: "Sign in · Pizza Shop POS" };
+export const metadata: Metadata = { title: "Sign in · Rubencinis & Mate Pizza" };
 
 const LoginPage = () => {
   return (
     <Card>
       <CardHeader>
         <CardTitle className="text-xl">Sign in</CardTitle>
-        <CardDescription>Use your Pizza Shop account.</CardDescription>
+        <CardDescription>Use your Rubencinis & Mate Pizza account.</CardDescription>
       </CardHeader>
       <CardContent>
         {/* LoginForm reads ?next=, which is request data, so it streams in. */}

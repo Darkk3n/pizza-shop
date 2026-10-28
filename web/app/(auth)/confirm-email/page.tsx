@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { confirmEmail } from "@/lib/auth/emailConfirmation";
 
-export const metadata: Metadata = { title: "Confirm email · Pizza Shop POS" };
+export const metadata: Metadata = { title: "Confirm email · Rubencinis & Mate Pizza" };
 
 // Opened from the confirmation email: /confirm-email?userId=...&code=...[&changedEmail=...].
 // Confirming on load (no button) is what Identity's own link does; it's safe to repeat, so a mail

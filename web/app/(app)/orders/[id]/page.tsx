@@ -11,7 +11,7 @@ import { OrderItemsTable } from "@/components/orders/OrderItemsTable";
 import { StatusBadge } from "@/components/orders/StatusBadge";
 import { OrderActions } from "./OrderActions";
 
-export const metadata: Metadata = { title: "Order · Pizza Shop POS" };
+export const metadata: Metadata = { title: "Order · Rubencinis & Mate Pizza" };
 
 const Detail = ({ label, children }: { label: string; children: ReactNode }) => {
   return (

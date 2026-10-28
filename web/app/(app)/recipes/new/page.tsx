@@ -7,7 +7,7 @@ import { listIngredients } from "@/lib/api/ingredients";
 import { requireAdmin } from "@/lib/auth/currentUser";
 import { RecipeForm } from "../RecipeForm";
 
-export const metadata: Metadata = { title: "New recipe · Pizza Shop POS" };
+export const metadata: Metadata = { title: "New recipe · Rubencinis & Mate Pizza" };
 
 const NewRecipe = async () => {
   await requireAdmin();

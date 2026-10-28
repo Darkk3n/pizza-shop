@@ -23,7 +23,7 @@ namespace PizzaShop.Api.Tests
             var email = await api.RegisterAsync();
 
             var message = Assert.Single(api.Emails.SentTo(email));
-            Assert.Equal("Confirm your Pizza Shop account", message.Subject);
+            Assert.Equal("Confirm your Rubencinis & Mate Pizza account", message.Subject);
             var link = RecordingEmailDelivery.LinkIn(message);
             Assert.Equal($"{ApiFactory.WebBaseUrl}/confirm-email", link.GetLeftPart(UriPartial.Path));
             var query = RecordingEmailDelivery.QueryOf(link);
@@ -88,7 +88,7 @@ namespace PizzaShop.Api.Tests
             (await PostAsync("forgotPassword", new { email = user.Email })).EnsureSuccessStatusCode();
 
             var message = api.Emails.LatestTo(user.Email);
-            Assert.Equal("Reset your Pizza Shop password", message.Subject);
+            Assert.Equal("Reset your Rubencinis & Mate Pizza password", message.Subject);
             var link = RecordingEmailDelivery.LinkIn(message);
             Assert.Equal($"{ApiFactory.WebBaseUrl}/reset-password", link.GetLeftPart(UriPartial.Path));
             var query = RecordingEmailDelivery.QueryOf(link);

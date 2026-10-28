@@ -5,7 +5,7 @@ import { listIngredients, listUnitsOfMeasure } from "@/lib/api/ingredients";
 import { requireStaff } from "@/lib/auth/currentUser";
 import { InventoryTable } from "./InventoryTable";
 
-export const metadata: Metadata = { title: "Inventory · Pizza Shop POS" };
+export const metadata: Metadata = { title: "Inventory · Rubencinis & Mate Pizza" };
 
 const Inventory = async () => {
   const user = await requireStaff();

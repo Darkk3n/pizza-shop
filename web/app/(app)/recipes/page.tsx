@@ -17,7 +17,7 @@ import { listRecipes } from "@/lib/api/menu";
 import { requireAdmin } from "@/lib/auth/currentUser";
 import { formatMoney } from "@/lib/helpers/format";
 
-export const metadata: Metadata = { title: "Recipes · Pizza Shop POS" };
+export const metadata: Metadata = { title: "Recipes · Rubencinis & Mate Pizza" };
 
 const RecipesTable = async () => {
   await requireAdmin();

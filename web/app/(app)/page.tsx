@@ -7,7 +7,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { requireUser } from "@/lib/auth/currentUser";
 
-export const metadata: Metadata = { title: "Home · Pizza Shop POS" };
+export const metadata: Metadata = { title: "Home · Rubencinis & Mate Pizza" };
 
 const StaffDashboard = () => {
   return (

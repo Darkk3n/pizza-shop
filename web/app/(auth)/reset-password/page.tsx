@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { resetLinkSchema } from "@/lib/api/schemas/auth";
 import { ResetPasswordForm } from "./ResetPasswordForm";
 
-export const metadata: Metadata = { title: "Choose a new password · Pizza Shop POS" };
+export const metadata: Metadata = { title: "Choose a new password · Rubencinis & Mate Pizza" };
 
 // Opened from the reset email: /reset-password?email=...&code=... (Email:WebBaseUrl in the API).
 const ResetPasswordContent = async ({ searchParams }: { searchParams: PageProps<"/reset-password">["searchParams"] }) => {

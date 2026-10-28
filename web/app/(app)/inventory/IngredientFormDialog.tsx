@@ -196,7 +196,7 @@ export const IngredientFormDialog = ({ open, onOpenChange, ingredient, units }: 
             )}
           </div>
           {unitChanged && (
-            <p className="-mt-2 text-sm text-amber-700 dark:text-amber-400">
+            <p className="-mt-2 text-sm text-warning-foreground">
               Stock and recipe amounts aren&apos;t converted: they keep their numbers in the new unit.
             </p>
           )}

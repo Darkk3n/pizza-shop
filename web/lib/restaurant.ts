@@ -10,7 +10,7 @@ export type OpeningHours = {
 };
 
 export const restaurant = {
-  name: "Pizza Shop",
+  name: "Rubencinis & Mate Pizza",
   tagline: "Hand-stretched pizza, made to order and ready when you are.",
   description:
     "A neighborhood pizzeria baking fresh pies since day one. Build your own half-and-half pizza, order online, and watch it move from the oven to the counter.",

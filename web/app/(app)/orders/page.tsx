@@ -11,7 +11,7 @@ import { listOrders, ORDERS_PAGE_SIZE } from "@/lib/api/orders";
 import { Pager } from "@/components/orders/Pager";
 import { StatusBadge } from "@/components/orders/StatusBadge";
 
-export const metadata: Metadata = { title: "Orders · Pizza Shop POS" };
+export const metadata: Metadata = { title: "Orders · Rubencinis & Mate Pizza" };
 
 const FILTERS: { status?: OrderStatus; label: string }[] = [
   { label: "All" },

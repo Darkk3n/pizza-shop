@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { listRecipes } from "@/lib/api/menu";
 import { requireUser } from "@/lib/auth/currentUser";
 
-export const metadata: Metadata = { title: "Menu · Pizza Shop POS" };
+export const metadata: Metadata = { title: "Menu · Rubencinis & Mate Pizza" };
 
 const RecipeGrid = async () => {
   await requireUser();

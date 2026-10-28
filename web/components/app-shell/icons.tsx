@@ -81,22 +81,3 @@ export const AnalyticsIcon = (props: IconProps) => {
     </Icon>
   );
 };
-
-/** Brand mark: a pizza slice. */
-export const BrandLogo = (props: IconProps) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 32 32"
-      aria-hidden="true"
-      {...props}
-    >
-      <rect width="32" height="32" rx="8" fill="#ea580c" />
-      <path d="M7 9c6-3 12-3 18 0L16 27 7 9z" fill="#fde68a" />
-      <path d="M7 9c6-3 12-3 18 0" stroke="#b45309" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-      <circle cx="13" cy="13" r="1.8" fill="#dc2626" />
-      <circle cx="19" cy="14" r="1.8" fill="#dc2626" />
-      <circle cx="16" cy="19" r="1.6" fill="#dc2626" />
-    </svg>
-  );
-};

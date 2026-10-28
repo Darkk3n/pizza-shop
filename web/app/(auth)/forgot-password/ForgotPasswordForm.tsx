@@ -40,7 +40,7 @@ export const ForgotPasswordForm = () => {
         <div role="status" className="grid gap-2">
           <p className="font-medium">Check your inbox</p>
           <p className="text-sm text-muted-foreground">
-            If <span className="font-medium text-foreground">{sentTo}</span> has a confirmed Pizza Shop account, we
+            If <span className="font-medium text-foreground">{sentTo}</span> has a confirmed Rubencinis & Mate Pizza account, we
             sent it a link to choose a new password. The link expires in a day.
           </p>
         </div>

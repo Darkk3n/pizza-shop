@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { CartView } from "./CartView";
 
-export const metadata: Metadata = { title: "Cart · Pizza Shop POS" };
+export const metadata: Metadata = { title: "Cart · Rubencinis & Mate Pizza" };
 
 // The cart is in-memory client state (components/cart/CartProvider.tsx); placeOrder checks the user.
 const CartPage = () => {

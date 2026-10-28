@@ -44,10 +44,10 @@ namespace PizzaShop.Api.Email
         public static EmailMessage Confirmation(string to, string link, bool isEmailChange) =>
             Render(
                 to,
-                isEmailChange ? "Confirm your new email address" : "Confirm your Pizza Shop account",
+                isEmailChange ? "Confirm your new email address" : "Confirm your Rubencinis & Mate Pizza account",
                 isEmailChange
-                    ? "Confirm this address to start using it for your Pizza Shop account."
-                    : "Welcome! Confirm your email address to finish creating your Pizza Shop account.",
+                    ? "Confirm this address to start using it for your Rubencinis & Mate Pizza account."
+                    : "Welcome! Confirm your email address to finish creating your Rubencinis & Mate Pizza account.",
                 "Confirm email",
                 link,
                 "If you didn't ask for this, you can ignore this email.");
@@ -55,8 +55,8 @@ namespace PizzaShop.Api.Email
         public static EmailMessage PasswordReset(string to, string link) =>
             Render(
                 to,
-                "Reset your Pizza Shop password",
-                "Someone asked to reset the password for this Pizza Shop account. The link works once and expires in a day.",
+                "Reset your Rubencinis & Mate Pizza password",
+                "Someone asked to reset the password for this Rubencinis & Mate Pizza account. The link works once and expires in a day.",
                 "Choose a new password",
                 link,
                 "If it wasn't you, ignore this email: your password stays the same.");
@@ -72,10 +72,10 @@ namespace PizzaShop.Api.Email
                 <html>
                   <body style="margin:0;padding:24px;background:#f5f5f5;font-family:Arial,Helvetica,sans-serif;color:#171717">
                     <div style="max-width:480px;margin:0 auto;background:#ffffff;border-radius:12px;padding:32px">
-                      <p style="margin:0 0 16px;font-size:20px;font-weight:bold">Pizza Shop</p>
+                      <p style="margin:0 0 16px;font-size:20px;font-weight:bold">Rubencinis &amp; Mate Pizza</p>
                       <p style="margin:0 0 24px;font-size:15px;line-height:1.5">{WebUtility.HtmlEncode(intro)}</p>
                       <p style="margin:0 0 24px">
-                        <a href="{href}" style="display:inline-block;background:#f54900;color:#ffffff;text-decoration:none;font-weight:bold;padding:12px 20px;border-radius:8px">{WebUtility.HtmlEncode(action)}</a>
+                        <a href="{href}" style="display:inline-block;background:#d32f2f;color:#ffffff;text-decoration:none;font-weight:bold;padding:12px 20px;border-radius:8px">{WebUtility.HtmlEncode(action)}</a>
                       </p>
                       <p style="margin:0 0 8px;font-size:13px;color:#525252">Or paste this link into your browser:</p>
                       <p style="margin:0 0 24px;font-size:13px;word-break:break-all"><a href="{href}" style="color:#525252">{href}</a></p>
