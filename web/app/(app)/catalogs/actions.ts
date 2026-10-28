@@ -1,9 +1,10 @@
 "use server";
 
-import { refresh } from "next/cache";
+import { refresh, updateTag } from "next/cache";
 import { z } from "zod";
 import { apiFailure, invalidInput, type ActionResult } from "@/lib/helpers/actions";
 import { apiFetch } from "@/lib/api/client";
+import { PUBLIC_MENU_TAG } from "@/lib/api/public";
 import { unitOfMeasureFormSchema, type UnitOfMeasureForm } from "@/lib/api/schemas/ingredients";
 import { pizzaSizeFormSchema, type PizzaSizeForm } from "@/lib/api/schemas/menu";
 import { requireAdmin } from "@/lib/auth/currentUser";
@@ -20,6 +21,7 @@ const send = async (path: string, init: Parameters<typeof apiFetch>[1]): Promise
   } catch (error) {
     return apiFailure(error);
   }
+  updateTag(PUBLIC_MENU_TAG);
   refresh();
   return { ok: true };
 };

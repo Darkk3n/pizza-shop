@@ -24,7 +24,7 @@ const RecipeGrid = async () => {
     <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {recipes.map((recipe) => (
         <li key={recipe.recipeId}>
-          <RecipeCard recipe={recipe} />
+          <RecipeCard recipe={recipe} ingredients={recipe.items.map((item) => item.ingredientName)} />
         </li>
       ))}
     </ul>

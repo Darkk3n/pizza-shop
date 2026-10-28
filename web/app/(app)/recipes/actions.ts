@@ -1,9 +1,10 @@
 "use server";
 
-import { refresh } from "next/cache";
+import { refresh, updateTag } from "next/cache";
 import { z } from "zod";
 import { apiFailure, invalidInput, type ActionResult } from "@/lib/helpers/actions";
 import { apiFetch, apiJson } from "@/lib/api/client";
+import { PUBLIC_MENU_TAG } from "@/lib/api/public";
 import { recipeSchema } from "@/lib/api/schemas/menu";
 import { recipeFormSchema, type RecipeForm } from "@/lib/api/schemas/recipes";
 import { requireAdmin } from "@/lib/auth/currentUser";
@@ -22,6 +23,7 @@ export const createRecipe = async (input: RecipeForm): Promise<ActionResult<{ re
   try {
     // New recipes start on the menu; POST has no isActive.
     const recipe = await apiJson("/api/recipes", recipeSchema, { method: "POST", body: { name, basePrice, items } });
+    updateTag(PUBLIC_MENU_TAG);
     refresh();
     return { ok: true, recipeId: recipe.recipeId };
   } catch (error) {
@@ -41,6 +43,7 @@ export const updateRecipe = async (recipeId: string, input: RecipeForm): Promise
   } catch (error) {
     return apiFailure(error);
   }
+  updateTag(PUBLIC_MENU_TAG);
   refresh();
   return { ok: true };
 };
@@ -55,6 +58,7 @@ export const deleteRecipe = async (recipeId: string): Promise<ActionResult> => {
   } catch (error) {
     return apiFailure(error);
   }
+  updateTag(PUBLIC_MENU_TAG);
   refresh();
   return { ok: true };
 };

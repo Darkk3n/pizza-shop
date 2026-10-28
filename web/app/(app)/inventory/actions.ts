@@ -1,9 +1,10 @@
 "use server";
 
-import { refresh } from "next/cache";
+import { refresh, updateTag } from "next/cache";
 import { z } from "zod";
 import { apiFailure, invalidInput, type ActionResult } from "@/lib/helpers/actions";
 import { apiFetch } from "@/lib/api/client";
+import { PUBLIC_MENU_TAG } from "@/lib/api/public";
 import { ApiError } from "@/lib/api/problem";
 import {
   ingredientFormSchema,
@@ -54,6 +55,7 @@ export const createIngredient = async (input: IngredientForm): Promise<ActionRes
   } catch (error) {
     return apiFailure(error);
   }
+  updateTag(PUBLIC_MENU_TAG);
   refresh();
   return { ok: true };
 };
@@ -74,6 +76,7 @@ export const updateIngredient = async (ingredientId: string, input: IngredientFo
   } catch (error) {
     return apiFailure(error);
   }
+  updateTag(PUBLIC_MENU_TAG);
   refresh();
   return { ok: true };
 };
@@ -88,6 +91,7 @@ export const deleteIngredient = async (ingredientId: string): Promise<ActionResu
   } catch (error) {
     return apiFailure(error);
   }
+  updateTag(PUBLIC_MENU_TAG);
   refresh();
   return { ok: true };
 };

@@ -144,5 +144,6 @@ export const resetPassword = async (email: string, code: string, input: ResetPas
 // and the access token expires on its own within 15 minutes.
 export const logout = async () => {
   await clearSessionCookies();
-  redirect("/login");
+  // Back to /, which proxy.ts rewrites to the public landing page for signed-out visitors.
+  redirect("/");
 };

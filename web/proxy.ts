@@ -12,8 +12,25 @@ import {
 } from "@/lib/auth/cookies";
 
 // Pages reachable without a session. Everything else needs one (the API agrees: only Identity's
-// sign-in endpoints are anonymous). The last three are opened from emailed links.
-const PUBLIC_PATHS = ["/login", "/register", "/forgot-password", "/reset-password", "/confirm-email"];
+// sign-in endpoints and /api/public/menu are anonymous). Reset and confirm are opened from emailed
+// links; the rest are the signed-out site (app/(public)) and what search engines read.
+const PUBLIC_PATHS = [
+  "/login",
+  "/register",
+  "/forgot-password",
+  "/reset-password",
+  "/confirm-email",
+  "/about",
+  "/privacy",
+  "/terms",
+  "/robots.txt",
+  "/sitemap.xml",
+];
+
+// Same URL, different page: signed-out visitors get the public landing and menu (app/(public)/welcome)
+// instead of being sent to /login. The /welcome paths themselves are never linked or indexed.
+const SIGNED_OUT_REWRITES: Record<string, string> = { "/": "/welcome", "/menu": "/welcome/menu" };
+const REWRITE_SOURCE = Object.fromEntries(Object.entries(SIGNED_OUT_REWRITES).map(([from, to]) => [to, from]));
 
 // Refresh this long before the access token expires, so a request never reaches the API with a dying token.
 const REFRESH_WINDOW_MS = 60_000;
@@ -25,9 +42,13 @@ const REFRESH_WINDOW_MS = 60_000;
 // /api/orders/feed, which does refresh: an open staff screen stays signed in on purpose.)
 const PASSIVE_PATHS = ["/api/orders/active"];
 
+// No session, or one that just ended: the public page when the URL has one, otherwise /login.
 const toLogin = (request: NextRequest) => {
   let response: NextResponse;
-  if (request.nextUrl.pathname.startsWith("/api/")) {
+  const publicPage = SIGNED_OUT_REWRITES[request.nextUrl.pathname];
+  if (publicPage) {
+    response = NextResponse.rewrite(new URL(`${publicPage}${request.nextUrl.search}`, request.url));
+  } else if (request.nextUrl.pathname.startsWith("/api/")) {
     // Route Handlers are called by fetch(), which would follow a redirect to the login HTML.
     response = NextResponse.json(
       { title: "Your session has ended.", status: 401 },
@@ -39,7 +60,8 @@ const toLogin = (request: NextRequest) => {
     if (next !== "/") url.searchParams.set("next", next);
     response = NextResponse.redirect(url);
   }
-  for (const name of SESSION_COOKIES) response.cookies.delete(name);
+  // Only the ones present, so plain visitors to the public pages don't get Set-Cookie headers.
+  for (const name of SESSION_COOKIES) if (request.cookies.has(name)) response.cookies.delete(name);
   return response;
 };
 
@@ -50,6 +72,9 @@ const clientIp = (request: NextRequest) =>
 // themselves (lib/auth/currentUser.ts), since a matcher change could silently skip this file.
 export const proxy = async (request: NextRequest) => {
   if (PUBLIC_PATHS.includes(request.nextUrl.pathname)) return NextResponse.next();
+  // Rewrites don't pass through here again, so only a typed-in /welcome URL lands here.
+  const rewriteSource = REWRITE_SOURCE[request.nextUrl.pathname];
+  if (rewriteSource) return NextResponse.redirect(new URL(rewriteSource, request.url));
 
   const refreshToken = request.cookies.get(REFRESH_COOKIE)?.value;
   if (!refreshToken) return toLogin(request);

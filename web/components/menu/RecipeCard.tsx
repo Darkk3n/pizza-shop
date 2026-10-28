@@ -1,11 +1,16 @@
 import { PizzaIcon } from "lucide-react";
 import Link from "next/link";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import type { Recipe } from "@/lib/api/schemas/menu";
 import { formatMoney } from "@/lib/helpers/format";
 
-// A menu entry: the whole card opens the pizza builder. Used on /menu and the customer home page.
-export const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
+type RecipeCardProps = {
+  recipe: { recipeId: string; name: string; basePrice: number };
+  ingredients: string[];
+};
+
+// A menu entry: the whole card opens the pizza builder. Used on /menu, the customer home page and
+// the signed-out menu and landing (where /menu/{id} sends visitors to sign in first).
+export const RecipeCard = ({ recipe, ingredients }: RecipeCardProps) => {
   return (
     <Card className="relative h-full transition-colors hover:bg-muted/50">
       <CardHeader className="gap-3">
@@ -24,7 +29,7 @@ export const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
             {recipe.name}
           </Link>
         </CardTitle>
-        <CardDescription>{recipe.items.map((item) => item.ingredientName).join(", ")}</CardDescription>
+        <CardDescription>{ingredients.join(", ")}</CardDescription>
       </CardHeader>
     </Card>
   );
