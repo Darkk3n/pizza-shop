@@ -25,6 +25,7 @@ namespace PizzaShop.Api.Tests
             "/api/auth/resendConfirmationEmail",
             "/api/auth/forgotPassword",
             "/api/auth/resetPassword",
+            "/api/public/menu",
         ];
 
         [Fact]

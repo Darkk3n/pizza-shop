@@ -78,6 +78,7 @@ app.MapRecipesEndpoints();
 app.MapPizzaSizesEndpoints();
 app.MapOrdersEndpoints();
 app.MapStatisticsEndpoints();
+app.MapPublicEndpoints();
 
 await app.SeedBootstrapAdminAsync();
 await app.SeedDevelopmentDataAsync();

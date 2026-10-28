@@ -58,8 +58,19 @@ namespace PizzaShop.Api.Endpoints
             [Range(1, 20)] int limit = 4,
             CancellationToken ct = default)
         {
+            var ids = await PopularRecipeIdsAsync(context, days, limit, ct);
+            var recipes = await context.Recipes
+                .Where(r => ids.Contains(r.RecipeId))
+                .Select(RecipeMapper.ToDto)
+                .ToDictionaryAsync(r => r.RecipeId, ct);
+            return TypedResults.Ok(ids.Select(id => recipes[id]).ToList());
+        }
+
+        // Most ordered first. Shared with the public menu (PublicEndpoints).
+        internal static async Task<List<Guid>> PopularRecipeIdsAsync(PizzaShopContext context, int days, int limit, CancellationToken ct)
+        {
             var since = DateTimeOffset.UtcNow.AddDays(-days);
-            var ranked = await context.OrderItems
+            return await context.OrderItems
                 .Where(i => i.RecipeId != null
                     && i.Recipe!.IsActive
                     && i.Order.Status != OrderStatus.Cancelled
@@ -69,14 +80,8 @@ namespace PizzaShop.Api.Endpoints
                 .OrderByDescending(r => r.Quantity)
                 .ThenBy(r => r.RecipeId)
                 .Take(limit)
+                .Select(r => r.RecipeId)
                 .ToListAsync(ct);
-
-            var ids = ranked.Select(r => r.RecipeId).ToList();
-            var recipes = await context.Recipes
-                .Where(r => ids.Contains(r.RecipeId))
-                .Select(RecipeMapper.ToDto)
-                .ToDictionaryAsync(r => r.RecipeId, ct);
-            return TypedResults.Ok(ids.Select(id => recipes[id]).ToList());
         }
 
         private static async Task<Results<Ok<RecipeDto>, NotFound>> GetById(Guid id, ClaimsPrincipal user, PizzaShopContext context, CancellationToken ct)
