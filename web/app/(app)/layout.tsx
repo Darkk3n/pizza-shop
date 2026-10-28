@@ -4,6 +4,7 @@ import { NavLinksSkeleton } from "@/components/app-shell/NavLinks";
 import { RoleNav, SessionUserMenu, StaffOrderFeed } from "@/components/app-shell/SessionSlots";
 import { CartButton } from "@/components/cart/CartButton";
 import { CartProvider } from "@/components/cart/CartProvider";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 // Signed-in screens. The shell prerenders; the role-specific nav and user menu stream in.
 // The cart and the staff order feed (with its sound toggle in the header) live here so they survive
@@ -22,6 +23,7 @@ const AppLayout = ({ children }: LayoutProps<"/">) => {
             <Suspense>
               <StaffOrderFeed />
             </Suspense>
+            <ThemeToggle />
             <CartButton />
             <Suspense>
               <SessionUserMenu />

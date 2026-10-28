@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { sidebarInitScript } from "@/lib/helpers/sidebar";
 import "./globals.css";
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
 // The app shell lives in app/(app)/layout.tsx so the sign-in screens in app/(auth) don't get it.
 const RootLayout = ({ children }: LayoutProps<"/">) => {
   return (
-    // suppressHydrationWarning: the inline script may set data-sidebar before hydration.
+    // suppressHydrationWarning: inline scripts set data-sidebar and the theme class before hydration.
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
@@ -32,9 +33,11 @@ const RootLayout = ({ children }: LayoutProps<"/">) => {
         <script dangerouslySetInnerHTML={{ __html: sidebarInitScript }} />
       </head>
       <body className="flex min-h-full flex-col">
-        {children}
-        {/* Below the sticky 64px (h-16) app header, so toasts don't cover the cart and user menu. */}
-        <Toaster richColors closeButton position="top-right" offset={{ top: 76 }} mobileOffset={{ top: 72 }} />
+        <ThemeProvider>
+          {children}
+          {/* Below the sticky 64px (h-16) app header, so toasts don't cover the cart and user menu. */}
+          <Toaster richColors closeButton position="top-right" offset={{ top: 76 }} mobileOffset={{ top: 72 }} />
+        </ThemeProvider>
       </body>
     </html>
   );

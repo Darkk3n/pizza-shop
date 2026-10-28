@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BrandLogo } from "@/components/BrandLogo";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { buttonVariants } from "@/components/ui/button";
 import { restaurant } from "@/lib/restaurant";
 
@@ -20,6 +21,7 @@ export const PublicHeader = () => {
           <Link href="/about" className={buttonVariants({ variant: "ghost", className: "hidden sm:inline-flex" })}>
             About
           </Link>
+          <ThemeToggle />
           <Link href="/login" className={buttonVariants({ variant: "ghost" })}>
             Sign in
           </Link>

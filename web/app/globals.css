@@ -2,6 +2,9 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+/* `dark:` follows the .dark class from next-themes, not the OS media query. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Desktop sidebar collapsed to icons; set on <html> by hooks/useSidebar.ts */
 @custom-variant sidebar-collapsed (&:where([data-sidebar="collapsed"] *));
 
@@ -107,55 +110,55 @@
   --sidebar-ring: #1a1410;
 }
 
-/* Follows the OS setting, like the `dark:` variant used across the app. */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.705 0.213 47.604);
-    --primary-foreground: oklch(0.145 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.705 0.213 47.604);
-    --warning: oklch(0.769 0.188 70.08 / 15%);
-    --warning-foreground: oklch(0.828 0.189 84.429);
-    --status-pending: oklch(0.769 0.188 70.08 / 15%);
-    --status-pending-foreground: oklch(0.879 0.169 91.605);
-    --status-preparing: oklch(0.705 0.213 47.604 / 15%);
-    --status-preparing-foreground: oklch(0.837 0.128 66.29);
-    --status-ready: oklch(0.696 0.17 162.48 / 15%);
-    --status-ready-foreground: oklch(0.845 0.143 164.978);
-    /* Same step as light: the lighter dark-mode --primary falls outside the dark lightness band. */
-    --chart-1: oklch(0.646 0.222 41.116);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
-  }
+/* Dark theme: next-themes puts .dark on <html> (Light / Dark / System, components/ThemeToggle.tsx).
+   Same brand hues, lifted for a dark crust background; every text pair is WCAG AA. */
+.dark {
+  --background: #1a1410;
+  --foreground: #faf3e3;
+  --card: #241c16;
+  --card-foreground: #faf3e3;
+  --popover: #241c16;
+  --popover-foreground: #faf3e3;
+  --primary: #ef5350;
+  --primary-foreground: #1a1410;
+  --secondary: #66bb6a;
+  --secondary-foreground: #1a1410;
+  --muted: #2e241c;
+  --muted-foreground: #bdb29c;
+  --accent: #f5c518;
+  --accent-foreground: #1a1410;
+  --destructive: #f28b82;
+  --border: #3a2f25;
+  --input: #3a2f25;
+  /* The brand yellow works here: 3.6:1 even at shadcn's 50% ring opacity. */
+  --ring: #f5c518;
+  --warning: #40240f;
+  --warning-foreground: #ffb27a;
+  --status-pending: #3b300c;
+  --status-pending-foreground: #f5d25c;
+  --status-preparing: #40240f;
+  --status-preparing-foreground: #ffb27a;
+  --status-ready: #1d3520;
+  --status-ready-foreground: #8fd694;
+  /* Chart slot 1 (daily sales): 4.81:1 on the card. */
+  --chart-1: #ef5350;
+  --chart-2: #66bb6a;
+  --chart-3: #bdb29c;
+  --chart-4: #ffb27a;
+  --chart-5: #faf3e3;
+  --sidebar: #241c16;
+  --sidebar-foreground: #faf3e3;
+  --sidebar-primary: #ef5350;
+  --sidebar-primary-foreground: #1a1410;
+  --sidebar-accent: #2e241c;
+  --sidebar-accent-foreground: #faf3e3;
+  --sidebar-border: #3a2f25;
+  --sidebar-ring: #f5c518;
 }
 
-/* Sonner's richColors toasts (light theme only; dark keeps Sonner's own until the dark palette task).
+/* Sonner's richColors toasts, in both themes (the tokens above switch with .dark).
    The extra :root outranks the stylesheet Sonner injects at runtime. */
-:root [data-sonner-toaster][data-sonner-theme="light"] {
+:root [data-sonner-toaster][data-sonner-theme] {
   --success-bg: var(--status-ready);
   --success-border: color-mix(in srgb, var(--status-ready-foreground) 25%, transparent);
   --success-text: var(--status-ready-foreground);
