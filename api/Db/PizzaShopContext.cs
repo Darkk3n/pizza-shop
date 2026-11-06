@@ -13,6 +13,11 @@ namespace PizzaShop.Api.Db
     public class PizzaShopContext(DbContextOptions<PizzaShopContext> options)
         : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>(options), IDataProtectionKeyContext
     {
+        // Seeded units, by id: admins can rename them (e.g. to Spanish), so code never looks them up by name.
+        public static readonly Guid GramUnitId = Guid.Parse("d75312cf-bbc6-497a-8f54-a3a94178f73c");
+        public static readonly Guid MilliliterUnitId = Guid.Parse("d2b7f138-8fb4-490f-aca6-ad9a399c50e7");
+        public static readonly Guid PieceUnitId = Guid.Parse("a531c7e3-b9fc-46c1-b887-7b1d6c67f21f");
+
         public DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<UnitOfMeasure> UnitsOfMeasure { get; set; }
@@ -109,9 +114,9 @@ namespace PizzaShop.Api.Db
                 new PizzaSize { PizzaSizeId = Guid.Parse("6818c0cd-1560-4a1a-8e57-3c870284a646"), Name = "Large", PriceMultiplier = 1.70m });
 
             modelBuilder.Entity<UnitOfMeasure>().HasData(
-                new UnitOfMeasure { UnitOfMeasureId = Guid.Parse("d75312cf-bbc6-497a-8f54-a3a94178f73c"), Name = "Gram" },
-                new UnitOfMeasure { UnitOfMeasureId = Guid.Parse("d2b7f138-8fb4-490f-aca6-ad9a399c50e7"), Name = "Milliliter" },
-                new UnitOfMeasure { UnitOfMeasureId = Guid.Parse("a531c7e3-b9fc-46c1-b887-7b1d6c67f21f"), Name = "Piece" });
+                new UnitOfMeasure { UnitOfMeasureId = GramUnitId, Name = "Gram" },
+                new UnitOfMeasure { UnitOfMeasureId = MilliliterUnitId, Name = "Milliliter" },
+                new UnitOfMeasure { UnitOfMeasureId = PieceUnitId, Name = "Piece" });
         }
     }
 }
