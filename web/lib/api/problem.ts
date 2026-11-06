@@ -56,12 +56,12 @@ export const toFieldErrors = (errors: Problem["errors"]) =>
 export const describeApiError = (error: ApiError) => {
   if (error.status === 429) {
     return error.retryAfter
-      ? `Too many attempts. Try again in ${error.retryAfter} seconds.`
-      : "Too many attempts. Try again shortly.";
+      ? `Demasiados intentos. Intenta de nuevo en ${error.retryAfter} segundos.`
+      : "Demasiados intentos. Intenta de nuevo en un momento.";
   }
-  if (error.status === 401) return "Your session has ended. Please sign in again.";
-  if (error.status === 403) return "You don't have access to do that.";
-  if (error.status === 404) return "That item no longer exists.";
-  if (error.status >= 500) return "Something went wrong on our side. Please try again.";
-  return error.problem.detail ?? error.problem.title ?? "The request couldn't be completed.";
+  if (error.status === 401) return "Tu sesión terminó. Vuelve a iniciar sesión.";
+  if (error.status === 403) return "No tienes permiso para hacer eso.";
+  if (error.status === 404) return "Ese elemento ya no existe.";
+  if (error.status >= 500) return "Algo salió mal de nuestro lado. Intenta de nuevo.";
+  return error.problem.detail ?? error.problem.title ?? "No se pudo completar la solicitud.";
 };

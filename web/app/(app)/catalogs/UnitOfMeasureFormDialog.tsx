@@ -66,9 +66,9 @@ export const UnitOfMeasureFormDialog = ({ open, onOpenChange, unit, ingredientCo
         toast.success(unit ? `${values.name.trim()} saved.` : `${values.name.trim()} added.`);
         close();
       } else if (result.status === 409) {
-        setError("name", { message: result.message ?? "Another unit already has this name." });
+        setError("name", { message: result.message ?? "Ya existe otra unidad con este nombre." });
       } else {
-        setFormError(applyActionErrors(result, setError, FIELDS) ?? "Couldn't save the unit.");
+        setFormError(applyActionErrors(result, setError, FIELDS) ?? "No se pudo guardar la unidad.");
       }
     });
   });
@@ -78,17 +78,17 @@ export const UnitOfMeasureFormDialog = ({ open, onOpenChange, unit, ingredientCo
       <DialogContent>
         <form onSubmit={onSubmit} noValidate className="grid gap-4">
           <DialogHeader>
-            <DialogTitle>{unit ? `Edit ${unit.name}` : "New unit"}</DialogTitle>
+            <DialogTitle>{unit ? `Editar ${unit.name}` : "Nueva unidad"}</DialogTitle>
             <DialogDescription>
               {unit && ingredientCount > 0
-                ? `Renaming changes how ${ingredientCount === 1 ? "1 ingredient" : `${ingredientCount} ingredients`} and their recipe amounts read. Amounts aren't converted.`
-                : "Ingredients are stocked and used in recipes by this unit, e.g. Gram or Piece."}
+                ? `Cambiar el nombre cambia cómo se leen ${ingredientCount === 1 ? "1 ingrediente" : `${ingredientCount} ingredientes`} y sus cantidades en las recetas. Las cantidades no se convierten.`
+                : "Los ingredientes se almacenan y se usan en las recetas en esta unidad, p. ej., Gramo o Pieza."}
             </DialogDescription>
           </DialogHeader>
           <FormAlert message={formError} />
 
           <div className="grid gap-2">
-            <Label htmlFor={`${prefix}-name`}>Name</Label>
+            <Label htmlFor={`${prefix}-name`}>Nombre</Label>
             <Input
               id={`${prefix}-name`}
               autoComplete="off"
@@ -103,11 +103,11 @@ export const UnitOfMeasureFormDialog = ({ open, onOpenChange, unit, ingredientCo
           <DialogFooter>
             <DialogClose asChild>
               <Button type="button" variant="outline">
-                Close
+                Cerrar
               </Button>
             </DialogClose>
             <Button type="submit" disabled={pending}>
-              {pending ? "Saving…" : unit ? "Save changes" : "Add unit"}
+              {pending ? "Guardando…" : unit ? "Guardar cambios" : "Agregar unidad"}
             </Button>
           </DialogFooter>
         </form>

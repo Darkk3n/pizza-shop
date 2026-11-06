@@ -15,7 +15,7 @@ export const PublicFooter = () => {
           <p className="text-sm text-muted-foreground">{restaurant.tagline}</p>
         </div>
         <div className="flex flex-col gap-2">
-          <FooterHeading>Visit us</FooterHeading>
+          <FooterHeading>Visítanos</FooterHeading>
           <address className="flex flex-col gap-1 text-sm not-italic text-muted-foreground">
             <a href={restaurant.mapUrl} className="hover:text-foreground hover:underline" target="_blank" rel="noreferrer">
               {formatAddress()}
@@ -29,30 +29,30 @@ export const PublicFooter = () => {
           </address>
         </div>
         <div className="flex flex-col gap-2">
-          <FooterHeading>Hours</FooterHeading>
+          <FooterHeading>Horario</FooterHeading>
           <OpeningHoursList />
         </div>
-        <nav aria-label="Footer" className="flex flex-col gap-2">
-          <FooterHeading>More</FooterHeading>
+        <nav aria-label="Pie de página" className="flex flex-col gap-2">
+          <FooterHeading>Más</FooterHeading>
           <ul className="flex flex-col gap-1 text-sm text-muted-foreground">
             <li>
               <Link href="/menu" className="hover:text-foreground hover:underline">
-                Menu
+                Menú
               </Link>
             </li>
             <li>
               <Link href="/about" className="hover:text-foreground hover:underline">
-                About &amp; FAQ
+                Nosotros y preguntas frecuentes
               </Link>
             </li>
             <li>
               <Link href="/privacy" className="hover:text-foreground hover:underline">
-                Privacy policy
+                Aviso de privacidad
               </Link>
             </li>
             <li>
               <Link href="/terms" className="hover:text-foreground hover:underline">
-                Terms of service
+                Términos y condiciones
               </Link>
             </li>
           </ul>

@@ -1,5 +1,6 @@
 import { getCurrentUser } from "@/lib/auth/currentUser";
 import { OrderFeed } from "@/components/orders/OrderFeed";
+import { ROLE_LABELS } from "@/lib/helpers/format";
 import { navKeysFor } from "@/lib/helpers/navigation";
 import { NavLinks } from "./NavLinks";
 import { UserMenu } from "./UserMenu";
@@ -15,7 +16,7 @@ export const RoleNav = async () => {
 export const SessionUserMenu = async () => {
   const user = await getCurrentUser();
   if (!user) return null;
-  const roleLabel = user.isAdmin ? "Admin" : user.isStaff ? "Staff" : "Customer";
+  const roleLabel = ROLE_LABELS[user.isAdmin ? "Admin" : user.isStaff ? "Staff" : "Customer"];
   return <UserMenu email={user.email} roleLabel={roleLabel} />;
 };
 

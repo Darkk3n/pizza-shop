@@ -23,7 +23,7 @@ const loadMenu = async (): Promise<PublicMenu | null> => {
 const Unavailable = () => {
   return (
     <p className="rounded-lg border border-dashed px-4 py-10 text-center text-muted-foreground">
-      The menu can&apos;t be loaded right now. Please try again in a moment.
+      No pudimos cargar el menú. Intenta de nuevo en un momento.
     </p>
   );
 };
@@ -56,10 +56,10 @@ export const PopularPizzas = async () => {
     <section aria-labelledby="popular" className="flex flex-col gap-4">
       <div className="flex items-baseline justify-between gap-2">
         <h2 id="popular" className="text-2xl font-semibold tracking-tight">
-          {popular.length > 0 ? "Popular right now" : "From our menu"}
+          {popular.length > 0 ? "Lo más pedido" : "De nuestro menú"}
         </h2>
         <Link href="/menu" className="text-sm text-muted-foreground hover:underline">
-          Full menu
+          Ver todo el menú
         </Link>
       </div>
       <RecipeGrid recipes={recipes} columns="four" />
@@ -77,7 +77,7 @@ export const FullMenu = async () => {
   if (menu.recipes.length === 0) {
     return (
       <p className="rounded-lg border border-dashed px-4 py-12 text-center text-muted-foreground">
-        The menu is empty right now. Check back soon.
+        El menú está vacío por ahora. Vuelve pronto.
       </p>
     );
   }
@@ -98,16 +98,16 @@ export const FullMenu = async () => {
           <section aria-labelledby="sizes" className="flex flex-col gap-3">
             <div className="flex flex-col gap-1">
               <h2 id="sizes" className="text-xl font-semibold tracking-tight">
-                Sizes
+                Tamaños
               </h2>
-              <p className="text-sm text-muted-foreground">Prices on the menu are for a Small; bigger sizes scale them.</p>
+              <p className="text-sm text-muted-foreground">Los precios del menú son para una chica; los tamaños más grandes cuestan más.</p>
             </div>
             <div className="rounded-xl border">
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Size</TableHead>
-                    <TableHead className="text-right">Pizzas from</TableHead>
+                    <TableHead>Tamaño</TableHead>
+                    <TableHead className="text-right">Pizzas desde</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -129,10 +129,10 @@ export const FullMenu = async () => {
           <section aria-labelledby="toppings" className="flex flex-col gap-3">
             <div className="flex flex-col gap-1">
               <h2 id="toppings" className="text-xl font-semibold tracking-tight">
-                Extra toppings
+                Ingredientes extra
               </h2>
               <p className="text-sm text-muted-foreground">
-                Per Small pizza. Half a pizza costs half; light and extra portions are available too.
+                Por pizza chica. En media pizza cuestan la mitad; también hay porciones poca y extra.
               </p>
             </div>
             <ul className="divide-y rounded-xl border px-4">
@@ -152,7 +152,7 @@ export const FullMenu = async () => {
 
 export const RecipeGridSkeleton = ({ count }: { count: number }) => {
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" aria-busy="true" aria-label="Loading menu">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" aria-busy="true" aria-label="Cargando menú">
       {Array.from({ length: count }, (_, i) => (
         <Skeleton key={i} className="h-36 rounded-xl" />
       ))}

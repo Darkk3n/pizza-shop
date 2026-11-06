@@ -3,36 +3,36 @@ import { PlaceholderNotice } from "@/components/public/PlaceholderNotice";
 import { restaurant } from "@/lib/restaurant";
 
 export const metadata: Metadata = {
-  title: "Privacy policy",
+  title: "Aviso de privacidad",
   alternates: { canonical: "/privacy" },
 };
 
 const PrivacyPage = () => {
   return (
     <article className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-10 [&_h2]:pt-2 [&_h2]:text-lg [&_h2]:font-semibold [&_p]:text-muted-foreground [&_li]:text-muted-foreground">
-      <h1 className="text-3xl font-semibold tracking-tight">Privacy policy</h1>
+      <h1 className="text-3xl font-semibold tracking-tight">Aviso de privacidad</h1>
       <PlaceholderNotice />
       <p>
-        This policy explains what {restaurant.name} collects when you use this site and how it is used.
+        Este aviso explica qué datos recopila {restaurant.name} cuando usas este sitio y cómo se usan.
       </p>
-      <h2>What we collect</h2>
+      <h2>Qué recopilamos</h2>
       <ul className="list-disc space-y-1 pl-5">
-        <li>Your email address and a password (stored only as a secure hash) when you create an account.</li>
-        <li>The orders you place: items, toppings, totals and their status.</li>
-        <li>Technical data needed to keep the service secure, such as your IP address for rate limiting.</li>
+        <li>Tu correo electrónico y una contraseña (guardada solo como un hash seguro) cuando creas una cuenta.</li>
+        <li>Los pedidos que haces: productos, ingredientes extra, totales y su estado.</li>
+        <li>Datos técnicos necesarios para mantener seguro el servicio, como tu dirección IP para limitar solicitudes.</li>
       </ul>
-      <h2>How we use it</h2>
+      <h2>Cómo los usamos</h2>
       <p>
-        To run your account, prepare and track your orders, send account emails (confirmation and password resets),
-        and protect the service from abuse. We don&apos;t sell your data or use it for advertising.
+        Para administrar tu cuenta, preparar tus pedidos y darles seguimiento, enviarte correos de la cuenta (confirmación y
+        restablecimiento de contraseña) y proteger el servicio contra abusos. No vendemos tus datos ni los usamos para publicidad.
       </p>
       <h2>Cookies</h2>
       <p>
-        We use only the cookies needed to keep you signed in. They are httpOnly and expire when your session ends.
+        Solo usamos las cookies necesarias para mantener tu sesión iniciada. Son httpOnly y vencen cuando termina tu sesión.
       </p>
-      <h2>Your choices</h2>
+      <h2>Tus derechos</h2>
       <p>
-        To access or delete your account data, email us at{" "}
+        Para consultar o eliminar los datos de tu cuenta, escríbenos a{" "}
         <a href={`mailto:${restaurant.email}`} className="text-primary hover:underline">
           {restaurant.email}
         </a>

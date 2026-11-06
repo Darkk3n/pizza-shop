@@ -49,7 +49,7 @@ export const LoginForm = () => {
       {unconfirmedEmail && <ResendConfirmation email={unconfirmedEmail} />}
       <FormInput
         id="email"
-        label="Email"
+        label="Correo electrónico"
         type="email"
         autoComplete="email"
         autoFocus
@@ -58,7 +58,7 @@ export const LoginForm = () => {
       />
       <FormInput
         id="password"
-        label="Password"
+        label="Contraseña"
         type="password"
         autoComplete="current-password"
         error={errors.password}
@@ -68,10 +68,10 @@ export const LoginForm = () => {
         href="/forgot-password"
         className="-mt-2 w-fit text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
       >
-        Forgot your password?
+        ¿Olvidaste tu contraseña?
       </Link>
       <Button type="submit" size="lg" disabled={pending}>
-        {pending ? "Signing in…" : "Sign in"}
+        {pending ? "Iniciando sesión…" : "Iniciar sesión"}
       </Button>
     </form>
   );

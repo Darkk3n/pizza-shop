@@ -30,13 +30,13 @@ export const DeleteRecipeDialog = ({ recipeId, name }: { recipeId: string; name:
     startTransition(async () => {
       const result = await deleteRecipe(recipeId);
       if (result.ok) {
-        toast.success(`${name} deleted.`);
+        toast.success(`${name} eliminada.`);
         setOpen(false);
         router.push("/recipes");
       } else if (result.status === 409) {
-        setError(`${name} is in past orders, so it can't be deleted. Set its status to Retired instead.`);
+        setError(`${name} aparece en pedidos anteriores, así que no se puede eliminar. En su lugar, se puede marcar como Retirada.`);
       } else {
-        setError(result.message || "Couldn't delete the recipe.");
+        setError(result.message || "No se pudo eliminar la receta.");
       }
     });
   };
@@ -51,22 +51,22 @@ export const DeleteRecipeDialog = ({ recipeId, name }: { recipeId: string; name:
     >
       <AlertDialogTrigger asChild>
         <Button variant="outline" className="text-destructive">
-          Delete recipe
+          Eliminar receta
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete {name}?</AlertDialogTitle>
+          <AlertDialogTitle>¿Eliminar {name}?</AlertDialogTitle>
           <AlertDialogDescription>
-            This removes it for good. Recipes that were already ordered can only be retired.
+            Se elimina de forma permanente. Las recetas que ya se pidieron solo se pueden retirar.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <FormAlert message={error} />
         <AlertDialogFooter>
-          <AlertDialogCancel>Keep recipe</AlertDialogCancel>
+          <AlertDialogCancel>Conservar receta</AlertDialogCancel>
           {/* A plain button, not AlertDialogAction, so the dialog stays open to show a 409. */}
           <Button variant="destructive" disabled={pending} onClick={onDelete}>
-            {pending ? "Deleting…" : "Delete"}
+            {pending ? "Eliminando…" : "Eliminar"}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

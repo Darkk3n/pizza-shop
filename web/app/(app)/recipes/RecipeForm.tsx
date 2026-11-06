@@ -26,8 +26,8 @@ type RecipeFormProps = {
 };
 
 const STATUS_CHOICES = [
-  { value: "active", label: "On the menu" },
-  { value: "retired", label: "Retired" },
+  { value: "active", label: "En el menú" },
+  { value: "retired", label: "Retirada" },
 ] as const;
 
 // An empty row; NaN shows as an empty number input until the admin types an amount.
@@ -77,13 +77,13 @@ export const RecipeForm = ({ recipe, ingredients }: RecipeFormProps) => {
     startTransition(async () => {
       const result = recipe ? await updateRecipe(recipe.recipeId, values) : await createRecipe(values);
       if (result.ok) {
-        toast.success(recipe ? `${values.name.trim()} saved.` : `${values.name.trim()} added to the menu.`);
+        toast.success(recipe ? `${values.name.trim()} guardada.` : `${values.name.trim()} se agregó al menú.`);
         router.push("/recipes");
         return;
       }
       // 409 = another recipe already has this name.
       if (result.status === 409) {
-        setError("name", { message: result.message ?? "Another recipe already has this name." });
+        setError("name", { message: result.message ?? "Ya existe otra receta con este nombre." });
         return;
       }
       const fieldPaths: Path<RecipeFormValues>[] = [
@@ -91,7 +91,7 @@ export const RecipeForm = ({ recipe, ingredients }: RecipeFormProps) => {
         "basePrice",
         ...fields.flatMap((_, i) => [`items.${i}.ingredientId`, `items.${i}.amount`] as const),
       ];
-      setFormError(applyActionErrors(result, setError, fieldPaths) ?? "Couldn't save the recipe.");
+      setFormError(applyActionErrors(result, setError, fieldPaths) ?? "No se pudo guardar la receta.");
     });
   });
 
@@ -103,7 +103,7 @@ export const RecipeForm = ({ recipe, ingredients }: RecipeFormProps) => {
           column stretches to match and its input drifts down out of line. */}
       <div className="grid items-start gap-4 sm:grid-cols-[1fr_12rem]">
         <div className="grid gap-2">
-          <Label htmlFor="recipe-name">Name</Label>
+          <Label htmlFor="recipe-name">Nombre</Label>
           <Input
             id="recipe-name"
             autoComplete="off"
@@ -114,7 +114,7 @@ export const RecipeForm = ({ recipe, ingredients }: RecipeFormProps) => {
           <FieldMessage id="recipe-name-message" message={errors.name?.message} />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="recipe-price">Small price ($)</Label>
+          <Label htmlFor="recipe-price">Precio chica ($)</Label>
           <Input
             id="recipe-price"
             type="number"
@@ -129,7 +129,7 @@ export const RecipeForm = ({ recipe, ingredients }: RecipeFormProps) => {
             <FieldMessage id="recipe-price-message" message={errors.basePrice.message} />
           ) : (
             <p id="recipe-price-hint" className="text-sm text-muted-foreground">
-              Larger sizes scale it.
+              Los tamaños más grandes lo ajustan.
             </p>
           )}
         </div>
@@ -137,7 +137,7 @@ export const RecipeForm = ({ recipe, ingredients }: RecipeFormProps) => {
 
       {recipe && (
         <ChoiceGroup
-          legend="Status"
+          legend="Estado"
           value={isActive ? "active" : "retired"}
           choices={STATUS_CHOICES}
           onChange={(next) => setValue("isActive", next === "active", { shouldDirty: true })}
@@ -145,9 +145,9 @@ export const RecipeForm = ({ recipe, ingredients }: RecipeFormProps) => {
       )}
 
       <fieldset className="flex flex-col gap-3">
-        <legend className="mb-1 text-sm font-medium">Ingredients</legend>
+        <legend className="mb-1 text-sm font-medium">Ingredientes</legend>
         <p className="text-sm text-muted-foreground">
-          Amounts are for a Small pizza; orders scale them by size and deduct them from stock.
+          Las cantidades son para una pizza chica; los pedidos las ajustan según el tamaño y las descuentan de la existencia.
         </p>
         <ul className="flex flex-col gap-3">
           {fields.map((field, index) => {
@@ -159,7 +159,7 @@ export const RecipeForm = ({ recipe, ingredients }: RecipeFormProps) => {
               <li key={field.id} className="grid grid-cols-[1fr_auto] items-start gap-2 sm:grid-cols-[1fr_10rem_auto]">
                 <div className="col-span-2 grid gap-1 sm:col-span-1">
                   <Label htmlFor={selectId} className="sr-only">
-                    Ingredient {index + 1}
+                    Ingrediente {index + 1}
                   </Label>
                   <NativeSelect
                     id={selectId}
@@ -169,12 +169,12 @@ export const RecipeForm = ({ recipe, ingredients }: RecipeFormProps) => {
                     {...register(`items.${index}.ingredientId`)}
                   >
                     <NativeSelectOption value="" disabled>
-                      Pick an ingredient
+                      Seleccionar ingrediente
                     </NativeSelectOption>
                     {pickable.map((ingredient) => (
                       <NativeSelectOption key={ingredient.ingredientId} value={ingredient.ingredientId}>
                         {ingredient.name}
-                        {ingredient.isActive ? "" : " (retired)"}
+                        {ingredient.isActive ? "" : " (retirado)"}
                       </NativeSelectOption>
                     ))}
                   </NativeSelect>
@@ -182,7 +182,7 @@ export const RecipeForm = ({ recipe, ingredients }: RecipeFormProps) => {
                 </div>
                 <div className="grid gap-1">
                   <Label htmlFor={amountId} className="sr-only">
-                    Amount {index + 1}
+                    Cantidad {index + 1}
                   </Label>
                   <div className="flex items-center gap-2">
                     <Input
@@ -191,7 +191,7 @@ export const RecipeForm = ({ recipe, ingredients }: RecipeFormProps) => {
                       inputMode="decimal"
                       step="0.0001"
                       min="0"
-                      placeholder="Amount"
+                      placeholder="Cantidad"
                       aria-invalid={rowErrors?.amount ? true : undefined}
                       aria-describedby={rowErrors?.amount ? `${amountId}-message` : undefined}
                       {...register(`items.${index}.amount`, { valueAsNumber: true })}
@@ -208,7 +208,7 @@ export const RecipeForm = ({ recipe, ingredients }: RecipeFormProps) => {
                   size="icon"
                   disabled={fields.length === 1}
                   onClick={() => remove(index)}
-                  aria-label={`Remove ingredient ${index + 1}`}
+                  aria-label={`Quitar ingrediente ${index + 1}`}
                 >
                   <Trash2Icon />
                 </Button>
@@ -219,16 +219,16 @@ export const RecipeForm = ({ recipe, ingredients }: RecipeFormProps) => {
         <FieldMessage id="recipe-items-message" message={itemsError} />
         <Button type="button" variant="outline" size="sm" className="w-fit" onClick={() => append(blankItem())}>
           <PlusIcon />
-          Add ingredient
+          Agregar ingrediente
         </Button>
       </fieldset>
 
       <div className="flex gap-2">
         <Button type="submit" disabled={pending}>
-          {pending ? "Saving…" : recipe ? "Save changes" : "Add recipe"}
+          {pending ? "Guardando…" : recipe ? "Guardar cambios" : "Agregar receta"}
         </Button>
         <Link href="/recipes" className={buttonVariants({ variant: "outline" })}>
-          Cancel
+          Cancelar
         </Link>
       </div>
     </form>

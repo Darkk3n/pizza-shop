@@ -27,7 +27,7 @@ namespace PizzaShop.Api.Tests
 
             var problem = await TestApi.ReadProblemAsync(limited, HttpStatusCode.TooManyRequests);
             Assert.NotNull(limited.Headers.RetryAfter?.Delta);
-            Assert.Contains("Try again in", problem.Detail);
+            Assert.Contains("Intenta de nuevo en", problem.Detail);
         }
 
         [Fact]

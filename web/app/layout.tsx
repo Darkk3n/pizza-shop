@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Rubencinis & Mate Pizza",
-  description: "Point of sale, inventory, and sales analytics for pizza restaurants.",
+  description: "Punto de venta, inventario y estadísticas de ventas de la pizzería.",
 };
 
 // The app shell lives in app/(app)/layout.tsx so the sign-in screens in app/(auth) don't get it.
@@ -25,7 +25,7 @@ const RootLayout = ({ children }: LayoutProps<"/">) => {
   return (
     // suppressHydrationWarning: inline scripts set data-sidebar and the theme class before hydration.
     <html
-      lang="en"
+      lang="es"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >

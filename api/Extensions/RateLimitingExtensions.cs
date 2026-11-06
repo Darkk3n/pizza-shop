@@ -70,12 +70,12 @@ namespace PizzaShop.Api.Extensions
                 options.OnRejected = async (context, ct) =>
                 {
                     var httpContext = context.HttpContext;
-                    var detail = "Too many requests. Try again later.";
+                    var detail = "Demasiadas solicitudes. Intenta de nuevo más tarde.";
                     if (context.Lease.TryGetMetadata(MetadataName.RetryAfter, out var retryAfter))
                     {
                         var seconds = (int)Math.Ceiling(retryAfter.TotalSeconds);
                         httpContext.Response.Headers.RetryAfter = seconds.ToString(CultureInfo.InvariantCulture);
-                        detail = $"Too many requests. Try again in {seconds} seconds.";
+                        detail = $"Demasiadas solicitudes. Intenta de nuevo en {seconds} segundos.";
                     }
 
                     // Same shape as every other error response.
@@ -85,7 +85,7 @@ namespace PizzaShop.Api.Extensions
                         ProblemDetails =
                         {
                             Status = StatusCodes.Status429TooManyRequests,
-                            Title = "Too Many Requests",
+                            Title = "Demasiadas solicitudes",
                             Detail = detail,
                         },
                     });

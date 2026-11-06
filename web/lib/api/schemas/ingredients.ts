@@ -27,7 +27,7 @@ export type UnitOfMeasure = z.infer<typeof unitOfMeasureSchema>;
 
 // POST/PUT /api/units-of-measure (admin).
 export const unitOfMeasureFormSchema = z.object({
-  name: z.string().trim().min(1, "Enter a name.").max(20, "Keep the name under 20 characters."),
+  name: z.string().trim().min(1, "El nombre es obligatorio.").max(20, "Máximo 20 caracteres."),
 });
 
 export type UnitOfMeasureForm = z.infer<typeof unitOfMeasureFormSchema>;
@@ -41,8 +41,8 @@ const hasTwoDecimals = hasMaxDecimals(2);
 const optionalNumber = z.union([z.number(), z.nan()]);
 
 const ingredientFormShape = {
-  name: z.string().trim().min(1, "Enter a name.").max(50, "Keep the name under 50 characters."),
-  unitOfMeasureId: z.uuid({ error: "Pick a unit." }),
+  name: z.string().trim().min(1, "El nombre es obligatorio.").max(50, "Máximo 50 caracteres."),
+  unitOfMeasureId: z.uuid({ error: "La unidad es obligatoria." }),
   isActive: z.boolean(),
   isTopping: z.boolean(),
   // Per Small, Whole, Standard serving; the API scales by size, coverage and amount.
@@ -59,19 +59,19 @@ const checkTopping = (value: IngredientFormShape, ctx: z.RefinementCtx) => {
   const price = value.toppingPrice;
   const portion = value.toppingPortion;
   const priceError = Number.isNaN(price)
-    ? "Enter a price."
+    ? "El precio es obligatorio."
     : price < 0
-      ? "The price can't be negative."
+      ? "El precio no puede ser negativo."
       : price > MAX_STOCK
-        ? "That price is too large."
-        : !hasTwoDecimals(price) && "Use at most two decimals.";
+        ? "El precio es demasiado alto."
+        : !hasTwoDecimals(price) && "Máximo dos decimales.";
   const portionError = Number.isNaN(portion)
-    ? "Enter a portion."
+    ? "La porción es obligatoria."
     : portion <= 0
-      ? "Enter more than zero."
+      ? "Debe ser mayor que cero."
       : portion > 999_999.9999
-        ? "That portion is too large."
-        : !hasMaxDecimals(4)(portion) && "Use at most four decimals.";
+        ? "La porción es demasiado grande."
+        : !hasMaxDecimals(4)(portion) && "Máximo cuatro decimales.";
   if (priceError) ctx.addIssue({ code: "custom", path: ["toppingPrice"], message: priceError });
   if (portionError) ctx.addIssue({ code: "custom", path: ["toppingPortion"], message: portionError });
 };
@@ -84,12 +84,12 @@ export const newIngredientFormSchema = z.object(ingredientFormShape).superRefine
   checkTopping(value, ctx);
   const stock = value.currentStock;
   const stockError = Number.isNaN(stock)
-    ? "Enter the starting stock (0 if none yet)."
+    ? "La existencia inicial es obligatoria (0 si aún no hay)."
     : stock < 0
-      ? "Stock can't be negative."
+      ? "La existencia no puede ser negativa."
       : stock > MAX_STOCK
-        ? "That's more than the stock can hold."
-        : !hasTwoDecimals(stock) && "Use at most two decimals.";
+        ? "La cantidad es demasiado grande."
+        : !hasTwoDecimals(stock) && "Máximo dos decimales.";
   if (stockError) ctx.addIssue({ code: "custom", path: ["currentStock"], message: stockError });
 });
 
@@ -102,18 +102,18 @@ export const toppingFields = (form: IngredientForm) =>
     : { toppingPrice: null, toppingPortion: null };
 
 const quantity = z
-  .number({ error: "Enter a quantity." })
-  .max(MAX_STOCK, "That's more than the stock can hold.")
-  .refine(hasTwoDecimals, "Use at most two decimals.");
+  .number({ error: "La cantidad es obligatoria." })
+  .max(MAX_STOCK, "La cantidad es demasiado grande.")
+  .refine(hasTwoDecimals, "Máximo dos decimales.");
 
 // Restock adds, waste removes, recount sets the counted stock (the delta is worked out from it).
 export const STOCK_ADJUSTMENT_MODES = ["Restock", "Waste", "Recount"] as const;
 export type StockAdjustmentMode = (typeof STOCK_ADJUSTMENT_MODES)[number];
 
 export const stockAdjustmentFormSchema = z.discriminatedUnion("mode", [
-  z.object({ mode: z.literal("Restock"), quantity: quantity.positive("Enter more than zero.") }),
-  z.object({ mode: z.literal("Waste"), quantity: quantity.positive("Enter more than zero.") }),
-  z.object({ mode: z.literal("Recount"), quantity: quantity.min(0, "Stock can't be counted below zero.") }),
+  z.object({ mode: z.literal("Restock"), quantity: quantity.positive("Debe ser mayor que cero.") }),
+  z.object({ mode: z.literal("Waste"), quantity: quantity.positive("Debe ser mayor que cero.") }),
+  z.object({ mode: z.literal("Recount"), quantity: quantity.min(0, "El conteo no puede ser menor que cero.") }),
 ]);
 
 export type StockAdjustmentForm = z.infer<typeof stockAdjustmentFormSchema>;
@@ -124,8 +124,8 @@ export const stockAdjustmentSchema = z.object({
     .number()
     .min(-MAX_STOCK)
     .max(MAX_STOCK)
-    .refine((delta) => delta !== 0, "Nothing to change.")
-    .refine(hasTwoDecimals, "Use at most two decimals."),
+    .refine((delta) => delta !== 0, "No hay nada que cambiar.")
+    .refine(hasTwoDecimals, "Máximo dos decimales."),
 });
 
 export const stockDelta = (form: StockAdjustmentForm, currentStock: number) => {

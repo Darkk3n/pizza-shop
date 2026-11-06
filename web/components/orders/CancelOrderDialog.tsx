@@ -59,9 +59,9 @@ export const CancelOrderDialog = ({
         reset();
       } else if (result.status === 409) {
         setOpen(false);
-        toast.warning(result.message ?? "This order changed. Showing the latest version.");
+        toast.warning(result.message ?? "Este pedido cambió. Se muestra la versión más reciente.");
       } else {
-        setFormError(result.message || Object.values(result.fieldErrors ?? {}).join(" ") || "Couldn't cancel the order.");
+        setFormError(result.message || Object.values(result.fieldErrors ?? {}).join(" ") || "No se pudo cancelar el pedido.");
       }
     });
   });
@@ -75,17 +75,17 @@ export const CancelOrderDialog = ({
       }}
     >
       <DialogTrigger asChild>
-        <Button variant="destructive">Cancel order</Button>
+        <Button variant="destructive">Cancelar pedido</Button>
       </DialogTrigger>
       <DialogContent>
         <form onSubmit={onSubmit} noValidate className="grid gap-4">
           <DialogHeader>
-            <DialogTitle>Cancel order #{orderNumber}?</DialogTitle>
+            <DialogTitle>¿Cancelar el pedido #{orderNumber}?</DialogTitle>
             <DialogDescription>{description}</DialogDescription>
           </DialogHeader>
           <FormAlert message={formError} />
           <div className="grid gap-2">
-            <Label htmlFor="cancel-reason">Reason (optional)</Label>
+            <Label htmlFor="cancel-reason">Motivo (opcional)</Label>
             <Textarea
               id="cancel-reason"
               rows={3}
@@ -103,11 +103,11 @@ export const CancelOrderDialog = ({
           <DialogFooter>
             <DialogClose asChild>
               <Button type="button" variant="outline">
-                Keep order
+                Conservar pedido
               </Button>
             </DialogClose>
             <Button type="submit" variant="destructive" disabled={pending}>
-              {pending ? "Cancelling…" : "Cancel order"}
+              {pending ? "Cancelando…" : "Cancelar pedido"}
             </Button>
           </DialogFooter>
         </form>

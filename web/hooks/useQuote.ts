@@ -48,7 +48,7 @@ export const useQuote = (items: OrderItemRequest[], initial?: { items: OrderItem
       } catch (error) {
         if (controller.signal.aborted) return;
         console.error(error);
-        setFailure({ key, message: "Couldn't update the price. Check your connection and try again." });
+        setFailure({ key, message: "No se pudo actualizar el precio. Revisa tu conexión e intenta de nuevo." });
       }
     }, QUOTE_DELAY_MS);
 

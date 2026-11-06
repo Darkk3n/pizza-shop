@@ -10,7 +10,7 @@ import { requireAdmin } from "@/lib/auth/currentUser";
 import { DeleteRecipeDialog } from "../DeleteRecipeDialog";
 import { RecipeForm } from "../RecipeForm";
 
-export const metadata: Metadata = { title: "Edit recipe · Rubencinis & Mate Pizza" };
+export const metadata: Metadata = { title: "Editar receta · Rubencinis & Mate Pizza" };
 
 const EditRecipe = async ({ params }: { params: PageProps<"/recipes/[id]">["params"] }) => {
   await requireAdmin();
@@ -22,7 +22,7 @@ const EditRecipe = async ({ params }: { params: PageProps<"/recipes/[id]">["para
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <h1 className="text-2xl font-semibold tracking-tight">{recipe.name}</h1>
-          {!recipe.isActive && <Badge variant="outline">Retired</Badge>}
+          {!recipe.isActive && <Badge variant="outline">Retirada</Badge>}
         </div>
         <DeleteRecipeDialog recipeId={recipe.recipeId} name={recipe.name} />
       </div>
@@ -34,7 +34,7 @@ const EditRecipe = async ({ params }: { params: PageProps<"/recipes/[id]">["para
 
 const EditRecipeSkeleton = () => {
   return (
-    <div className="flex flex-col gap-6" aria-busy="true" aria-label="Loading recipe">
+    <div className="flex flex-col gap-6" aria-busy="true" aria-label="Cargando receta">
       <Skeleton className="h-8 w-56" />
       <Skeleton className="h-96 max-w-2xl" />
     </div>
@@ -46,7 +46,7 @@ const EditRecipePage = ({ params }: PageProps<"/recipes/[id]">) => {
     <div className="flex flex-col gap-6">
       <Link href="/recipes" className="flex w-fit items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeftIcon className="size-4" />
-        Recipes
+        Recetas
       </Link>
       <Suspense fallback={<EditRecipeSkeleton />}>
         <EditRecipe params={params} />

@@ -36,11 +36,11 @@ namespace PizzaShop.Api.Statistics
 
             if (start > end)
             {
-                return new RangeResult(null, "From", "'from' must be on or before 'to'.");
+                return new RangeResult(null, "From", "'from' debe ser igual o anterior a 'to'.");
             }
             if (end.DayNumber - start.DayNumber + 1 > MaxDays)
             {
-                return new RangeResult(null, "To", $"The range can be at most {MaxDays} days.");
+                return new RangeResult(null, "To", $"El periodo puede ser de máximo {MaxDays} días.");
             }
 
             return new RangeResult(new StatisticsRange(start, end, StartOfDayUtc(start, zone), StartOfDayUtc(end.AddDays(1), zone)));

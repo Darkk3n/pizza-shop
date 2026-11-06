@@ -5,12 +5,13 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
 import { userRoleSchema, type UserRole } from "@/lib/api/schemas/users";
+import { ROLE_LABELS } from "@/lib/helpers/format";
 import { updateUserRole } from "./actions";
 
-const ROLE_LABELS: Record<UserRole, string> = {
-  Customer: "Customer (orders only)",
-  Staff: "Staff (orders + inventory)",
-  Admin: "Admin (everything)",
+const ROLE_OPTIONS: Record<UserRole, string> = {
+  Customer: `${ROLE_LABELS.Customer} (solo pedidos)`,
+  Staff: `${ROLE_LABELS.Staff} (pedidos + inventario)`,
+  Admin: `${ROLE_LABELS.Admin} (todo)`,
 };
 
 type UserRoleControlProps = {
@@ -42,10 +43,10 @@ export const UserRoleControl = ({ userId, email, role, isSelf }: UserRoleControl
     startTransition(async () => {
       const result = await updateUserRole(userId, selected);
       if (result.ok) {
-        toast.success(`${email} is now ${selected === "Customer" ? "a customer" : selected.toLowerCase()}.`);
+        toast.success(`${email} ahora tiene el rol ${ROLE_LABELS[selected]}.`);
       } else {
         // 409 = the last admin; anything else is unexpected. Either way, show the stored role again.
-        setError(result.message || Object.values(result.fieldErrors ?? {}).join(" ") || "Couldn't change the role.");
+        setError(result.message || Object.values(result.fieldErrors ?? {}).join(" ") || "No se pudo cambiar el rol.");
         setSelected(role);
       }
     });
@@ -55,7 +56,7 @@ export const UserRoleControl = ({ userId, email, role, isSelf }: UserRoleControl
     <div className="flex flex-col items-end gap-1">
       <div className="flex items-center gap-2">
         <label htmlFor={selectId} className="sr-only">
-          Role for {email}
+          Rol de {email}
         </label>
         <NativeSelect
           id={selectId}
@@ -70,19 +71,19 @@ export const UserRoleControl = ({ userId, email, role, isSelf }: UserRoleControl
         >
           {userRoleSchema.options.map((option) => (
             <NativeSelectOption key={option} value={option}>
-              {ROLE_LABELS[option]}
+              {ROLE_OPTIONS[option]}
             </NativeSelectOption>
           ))}
         </NativeSelect>
         {selected !== role && (
           <Button size="sm" disabled={pending} onClick={save}>
-            {pending ? "Saving…" : "Save"}
+            {pending ? "Guardando…" : "Guardar"}
           </Button>
         )}
       </div>
       {isSelf && (
         <p id={`${selectId}-self`} className="text-xs text-muted-foreground">
-          That&apos;s you. Another admin can change your role.
+          Es tu cuenta. Otro administrador puede cambiar tu rol.
         </p>
       )}
       {error && (

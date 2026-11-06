@@ -26,17 +26,17 @@ export const OrderFeed = () => {
 
   const announce = useEffectEvent((orders: Feed["newOrders"]) => {
     if (orders.length > MAX_ORDER_TOASTS) {
-      toast.info(`${orders.length} new orders`, {
-        action: { label: "View", onClick: () => router.push("/") },
+      toast.info(`${orders.length} pedidos nuevos`, {
+        action: { label: "Ver", onClick: () => router.push("/") },
         duration: 10_000,
       });
       return;
     }
     for (const order of orders) {
-      const items = `${order.itemCount} ${order.itemCount === 1 ? "item" : "items"}`;
-      toast.info(`New order #${order.orderNumber}`, {
+      const items = `${order.itemCount} ${order.itemCount === 1 ? "producto" : "productos"}`;
+      toast.info(`Nuevo pedido #${order.orderNumber}`, {
         description: `${ORDER_TYPE_LABELS[order.orderType]} · ${items} · ${formatMoney(order.total)}${order.placedByEmail ? ` · ${order.placedByEmail}` : ""}`,
-        action: { label: "View", onClick: () => router.push(`/orders/${order.orderId}`) },
+        action: { label: "Ver", onClick: () => router.push(`/orders/${order.orderId}`) },
         duration: 10_000,
       });
     }
@@ -44,14 +44,14 @@ export const OrderFeed = () => {
 
   const announceCancellations = useEffectEvent((orders: Feed["cancelledOrders"]) => {
     if (orders.length > MAX_ORDER_TOASTS) {
-      toast.warning(`${orders.length} orders cancelled`, { duration: 10_000 });
+      toast.warning(`${orders.length} pedidos cancelados`, { duration: 10_000 });
       return;
     }
     for (const order of orders) {
-      const details = [order.cancelledByEmail && `By ${order.cancelledByEmail}`, order.cancellationReason].filter(Boolean);
-      toast.warning(`Order #${order.orderNumber} cancelled`, {
+      const details = [order.cancelledByEmail && `Por ${order.cancelledByEmail}`, order.cancellationReason].filter(Boolean);
+      toast.warning(`Pedido #${order.orderNumber} cancelado`, {
         description: details.length > 0 ? details.join(" · ") : undefined,
-        action: { label: "View", onClick: () => router.push(`/orders/${order.orderId}`) },
+        action: { label: "Ver", onClick: () => router.push(`/orders/${order.orderId}`) },
         duration: 10_000,
       });
     }

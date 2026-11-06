@@ -16,11 +16,11 @@ export const currentUserSchema = z.object({
   roles: z.array(z.string()),
 });
 
-const emailSchema = z.email("Enter a valid email address.").trim();
+const emailSchema = z.email("Escribe un correo válido.").trim();
 
 export const credentialsSchema = z.object({
   email: emailSchema,
-  password: z.string().min(1, "Enter your password."),
+  password: z.string().min(1, "Escribe tu contraseña."),
 });
 
 export type Credentials = z.infer<typeof credentialsSchema>;
@@ -28,16 +28,16 @@ export type Credentials = z.infer<typeof credentialsSchema>;
 // Mirrors the API's Identity password rules (defaults): 6+ chars, upper, lower, digit, symbol.
 const newPasswordSchema = z
   .string()
-  .min(6, "Use at least 6 characters.")
-  .regex(/[A-Z]/, "Include an uppercase letter.")
-  .regex(/[a-z]/, "Include a lowercase letter.")
-  .regex(/\d/, "Include a number.")
-  .regex(/[^A-Za-z0-9]/, "Include a symbol.");
+  .min(6, "Usa al menos 6 caracteres.")
+  .regex(/[A-Z]/, "Incluye una letra mayúscula.")
+  .regex(/[a-z]/, "Incluye una letra minúscula.")
+  .regex(/\d/, "Incluye un número.")
+  .regex(/[^A-Za-z0-9]/, "Incluye un símbolo.");
 
-export const PASSWORD_HINT = "At least 6 characters with upper and lower case, a number and a symbol.";
+export const PASSWORD_HINT = "Al menos 6 caracteres, con mayúsculas y minúsculas, un número y un símbolo.";
 
 const passwordsMatch = (data: { password: string; confirmPassword: string }) => data.password === data.confirmPassword;
-const mismatch = { message: "Passwords don't match.", path: ["confirmPassword"] };
+const mismatch = { message: "Las contraseñas no coinciden.", path: ["confirmPassword"] };
 
 export const registerSchema = z
   .object({ email: emailSchema, password: newPasswordSchema, confirmPassword: z.string() })

@@ -83,7 +83,7 @@ export const AppShell = ({ children, nav, userMenu }: AppShellProps) => {
 				href="#main-content"
 				className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-60 focus:rounded-md focus:bg-popover focus:px-3 focus:py-2 focus:text-sm focus:text-popover-foreground focus:shadow-md"
 			>
-				Skip to content
+				Saltar al contenido
 			</a>
 
 			<header className="sticky top-0 z-30 flex h-16 shrink-0 items-center gap-3 border-b border-border bg-card/90 px-3 backdrop-blur sm:px-4">
@@ -93,7 +93,7 @@ export const AppShell = ({ children, nav, userMenu }: AppShellProps) => {
 					onClick={handleToggle}
 					aria-controls={SIDEBAR_ID}
 					aria-expanded={expanded}
-					aria-label={expanded ? "Collapse navigation" : "Expand navigation"}
+					aria-label={expanded ? "Contraer navegación" : "Expandir navegación"}
 					className="inline-flex size-10 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 				>
 					<MenuIcon className="size-5" />
@@ -114,7 +114,7 @@ export const AppShell = ({ children, nav, userMenu }: AppShellProps) => {
 
 				<aside
 					id={SIDEBAR_ID}
-					aria-label="Main navigation"
+					aria-label="Navegación principal"
 					data-open={mobileOpen}
 					className="invisible fixed inset-y-0 left-0 z-50 flex w-72 max-w-[85vw] -translate-x-full flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-[translate,visibility] duration-200 ease-out data-[open=true]:visible data-[open=true]:translate-x-0 md:visible md:sticky md:top-16 md:z-auto md:h-[calc(100dvh-4rem)] md:w-60 md:max-w-none md:shrink-0 md:translate-x-0 md:transition-[width] md:sidebar-collapsed:w-16"
 				>
@@ -125,7 +125,7 @@ export const AppShell = ({ children, nav, userMenu }: AppShellProps) => {
 							ref={closeRef}
 							type="button"
 							onClick={closeDrawer}
-							aria-label="Close navigation"
+							aria-label="Cerrar navegación"
 							className="inline-flex size-10 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 						>
 							<CloseIcon className="size-5" />

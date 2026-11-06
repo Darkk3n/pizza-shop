@@ -17,11 +17,12 @@ namespace PizzaShop.Api.Endpoints
             return set.AnyAsync(e => e.Name.ToLower() == lowered && EF.Property<Guid>(e, keyName) != excludeId, ct);
         }
 
-        // resource is the display name, e.g. "Pizza size".
+        // resource is the Spanish display name with its article, e.g. "un tamaño de pizza", so the
+        // sentence agrees in gender: "Ya existe un tamaño de pizza con el nombre 'Grande'."
         public static ProblemHttpResult DuplicateName(string resource, string name) =>
             TypedResults.Problem(
                 statusCode: StatusCodes.Status409Conflict,
-                title: $"{resource} already exists.",
-                detail: $"{resource} '{name}' already exists.");
+                title: "Nombre duplicado.",
+                detail: $"Ya existe {resource} con el nombre '{name}'.");
     }
 }

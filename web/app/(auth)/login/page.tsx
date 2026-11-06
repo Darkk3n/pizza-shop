@@ -4,14 +4,14 @@ import { Suspense } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { LoginForm } from "./LoginForm";
 
-export const metadata: Metadata = { title: "Sign in · Rubencinis & Mate Pizza" };
+export const metadata: Metadata = { title: "Iniciar sesión · Rubencinis & Mate Pizza" };
 
 const LoginPage = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-xl">Sign in</CardTitle>
-        <CardDescription>Use your Rubencinis & Mate Pizza account.</CardDescription>
+        <CardTitle className="text-xl">Iniciar sesión</CardTitle>
+        <CardDescription>Usa tu cuenta de Rubencinis & Mate Pizza.</CardDescription>
       </CardHeader>
       <CardContent>
         {/* LoginForm reads ?next=, which is request data, so it streams in. */}
@@ -20,9 +20,9 @@ const LoginPage = () => {
         </Suspense>
       </CardContent>
       <CardFooter className="text-sm text-muted-foreground">
-        New here?&nbsp;
+        ¿Primera vez aquí?&nbsp;
         <Link href="/register" className="font-medium text-primary underline-offset-4 hover:underline">
-          Create an account
+          Crea una cuenta
         </Link>
       </CardFooter>
     </Card>

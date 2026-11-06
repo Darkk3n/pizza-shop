@@ -11,12 +11,12 @@ const Forbidden = () => {
         <ThemeToggle />
       </div>
       <p className="text-sm font-medium text-primary">403</p>
-      <h1 className="text-2xl font-semibold tracking-tight">You don&apos;t have access to this page</h1>
+      <h1 className="text-2xl font-semibold tracking-tight">No tienes acceso a esta página</h1>
       <p className="max-w-md text-muted-foreground">
-        Your account can&apos;t open this screen. If you think it should, ask an admin to update your role.
+        Tu cuenta no puede abrir esta pantalla. Si crees que debería, pide a un administrador que actualice tu rol.
       </p>
       <Link href="/" className={buttonVariants({ variant: "outline" })}>
-        Go to your home page
+        Ir a tu página de inicio
       </Link>
     </main>
   );

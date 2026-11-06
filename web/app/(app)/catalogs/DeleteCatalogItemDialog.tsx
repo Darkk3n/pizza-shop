@@ -17,7 +17,7 @@ import type { ActionResult } from "@/lib/helpers/actions";
 
 type DeleteCatalogItemDialogProps = {
   name: string;
-  // e.g. "size", for the buttons and the fallback error.
+  // e.g. "tamaño", for the keep button ("Conservar tamaño").
   kind: string;
   description: string;
   // What to say when the API answers 409 (the item is in use).
@@ -46,12 +46,12 @@ export const DeleteCatalogItemDialog = ({
     startTransition(async () => {
       const result = await onDelete();
       if (result.ok) {
-        toast.success(`${name} deleted.`);
+        toast.success(`${name}: eliminado.`);
         onOpenChange(false);
       } else if (result.status === 409) {
         setError(inUseMessage);
       } else {
-        setError(result.message || `Couldn't delete the ${kind}.`);
+        setError(result.message || `No se pudo eliminar ${name}.`);
       }
     });
   };
@@ -66,15 +66,15 @@ export const DeleteCatalogItemDialog = ({
     >
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete {name}?</AlertDialogTitle>
+          <AlertDialogTitle>¿Eliminar {name}?</AlertDialogTitle>
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <FormAlert message={error} />
         <AlertDialogFooter>
-          <AlertDialogCancel>Keep {kind}</AlertDialogCancel>
+          <AlertDialogCancel>Conservar {kind}</AlertDialogCancel>
           {/* A plain button, not AlertDialogAction, so the dialog stays open to show a 409. */}
           <Button variant="destructive" disabled={pending} onClick={remove}>
-            {pending ? "Deleting…" : "Delete"}
+            {pending ? "Eliminando…" : "Eliminar"}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

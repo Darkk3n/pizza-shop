@@ -17,7 +17,7 @@ export const RecipeCard = ({ recipe, ingredients }: RecipeCardProps) => {
         <div className="flex items-start justify-between gap-3">
           <PizzaIcon className="size-8 shrink-0 text-primary" aria-hidden="true" />
           <span className="font-mono text-sm text-muted-foreground">
-            from <span className="font-semibold text-foreground">{formatMoney(recipe.basePrice)}</span>
+            desde <span className="font-semibold text-foreground">{formatMoney(recipe.basePrice)}</span>
           </span>
         </div>
         <CardTitle className="text-lg">

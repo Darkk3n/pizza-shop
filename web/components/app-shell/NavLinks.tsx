@@ -11,16 +11,16 @@ import { useShell } from "./ShellContext";
 type NavItem = { href: string; label: string; icon: ComponentType<SVGProps<SVGSVGElement>> };
 
 const NAV_ITEMS: Record<NavKey, NavItem> = {
-  dashboard: { href: "/", label: "Dashboard", icon: DashboardIcon },
-  home: { href: "/", label: "Home", icon: HouseIcon },
-  menu: { href: "/menu", label: "Menu", icon: PizzaIcon },
-  myOrders: { href: "/my-orders", label: "My orders", icon: ReceiptTextIcon },
-  orders: { href: "/orders", label: "Orders", icon: OrdersIcon },
-  inventory: { href: "/inventory", label: "Inventory", icon: InventoryIcon },
-  recipes: { href: "/recipes", label: "Recipes", icon: RecipesIcon },
-  catalogs: { href: "/catalogs", label: "Catalogs", icon: TagsIcon },
-  analytics: { href: "/analytics", label: "Analytics", icon: AnalyticsIcon },
-  users: { href: "/users", label: "Users", icon: UsersIcon },
+  dashboard: { href: "/", label: "Tablero", icon: DashboardIcon },
+  home: { href: "/", label: "Inicio", icon: HouseIcon },
+  menu: { href: "/menu", label: "Menú", icon: PizzaIcon },
+  myOrders: { href: "/my-orders", label: "Mis pedidos", icon: ReceiptTextIcon },
+  orders: { href: "/orders", label: "Pedidos", icon: OrdersIcon },
+  inventory: { href: "/inventory", label: "Inventario", icon: InventoryIcon },
+  recipes: { href: "/recipes", label: "Recetas", icon: RecipesIcon },
+  catalogs: { href: "/catalogs", label: "Catálogos", icon: TagsIcon },
+  analytics: { href: "/analytics", label: "Estadísticas", icon: AnalyticsIcon },
+  users: { href: "/users", label: "Usuarios", icon: UsersIcon },
 };
 
 const isActive = (pathname: string, href: string) => {

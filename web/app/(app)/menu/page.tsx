@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { listRecipes } from "@/lib/api/menu";
 import { requireUser } from "@/lib/auth/currentUser";
 
-export const metadata: Metadata = { title: "Menu · Rubencinis & Mate Pizza" };
+export const metadata: Metadata = { title: "Menú · Rubencinis & Mate Pizza" };
 
 const RecipeGrid = async () => {
   await requireUser();
@@ -15,7 +15,7 @@ const RecipeGrid = async () => {
   if (recipes.length === 0) {
     return (
       <p className="rounded-lg border border-dashed px-4 py-12 text-center text-muted-foreground">
-        The menu is empty right now. Check back soon.
+        El menú está vacío por ahora. Vuelve pronto.
       </p>
     );
   }
@@ -33,7 +33,7 @@ const RecipeGrid = async () => {
 
 const RecipeGridSkeleton = () => {
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-busy="true" aria-label="Loading menu">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-busy="true" aria-label="Cargando menú">
       {Array.from({ length: 6 }, (_, i) => (
         <Skeleton key={i} className="h-36 rounded-xl" />
       ))}
@@ -45,8 +45,8 @@ const MenuPage = () => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold tracking-tight">Menu</h1>
-        <p className="text-muted-foreground">Pick a pizza, then choose the size and toppings.</p>
+        <h1 className="text-2xl font-semibold tracking-tight">Menú</h1>
+        <p className="text-muted-foreground">Elige una pizza y luego el tamaño y los ingredientes.</p>
       </div>
       <Suspense fallback={<RecipeGridSkeleton />}>
         <RecipeGrid />

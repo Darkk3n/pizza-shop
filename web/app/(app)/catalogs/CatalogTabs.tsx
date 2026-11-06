@@ -27,8 +27,8 @@ export const CatalogTabs = ({ defaultTab, sizes, units, unitUsage }: CatalogTabs
   return (
     <Tabs defaultValue={defaultTab} onValueChange={onTabChange} className="gap-4">
       <TabsList>
-        <TabsTrigger value="sizes">Pizza sizes</TabsTrigger>
-        <TabsTrigger value="units">Units of measure</TabsTrigger>
+        <TabsTrigger value="sizes">Tamaños de pizza</TabsTrigger>
+        <TabsTrigger value="units">Unidades de medida</TabsTrigger>
       </TabsList>
       <TabsContent value="sizes">
         <PizzaSizesTable sizes={sizes} />

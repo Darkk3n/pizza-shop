@@ -14,7 +14,7 @@ export const ComingSoon = ({ title, description, guard }: ComingSoonProps) => {
       {guard && <Suspense>{guard}</Suspense>}
       <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
       <p className="text-muted-foreground">{description}</p>
-      <p className="mt-4 text-sm text-muted-foreground">Coming soon.</p>
+      <p className="mt-4 text-sm text-muted-foreground">Próximamente.</p>
     </div>
   );
 };

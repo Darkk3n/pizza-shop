@@ -46,10 +46,10 @@ export const ResetPasswordForm = ({ email, code }: { email: string; code: string
     return (
       <div className="grid gap-4">
         <p role="status" className="text-sm text-muted-foreground">
-          Your password was changed. Sign in with the new one.
+          Tu contraseña cambió. Inicia sesión con la nueva.
         </p>
         <Link href="/login" className={buttonVariants({ size: "lg" })}>
-          Sign in
+          Iniciar sesión
         </Link>
       </div>
     );
@@ -60,15 +60,15 @@ export const ResetPasswordForm = ({ email, code }: { email: string; code: string
       <FormAlert message={formError} />
       {linkExpired && (
         <Link href="/forgot-password" className={buttonVariants({ variant: "outline" })}>
-          Ask for a new link
+          Pedir un enlace nuevo
         </Link>
       )}
       <p className="text-sm text-muted-foreground">
-        For <span className="font-medium text-foreground">{email}</span>
+        Para <span className="font-medium text-foreground">{email}</span>
       </p>
       <FormInput
         id="password"
-        label="New password"
+        label="Nueva contraseña"
         type="password"
         autoComplete="new-password"
         autoFocus
@@ -78,14 +78,14 @@ export const ResetPasswordForm = ({ email, code }: { email: string; code: string
       />
       <FormInput
         id="confirmPassword"
-        label="Confirm new password"
+        label="Confirma la nueva contraseña"
         type="password"
         autoComplete="new-password"
         error={errors.confirmPassword}
         {...register("confirmPassword")}
       />
       <Button type="submit" size="lg" disabled={pending}>
-        {pending ? "Saving…" : "Set new password"}
+        {pending ? "Guardando…" : "Guardar contraseña"}
       </Button>
     </form>
   );

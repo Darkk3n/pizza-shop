@@ -17,7 +17,7 @@ import { deletePizzaSize } from "./actions";
 import { DeleteCatalogItemDialog } from "./DeleteCatalogItemDialog";
 import { EXAMPLE_SMALL_PRICE, PizzaSizeFormDialog } from "./PizzaSizeFormDialog";
 
-const multiplier = new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const multiplier = new Intl.NumberFormat("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 // The dialogs live outside the menu so they stay open after the menu closes.
 const PizzaSizeActions = ({ size }: { size: PizzaSize }) => {
@@ -28,23 +28,23 @@ const PizzaSizeActions = ({ size }: { size: PizzaSize }) => {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon-sm" aria-label={`More actions for ${size.name}`}>
+          <Button variant="ghost" size="icon-sm" aria-label={`Más acciones para ${size.name}`}>
             <MoreHorizontalIcon />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onSelect={() => setDialog("edit")}>Edit</DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => setDialog("edit")}>Editar</DropdownMenuItem>
           <DropdownMenuItem variant="destructive" onSelect={() => setDialog("delete")}>
-            Delete
+            Eliminar
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <PizzaSizeFormDialog open={dialog === "edit"} onOpenChange={setOpen("edit")} size={size} />
       <DeleteCatalogItemDialog
         name={size.name}
-        kind="size"
-        description="This removes it for good. Sizes that past orders used can only be retired."
-        inUseMessage={`${size.name} is in past orders, so it can't be deleted. Edit it and set it to Retired instead.`}
+        kind="tamaño"
+        description="Se elimina de forma permanente. Los tamaños que se usaron en pedidos anteriores solo se pueden retirar."
+        inUseMessage={`${size.name} aparece en pedidos anteriores, así que no se puede eliminar. En su lugar, se puede editar y marcar como Retirado.`}
         onDelete={() => deletePizzaSize(size.pizzaSizeId)}
         open={dialog === "delete"}
         onOpenChange={setOpen("delete")}
@@ -60,31 +60,31 @@ export const PizzaSizesTable = ({ sizes }: { sizes: PizzaSize[] }) => {
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <p className="text-sm text-muted-foreground">
-          Smallest first. Customers only see sizes on the menu.
+          Del más chico al más grande. Los clientes solo ven los tamaños del menú.
         </p>
         <Button onClick={() => setCreating(true)}>
           <PlusIcon />
-          New size
+          Nuevo tamaño
         </Button>
       </div>
       <PizzaSizeFormDialog open={creating} onOpenChange={setCreating} />
 
       {sizes.length === 0 ? (
         <p className="rounded-lg border border-dashed px-4 py-12 text-center text-muted-foreground">
-          No sizes yet. Add one so customers can order.
+          Aún no hay tamaños. Se necesita al menos uno para que los clientes puedan pedir.
         </p>
       ) : (
         <div className="rounded-lg border">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Size</TableHead>
-                <TableHead className="text-right">Multiplier</TableHead>
+                <TableHead>Tamaño</TableHead>
+                <TableHead className="text-right">Multiplicador</TableHead>
                 <TableHead className="hidden text-right sm:table-cell">
                   A {formatMoney(EXAMPLE_SMALL_PRICE)} Small
                 </TableHead>
                 <TableHead className="w-12">
-                  <span className="sr-only">Actions</span>
+                  <span className="sr-only">Acciones</span>
                 </TableHead>
               </TableRow>
             </TableHeader>
@@ -94,7 +94,7 @@ export const PizzaSizesTable = ({ sizes }: { sizes: PizzaSize[] }) => {
                   <TableCell className="font-medium">
                     <span className="flex flex-wrap items-center gap-2">
                       {size.name}
-                      {!size.isActive && <Badge variant="outline">Retired</Badge>}
+                      {!size.isActive && <Badge variant="outline">Retirado</Badge>}
                     </span>
                   </TableCell>
                   <TableCell className="text-right font-mono tabular-nums">

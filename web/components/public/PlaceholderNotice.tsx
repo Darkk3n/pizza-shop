@@ -4,9 +4,9 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 export const PlaceholderNotice = () => {
   return (
     <Alert>
-      <AlertTitle>Placeholder text</AlertTitle>
+      <AlertTitle>Texto provisional</AlertTitle>
       <AlertDescription>
-        This page is a starting template, not legal advice. Replace it with your own reviewed text before launch.
+        Esta página es una plantilla inicial, no asesoría legal. Reemplázala con un texto revisado antes del lanzamiento.
       </AlertDescription>
     </Alert>
   );

@@ -9,10 +9,10 @@ export const OrderItemsTable = ({ order }: { order: Order }) => {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Item</TableHead>
-          <TableHead className="text-right">Qty</TableHead>
-          <TableHead className="text-right">Unit</TableHead>
-          <TableHead className="text-right">Line</TableHead>
+          <TableHead>Producto</TableHead>
+          <TableHead className="text-right">Cant.</TableHead>
+          <TableHead className="text-right">Precio unitario</TableHead>
+          <TableHead className="text-right">Importe</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -44,7 +44,7 @@ export const OrderItemsTable = ({ order }: { order: Order }) => {
           <TableCell className="text-right font-mono tabular-nums">{formatMoney(order.subTotal)}</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell colSpan={3}>Tax</TableCell>
+          <TableCell colSpan={3}>IVA</TableCell>
           <TableCell className="text-right font-mono tabular-nums">{formatMoney(order.tax)}</TableCell>
         </TableRow>
         <TableRow>

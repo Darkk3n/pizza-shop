@@ -15,7 +15,7 @@ import { deleteUnitOfMeasure } from "./actions";
 import { DeleteCatalogItemDialog } from "./DeleteCatalogItemDialog";
 import { UnitOfMeasureFormDialog } from "./UnitOfMeasureFormDialog";
 
-const ingredientsLabel = (count: number) => (count === 1 ? "1 ingredient" : `${count} ingredients`);
+const ingredientsLabel = (count: number) => (count === 1 ? "1 ingrediente" : `${count} ingredientes`);
 
 const UnitOfMeasureActions = ({ unit, ingredientCount }: { unit: UnitOfMeasure; ingredientCount: number }) => {
   const [dialog, setDialog] = useState<"edit" | "delete" | null>(null);
@@ -25,14 +25,14 @@ const UnitOfMeasureActions = ({ unit, ingredientCount }: { unit: UnitOfMeasure; 
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon-sm" aria-label={`More actions for ${unit.name}`}>
+          <Button variant="ghost" size="icon-sm" aria-label={`Más acciones para ${unit.name}`}>
             <MoreHorizontalIcon />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onSelect={() => setDialog("edit")}>Edit</DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => setDialog("edit")}>Editar</DropdownMenuItem>
           <DropdownMenuItem variant="destructive" onSelect={() => setDialog("delete")}>
-            Delete
+            Eliminar
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -44,9 +44,9 @@ const UnitOfMeasureActions = ({ unit, ingredientCount }: { unit: UnitOfMeasure; 
       />
       <DeleteCatalogItemDialog
         name={unit.name}
-        kind="unit"
-        description="This removes it for good. Only units no ingredient uses can be deleted."
-        inUseMessage={`${unit.name} is used by ingredients, so it can't be deleted. Move them to another unit first.`}
+        kind="unidad"
+        description="Se elimina de forma permanente. Solo se pueden eliminar las unidades que ningún ingrediente usa."
+        inUseMessage={`${unit.name} se usa en ingredientes, así que no se puede eliminar. Primero hay que cambiarlos a otra unidad.`}
         onDelete={() => deleteUnitOfMeasure(unit.unitOfMeasureId)}
         open={dialog === "delete"}
         onOpenChange={setOpen("delete")}
@@ -67,27 +67,27 @@ export const UnitsOfMeasureTable = ({ units, usage }: UnitsOfMeasureTableProps) 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <p className="text-sm text-muted-foreground">How ingredients are stocked and measured in recipes.</p>
+        <p className="text-sm text-muted-foreground">Cómo se almacenan los ingredientes y cómo se miden en las recetas.</p>
         <Button onClick={() => setCreating(true)}>
           <PlusIcon />
-          New unit
+          Nueva unidad
         </Button>
       </div>
       <UnitOfMeasureFormDialog open={creating} onOpenChange={setCreating} />
 
       {units.length === 0 ? (
         <p className="rounded-lg border border-dashed px-4 py-12 text-center text-muted-foreground">
-          No units yet. Add one before creating ingredients.
+          Aún no hay unidades. Se necesita al menos una antes de crear ingredientes.
         </p>
       ) : (
         <div className="rounded-lg border">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Unit</TableHead>
-                <TableHead className="text-right">Used by</TableHead>
+                <TableHead>Unidad</TableHead>
+                <TableHead className="text-right">Usada por</TableHead>
                 <TableHead className="w-12">
-                  <span className="sr-only">Actions</span>
+                  <span className="sr-only">Acciones</span>
                 </TableHead>
               </TableRow>
             </TableHeader>
@@ -98,7 +98,7 @@ export const UnitsOfMeasureTable = ({ units, usage }: UnitsOfMeasureTableProps) 
                   <TableRow key={unit.unitOfMeasureId}>
                     <TableCell className="font-medium">{unit.name}</TableCell>
                     <TableCell className="text-right text-muted-foreground tabular-nums">
-                      {count === 0 ? "Not used" : ingredientsLabel(count)}
+                      {count === 0 ? "Sin uso" : ingredientsLabel(count)}
                     </TableCell>
                     <TableCell className="text-right">
                       <UnitOfMeasureActions unit={unit} ingredientCount={count} />

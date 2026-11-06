@@ -17,14 +17,14 @@ export const OrderAgainButton = ({ orderNumber, lines }: { orderNumber: number; 
   const add = () => {
     for (const line of lines) cart.addItem(line.item, { name: line.name, details: line.details });
     const count = lines.reduce((sum, line) => sum + line.item.quantity, 0);
-    toast.success(`${count} ${count === 1 ? "item" : "items"} from order #${orderNumber} added`, {
-      action: { label: "View cart", onClick: () => router.push("/cart") },
+    toast.success(`Se ${count === 1 ? "agregó 1 producto" : `agregaron ${count} productos`} del pedido #${orderNumber}`, {
+      action: { label: "Ver carrito", onClick: () => router.push("/cart") },
     });
   };
 
   return (
     <Button size="sm" variant="outline" disabled={lines.length === 0} onClick={add}>
-      Order again
+      Pedir de nuevo
     </Button>
   );
 };

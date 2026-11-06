@@ -32,9 +32,9 @@ import { cn } from "@/lib/utils";
 import { adjustStock } from "./actions";
 
 const MODE_COPY = {
-  Restock: { label: "Restock", field: "Quantity received" },
-  Waste: { label: "Waste", field: "Quantity thrown out" },
-  Recount: { label: "Recount", field: "Counted stock" },
+  Restock: { label: "Entrada", field: "Cantidad recibida" },
+  Waste: { label: "Merma", field: "Cantidad desechada" },
+  Recount: { label: "Conteo", field: "Existencia contada" },
 } as const;
 
 const MODE_CHOICES = STOCK_ADJUSTMENT_MODES.map((mode) => ({ value: mode, label: MODE_COPY[mode].label }));
@@ -71,7 +71,7 @@ export const AdjustStockDialog = ({ ingredient }: { ingredient: Ingredient }) =>
     setFormError(null);
     const delta = stockDelta(values, ingredient.currentStock);
     if (delta === 0) {
-      setError("quantity", { message: "That matches the current stock already." });
+      setError("quantity", { message: "Coincide con la existencia actual." });
       return;
     }
     startTransition(async () => {
@@ -84,7 +84,7 @@ export const AdjustStockDialog = ({ ingredient }: { ingredient: Ingredient }) =>
         reset();
       } else {
         // The form's field is a quantity, not the API's delta, so delta errors go above the form.
-        setFormError(applyActionErrors(result, setError, ["quantity"]) ?? "Couldn't update the stock.");
+        setFormError(applyActionErrors(result, setError, ["quantity"]) ?? "No se pudo actualizar la existencia.");
       }
     });
   });
@@ -102,20 +102,20 @@ export const AdjustStockDialog = ({ ingredient }: { ingredient: Ingredient }) =>
     >
       <DialogTrigger asChild>
         <Button variant="outline" size="sm">
-          Adjust<span className="sr-only"> {ingredient.name} stock</span>
+          Ajustar<span className="sr-only"> existencia de {ingredient.name}</span>
         </Button>
       </DialogTrigger>
       <DialogContent>
         <form onSubmit={onSubmit} noValidate className="grid gap-4">
           <DialogHeader>
-            <DialogTitle>Adjust {ingredient.name}</DialogTitle>
+            <DialogTitle>Ajustar {ingredient.name}</DialogTitle>
             <DialogDescription>
-              Current stock: {formatQuantity(ingredient.currentStock)} {unit}
+              Existencia actual: {formatQuantity(ingredient.currentStock)} {unit}
             </DialogDescription>
           </DialogHeader>
           <FormAlert message={formError} />
           <ChoiceGroup
-            legend="Adjustment"
+            legend="Tipo de ajuste"
             value={mode}
             choices={MODE_CHOICES}
             onChange={(next) => setValue("mode", next, { shouldValidate: errors.quantity !== undefined })}
@@ -144,18 +144,18 @@ export const AdjustStockDialog = ({ ingredient }: { ingredient: Ingredient }) =>
                 id={`${inputId}-preview`}
                 className={cn("text-sm text-muted-foreground", newStock !== null && newStock < 0 && "text-destructive")}
               >
-                {newStock === null ? " " : `New stock: ${formatQuantity(newStock)} ${unit}`}
+                {newStock === null ? " " : `Nueva existencia: ${formatQuantity(newStock)} ${unit}`}
               </p>
             )}
           </div>
           <DialogFooter>
             <DialogClose asChild>
               <Button type="button" variant="outline">
-                Close
+                Cerrar
               </Button>
             </DialogClose>
             <Button type="submit" disabled={pending}>
-              {pending ? "Saving…" : "Save"}
+              {pending ? "Guardando…" : "Guardar"}
             </Button>
           </DialogFooter>
         </form>

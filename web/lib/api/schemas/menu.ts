@@ -35,12 +35,12 @@ export type PizzaSize = z.infer<typeof pizzaSizeSchema>;
 // POST/PUT /api/pizza-sizes (admin). PriceMultiplier is Decimal(3,2), so 9.99 is the most it holds.
 // POST ignores isActive: new sizes start on the menu.
 export const pizzaSizeFormSchema = z.object({
-  name: z.string().trim().min(1, "Enter a name.").max(20, "Keep the name under 20 characters."),
+  name: z.string().trim().min(1, "El nombre es obligatorio.").max(20, "Máximo 20 caracteres."),
   priceMultiplier: z
-    .number({ error: "Enter a multiplier." })
-    .min(0.01, "Enter more than zero.")
-    .max(9.99, "The multiplier can be at most 9.99.")
-    .refine(hasMaxDecimals(2), "Use at most two decimals."),
+    .number({ error: "El multiplicador es obligatorio." })
+    .min(0.01, "Debe ser mayor que cero.")
+    .max(9.99, "El multiplicador puede ser como máximo 9.99.")
+    .refine(hasMaxDecimals(2), "Máximo dos decimales."),
   isActive: z.boolean(),
 });
 

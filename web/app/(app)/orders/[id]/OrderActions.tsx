@@ -7,16 +7,16 @@ import { CancelOrderDialog } from "@/components/orders/CancelOrderDialog";
 import { Button } from "@/components/ui/button";
 import type { ActionFailure } from "@/lib/helpers/actions";
 import { isCancellable, nextStatuses, type OrderStatus } from "@/lib/api/schemas/orders";
-import { ORDER_STATUS_LABELS } from "@/lib/helpers/format";
+import { ORDER_STATUS_ACTION_LABELS, ORDER_STATUS_LABELS } from "@/lib/helpers/format";
 
 type OrderActionsProps = { orderId: string; orderNumber: number; status: OrderStatus };
 
 // 409 means someone else changed the order first; the action already refreshed the page.
 const reportFailure = (result: ActionFailure) => {
   if (result.status === 409) {
-    toast.warning(result.message ?? "This order changed. Showing the latest version.");
+    toast.warning(result.message ?? "Este pedido cambió. Se muestra la versión más reciente.");
   } else {
-    toast.error(result.message || Object.values(result.fieldErrors ?? {}).join(" ") || "Couldn't update the order.");
+    toast.error(result.message || Object.values(result.fieldErrors ?? {}).join(" ") || "No se pudo actualizar el pedido.");
   }
 };
 
@@ -31,7 +31,7 @@ export const OrderActions = ({ orderId, orderNumber, status }: OrderActionsProps
     setTarget(next);
     startTransition(async () => {
       const result = await advanceStatus(orderId, next);
-      if (result.ok) toast.success(`Order #${orderNumber} is now ${ORDER_STATUS_LABELS[next].toLowerCase()}.`);
+      if (result.ok) toast.success(`El pedido #${orderNumber} ahora está ${ORDER_STATUS_LABELS[next].toLowerCase()}.`);
       else reportFailure(result);
       setTarget(null);
     });
@@ -42,16 +42,16 @@ export const OrderActions = ({ orderId, orderNumber, status }: OrderActionsProps
       {/* The next step is the main action; later steps can be skipped to. */}
       {forward.map((next, index) => (
         <Button key={next} variant={index === 0 ? "default" : "outline"} disabled={pending} onClick={() => move(next)}>
-          {pending && target === next ? "Updating…" : `Mark ${ORDER_STATUS_LABELS[next].toLowerCase()}`}
+          {pending && target === next ? "Actualizando…" : ORDER_STATUS_ACTION_LABELS[next]}
         </Button>
       ))}
       {isCancellable(status) && (
         <CancelOrderDialog
           orderId={orderId}
           orderNumber={orderNumber}
-          description="The ingredients this order used go back into stock. The order stays in the history as cancelled."
-          successMessage={`Order #${orderNumber} cancelled. Its stock was returned.`}
-          reasonPlaceholder="e.g. Customer changed their mind"
+          description="Los ingredientes que usó este pedido regresan al inventario. El pedido queda en el historial como cancelado."
+          successMessage={`Pedido #${orderNumber} cancelado. Sus ingredientes regresaron al inventario.`}
+          reasonPlaceholder="p. ej., El cliente cambió de opinión"
         />
       )}
     </div>

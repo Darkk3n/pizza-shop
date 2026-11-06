@@ -32,8 +32,8 @@ type PizzaSizeFormDialogProps = {
 };
 
 const STATUS_CHOICES = [
-  { value: "active", label: "On the menu" },
-  { value: "retired", label: "Retired" },
+  { value: "active", label: "En el menú" },
+  { value: "retired", label: "Retirado" },
 ] as const;
 
 const FIELDS = ["name", "priceMultiplier"] as const;
@@ -84,9 +84,9 @@ export const PizzaSizeFormDialog = ({ open, onOpenChange, size }: PizzaSizeFormD
         toast.success(size ? `${values.name.trim()} saved.` : `${values.name.trim()} added.`);
         close();
       } else if (result.status === 409) {
-        setError("name", { message: result.message ?? "Another size already has this name." });
+        setError("name", { message: result.message ?? "Ya existe otro tamaño con este nombre." });
       } else {
-        setFormError(applyActionErrors(result, setError, FIELDS) ?? "Couldn't save the size.");
+        setFormError(applyActionErrors(result, setError, FIELDS) ?? "No se pudo guardar el tamaño.");
       }
     });
   });
@@ -96,7 +96,7 @@ export const PizzaSizeFormDialog = ({ open, onOpenChange, size }: PizzaSizeFormD
       <DialogContent>
         <form onSubmit={onSubmit} noValidate className="grid gap-4">
           <DialogHeader>
-            <DialogTitle>{size ? `Edit ${size.name}` : "New size"}</DialogTitle>
+            <DialogTitle>{size ? `Editar ${size.name}` : "Nuevo tamaño"}</DialogTitle>
             <DialogDescription>
               Recipe prices and amounts are set for a Small; each size multiplies them.
             </DialogDescription>
@@ -105,7 +105,7 @@ export const PizzaSizeFormDialog = ({ open, onOpenChange, size }: PizzaSizeFormD
 
           <div className="grid items-start gap-4 sm:grid-cols-2">
             <div className="grid gap-2">
-              <Label htmlFor={`${prefix}-name`}>Name</Label>
+              <Label htmlFor={`${prefix}-name`}>Nombre</Label>
               <Input
                 id={`${prefix}-name`}
                 autoComplete="off"
@@ -117,7 +117,7 @@ export const PizzaSizeFormDialog = ({ open, onOpenChange, size }: PizzaSizeFormD
               <FieldMessage id={`${prefix}-name-message`} message={errors.name?.message} />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor={`${prefix}-priceMultiplier`}>Multiplier</Label>
+              <Label htmlFor={`${prefix}-priceMultiplier`}>Multiplicador</Label>
               <Input
                 id={`${prefix}-priceMultiplier`}
                 type="number"
@@ -134,20 +134,20 @@ export const PizzaSizeFormDialog = ({ open, onOpenChange, size }: PizzaSizeFormD
               ) : (
                 <p id={`${prefix}-priceMultiplier-hint`} className="text-sm text-muted-foreground">
                   {Number.isFinite(priceMultiplier) && priceMultiplier > 0
-                    ? `A ${formatMoney(EXAMPLE_SMALL_PRICE)} Small costs ${formatMoney(EXAMPLE_SMALL_PRICE * priceMultiplier)}.`
-                    : "Small is 1.00."}
+                    ? `Una chica de ${formatMoney(EXAMPLE_SMALL_PRICE)} cuesta ${formatMoney(EXAMPLE_SMALL_PRICE * priceMultiplier)}.`
+                    : "La chica es 1.00."}
                 </p>
               )}
             </div>
           </div>
           <p className="-mt-2 text-sm text-muted-foreground">
-            The multiplier scales both the price and the ingredients each pizza uses from stock.
-            {multiplierChanged && " Only new orders change; past orders keep what they were charged and used."}
+            El multiplicador ajusta tanto el precio como los ingredientes que cada pizza descuenta de la existencia.
+            {multiplierChanged && " Solo cambian los pedidos nuevos; los anteriores conservan lo que se cobró y se usó."}
           </p>
 
           {size && (
             <ChoiceGroup
-              legend="Status"
+              legend="Estado"
               size="sm"
               value={isActive ? "active" : "retired"}
               choices={STATUS_CHOICES}
@@ -163,11 +163,11 @@ export const PizzaSizeFormDialog = ({ open, onOpenChange, size }: PizzaSizeFormD
           <DialogFooter>
             <DialogClose asChild>
               <Button type="button" variant="outline">
-                Close
+                Cerrar
               </Button>
             </DialogClose>
             <Button type="submit" disabled={pending}>
-              {pending ? "Saving…" : size ? "Save changes" : "Add size"}
+              {pending ? "Guardando…" : size ? "Guardar cambios" : "Agregar tamaño"}
             </Button>
           </DialogFooter>
         </form>

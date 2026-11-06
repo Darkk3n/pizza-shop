@@ -100,8 +100,8 @@ const dayNumber = (date: string) => Date.parse(`${date}T00:00:00Z`) / 86_400_000
 
 export const customRangeError = ({ from, to }: StatisticsQuery) => {
   if (!from || !to) return null;
-  if (from > to) return "The start date must be on or before the end date.";
-  if (dayNumber(to) - dayNumber(from) + 1 > MAX_RANGE_DAYS) return `Pick at most ${MAX_RANGE_DAYS} days.`;
+  if (from > to) return "La fecha inicial debe ser igual o anterior a la fecha final.";
+  if (dayNumber(to) - dayNumber(from) + 1 > MAX_RANGE_DAYS) return `El periodo puede ser de máximo ${MAX_RANGE_DAYS} días.`;
   return null;
 };
 

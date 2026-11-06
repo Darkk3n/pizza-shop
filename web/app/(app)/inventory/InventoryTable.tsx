@@ -17,10 +17,10 @@ type View = "active" | "out" | "retired" | "all";
 const isOut = (ingredient: Ingredient) => ingredient.currentStock <= 0;
 
 const VIEWS: Record<View, { label: string; matches: (ingredient: Ingredient) => boolean; empty: string }> = {
-  active: { label: "Active", matches: (i) => i.isActive, empty: "No active ingredients." },
-  out: { label: "Out of stock", matches: (i) => i.isActive && isOut(i), empty: "Nothing is out of stock." },
-  retired: { label: "Retired", matches: (i) => !i.isActive, empty: "No retired ingredients." },
-  all: { label: "All", matches: () => true, empty: "No ingredients yet." },
+  active: { label: "Activos", matches: (i) => i.isActive, empty: "No hay ingredientes activos." },
+  out: { label: "Agotados", matches: (i) => i.isActive && isOut(i), empty: "No hay ingredientes agotados." },
+  retired: { label: "Retirados", matches: (i) => !i.isActive, empty: "No hay ingredientes retirados." },
+  all: { label: "Todos", matches: () => true, empty: "Aún no hay ingredientes." },
 };
 
 // The API returns every ingredient at once (a restaurant has dozens, not thousands), so
@@ -46,12 +46,12 @@ export const InventoryTable = ({ ingredients, units }: InventoryTableProps) => {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-        <ChoiceGroup legend="Show" hideLegend size="sm" value={view} choices={choices} onChange={setView} />
+        <ChoiceGroup legend="Mostrar" hideLegend size="sm" value={view} choices={choices} onChange={setView} />
         <div className="flex gap-2">
           <Input
             type="search"
-            placeholder="Search ingredients"
-            aria-label="Search ingredients"
+            placeholder="Buscar ingredientes"
+            aria-label="Buscar ingredientes"
             value={search}
             onChange={(event) => setSearch(event.target.value)}
             className="sm:w-64"
@@ -62,19 +62,19 @@ export const InventoryTable = ({ ingredients, units }: InventoryTableProps) => {
 
       {rows.length === 0 ? (
         <p className="rounded-lg border border-dashed px-4 py-12 text-center text-muted-foreground">
-          {term ? `No ingredients match "${search.trim()}".` : VIEWS[view].empty}
+          {term ? `Ningún ingrediente coincide con «${search.trim()}».` : VIEWS[view].empty}
         </p>
       ) : (
         <div className="rounded-lg border">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Ingredient</TableHead>
-                <TableHead className="text-right">Stock</TableHead>
-                <TableHead className="hidden sm:table-cell">Unit</TableHead>
-                <TableHead className="hidden md:table-cell">Topping</TableHead>
+                <TableHead>Ingrediente</TableHead>
+                <TableHead className="text-right">Existencia</TableHead>
+                <TableHead className="hidden sm:table-cell">Unidad</TableHead>
+                <TableHead className="hidden md:table-cell">Precio como extra</TableHead>
                 <TableHead>
-                  <span className="sr-only">Actions</span>
+                  <span className="sr-only">Acciones</span>
                 </TableHead>
               </TableRow>
             </TableHeader>
@@ -84,10 +84,10 @@ export const InventoryTable = ({ ingredients, units }: InventoryTableProps) => {
                   <TableCell className="font-medium">
                     <span className="flex flex-wrap items-center gap-2">
                       {ingredient.name}
-                      {!ingredient.isActive && <Badge variant="outline">Retired</Badge>}
+                      {!ingredient.isActive && <Badge variant="outline">Retirado</Badge>}
                       {ingredient.isActive && isOut(ingredient) && (
                         <Badge variant="secondary" className="bg-destructive/10 text-destructive">
-                          Out
+                          Agotado
                         </Badge>
                       )}
                     </span>

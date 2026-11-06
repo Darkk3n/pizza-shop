@@ -8,13 +8,13 @@ import { enableAndPreview, isSoundEnabled, isSoundEnabledOnServer, setSoundEnabl
 // Header switch for the order feed's sounds (staff only, rendered by OrderFeed).
 export const OrderSoundToggle = () => {
   const enabled = useSyncExternalStore(subscribeSoundSetting, isSoundEnabled, isSoundEnabledOnServer);
-  const action = enabled ? "Mute order sounds" : "Turn on order sounds";
+  const action = enabled ? "Silenciar sonidos de pedidos" : "Activar sonidos de pedidos";
 
   return (
     <Button
       variant="ghost"
       size="icon-lg"
-      aria-label="Order sounds"
+      aria-label="Sonidos de pedidos"
       title={action}
       aria-pressed={enabled}
       onClick={() => (enabled ? setSoundEnabled(false) : void enableAndPreview())}

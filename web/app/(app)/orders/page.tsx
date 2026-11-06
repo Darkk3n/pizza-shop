@@ -11,10 +11,10 @@ import { listOrders, ORDERS_PAGE_SIZE } from "@/lib/api/orders";
 import { Pager } from "@/components/orders/Pager";
 import { StatusBadge } from "@/components/orders/StatusBadge";
 
-export const metadata: Metadata = { title: "Orders · Rubencinis & Mate Pizza" };
+export const metadata: Metadata = { title: "Pedidos · Rubencinis & Mate Pizza" };
 
 const FILTERS: { status?: OrderStatus; label: string }[] = [
-  { label: "All" },
+  { label: "Todos" },
   ...orderStatusSchema.options.map((status) => ({ status, label: ORDER_STATUS_LABELS[status] })),
 ];
 
@@ -28,7 +28,7 @@ const hrefFor = (status: OrderStatus | undefined, page = 1) => {
 
 const StatusFilters = ({ active }: { active?: OrderStatus }) => {
   return (
-    <nav aria-label="Filter by status" className="flex flex-wrap gap-2">
+    <nav aria-label="Filtrar por estado" className="flex flex-wrap gap-2">
       {FILTERS.map(({ status, label }) => (
         <Link
           key={label}
@@ -55,19 +55,19 @@ const OrdersTable = async ({ searchParams }: { searchParams: PageProps<"/orders"
 
       {result.items.length === 0 ? (
         <p className="rounded-lg border border-dashed px-4 py-12 text-center text-muted-foreground">
-          {status ? `No ${ORDER_STATUS_LABELS[status].toLowerCase()} orders.` : "No orders yet."}
+          {status ? `No hay pedidos con estado «${ORDER_STATUS_LABELS[status]}».` : "Aún no hay pedidos."}
         </p>
       ) : (
         <div className="rounded-lg border">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Order</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="hidden sm:table-cell">Type</TableHead>
-                <TableHead className="hidden md:table-cell">Placed by</TableHead>
-                <TableHead className="hidden lg:table-cell">Placed</TableHead>
-                <TableHead className="text-right">Items</TableHead>
+                <TableHead>Pedido</TableHead>
+                <TableHead>Estado</TableHead>
+                <TableHead className="hidden sm:table-cell">Tipo</TableHead>
+                <TableHead className="hidden md:table-cell">Realizado por</TableHead>
+                <TableHead className="hidden lg:table-cell">Fecha</TableHead>
+                <TableHead className="text-right">Productos</TableHead>
                 <TableHead className="text-right">Total</TableHead>
               </TableRow>
             </TableHeader>
@@ -112,7 +112,7 @@ const OrdersTable = async ({ searchParams }: { searchParams: PageProps<"/orders"
 
 const OrdersTableSkeleton = () => {
   return (
-    <div className="flex flex-col gap-4" aria-busy="true" aria-label="Loading orders">
+    <div className="flex flex-col gap-4" aria-busy="true" aria-label="Cargando pedidos">
       <div className="flex gap-2">
         {FILTERS.map(({ label }) => (
           <Skeleton key={label} className="h-7 w-20" />
@@ -131,8 +131,8 @@ const OrdersPage = ({ searchParams }: PageProps<"/orders">) => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold tracking-tight">Orders</h1>
-        <p className="text-muted-foreground">Move orders through the kitchen, or cancel them.</p>
+        <h1 className="text-2xl font-semibold tracking-tight">Pedidos</h1>
+        <p className="text-muted-foreground">Avance de los pedidos en cocina y cancelaciones.</p>
       </div>
       <Suspense fallback={<OrdersTableSkeleton />}>
         <OrdersTable searchParams={searchParams} />

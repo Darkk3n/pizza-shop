@@ -12,7 +12,7 @@ import { orderListQuerySchema } from "@/lib/api/schemas/orders";
 import { requireUser } from "@/lib/auth/currentUser";
 import { formatDateTime, formatMoney, ORDER_TYPE_LABELS } from "@/lib/helpers/format";
 
-export const metadata: Metadata = { title: "My orders · Rubencinis & Mate Pizza" };
+export const metadata: Metadata = { title: "Mis pedidos · Rubencinis & Mate Pizza" };
 
 const hrefForPage = (page: number) => (page > 1 ? `/my-orders?page=${page}` : "/my-orders");
 
@@ -28,9 +28,9 @@ const MyOrdersTable = async ({ searchParams }: { searchParams: PageProps<"/my-or
   if (result.totalCount === 0) {
     return (
       <div className="flex flex-col items-center gap-4 rounded-lg border border-dashed px-4 py-16 text-center">
-        <p className="text-muted-foreground">You haven&apos;t placed any orders yet.</p>
+        <p className="text-muted-foreground">Aún no has hecho ningún pedido.</p>
         <Link href="/menu" className={buttonVariants()}>
-          Browse the menu
+          Ver el menú
         </Link>
       </div>
     );
@@ -40,9 +40,9 @@ const MyOrdersTable = async ({ searchParams }: { searchParams: PageProps<"/my-or
   if (result.items.length === 0) {
     return (
       <div className="flex flex-col items-center gap-4 rounded-lg border border-dashed px-4 py-16 text-center">
-        <p className="text-muted-foreground">There are no orders on this page.</p>
+        <p className="text-muted-foreground">No hay pedidos en esta página.</p>
         <Link href={hrefForPage(1)} className={buttonVariants({ variant: "outline" })}>
-          Go to your latest orders
+          Ir a tus pedidos más recientes
         </Link>
       </div>
     );
@@ -54,11 +54,11 @@ const MyOrdersTable = async ({ searchParams }: { searchParams: PageProps<"/my-or
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Order</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="hidden sm:table-cell">Placed</TableHead>
-              <TableHead className="hidden md:table-cell">Type</TableHead>
-              <TableHead className="text-right">Items</TableHead>
+              <TableHead>Pedido</TableHead>
+              <TableHead>Estado</TableHead>
+              <TableHead className="hidden sm:table-cell">Fecha</TableHead>
+              <TableHead className="hidden md:table-cell">Tipo</TableHead>
+              <TableHead className="text-right">Productos</TableHead>
               <TableHead className="text-right">Total</TableHead>
             </TableRow>
           </TableHeader>
@@ -95,7 +95,7 @@ const MyOrdersTable = async ({ searchParams }: { searchParams: PageProps<"/my-or
 
 const MyOrdersSkeleton = () => {
   return (
-    <div className="flex flex-col gap-2 rounded-lg border p-4" aria-busy="true" aria-label="Loading your orders">
+    <div className="flex flex-col gap-2 rounded-lg border p-4" aria-busy="true" aria-label="Cargando tus pedidos">
       {Array.from({ length: 5 }, (_, i) => (
         <Skeleton key={i} className="h-8 w-full" />
       ))}
@@ -107,8 +107,8 @@ const MyOrdersPage = ({ searchParams }: PageProps<"/my-orders">) => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold tracking-tight">My orders</h1>
-        <p className="text-muted-foreground">Newest first. Open one to see what&apos;s in it.</p>
+        <h1 className="text-2xl font-semibold tracking-tight">Mis pedidos</h1>
+        <p className="text-muted-foreground">Los más recientes primero. Abre uno para ver qué incluye.</p>
       </div>
       <Suspense fallback={<MyOrdersSkeleton />}>
         <MyOrdersTable searchParams={searchParams} />

@@ -7,7 +7,7 @@ import { requireAdmin } from "@/lib/auth/currentUser";
 import { CatalogTabs } from "./CatalogTabs";
 import { isCatalogTab } from "./tabs";
 
-export const metadata: Metadata = { title: "Catalogs · Rubencinis & Mate Pizza" };
+export const metadata: Metadata = { title: "Catálogos · Rubencinis & Mate Pizza" };
 
 const Catalog = async ({ searchParams }: { searchParams: PageProps<"/catalogs">["searchParams"] }) => {
   await requireAdmin();
@@ -27,7 +27,7 @@ const Catalog = async ({ searchParams }: { searchParams: PageProps<"/catalogs">[
 
 const CatalogSkeleton = () => {
   return (
-    <div className="flex flex-col gap-4" aria-busy="true" aria-label="Loading catalog">
+    <div className="flex flex-col gap-4" aria-busy="true" aria-label="Cargando catálogo">
       <Skeleton className="h-8 w-64" />
       <div className="flex flex-col gap-2 rounded-lg border p-4">
         {Array.from({ length: 4 }, (_, i) => (
@@ -42,8 +42,8 @@ const CatalogPage = ({ searchParams }: PageProps<"/catalogs">) => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold tracking-tight">Catalogs</h1>
-        <p className="text-muted-foreground">The pizza sizes on the menu and the units ingredients are measured in.</p>
+        <h1 className="text-2xl font-semibold tracking-tight">Catálogos</h1>
+        <p className="text-muted-foreground">Los tamaños de pizza del menú y las unidades en que se miden los ingredientes.</p>
       </div>
       <Suspense fallback={<CatalogSkeleton />}>
         <Catalog searchParams={searchParams} />

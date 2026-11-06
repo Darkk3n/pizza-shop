@@ -5,7 +5,7 @@ import { listIngredients, listUnitsOfMeasure } from "@/lib/api/ingredients";
 import { requireStaff } from "@/lib/auth/currentUser";
 import { InventoryTable } from "./InventoryTable";
 
-export const metadata: Metadata = { title: "Inventory · Rubencinis & Mate Pizza" };
+export const metadata: Metadata = { title: "Inventario · Rubencinis & Mate Pizza" };
 
 const Inventory = async () => {
   const user = await requireStaff();
@@ -19,7 +19,7 @@ const Inventory = async () => {
 
 const InventorySkeleton = () => {
   return (
-    <div className="flex flex-col gap-4" aria-busy="true" aria-label="Loading inventory">
+    <div className="flex flex-col gap-4" aria-busy="true" aria-label="Cargando inventario">
       <div className="flex gap-2">
         {Array.from({ length: 4 }, (_, i) => (
           <Skeleton key={i} className="h-7 w-20" />
@@ -38,9 +38,9 @@ const InventoryPage = () => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold tracking-tight">Inventory</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Inventario</h1>
         <p className="text-muted-foreground">
-          Stock is used up automatically by orders. Record deliveries, waste and counts here.
+          Los pedidos descuentan la existencia automáticamente. Aquí se registran entradas, mermas y conteos.
         </p>
       </div>
       <Suspense fallback={<InventorySkeleton />}>

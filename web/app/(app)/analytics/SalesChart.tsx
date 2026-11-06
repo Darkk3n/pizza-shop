@@ -34,9 +34,10 @@ const columnPath = (x: number, y: number, width: number, base: number) => {
 
 const describe = (day: SalesDay) =>
   [
-    `${formatDay(day.date)}: ${formatMoney(day.total)} in sales`,
-    `${day.orderCount} ${day.orderCount === 1 ? "order" : "orders"}`,
-    day.cancelledCount > 0 && `${day.cancelledCount} cancelled (${formatMoney(day.cancelledTotal)})`,
+    `${formatDay(day.date)}: ${formatMoney(day.total)} en ventas`,
+    `${day.orderCount} ${day.orderCount === 1 ? "pedido" : "pedidos"}`,
+    day.cancelledCount > 0 &&
+      `${day.cancelledCount} ${day.cancelledCount === 1 ? "cancelado" : "cancelados"} (${formatMoney(day.cancelledTotal)})`,
   ]
     .filter(Boolean)
     .join(", ");
@@ -47,10 +48,10 @@ const DaysTable = ({ days }: { days: SalesDay[] }) => {
       <Table>
         <StickyTableHeader>
           <TableRow>
-            <TableHead>Day</TableHead>
-            <TableHead className="text-right">Orders</TableHead>
-            <TableHead className="text-right">Sales</TableHead>
-            <TableHead className="text-right">Cancelled</TableHead>
+            <TableHead>Día</TableHead>
+            <TableHead className="text-right">Pedidos</TableHead>
+            <TableHead className="text-right">Ventas</TableHead>
+            <TableHead className="text-right">Cancelados</TableHead>
           </TableRow>
         </StickyTableHeader>
         <TableBody>
@@ -117,12 +118,12 @@ export const SalesChart = ({ days }: { days: SalesDay[] }) => {
 
   const toggle = (
     <Button variant="outline" size="sm" onClick={() => setShowTable((value) => !value)}>
-      {showTable ? "Show chart" : "Show table"}
+      {showTable ? "Ver gráfica" : "Ver tabla"}
     </Button>
   );
 
   if (!hasSales) {
-    return <p className="py-16 text-center text-muted-foreground">No sales in this range.</p>;
+    return <p className="py-16 text-center text-muted-foreground">No hubo ventas en este periodo.</p>;
   }
 
   if (showTable) {
@@ -144,7 +145,7 @@ export const SalesChart = ({ days }: { days: SalesDay[] }) => {
             height={HEIGHT}
             tabIndex={0}
             role="group"
-            aria-label="Sales per day. Use the left and right arrow keys to read each day."
+            aria-label="Ventas por día. Las flechas izquierda y derecha recorren cada día."
             className="overflow-visible rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring"
             onKeyDown={onKeyDown}
             onFocus={() => setActive((value) => value ?? days.length - 1)}
@@ -234,11 +235,12 @@ export const SalesChart = ({ days }: { days: SalesDay[] }) => {
               {formatWeekday(activeDay.date)}, {formatDay(activeDay.date)}
             </p>
             <p className="mt-1">
-              {activeDay.orderCount} {activeDay.orderCount === 1 ? "order" : "orders"}
+              {activeDay.orderCount} {activeDay.orderCount === 1 ? "pedido" : "pedidos"}
             </p>
             {activeDay.cancelledCount > 0 && (
               <p className="text-muted-foreground">
-                {activeDay.cancelledCount} cancelled · {formatMoney(activeDay.cancelledTotal)}
+                {activeDay.cancelledCount} {activeDay.cancelledCount === 1 ? "cancelado" : "cancelados"} ·{" "}
+                {formatMoney(activeDay.cancelledTotal)}
               </p>
             )}
           </div>

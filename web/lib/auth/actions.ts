@@ -52,17 +52,37 @@ export const login = async (input: Credentials, next?: string): Promise<ActionRe
       return {
         ok: false,
         code: "EmailNotConfirmed",
-        message: "Confirm your email before signing in. We sent you a link when you signed up.",
+        message: "Confirma tu correo antes de iniciar sesión. Te enviamos un enlace cuando te registraste.",
       };
     }
     if (error instanceof ApiError && error.status === 401) {
-      return { ok: false, message: "Incorrect email or password." };
+      return { ok: false, message: "Correo o contraseña incorrectos." };
     }
     return apiFailure(error);
   }
   // Outside the try: redirect() works by throwing.
   redirect(destination);
 };
+
+// Identity's own descriptions are English, so each known code gets a Spanish message; the length
+// matches the API's Identity default (6) and newPasswordSchema.
+const IDENTITY_MESSAGES: Record<string, string> = {
+  DuplicateEmail: "Ya existe una cuenta con este correo.",
+  DuplicateUserName: "Ya existe una cuenta con este correo.",
+  InvalidEmail: "Escribe un correo válido.",
+  InvalidUserName: "Escribe un correo válido.",
+  PasswordTooShort: "Usa al menos 6 caracteres.",
+  PasswordRequiresNonAlphanumeric: "Incluye un símbolo.",
+  PasswordRequiresDigit: "Incluye un número.",
+  PasswordRequiresLower: "Incluye una letra minúscula.",
+  PasswordRequiresUpper: "Incluye una letra mayúscula.",
+  PasswordRequiresUniqueChars: "Usa más caracteres distintos.",
+};
+
+// Unknown codes still get Spanish text, by field.
+const identityMessage = (code: string, field: string | null) =>
+  IDENTITY_MESSAGES[code] ??
+  (field === "password" ? "Elige otra contraseña." : field === "email" ? "Revisa el correo." : "No se pudo completar la solicitud.");
 
 // Identity reports problems as codes ("DuplicateEmail", "PasswordTooShort"), not field paths.
 const identityFieldFor = (code: string) =>
@@ -72,13 +92,14 @@ const identityFieldFor = (code: string) =>
 const identityFailure = (error: ApiError) => {
   const fieldErrors: Record<string, string> = {};
   const other: string[] = [];
-  // Email codes first, so a duplicate reads "Email ... is already taken", not "Username ...".
-  const entries = Object.entries(error.problem.errors ?? {}).sort(([a], [b]) => Number(b.includes("Email")) - Number(a.includes("Email")));
-  for (const [code, messages] of entries) {
+  // Email codes first, so a duplicate account reports DuplicateEmail rather than DuplicateUserName.
+  const codes = Object.keys(error.problem.errors ?? {}).sort((a, b) => Number(b.includes("Email")) - Number(a.includes("Email")));
+  for (const code of codes) {
     const field = identityFieldFor(code);
+    const message = identityMessage(code, field);
     // One message per field: the email is also the username, so a duplicate reports both.
-    if (field) fieldErrors[field] ??= messages[0];
-    else other.push(...messages);
+    if (field) fieldErrors[field] ??= message;
+    else if (!other.includes(message)) other.push(message);
   }
   return { ok: false as const, fieldErrors, message: other.length > 0 ? other.join(" ") : undefined };
 };
@@ -120,7 +141,7 @@ export const requestPasswordReset = async (input: EmailOnlyInput) => postEmailOn
 export const resetPassword = async (email: string, code: string, input: ResetPasswordInput): Promise<ActionResult> => {
   const link = resetLinkSchema.safeParse({ email, code });
   const parsed = resetPasswordSchema.safeParse(input);
-  if (!link.success) return { ok: false, code: "InvalidLink", message: "This reset link is incomplete. Ask for a new one." };
+  if (!link.success) return { ok: false, code: "InvalidLink", message: "Este enlace para restablecer la contraseña está incompleto. Pide uno nuevo." };
   if (!parsed.success) return invalidInput(parsed.error);
 
   try {
@@ -132,7 +153,7 @@ export const resetPassword = async (email: string, code: string, input: ResetPas
   } catch (error) {
     // Identity reports an expired, used or wrong code (or an unknown email) as InvalidToken.
     if (error instanceof ApiError && error.status === 400 && error.problem.errors?.InvalidToken) {
-      return { ok: false, code: "InvalidLink", message: "This reset link has expired or was already used. Ask for a new one." };
+      return { ok: false, code: "InvalidLink", message: "Este enlace para restablecer la contraseña venció o ya se usó. Pide uno nuevo." };
     }
     if (error instanceof ApiError && error.status === 400 && error.problem.errors) return identityFailure(error);
     return apiFailure(error);

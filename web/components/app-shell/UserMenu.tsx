@@ -18,7 +18,7 @@ export const UserMenu = ({ email, roleLabel }: UserMenuProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="lg" className="gap-2" aria-label={`Account menu for ${email}`}>
+        <Button variant="ghost" size="lg" className="gap-2" aria-label={`Menú de la cuenta ${email}`}>
           <UserIcon className="size-4" />
           <span className="hidden max-w-48 truncate sm:inline">{email}</span>
         </Button>
@@ -34,7 +34,7 @@ export const UserMenu = ({ email, roleLabel }: UserMenuProps) => {
           <DropdownMenuItem asChild>
             <button type="submit" className="w-full">
               <LogOutIcon />
-              Sign out
+              Cerrar sesión
             </button>
           </DropdownMenuItem>
         </form>

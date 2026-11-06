@@ -11,9 +11,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { roleOf, userListQuerySchema, type UserRole } from "@/lib/api/schemas/users";
 import { listUsers, USERS_PAGE_SIZE } from "@/lib/api/users";
 import { requireAdmin } from "@/lib/auth/currentUser";
+import { ROLE_LABELS } from "@/lib/helpers/format";
 import { UserRoleControl } from "./UserRoleControl";
 
-export const metadata: Metadata = { title: "Users · Rubencinis & Mate Pizza" };
+export const metadata: Metadata = { title: "Usuarios · Rubencinis & Mate Pizza" };
 
 const hrefFor = (email: string | undefined, page = 1) => {
   const query = new URLSearchParams();
@@ -38,13 +39,13 @@ const SearchForm = ({ email }: { email?: string }) => {
         type="search"
         name="email"
         defaultValue={email}
-        placeholder="Search by email"
-        aria-label="Search by email"
+        placeholder="Buscar por correo"
+        aria-label="Buscar por correo"
         maxLength={256}
         className="sm:w-72"
       />
       <Button type="submit" variant="outline">
-        Search
+        Buscar
       </Button>
     </Form>
   );
@@ -65,13 +66,13 @@ const UsersTable = async ({ searchParams }: { searchParams: PageProps<"/users">[
         <p className="rounded-lg border border-dashed px-4 py-12 text-center text-muted-foreground">
           {email ? (
             <>
-              No users match &quot;{email}&quot;.{" "}
+              Ningún usuario coincide con «{email}».{" "}
               <Link href="/users" className="underline underline-offset-4">
-                Show everyone
+                Mostrar a todos
               </Link>
             </>
           ) : (
-            "No users yet."
+            "Aún no hay usuarios."
           )}
         </p>
       ) : (
@@ -79,23 +80,23 @@ const UsersTable = async ({ searchParams }: { searchParams: PageProps<"/users">[
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Email</TableHead>
-                <TableHead className="hidden sm:table-cell">Role</TableHead>
+                <TableHead>Correo</TableHead>
+                <TableHead className="hidden sm:table-cell">Rol</TableHead>
                 <TableHead className="text-right">
-                  <span className="sr-only">Change role</span>
+                  <span className="sr-only">Cambiar rol</span>
                 </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {result.items.map((user) => {
                 const role = roleOf(user);
-                const userEmail = user.email ?? "(no email)";
+                const userEmail = user.email ?? "(sin correo)";
                 return (
                   <TableRow key={user.userId}>
                     <TableCell className="max-w-64 truncate font-medium">{userEmail}</TableCell>
                     <TableCell className="hidden sm:table-cell">
                       <Badge variant="secondary" className={ROLE_BADGE_CLASSES[role]}>
-                        {role}
+                        {ROLE_LABELS[role]}
                       </Badge>
                     </TableCell>
                     <TableCell className="text-right">
@@ -118,7 +119,7 @@ const UsersTable = async ({ searchParams }: { searchParams: PageProps<"/users">[
         page={result.page}
         pageCount={pageCount}
         totalCount={result.totalCount}
-        itemLabel="users"
+        itemLabel="usuarios"
         hrefForPage={(target) => hrefFor(email, target)}
       />
     </div>
@@ -127,7 +128,7 @@ const UsersTable = async ({ searchParams }: { searchParams: PageProps<"/users">[
 
 const UsersTableSkeleton = () => {
   return (
-    <div className="flex flex-col gap-4" aria-busy="true" aria-label="Loading users">
+    <div className="flex flex-col gap-4" aria-busy="true" aria-label="Cargando usuarios">
       <Skeleton className="h-8 w-80" />
       <div className="flex flex-col gap-2 rounded-lg border p-4">
         {Array.from({ length: 6 }, (_, i) => (
@@ -142,10 +143,10 @@ const UsersPage = ({ searchParams }: PageProps<"/users">) => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold tracking-tight">Users</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Usuarios</h1>
         <p className="text-muted-foreground">
-          Everyone who signs up is a customer. Give staff and admins their role here; it takes effect
-          within 15 minutes, the next time their session refreshes.
+          Toda persona que se registra es cliente. Aquí se asigna el rol de personal o administrador; el
+          cambio aplica en menos de 15 minutos, cuando se renueva su sesión.
         </p>
       </div>
       <Suspense fallback={<UsersTableSkeleton />}>

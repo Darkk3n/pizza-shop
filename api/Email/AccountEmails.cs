@@ -44,22 +44,22 @@ namespace PizzaShop.Api.Email
         public static EmailMessage Confirmation(string to, string link, bool isEmailChange) =>
             Render(
                 to,
-                isEmailChange ? "Confirm your new email address" : "Confirm your Rubencinis & Mate Pizza account",
+                isEmailChange ? "Confirma tu nuevo correo electrónico" : "Confirma tu cuenta de Rubencinis & Mate Pizza",
                 isEmailChange
-                    ? "Confirm this address to start using it for your Rubencinis & Mate Pizza account."
-                    : "Welcome! Confirm your email address to finish creating your Rubencinis & Mate Pizza account.",
-                "Confirm email",
+                    ? "Confirma este correo para empezar a usarlo en tu cuenta de Rubencinis & Mate Pizza."
+                    : "¡Bienvenido! Confirma tu correo electrónico para terminar de crear tu cuenta de Rubencinis & Mate Pizza.",
+                "Confirmar correo",
                 link,
-                "If you didn't ask for this, you can ignore this email.");
+                "Si no lo pediste, puedes ignorar este correo.");
 
         public static EmailMessage PasswordReset(string to, string link) =>
             Render(
                 to,
-                "Reset your Rubencinis & Mate Pizza password",
-                "Someone asked to reset the password for this Rubencinis & Mate Pizza account. The link works once and expires in a day.",
-                "Choose a new password",
+                "Restablece tu contraseña de Rubencinis & Mate Pizza",
+                "Alguien pidió restablecer la contraseña de esta cuenta de Rubencinis & Mate Pizza. El enlace funciona una sola vez y vence en un día.",
+                "Elegir nueva contraseña",
                 link,
-                "If it wasn't you, ignore this email: your password stays the same.");
+                "Si no fuiste tú, ignora este correo: tu contraseña sigue igual.");
 
         private static string WebUrl(string webBaseUrl, string path) => webBaseUrl.TrimEnd('/') + path;
 
@@ -69,7 +69,7 @@ namespace PizzaShop.Api.Email
             var href = WebUtility.HtmlEncode(link);
             var html = $"""
                 <!doctype html>
-                <html>
+                <html lang="es">
                   <body style="margin:0;padding:24px;background:#f5f5f5;font-family:Arial,Helvetica,sans-serif;color:#171717">
                     <div style="max-width:480px;margin:0 auto;background:#ffffff;border-radius:12px;padding:32px">
                       <p style="margin:0 0 16px;font-size:20px;font-weight:bold">Rubencinis &amp; Mate Pizza</p>
@@ -77,7 +77,7 @@ namespace PizzaShop.Api.Email
                       <p style="margin:0 0 24px">
                         <a href="{href}" style="display:inline-block;background:#d32f2f;color:#ffffff;text-decoration:none;font-weight:bold;padding:12px 20px;border-radius:8px">{WebUtility.HtmlEncode(action)}</a>
                       </p>
-                      <p style="margin:0 0 8px;font-size:13px;color:#525252">Or paste this link into your browser:</p>
+                      <p style="margin:0 0 8px;font-size:13px;color:#525252">O copia este enlace en tu navegador:</p>
                       <p style="margin:0 0 24px;font-size:13px;word-break:break-all"><a href="{href}" style="color:#525252">{href}</a></p>
                       <p style="margin:0;font-size:13px;color:#737373">{WebUtility.HtmlEncode(footer)}</p>
                     </div>

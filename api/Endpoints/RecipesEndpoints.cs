@@ -105,7 +105,7 @@ namespace PizzaShop.Api.Endpoints
 
             if (await context.Recipes.NameTakenAsync(name, excludeId: null, ct))
             {
-                return UniqueNames.DuplicateName("Recipe", name);
+                return UniqueNames.DuplicateName("una receta", name);
             }
 
             var recipe = new Recipe
@@ -144,7 +144,7 @@ namespace PizzaShop.Api.Endpoints
 
             if (await context.Recipes.NameTakenAsync(name, excludeId: id, ct))
             {
-                return UniqueNames.DuplicateName("Recipe", name);
+                return UniqueNames.DuplicateName("una receta", name);
             }
 
             recipe.Name = name;
@@ -191,8 +191,8 @@ namespace PizzaShop.Api.Endpoints
             {
                 return TypedResults.Problem(
                     statusCode: StatusCodes.Status409Conflict,
-                    title: "Recipe is in use.",
-                    detail: $"The recipe '{recipe.Name}' appears in one or more orders. Set isActive to false to take it off the menu instead.");
+                    title: "Receta en uso.",
+                    detail: $"La receta '{recipe.Name}' aparece en uno o más pedidos. En su lugar, se puede quitar del menú (isActive = false).");
             }
 
             context.Recipes.Remove(recipe);
@@ -227,7 +227,7 @@ namespace PizzaShop.Api.Endpoints
             {
                 return new()
                 {
-                    [nameof(CreateRecipeRequest.Items)] = [$"Each ingredient can appear only once. Repeated: {string.Join(", ", repeated)}."],
+                    [nameof(CreateRecipeRequest.Items)] = [$"Cada ingrediente puede aparecer solo una vez. Repetidos: {string.Join(", ", repeated)}."],
                 };
             }
 
@@ -241,7 +241,7 @@ namespace PizzaShop.Api.Endpoints
             {
                 return new()
                 {
-                    [nameof(CreateRecipeRequest.Items)] = [$"Ingredients not found: {string.Join(", ", missing)}."],
+                    [nameof(CreateRecipeRequest.Items)] = [$"Ingredientes no encontrados: {string.Join(", ", missing)}."],
                 };
             }
 
@@ -253,7 +253,7 @@ namespace PizzaShop.Api.Endpoints
             {
                 return new()
                 {
-                    [nameof(CreateRecipeRequest.Items)] = [$"Inactive ingredients can't be added: {string.Join(", ", newlyInactive)}."],
+                    [nameof(CreateRecipeRequest.Items)] = [$"No se pueden agregar ingredientes retirados: {string.Join(", ", newlyInactive)}."],
                 };
             }
 

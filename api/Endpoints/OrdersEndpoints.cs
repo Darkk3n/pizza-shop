@@ -200,7 +200,7 @@ namespace PizzaShop.Api.Endpoints
             {
                 return TypedResults.ValidationProblem(new Dictionary<string, string[]>
                 {
-                    [IdempotencyKeyHeader] = [$"The {IdempotencyKeyHeader} header must be a non-empty GUID, reused on every retry of the same order."],
+                    [IdempotencyKeyHeader] = [$"El encabezado {IdempotencyKeyHeader} debe ser un GUID no vacío, el mismo en cada reintento del mismo pedido."],
                 });
             }
 
@@ -319,7 +319,7 @@ namespace PizzaShop.Api.Endpoints
             {
                 return TypedResults.ValidationProblem(new Dictionary<string, string[]>
                 {
-                    [nameof(UpdateOrderStatusRequest.Status)] = ["Use POST /api/orders/{id}/cancel to cancel an order; it also returns the stock."],
+                    [nameof(UpdateOrderStatusRequest.Status)] = ["Usa POST /api/orders/{id}/cancel para cancelar un pedido; también devuelve los ingredientes al inventario."],
                 });
             }
 
@@ -338,8 +338,8 @@ namespace PizzaShop.Api.Endpoints
             {
                 return TypedResults.Problem(
                     statusCode: StatusCodes.Status409Conflict,
-                    title: "Invalid status change.",
-                    detail: $"Order #{order.OrderNumber} is {order.Status}; it can only move forward, not to {request.Status}.");
+                    title: "Cambio de estado no válido.",
+                    detail: $"El pedido #{order.OrderNumber} está {OrderStatusNames.InSentence(order.Status)}; solo puede avanzar, no pasar a {OrderStatusNames.InSentence(request.Status)}.");
             }
 
             // Conditional on the status just read, so a concurrent cancellation can't be
@@ -385,10 +385,10 @@ namespace PizzaShop.Api.Endpoints
             {
                 return TypedResults.Problem(
                     statusCode: StatusCodes.Status409Conflict,
-                    title: "Order can't be cancelled.",
+                    title: "El pedido no se puede cancelar.",
                     detail: isStaff
-                        ? $"Order #{order.OrderNumber} is {order.Status}; completed orders can't be cancelled."
-                        : $"Order #{order.OrderNumber} is already {order.Status}; ask the staff to cancel it.");
+                        ? $"El pedido #{order.OrderNumber} está {OrderStatusNames.InSentence(order.Status)}; los pedidos completados no se pueden cancelar."
+                        : $"El pedido #{order.OrderNumber} ya está {OrderStatusNames.InSentence(order.Status)}; pide al personal que lo cancele.");
             }
 
             var reason = string.IsNullOrWhiteSpace(request?.Reason) ? null : request.Reason.Trim();
@@ -452,8 +452,8 @@ namespace PizzaShop.Api.Endpoints
         private static ProblemHttpResult ChangedConcurrently(int orderNumber) =>
             TypedResults.Problem(
                 statusCode: StatusCodes.Status409Conflict,
-                title: "Order changed.",
-                detail: $"Order #{orderNumber} was changed by someone else just now. Reload it and try again.");
+                title: "El pedido cambió.",
+                detail: $"Alguien más acaba de modificar el pedido #{orderNumber}. Vuelve a cargarlo e intenta de nuevo.");
 
         // Returns the order already created with this key (same 201 response as the original),
         // a 422 if the key was used for a different request or by another user, or null if the key is new.
@@ -474,8 +474,8 @@ namespace PizzaShop.Api.Endpoints
             {
                 return TypedResults.Problem(
                     statusCode: StatusCodes.Status422UnprocessableEntity,
-                    title: "Idempotency key reused.",
-                    detail: $"The {IdempotencyKeyHeader} '{key}' was already used for a different order. Generate a new key for each new order.");
+                    title: "Clave de idempotencia reutilizada.",
+                    detail: $"La clave {IdempotencyKeyHeader} '{key}' ya se usó para otro pedido. Genera una clave nueva para cada pedido.");
             }
 
             var dto = await FindDtoAsync(context, previous.OrderId, ct);
@@ -524,29 +524,29 @@ namespace PizzaShop.Api.Endpoints
 
                 if (!recipes.TryGetValue(item.RecipeId, out var recipe))
                 {
-                    errors[$"{prefix}.{nameof(OrderItemRequest.RecipeId)}"] = [$"Recipe '{item.RecipeId}' does not exist."];
+                    errors[$"{prefix}.{nameof(OrderItemRequest.RecipeId)}"] = ["Esta pizza ya no existe."];
                 }
                 else if (!recipe.IsActive)
                 {
-                    errors[$"{prefix}.{nameof(OrderItemRequest.RecipeId)}"] = [$"'{recipe.Name}' is not on the menu."];
+                    errors[$"{prefix}.{nameof(OrderItemRequest.RecipeId)}"] = [$"'{recipe.Name}' no está en el menú."];
                 }
 
                 if (item.PizzaSizeId is { } sizeId)
                 {
                     if (!sizes.TryGetValue(sizeId, out var size))
                     {
-                        errors[$"{prefix}.{nameof(OrderItemRequest.PizzaSizeId)}"] = [$"Pizza size '{sizeId}' does not exist."];
+                        errors[$"{prefix}.{nameof(OrderItemRequest.PizzaSizeId)}"] = ["Este tamaño ya no existe."];
                     }
                     else if (!size.IsActive)
                     {
-                        errors[$"{prefix}.{nameof(OrderItemRequest.PizzaSizeId)}"] = [$"The '{size.Name}' size is not on the menu."];
+                        errors[$"{prefix}.{nameof(OrderItemRequest.PizzaSizeId)}"] = [$"El tamaño '{size.Name}' no está en el menú."];
                     }
                 }
 
                 var toppings = item.Toppings ?? [];
                 if (toppings.GroupBy(t => t.IngredientId).Any(g => g.Count() > 1))
                 {
-                    errors[$"{prefix}.{nameof(OrderItemRequest.Toppings)}"] = ["Each topping can appear only once per item."];
+                    errors[$"{prefix}.{nameof(OrderItemRequest.Toppings)}"] = ["Cada ingrediente extra puede aparecer solo una vez por producto."];
                 }
 
                 for (var j = 0; j < toppings.Count; j++)
@@ -556,11 +556,11 @@ namespace PizzaShop.Api.Endpoints
 
                     if (!toppingIngredients.TryGetValue(ingredientId, out var ingredient))
                     {
-                        errors[key] = [$"Ingredient '{ingredientId}' does not exist."];
+                        errors[key] = ["Este ingrediente ya no existe."];
                     }
                     else if (!ingredient.IsActive || ingredient.ToppingPrice is null || ingredient.ToppingPortion is null)
                     {
-                        errors[key] = [$"'{ingredient.Name}' is not offered as a topping."];
+                        errors[key] = [$"'{ingredient.Name}' no se ofrece como ingrediente extra."];
                     }
                 }
             }

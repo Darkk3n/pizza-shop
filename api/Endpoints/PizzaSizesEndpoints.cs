@@ -63,7 +63,7 @@ namespace PizzaShop.Api.Endpoints
 
             if (await context.PizzaSizes.NameTakenAsync(name, excludeId: null, ct))
             {
-                return UniqueNames.DuplicateName("Pizza size", name);
+                return UniqueNames.DuplicateName("un tamaño de pizza", name);
             }
 
             var pizzaSize = new PizzaSize { Name = name, PriceMultiplier = request.PriceMultiplier };
@@ -88,7 +88,7 @@ namespace PizzaShop.Api.Endpoints
 
             if (await context.PizzaSizes.NameTakenAsync(name, excludeId: id, ct))
             {
-                return UniqueNames.DuplicateName("Pizza size", name);
+                return UniqueNames.DuplicateName("un tamaño de pizza", name);
             }
 
             // Past orders keep their own UnitPrice snapshot, so changing the multiplier
@@ -116,8 +116,8 @@ namespace PizzaShop.Api.Endpoints
             {
                 return TypedResults.Problem(
                     statusCode: StatusCodes.Status409Conflict,
-                    title: "Pizza size is in use.",
-                    detail: $"The pizza size '{pizzaSize.Name}' appears in one or more orders. Set isActive to false to take it off the menu instead.");
+                    title: "Tamaño de pizza en uso.",
+                    detail: $"El tamaño de pizza '{pizzaSize.Name}' aparece en uno o más pedidos. En su lugar, se puede quitar del menú (isActive = false).");
             }
 
             context.PizzaSizes.Remove(pizzaSize);

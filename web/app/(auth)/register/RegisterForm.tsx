@@ -19,15 +19,15 @@ const CheckInbox = ({ email }: { email: string }) => {
   return (
     <div className="grid gap-4">
       <div role="status" className="grid gap-2">
-        <p className="font-medium">Check your inbox</p>
+        <p className="font-medium">Revisa tu bandeja de entrada</p>
         <p className="text-sm text-muted-foreground">
-          We sent a confirmation link to <span className="font-medium text-foreground">{email}</span>. Open it to
-          finish creating your account, then sign in. The link expires in a day.
+          Enviamos un enlace de confirmación a <span className="font-medium text-foreground">{email}</span>. Ábrelo
+          para terminar de crear tu cuenta y luego inicia sesión. El enlace vence en un día.
         </p>
       </div>
       <ResendConfirmation email={email} />
       <Link href="/login" className={buttonVariants({ variant: "ghost" })}>
-        Go to sign in
+        Ir a iniciar sesión
       </Link>
     </div>
   );
@@ -63,7 +63,7 @@ export const RegisterForm = () => {
       <FormAlert message={formError} />
       <FormInput
         id="email"
-        label="Email"
+        label="Correo electrónico"
         type="email"
         autoComplete="email"
         autoFocus
@@ -72,7 +72,7 @@ export const RegisterForm = () => {
       />
       <FormInput
         id="password"
-        label="Password"
+        label="Contraseña"
         type="password"
         autoComplete="new-password"
         hint={PASSWORD_HINT}
@@ -81,14 +81,14 @@ export const RegisterForm = () => {
       />
       <FormInput
         id="confirmPassword"
-        label="Confirm password"
+        label="Confirma la contraseña"
         type="password"
         autoComplete="new-password"
         error={errors.confirmPassword}
         {...register("confirmPassword")}
       />
       <Button type="submit" size="lg" disabled={pending}>
-        {pending ? "Creating account…" : "Create account"}
+        {pending ? "Creando cuenta…" : "Crear cuenta"}
       </Button>
     </form>
   );

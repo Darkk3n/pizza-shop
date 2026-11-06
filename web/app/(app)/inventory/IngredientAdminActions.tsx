@@ -30,7 +30,7 @@ export const NewIngredientButton = ({ units }: { units: UnitOfMeasure[] }) => {
     <>
       <Button onClick={() => setOpen(true)}>
         <PlusIcon />
-        New ingredient
+        Nuevo ingrediente
       </Button>
       <IngredientFormDialog open={open} onOpenChange={setOpen} units={units} />
     </>
@@ -54,12 +54,12 @@ const DeleteIngredientDialog = ({ ingredient, open, onOpenChange }: DeleteIngred
     startTransition(async () => {
       const result = await deleteIngredient(ingredient.ingredientId);
       if (result.ok) {
-        toast.success(`${ingredient.name} deleted.`);
+        toast.success(`${ingredient.name} eliminado.`);
         onOpenChange(false);
       } else if (result.status === 409) {
-        setError(`${ingredient.name} is used by recipes or past orders, so it can't be deleted. Edit it and set it to Retired instead.`);
+        setError(`${ingredient.name} se usa en recetas o en pedidos anteriores, así que no se puede eliminar. En su lugar, se puede editar y marcar como Retirado.`);
       } else {
-        setError(result.message || "Couldn't delete the ingredient.");
+        setError(result.message || "No se pudo eliminar el ingrediente.");
       }
     });
   };
@@ -74,17 +74,17 @@ const DeleteIngredientDialog = ({ ingredient, open, onOpenChange }: DeleteIngred
     >
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete {ingredient.name}?</AlertDialogTitle>
+          <AlertDialogTitle>¿Eliminar {ingredient.name}?</AlertDialogTitle>
           <AlertDialogDescription>
-            This removes it for good. Ingredients that recipes or orders use can only be retired.
+            Se elimina de forma permanente. Los ingredientes que usan recetas o pedidos solo se pueden retirar.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <FormAlert message={error} />
         <AlertDialogFooter>
-          <AlertDialogCancel>Keep ingredient</AlertDialogCancel>
+          <AlertDialogCancel>Conservar ingrediente</AlertDialogCancel>
           {/* A plain button, not AlertDialogAction, so the dialog stays open to show a 409. */}
           <Button variant="destructive" disabled={pending} onClick={onDelete}>
-            {pending ? "Deleting…" : "Delete"}
+            {pending ? "Eliminando…" : "Eliminar"}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
@@ -102,14 +102,14 @@ export const IngredientAdminActions = ({ ingredient, units }: { ingredient: Ingr
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon-sm" aria-label={`More actions for ${ingredient.name}`}>
+          <Button variant="ghost" size="icon-sm" aria-label={`Más acciones para ${ingredient.name}`}>
             <MoreHorizontalIcon />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onSelect={() => setDialog("edit")}>Edit</DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => setDialog("edit")}>Editar</DropdownMenuItem>
           <DropdownMenuItem variant="destructive" onSelect={() => setDialog("delete")}>
-            Delete
+            Eliminar
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

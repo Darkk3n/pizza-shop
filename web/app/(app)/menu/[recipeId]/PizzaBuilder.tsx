@@ -48,8 +48,8 @@ export const PizzaBuilder = ({ recipe, sizes, toppings, initialQuote }: PizzaBui
       name: priced.itemNameSnapshot,
       details: priced.toppings.map((topping) => `+ ${describeTopping(topping)}`),
     });
-    toast.success(`${priced.quantity} × ${priced.itemNameSnapshot} added`, {
-      action: { label: "View cart", onClick: () => router.push("/cart") },
+    toast.success(`Se agregó ${priced.quantity} × ${priced.itemNameSnapshot}`, {
+      action: { label: "Ver carrito", onClick: () => router.push("/cart") },
     });
     builder.reset();
   };
@@ -59,11 +59,11 @@ export const PizzaBuilder = ({ recipe, sizes, toppings, initialQuote }: PizzaBui
       <div className="flex flex-col gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Size</CardTitle>
+            <CardTitle>Tamaño</CardTitle>
           </CardHeader>
           <CardContent>
             <ChoiceGroup
-              legend="Size"
+              legend="Tamaño"
               hideLegend
               value={builder.sizeId}
               onChange={builder.setSize}
@@ -75,14 +75,14 @@ export const PizzaBuilder = ({ recipe, sizes, toppings, initialQuote }: PizzaBui
 
         <Card>
           <CardHeader>
-            <CardTitle>Extra toppings</CardTitle>
+            <CardTitle>Ingredientes extra</CardTitle>
             <p className="text-sm text-muted-foreground">
-              Prices are for a small, whole pizza; they scale with size, half coverage and amount.
+              Los precios son para una pizza chica completa; cambian según el tamaño, si va en media pizza y la cantidad.
             </p>
           </CardHeader>
           <CardContent>
             {toppings.length === 0 ? (
-              <p className="text-sm text-muted-foreground">No extra toppings are available right now.</p>
+              <p className="text-sm text-muted-foreground">Por ahora no hay ingredientes extra disponibles.</p>
             ) : (
               <ul className="flex flex-col divide-y">
                 {toppings.map((topping) => {
@@ -106,7 +106,7 @@ export const PizzaBuilder = ({ recipe, sizes, toppings, initialQuote }: PizzaBui
                       {choice && (
                         <div className="flex flex-wrap gap-x-6 gap-y-3 pl-7">
                           <ChoiceGroup<ToppingCoverage>
-                            legend={`${topping.name} coverage`}
+                            legend={`Cobertura de ${topping.name}`}
                             hideLegend
                             size="sm"
                             value={choice.coverage}
@@ -114,7 +114,7 @@ export const PizzaBuilder = ({ recipe, sizes, toppings, initialQuote }: PizzaBui
                             choices={COVERAGE_CHOICES}
                           />
                           <ChoiceGroup<ToppingAmount>
-                            legend={`${topping.name} amount`}
+                            legend={`Cantidad de ${topping.name}`}
                             hideLegend
                             size="sm"
                             value={choice.extraAmount}
@@ -142,13 +142,13 @@ export const PizzaBuilder = ({ recipe, sizes, toppings, initialQuote }: PizzaBui
         <CardContent className="flex flex-col gap-4">
           <div className="flex items-center justify-between gap-4">
             <span id="quantity-label" className="text-sm font-medium">
-              Quantity
+              Cantidad
             </span>
             <div className="flex items-center gap-2" role="group" aria-labelledby="quantity-label">
               <Button
                 variant="outline"
                 size="icon"
-                aria-label="Decrease quantity"
+                aria-label="Disminuir cantidad"
                 disabled={builder.quantity <= 1}
                 onClick={() => builder.setQuantity(builder.quantity - 1)}
               >
@@ -160,7 +160,7 @@ export const PizzaBuilder = ({ recipe, sizes, toppings, initialQuote }: PizzaBui
               <Button
                 variant="outline"
                 size="icon"
-                aria-label="Increase quantity"
+                aria-label="Aumentar cantidad"
                 disabled={builder.quantity >= MAX_QUANTITY}
                 onClick={() => builder.setQuantity(builder.quantity + 1)}
               >
@@ -173,7 +173,7 @@ export const PizzaBuilder = ({ recipe, sizes, toppings, initialQuote }: PizzaBui
           {builder.quoteError && (
             <Button variant="outline" size="sm" className="w-fit" onClick={builder.retryQuote}>
               <RotateCwIcon />
-              Try again
+              Intentar de nuevo
             </Button>
           )}
 
@@ -198,7 +198,7 @@ export const PizzaBuilder = ({ recipe, sizes, toppings, initialQuote }: PizzaBui
                 ))}
                 {quotedItem.quantity > 1 && (
                   <div className="flex justify-between gap-4">
-                    <dt className="text-muted-foreground">Each × {quotedItem.quantity}</dt>
+                    <dt className="text-muted-foreground">Cada una × {quotedItem.quantity}</dt>
                     <dd className="font-mono tabular-nums">{formatMoney(quotedItem.unitPrice)}</dd>
                   </div>
                 )}
@@ -206,18 +206,18 @@ export const PizzaBuilder = ({ recipe, sizes, toppings, initialQuote }: PizzaBui
                   <dt>Total</dt>
                   <dd className="font-mono tabular-nums">{formatMoney(quotedItem.lineTotal)}</dd>
                 </div>
-                <p className="text-xs text-muted-foreground">Tax is added at checkout.</p>
+                <p className="text-xs text-muted-foreground">El IVA se suma al hacer el pedido.</p>
               </>
             )}
           </dl>
         </CardContent>
         <CardFooter className="flex-col items-stretch gap-2">
           <Button size="lg" disabled={!builder.quote} onClick={addToOrder}>
-            {builder.quote ? "Add to order" : builder.quoteError ? "Price unavailable" : "Updating price…"}
+            {builder.quote ? "Agregar al pedido" : builder.quoteError ? "Precio no disponible" : "Actualizando precio…"}
           </Button>
           {cart.count > 0 && (
             <Button variant="outline" onClick={() => router.push("/cart")}>
-              View cart ({cart.count})
+              Ver carrito ({cart.count})
             </Button>
           )}
         </CardFooter>

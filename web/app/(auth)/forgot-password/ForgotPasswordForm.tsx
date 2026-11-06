@@ -38,14 +38,14 @@ export const ForgotPasswordForm = () => {
     return (
       <div className="grid gap-4">
         <div role="status" className="grid gap-2">
-          <p className="font-medium">Check your inbox</p>
+          <p className="font-medium">Revisa tu bandeja de entrada</p>
           <p className="text-sm text-muted-foreground">
-            If <span className="font-medium text-foreground">{sentTo}</span> has a confirmed Rubencinis & Mate Pizza account, we
-            sent it a link to choose a new password. The link expires in a day.
+            Si <span className="font-medium text-foreground">{sentTo}</span> tiene una cuenta confirmada en Rubencinis & Mate
+            Pizza, le enviamos un enlace para elegir una nueva contraseña. El enlace vence en un día.
           </p>
         </div>
         <Link href="/login" className={buttonVariants({ variant: "outline" })}>
-          Back to sign in
+          Volver a iniciar sesión
         </Link>
       </div>
     );
@@ -56,7 +56,7 @@ export const ForgotPasswordForm = () => {
       <FormAlert message={formError} />
       <FormInput
         id="email"
-        label="Email"
+        label="Correo electrónico"
         type="email"
         autoComplete="email"
         autoFocus
@@ -64,7 +64,7 @@ export const ForgotPasswordForm = () => {
         {...register("email")}
       />
       <Button type="submit" size="lg" disabled={pending}>
-        {pending ? "Sending…" : "Send reset link"}
+        {pending ? "Enviando…" : "Enviar enlace"}
       </Button>
     </form>
   );

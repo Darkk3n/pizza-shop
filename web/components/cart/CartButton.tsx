@@ -14,7 +14,7 @@ export const CartButton = () => {
   return (
     <Link
       href="/cart"
-      aria-label={`Cart, ${count} ${count === 1 ? "item" : "items"}`}
+      aria-label={`Carrito, ${count} ${count === 1 ? "producto" : "productos"}`}
       className={cn(buttonVariants({ variant: "ghost", size: "lg" }), "relative gap-2")}
     >
       <ShoppingBagIcon className="size-4" />

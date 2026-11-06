@@ -36,9 +36,9 @@ export const CartView = () => {
   if (cart.lines.length === 0) {
     return (
       <div className="flex flex-col items-center gap-4 rounded-lg border border-dashed px-4 py-16 text-center">
-        <p className="text-muted-foreground">Your cart is empty.</p>
+        <p className="text-muted-foreground">Tu carrito está vacío.</p>
         <Link href="/menu" className={buttonVariants()}>
-          Browse the menu
+          Ver el menú
         </Link>
       </div>
     );
@@ -55,7 +55,7 @@ export const CartView = () => {
       const result = await placeOrder(body, key);
       if (result.ok) {
         cart.clear();
-        toast.success(`Order #${result.orderNumber} placed`);
+        toast.success(`Pedido #${result.orderNumber} realizado`);
         router.push(`/my-orders/${result.orderId}`);
         return;
       }
@@ -70,7 +70,7 @@ export const CartView = () => {
       setLineErrors(byLine);
       setFormError(
         [result.message, ...other].filter(Boolean).join(" ") ||
-          (Object.keys(byLine).length > 0 ? "Some items can't be ordered. Remove them and try again." : null),
+          (Object.keys(byLine).length > 0 ? "Algunos productos no se pueden pedir. Quítalos e intenta de nuevo." : null),
       );
     });
   };
@@ -79,7 +79,7 @@ export const CartView = () => {
     <div className="grid gap-6 lg:grid-cols-[1fr_20rem] lg:items-start">
       <Card>
         <CardHeader>
-          <CardTitle>Items</CardTitle>
+          <CardTitle>Productos</CardTitle>
         </CardHeader>
         <CardContent>
           <ul className="flex flex-col divide-y">
@@ -118,12 +118,12 @@ export const CartView = () => {
                     <div
                       className="flex items-center gap-2"
                       role="group"
-                      aria-label={`Quantity of ${priced?.itemNameSnapshot ?? line.name}`}
+                      aria-label={`Cantidad de ${priced?.itemNameSnapshot ?? line.name}`}
                     >
                       <Button
                         variant="outline"
                         size="icon-sm"
-                        aria-label="Decrease quantity"
+                        aria-label="Disminuir cantidad"
                         disabled={line.item.quantity <= 1 || pending}
                         onClick={() => cart.setQuantity(line.lineId, line.item.quantity - 1)}
                       >
@@ -135,7 +135,7 @@ export const CartView = () => {
                       <Button
                         variant="outline"
                         size="icon-sm"
-                        aria-label="Increase quantity"
+                        aria-label="Aumentar cantidad"
                         disabled={line.item.quantity >= MAX_QUANTITY || pending}
                         onClick={() => cart.setQuantity(line.lineId, line.item.quantity + 1)}
                       >
@@ -152,7 +152,7 @@ export const CartView = () => {
                       }}
                     >
                       <Trash2Icon />
-                      Remove
+                      Quitar
                     </Button>
                   </div>
                 </li>
@@ -163,23 +163,23 @@ export const CartView = () => {
         <CardFooter>
           <Link href="/menu" className={buttonVariants({ variant: "outline", size: "sm" })}>
             <PlusIcon />
-            Add another pizza
+            Agregar otra pizza
           </Link>
         </CardFooter>
       </Card>
 
       <Card className="lg:sticky lg:top-22">
         <CardHeader>
-          <CardTitle>Checkout</CardTitle>
+          <CardTitle>Resumen</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
-          <ChoiceGroup legend="Order type" value={orderType} onChange={setOrderType} choices={ORDER_TYPE_CHOICES} />
+          <ChoiceGroup legend="Tipo de pedido" value={orderType} onChange={setOrderType} choices={ORDER_TYPE_CHOICES} />
 
           <FormAlert message={pricing.quoteError} />
           {pricing.quoteError && (
             <Button variant="outline" size="sm" className="w-fit" onClick={pricing.retryQuote}>
               <RotateCwIcon />
-              Try again
+              Intentar de nuevo
             </Button>
           )}
 
@@ -193,7 +193,7 @@ export const CartView = () => {
               <dd className="font-mono tabular-nums">{quote ? formatMoney(quote.subTotal) : "—"}</dd>
             </div>
             <div className="flex justify-between gap-4">
-              <dt className="text-muted-foreground">Tax</dt>
+              <dt className="text-muted-foreground">IVA</dt>
               <dd className="font-mono tabular-nums">{quote ? formatMoney(quote.tax) : "—"}</dd>
             </div>
             <div className="flex justify-between gap-4 border-t pt-2 text-base font-semibold">
@@ -206,7 +206,7 @@ export const CartView = () => {
         </CardContent>
         <CardFooter>
           <Button size="lg" className="w-full" disabled={!pricing.quote || pending} onClick={checkout}>
-            {pending ? "Placing order…" : pricing.quote ? `Place order · ${formatMoney(pricing.quote.total)}` : "Updating price…"}
+            {pending ? "Enviando pedido…" : pricing.quote ? `Hacer pedido · ${formatMoney(pricing.quote.total)}` : "Actualizando precio…"}
           </Button>
         </CardFooter>
       </Card>

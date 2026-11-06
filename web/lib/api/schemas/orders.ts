@@ -29,7 +29,7 @@ export const orderItemRequestSchema = z.object({
     )
     // The API allows each ingredient once per item.
     .refine((toppings) => new Set(toppings.map((t) => t.ingredientId)).size === toppings.length, {
-      message: "Each topping can be added once.",
+      message: "Cada ingrediente extra se puede agregar una sola vez.",
     }),
 });
 
@@ -40,7 +40,7 @@ export const quoteRequestSchema = z.object({ items: z.array(orderItemRequestSche
 // POST /api/orders body (the Idempotency-Key goes in a header).
 export const createOrderSchema = z.object({
   orderType: orderTypeSchema,
-  items: z.array(orderItemRequestSchema).min(1, "Your cart is empty."),
+  items: z.array(orderItemRequestSchema).min(1, "Tu carrito está vacío."),
 });
 
 export type CreateOrderInput = z.infer<typeof createOrderSchema>;
@@ -143,7 +143,7 @@ export const orderListQuerySchema = z.object({
 });
 
 export const cancelOrderSchema = z.object({
-  reason: z.string().trim().max(200, "Keep the reason under 200 characters."),
+  reason: z.string().trim().max(200, "Usa menos de 200 caracteres para el motivo."),
 });
 
 export type CancelOrderInput = z.infer<typeof cancelOrderSchema>;

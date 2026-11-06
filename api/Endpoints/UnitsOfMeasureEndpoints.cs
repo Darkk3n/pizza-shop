@@ -60,7 +60,7 @@ namespace PizzaShop.Api.Endpoints
 
             if (await context.UnitsOfMeasure.NameTakenAsync(name, excludeId: null, ct))
             {
-                return UniqueNames.DuplicateName("Unit of measure", name);
+                return UniqueNames.DuplicateName("una unidad de medida", name);
             }
 
             var unitOfMeasure = new UnitOfMeasure { Name = name };
@@ -85,7 +85,7 @@ namespace PizzaShop.Api.Endpoints
 
             if (await context.UnitsOfMeasure.NameTakenAsync(name, excludeId: id, ct))
             {
-                return UniqueNames.DuplicateName("Unit of measure", name);
+                return UniqueNames.DuplicateName("una unidad de medida", name);
             }
 
             unitOfMeasure.Name = name;
@@ -109,8 +109,8 @@ namespace PizzaShop.Api.Endpoints
             {
                 return TypedResults.Problem(
                     statusCode: StatusCodes.Status409Conflict,
-                    title: "Unit of measure is in use.",
-                    detail: $"The unit of measure '{unitOfMeasure.Name}' is used by one or more ingredients.");
+                    title: "Unidad de medida en uso.",
+                    detail: $"Uno o más ingredientes usan la unidad de medida '{unitOfMeasure.Name}'.");
             }
 
             context.UnitsOfMeasure.Remove(unitOfMeasure);

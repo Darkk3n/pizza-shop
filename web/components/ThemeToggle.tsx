@@ -13,9 +13,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const THEMES = [
-  { value: "light", label: "Light", icon: SunIcon },
-  { value: "dark", label: "Dark", icon: MoonIcon },
-  { value: "system", label: "System", icon: MonitorIcon },
+  { value: "light", label: "Claro", icon: SunIcon },
+  { value: "dark", label: "Oscuro", icon: MoonIcon },
+  { value: "system", label: "Sistema", icon: MonitorIcon },
 ] as const;
 
 // Light / Dark / System. The trigger swaps its icon with the dark: variant instead of reading the
@@ -27,13 +27,13 @@ export const ThemeToggle = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon-lg" aria-label="Theme" title="Theme">
+        <Button variant="ghost" size="icon-lg" aria-label="Tema" title="Tema">
           <SunIcon className="size-4 dark:hidden" />
           <MoonIcon className="hidden size-4 dark:block" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-40">
-        <DropdownMenuLabel>Theme</DropdownMenuLabel>
+        <DropdownMenuLabel>Tema</DropdownMenuLabel>
         <DropdownMenuRadioGroup value={theme ?? "system"} onValueChange={setTheme}>
           {THEMES.map(({ value, label, icon: Icon }) => (
             <DropdownMenuRadioItem key={value} value={value}>

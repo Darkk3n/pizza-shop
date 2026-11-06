@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
   title: { default: restaurant.name, template: `%s · ${restaurant.name}` },
   description: restaurant.tagline,
-  openGraph: { siteName: restaurant.name, type: "website", locale: "en_US" },
+  openGraph: { siteName: restaurant.name, type: "website", locale: "es_MX" },
 };
 
 // The signed-out site: landing and menu (shown at / and /menu through proxy.ts rewrites), about and

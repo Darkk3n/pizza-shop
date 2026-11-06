@@ -8,12 +8,12 @@ type PagerProps = {
   totalCount: number;
   // Server Component only: builds each page's URL (keeping the page's other filters).
   hrefForPage: (page: number) => string;
-  // Plural noun for the total, e.g. "users".
+  // Plural noun for the total, e.g. "usuarios".
   itemLabel?: string;
 };
 
 // Previous / Next links for a paged list; hidden when everything fits on one page.
-export const Pager = ({ page, pageCount, totalCount, hrefForPage, itemLabel = "orders" }: PagerProps) => {
+export const Pager = ({ page, pageCount, totalCount, hrefForPage, itemLabel = "pedidos" }: PagerProps) => {
   if (pageCount <= 1) return null;
 
   const link = (target: number, label: string, disabled: boolean) => (
@@ -28,13 +28,13 @@ export const Pager = ({ page, pageCount, totalCount, hrefForPage, itemLabel = "o
   );
 
   return (
-    <nav aria-label="Pages" className="flex items-center justify-between gap-4 text-sm">
+    <nav aria-label="Páginas" className="flex items-center justify-between gap-4 text-sm">
       <span className="text-muted-foreground">
-        Page {page} of {pageCount} · {totalCount} {itemLabel}
+        Página {page} de {pageCount} · {totalCount} {itemLabel}
       </span>
       <div className="flex gap-2">
-        {link(page - 1, "Previous", page <= 1)}
-        {link(page + 1, "Next", page >= pageCount)}
+        {link(page - 1, "Anterior", page <= 1)}
+        {link(page + 1, "Siguiente", page >= pageCount)}
       </div>
     </nav>
   );

@@ -16,17 +16,17 @@ export const PublicHeader = () => {
         </Link>
         <nav aria-label="Main" className="flex items-center gap-1 sm:gap-2">
           <Link href="/menu" className={buttonVariants({ variant: "ghost", className: "hidden sm:inline-flex" })}>
-            Menu
+            Menú
           </Link>
           <Link href="/about" className={buttonVariants({ variant: "ghost", className: "hidden sm:inline-flex" })}>
-            About
+            Nosotros
           </Link>
           <ThemeToggle />
           <Link href="/login" className={buttonVariants({ variant: "ghost" })}>
-            Sign in
+            Iniciar sesión
           </Link>
           <Link href="/menu" className={buttonVariants()}>
-            Order now
+            Pide ahora
           </Link>
         </nav>
       </div>

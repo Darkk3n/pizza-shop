@@ -73,7 +73,7 @@ namespace PizzaShop.Api.Endpoints
             {
                 return TypedResults.ValidationProblem(new Dictionary<string, string[]>
                 {
-                    [nameof(UpdateUserRolesRequest.Roles)] = [$"Unknown roles: {string.Join(", ", unknown)}. Valid roles: {string.Join(", ", Roles.All)}."],
+                    [nameof(UpdateUserRolesRequest.Roles)] = [$"Roles desconocidos: {string.Join(", ", unknown)}. Roles válidos: {string.Join(", ", Roles.All)}."],
                 });
             }
 
@@ -92,8 +92,8 @@ namespace PizzaShop.Api.Endpoints
             {
                 return TypedResults.Problem(
                     statusCode: StatusCodes.Status409Conflict,
-                    title: "Last admin.",
-                    detail: $"'{user.Email}' is the only admin; promote another user to Admin first.");
+                    title: "Último administrador.",
+                    detail: $"'{user.Email}' es el único administrador; primero hay que dar el rol de administrador a otro usuario.");
             }
 
             ThrowIfFailed(await userManager.RemoveFromRolesAsync(user, current.Except(requested)));

@@ -5,38 +5,38 @@ import { buttonVariants } from "@/components/ui/button";
 import { formatAddress, restaurant } from "@/lib/restaurant";
 
 export const metadata: Metadata = {
-  title: "About & FAQ",
-  description: `Hours, location and answers to common questions about ordering from ${restaurant.name}.`,
+  title: "Nosotros y preguntas frecuentes",
+  description: `Horario, ubicación y respuestas a las preguntas frecuentes sobre cómo pedir en ${restaurant.name}.`,
   alternates: { canonical: "/about" },
   openGraph: { url: "/about" },
 };
 
 const FAQ = [
   {
-    question: "Do you deliver?",
-    answer: `Not yet. Orders are for ${restaurant.serviceModes.join(" or ").toLowerCase()}.`,
+    question: "¿Tienen servicio a domicilio?",
+    answer: `Todavía no. Los pedidos son ${restaurant.serviceModes.join(" o ").toLowerCase()}.`,
   },
   {
-    question: "Do I need an account to order?",
+    question: "¿Necesito una cuenta para pedir?",
     answer:
-      "Yes. A free account lets you place orders online, follow their status live and reorder your favorites in one tap. You can browse the menu without one.",
+      "Sí. Con una cuenta gratuita puedes hacer pedidos en línea, seguir su estado en tiempo real y volver a pedir tus favoritos con un toque. Puedes ver el menú sin cuenta.",
   },
   {
-    question: "Can I put different toppings on each half?",
+    question: "¿Puedo poner ingredientes distintos en cada mitad?",
     answer:
-      "Yes. Every topping goes on the whole pizza, the left half or the right half, in a light, standard or extra portion. Half a pizza costs half.",
+      "Sí. Cada ingrediente extra puede ir en la pizza completa, en la mitad izquierda o en la mitad derecha, en porción poca, normal o extra. En media pizza cuesta la mitad.",
   },
   {
-    question: "How do I know when my order is ready?",
-    answer: "Your home page shows each order as it moves from pending to preparing to ready.",
+    question: "¿Cómo sé cuándo está listo mi pedido?",
+    answer: "Tu página de inicio muestra cada pedido mientras pasa de pendiente a en preparación y a listo.",
   },
   {
-    question: "Can I cancel an order?",
-    answer: "Yes, while it's still pending. Once the kitchen starts on it, call us and we'll help.",
+    question: "¿Puedo cancelar un pedido?",
+    answer: "Sí, mientras siga pendiente. Si la cocina ya empezó a prepararlo, llámanos y te ayudamos.",
   },
   {
-    question: "Do you have allergen information?",
-    answer: `Each pizza on the menu lists its ingredients. For anything else, ask us at ${restaurant.phone} before ordering.`,
+    question: "¿Tienen información sobre alérgenos?",
+    answer: `Cada pizza del menú muestra sus ingredientes. Para cualquier otra duda, pregúntanos al ${restaurant.phone} antes de pedir.`,
   },
 ];
 
@@ -44,14 +44,14 @@ const AboutPage = () => {
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-12 px-4 py-10">
       <section className="flex flex-col gap-3">
-        <h1 className="text-3xl font-semibold tracking-tight">About {restaurant.name}</h1>
+        <h1 className="text-3xl font-semibold tracking-tight">Sobre {restaurant.name}</h1>
         <p className="text-lg text-muted-foreground text-pretty">{restaurant.description}</p>
       </section>
 
       <section aria-labelledby="visit" className="grid gap-6 rounded-2xl border p-6 sm:grid-cols-2">
         <div className="flex flex-col gap-3">
           <h2 id="visit" className="text-lg font-semibold tracking-tight">
-            Visit us
+            Visítanos
           </h2>
           <address className="flex flex-col gap-1 text-sm not-italic">
             <span>{formatAddress()}</span>
@@ -68,18 +68,18 @@ const AboutPage = () => {
             rel="noreferrer"
             className={buttonVariants({ variant: "outline", className: "self-start" })}
           >
-            Open in Maps
+            Abrir en Maps
           </a>
         </div>
         <div className="flex flex-col gap-3">
-          <h2 className="text-lg font-semibold tracking-tight">Hours</h2>
+          <h2 className="text-lg font-semibold tracking-tight">Horario</h2>
           <OpeningHoursList />
         </div>
       </section>
 
       <section aria-labelledby="faq" className="flex flex-col gap-4">
         <h2 id="faq" className="text-2xl font-semibold tracking-tight">
-          Frequently asked questions
+          Preguntas frecuentes
         </h2>
         <div className="divide-y rounded-xl border">
           {FAQ.map((item) => (
@@ -98,10 +98,10 @@ const AboutPage = () => {
 
       <div className="flex flex-wrap gap-3">
         <Link href="/menu" className={buttonVariants()}>
-          See the menu
+          Ver el menú
         </Link>
         <Link href="/register" className={buttonVariants({ variant: "outline" })}>
-          Create an account
+          Crear una cuenta
         </Link>
       </div>
     </div>

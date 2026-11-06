@@ -17,7 +17,7 @@ import { listRecipes } from "@/lib/api/menu";
 import { requireAdmin } from "@/lib/auth/currentUser";
 import { formatMoney } from "@/lib/helpers/format";
 
-export const metadata: Metadata = { title: "Recipes · Rubencinis & Mate Pizza" };
+export const metadata: Metadata = { title: "Recetas · Rubencinis & Mate Pizza" };
 
 const RecipesTable = async () => {
   await requireAdmin();
@@ -30,7 +30,7 @@ const RecipesTable = async () => {
   if (recipes.length === 0) {
     return (
       <p className="rounded-lg border border-dashed px-4 py-12 text-center text-muted-foreground">
-        No recipes yet. Add the first one to build the menu.
+        Aún no hay recetas. El menú se arma a partir de ellas.
       </p>
     );
   }
@@ -40,9 +40,9 @@ const RecipesTable = async () => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Recipe</TableHead>
-            <TableHead className="hidden sm:table-cell">Ingredients</TableHead>
-            <TableHead className="text-right">Small price</TableHead>
+            <TableHead>Receta</TableHead>
+            <TableHead className="hidden sm:table-cell">Ingredientes</TableHead>
+            <TableHead className="text-right">Precio chica</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -57,7 +57,7 @@ const RecipesTable = async () => {
                   >
                     {recipe.name}
                   </Link>
-                  {!recipe.isActive && <Badge variant="outline">Retired</Badge>}
+                  {!recipe.isActive && <Badge variant="outline">Retirada</Badge>}
                 </span>
               </TableCell>
               <TableCell className="hidden max-w-96 truncate text-muted-foreground sm:table-cell">
@@ -79,7 +79,7 @@ const RecipesTableSkeleton = () => {
     <div
       className="flex flex-col gap-2 rounded-lg border p-4"
       aria-busy="true"
-      aria-label="Loading recipes"
+      aria-label="Cargando recetas"
     >
       {Array.from({ length: 6 }, (_, i) => (
         <Skeleton key={i} className="h-8 w-full" />
@@ -93,14 +93,14 @@ const RecipesPage = () => {
     <div className="flex flex-col gap-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-semibold tracking-tight">Recipes</h1>
+          <h1 className="text-2xl font-semibold tracking-tight">Recetas</h1>
           <p className="text-muted-foreground">
-            The menu: what each pizza costs and the ingredients it uses.
+            El menú: el precio de cada pizza y los ingredientes que usa.
           </p>
         </div>
         <Link href="/recipes/new" className={buttonVariants()}>
           <PlusIcon />
-          New recipe
+          Nueva receta
         </Link>
       </div>
       <Suspense fallback={<RecipesTableSkeleton />}>

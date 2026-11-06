@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { resetLinkSchema } from "@/lib/api/schemas/auth";
 import { ResetPasswordForm } from "./ResetPasswordForm";
 
-export const metadata: Metadata = { title: "Choose a new password · Rubencinis & Mate Pizza" };
+export const metadata: Metadata = { title: "Nueva contraseña · Rubencinis & Mate Pizza" };
 
 // Opened from the reset email: /reset-password?email=...&code=... (Email:WebBaseUrl in the API).
 const ResetPasswordContent = async ({ searchParams }: { searchParams: PageProps<"/reset-password">["searchParams"] }) => {
@@ -16,10 +16,10 @@ const ResetPasswordContent = async ({ searchParams }: { searchParams: PageProps<
     return (
       <div className="grid gap-4">
         <p className="text-sm text-muted-foreground">
-          This link is incomplete. Open the newest reset email again, or ask for a new link.
+          Este enlace está incompleto. Abre otra vez el correo más reciente o pide un enlace nuevo.
         </p>
         <Link href="/forgot-password" className={buttonVariants({ variant: "outline" })}>
-          Ask for a new link
+          Pedir un enlace nuevo
         </Link>
       </div>
     );
@@ -31,8 +31,8 @@ const ResetPasswordPage = ({ searchParams }: PageProps<"/reset-password">) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-xl">Choose a new password</CardTitle>
-        <CardDescription>The link from your email works once.</CardDescription>
+        <CardTitle className="text-xl">Elige una nueva contraseña</CardTitle>
+        <CardDescription>El enlace de tu correo funciona una sola vez.</CardDescription>
       </CardHeader>
       <CardContent>
         <Suspense fallback={<Skeleton className="h-48 w-full" />}>

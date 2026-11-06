@@ -38,12 +38,12 @@ type IngredientFormDialogProps = {
 };
 
 const STATUS_CHOICES = [
-  { value: "active", label: "Active" },
-  { value: "retired", label: "Retired" },
+  { value: "active", label: "Activo" },
+  { value: "retired", label: "Retirado" },
 ] as const;
 
 const TOPPING_CHOICES = [
-  { value: "yes", label: "Yes" },
+  { value: "yes", label: "Sí" },
   { value: "no", label: "No" },
 ] as const;
 
@@ -119,12 +119,12 @@ export const IngredientFormDialog = ({ open, onOpenChange, ingredient, units }: 
     startTransition(async () => {
       const result = ingredient ? await updateIngredient(ingredient.ingredientId, values) : await createIngredient(values);
       if (result.ok) {
-        toast.success(ingredient ? `${values.name.trim()} saved.` : `${values.name.trim()} added.`);
+        toast.success(ingredient ? `${values.name.trim()} guardado.` : `${values.name.trim()} agregado.`);
         close();
       } else if (result.status === 409) {
-        setError("name", { message: result.message ?? "Another ingredient already has this name." });
+        setError("name", { message: result.message ?? "Ya existe otro ingrediente con este nombre." });
       } else {
-        setFormError(applyActionErrors(result, setError, FIELDS) ?? "Couldn't save the ingredient.");
+        setFormError(applyActionErrors(result, setError, FIELDS) ?? "No se pudo guardar el ingrediente.");
       }
     });
   });
@@ -145,17 +145,17 @@ export const IngredientFormDialog = ({ open, onOpenChange, ingredient, units }: 
       <DialogContent>
         <form onSubmit={onSubmit} noValidate className="grid gap-4">
           <DialogHeader>
-            <DialogTitle>{ingredient ? `Edit ${ingredient.name}` : "New ingredient"}</DialogTitle>
+            <DialogTitle>{ingredient ? `Editar ${ingredient.name}` : "Nuevo ingrediente"}</DialogTitle>
             <DialogDescription>
               {ingredient
-                ? "Stock changes go through Adjust; this edits the catalog details."
-                : "Recipes use it by amount; toppings are what customers can add to a pizza."}
+                ? "La existencia se cambia con Ajustar; aquí se editan los datos del catálogo."
+                : "Las recetas lo usan por cantidad; los ingredientes extra son los que el cliente puede agregar a una pizza."}
             </DialogDescription>
           </DialogHeader>
           <FormAlert message={formError} />
 
           <div className="grid gap-2">
-            <Label htmlFor={`${prefix}-name`}>Name</Label>
+            <Label htmlFor={`${prefix}-name`}>Nombre</Label>
             <Input
               id={`${prefix}-name`}
               autoComplete="off"
@@ -168,7 +168,7 @@ export const IngredientFormDialog = ({ open, onOpenChange, ingredient, units }: 
 
           <div className="grid items-start gap-4 sm:grid-cols-2">
             <div className="grid gap-2">
-              <Label htmlFor={`${prefix}-unitOfMeasureId`}>Unit</Label>
+              <Label htmlFor={`${prefix}-unitOfMeasureId`}>Unidad</Label>
               <NativeSelect
                 id={`${prefix}-unitOfMeasureId`}
                 className="w-full"
@@ -177,7 +177,7 @@ export const IngredientFormDialog = ({ open, onOpenChange, ingredient, units }: 
                 {...register("unitOfMeasureId")}
               >
                 <NativeSelectOption value="" disabled>
-                  Pick a unit
+                  Seleccionar unidad
                 </NativeSelectOption>
                 {units.map((unit) => (
                   <NativeSelectOption key={unit.unitOfMeasureId} value={unit.unitOfMeasureId}>
@@ -189,7 +189,7 @@ export const IngredientFormDialog = ({ open, onOpenChange, ingredient, units }: 
             </div>
             {!ingredient && (
               <div className="grid gap-2">
-                <Label htmlFor={`${prefix}-currentStock`}>Starting stock{unitName ? ` (${unitName})` : ""}</Label>
+                <Label htmlFor={`${prefix}-currentStock`}>Existencia inicial{unitName ? ` (${unitName})` : ""}</Label>
                 <Input {...numberInput("currentStock", "0.01")} />
                 <FieldMessage id={`${prefix}-currentStock-message`} message={errors.currentStock?.message} />
               </div>
@@ -197,12 +197,12 @@ export const IngredientFormDialog = ({ open, onOpenChange, ingredient, units }: 
           </div>
           {unitChanged && (
             <p className="-mt-2 text-sm text-warning-foreground">
-              Stock and recipe amounts aren&apos;t converted: they keep their numbers in the new unit.
+              La existencia y las cantidades de las recetas no se convierten: conservan sus números en la nueva unidad.
             </p>
           )}
 
           <ChoiceGroup
-            legend="Offered as a topping?"
+            legend="¿Se ofrece como ingrediente extra?"
             size="sm"
             value={isTopping ? "yes" : "no"}
             choices={TOPPING_CHOICES}
@@ -211,25 +211,25 @@ export const IngredientFormDialog = ({ open, onOpenChange, ingredient, units }: 
           {isTopping && (
             <div className="grid items-start gap-4 sm:grid-cols-2">
               <div className="grid gap-2">
-                <Label htmlFor={`${prefix}-toppingPrice`}>Topping price ($)</Label>
+                <Label htmlFor={`${prefix}-toppingPrice`}>Precio como extra ($)</Label>
                 <Input {...numberInput("toppingPrice", "0.01")} />
                 <FieldMessage id={`${prefix}-toppingPrice-message`} message={errors.toppingPrice?.message} />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor={`${prefix}-toppingPortion`}>Portion{unitName ? ` (${unitName})` : ""}</Label>
+                <Label htmlFor={`${prefix}-toppingPortion`}>Porción{unitName ? ` (${unitName})` : ""}</Label>
                 <Input {...numberInput("toppingPortion", "0.0001")} />
                 <FieldMessage id={`${prefix}-toppingPortion-message`} message={errors.toppingPortion?.message} />
               </div>
               <p className="text-sm text-muted-foreground sm:col-span-2">
-                For a Small, whole pizza at the standard amount. Larger sizes, half coverage and
-                light/extra scale both.
+                Para una pizza chica completa en cantidad normal. Los tamaños más grandes, la media pizza
+                y las cantidades poco/extra ajustan ambos valores.
               </p>
             </div>
           )}
 
           {ingredient && (
             <ChoiceGroup
-              legend="Status"
+              legend="Estado"
               size="sm"
               value={isActive ? "active" : "retired"}
               choices={STATUS_CHOICES}
@@ -238,19 +238,19 @@ export const IngredientFormDialog = ({ open, onOpenChange, ingredient, units }: 
           )}
           {ingredient && !isActive && (
             <p className="-mt-2 text-sm text-muted-foreground">
-              Retired ingredients can&apos;t be added to recipes or picked as toppings. Recipes that already
-              use it keep it.
+              Los ingredientes retirados no se pueden agregar a recetas ni elegir como extra. Las recetas que
+              ya lo usan lo conservan.
             </p>
           )}
 
           <DialogFooter>
             <DialogClose asChild>
               <Button type="button" variant="outline">
-                Close
+                Cerrar
               </Button>
             </DialogClose>
             <Button type="submit" disabled={pending}>
-              {pending ? "Saving…" : ingredient ? "Save changes" : "Add ingredient"}
+              {pending ? "Guardando…" : ingredient ? "Guardar cambios" : "Agregar ingrediente"}
             </Button>
           </DialogFooter>
         </form>

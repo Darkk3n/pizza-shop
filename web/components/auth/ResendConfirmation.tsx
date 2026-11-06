@@ -16,8 +16,8 @@ export const ResendConfirmation = ({ email }: { email: string }) => {
       const result = await resendConfirmation({ email });
       setStatus(
         result.ok
-          ? { ok: true, message: "Sent. Check your inbox (and spam folder) for the newest email." }
-          : { ok: false, message: result.message || "Couldn't send it. Try again in a minute." },
+          ? { ok: true, message: "Listo. Busca el correo más reciente en tu bandeja de entrada (y en spam)." }
+          : { ok: false, message: result.message || "No se pudo enviar. Intenta de nuevo en un minuto." },
       );
     });
   };
@@ -25,7 +25,7 @@ export const ResendConfirmation = ({ email }: { email: string }) => {
   return (
     <div className="grid gap-2">
       <Button type="button" variant="outline" disabled={pending} onClick={resend}>
-        {pending ? "Sending…" : "Send the link again"}
+        {pending ? "Enviando…" : "Enviar el enlace otra vez"}
       </Button>
       {status && (
         <p role="status" className={status.ok ? "text-sm text-muted-foreground" : "text-sm text-destructive"}>

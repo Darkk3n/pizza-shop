@@ -9,7 +9,7 @@ import { ApiError } from "@/lib/api/problem";
 import { requireUser } from "@/lib/auth/currentUser";
 import { PizzaBuilder } from "./PizzaBuilder";
 
-export const metadata: Metadata = { title: "Build your pizza · Rubencinis & Mate Pizza" };
+export const metadata: Metadata = { title: "Arma tu pizza · Rubencinis & Mate Pizza" };
 
 const Builder = async ({ params }: { params: PageProps<"/menu/[recipeId]">["params"] }) => {
   await requireUser();
@@ -35,7 +35,7 @@ const Builder = async ({ params }: { params: PageProps<"/menu/[recipeId]">["para
     <>
       <div className="flex flex-col gap-1">
         <h1 className="text-2xl font-semibold tracking-tight">{recipe.name}</h1>
-        <p className="text-muted-foreground">Choose a size and any extra toppings.</p>
+        <p className="text-muted-foreground">Elige un tamaño y los ingredientes extra que quieras.</p>
       </div>
       <PizzaBuilder recipe={recipe} sizes={sizes} toppings={toppings} initialQuote={initialQuote} />
     </>
@@ -44,7 +44,7 @@ const Builder = async ({ params }: { params: PageProps<"/menu/[recipeId]">["para
 
 const BuilderSkeleton = () => {
   return (
-    <div className="flex flex-col gap-6" aria-busy="true" aria-label="Loading pizza">
+    <div className="flex flex-col gap-6" aria-busy="true" aria-label="Cargando pizza">
       <Skeleton className="h-8 w-56" />
       <div className="grid gap-6 lg:grid-cols-[1fr_20rem]">
         <div className="flex flex-col gap-6">
@@ -62,7 +62,7 @@ const BuilderPage = ({ params }: PageProps<"/menu/[recipeId]">) => {
     <div className="flex flex-col gap-6">
       <Link href="/menu" className="flex w-fit items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeftIcon className="size-4" />
-        Menu
+        Menú
       </Link>
       <Suspense fallback={<BuilderSkeleton />}>
         <Builder params={params} />

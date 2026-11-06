@@ -20,7 +20,7 @@ namespace PizzaShop.Api.Tests
             var response = await admin.Client.PutAsJsonAsync($"/api/users/{adminId}/roles", new UpdateUserRolesRequest([]), TestApi.Json);
 
             var problem = await TestApi.ReadProblemAsync(response, HttpStatusCode.Conflict);
-            Assert.Equal("Last admin.", problem.Title);
+            Assert.Equal("Último administrador.", problem.Title);
         }
 
         [Fact]

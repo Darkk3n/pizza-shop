@@ -78,7 +78,7 @@ namespace PizzaShop.Api.Endpoints
 
             if (await context.Ingredients.NameTakenAsync(name, excludeId: null, ct))
             {
-                return UniqueNames.DuplicateName("Ingredient", name);
+                return UniqueNames.DuplicateName("un ingrediente", name);
             }
 
             var ingredient = new Ingredient
@@ -121,7 +121,7 @@ namespace PizzaShop.Api.Endpoints
 
             if (await context.Ingredients.NameTakenAsync(name, excludeId: id, ct))
             {
-                return UniqueNames.DuplicateName("Ingredient", name);
+                return UniqueNames.DuplicateName("un ingrediente", name);
             }
 
             ingredient.Name = name;
@@ -151,8 +151,8 @@ namespace PizzaShop.Api.Endpoints
             {
                 return TypedResults.Problem(
                     statusCode: StatusCodes.Status409Conflict,
-                    title: "Ingredient is in use.",
-                    detail: $"The ingredient '{ingredient.Name}' is used by one or more recipes or orders. Set isActive to false to retire it instead.");
+                    title: "Ingrediente en uso.",
+                    detail: $"Una o más recetas o pedidos usan el ingrediente '{ingredient.Name}'. En su lugar, se puede retirar (isActive = false).");
             }
 
             context.Ingredients.Remove(ingredient);
@@ -181,8 +181,8 @@ namespace PizzaShop.Api.Endpoints
                     ? TypedResults.NotFound()
                     : TypedResults.Problem(
                         statusCode: StatusCodes.Status409Conflict,
-                        title: "Insufficient stock.",
-                        detail: $"Removing {-request.Delta} would leave '{ingredient.Name}' below zero (current stock: {ingredient.CurrentStock}).");
+                        title: "Existencia insuficiente.",
+                        detail: $"Quitar {-request.Delta} dejaría '{ingredient.Name}' por debajo de cero (existencia actual: {ingredient.CurrentStock}).");
             }
 
             // Covers the rare case of the ingredient being deleted right after the update.
@@ -192,13 +192,13 @@ namespace PizzaShop.Api.Endpoints
         private static ValidationProblem UnknownUnitOfMeasure(Guid unitOfMeasureId) =>
             TypedResults.ValidationProblem(new Dictionary<string, string[]>
             {
-                [nameof(CreateIngredientRequest.UnitOfMeasureId)] = [$"Unit of measure '{unitOfMeasureId}' does not exist."],
+                [nameof(CreateIngredientRequest.UnitOfMeasureId)] = ["Esta unidad de medida ya no existe."],
             });
 
         private static ValidationProblem IncompleteTopping() =>
             TypedResults.ValidationProblem(new Dictionary<string, string[]>
             {
-                [nameof(CreateIngredientRequest.ToppingPortion)] = ["ToppingPrice and ToppingPortion must both be set or both be omitted."],
+                [nameof(CreateIngredientRequest.ToppingPortion)] = ["El precio y la porción como extra van juntos: se indican los dos o ninguno."],
             });
     }
 }

@@ -6,30 +6,30 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { activeOrdersUpdateSchema, type Order, type OrderStatus } from "@/lib/api/schemas/orders";
-import { formatMoney, formatTime, ORDER_TYPE_LABELS } from "@/lib/helpers/format";
+import { formatMoney, formatTime, ORDER_STATUS_LABELS, ORDER_TYPE_LABELS } from "@/lib/helpers/format";
 import { cn } from "@/lib/utils";
 
 const POLL_INTERVAL_MS = 15_000;
 
 const STEPS: { status: OrderStatus; label: string }[] = [
-  { status: "Pending", label: "Received" },
-  { status: "Preparing", label: "Preparing" },
-  { status: "Ready", label: "Ready" },
+  { status: "Pending", label: "Recibido" },
+  { status: "Preparing", label: ORDER_STATUS_LABELS.Preparing },
+  { status: "Ready", label: ORDER_STATUS_LABELS.Ready },
 ];
 
 const readyMessage = (order: Pick<Order, "orderType">) =>
-  order.orderType === "DineIn" ? "It's on its way to your table." : "It's ready for pickup.";
+  order.orderType === "DineIn" ? "Va en camino a tu mesa." : "Ya puedes pasar a recogerlo.";
 
 const statusMessage = (order: Order) => {
-  if (order.status === "Pending") return "We've got your order and will start on it shortly.";
-  if (order.status === "Preparing") return "It's being made right now.";
+  if (order.status === "Pending") return "Recibimos tu pedido y empezaremos a prepararlo en breve.";
+  if (order.status === "Preparing") return "Lo estamos preparando en este momento.";
   return readyMessage(order);
 };
 
 const Steps = ({ status }: { status: OrderStatus }) => {
   const current = STEPS.findIndex((step) => step.status === status);
   return (
-    <ol className="grid grid-cols-3 gap-2" aria-label="Order progress">
+    <ol className="grid grid-cols-3 gap-2" aria-label="Avance del pedido">
       {STEPS.map((step, index) => (
         <li
           key={step.status}
@@ -79,14 +79,14 @@ export const OrderTracker = ({ initialOrders }: { initialOrders: Order[] }) => {
           for (const order of update.active) {
             const before = statuses.get(order.orderId);
             if (before && before.status !== order.status) {
-              if (order.status === "Ready") toast.success(`Order #${order.orderNumber} is ready`, { description: readyMessage(order) });
-              else toast.info(`Order #${order.orderNumber} is being prepared`);
+              if (order.status === "Ready") toast.success(`Tu pedido #${order.orderNumber} está listo`, { description: readyMessage(order) });
+              else toast.info(`Estamos preparando tu pedido #${order.orderNumber}`);
             }
           }
           for (const order of update.finished) {
-            if (order.status === "Completed") toast.success(`Order #${order.orderNumber} is complete. Enjoy!`);
+            if (order.status === "Completed") toast.success(`Tu pedido #${order.orderNumber} está completo. ¡Buen provecho!`);
             else if (order.status === "Cancelled") {
-              toast.warning(`Order #${order.orderNumber} was cancelled`, {
+              toast.warning(`Tu pedido #${order.orderNumber} se canceló`, {
                 description: order.cancellationReason ?? undefined,
               });
             }
@@ -120,7 +120,7 @@ export const OrderTracker = ({ initialOrders }: { initialOrders: Order[] }) => {
   return (
     <section aria-labelledby="in-progress" className="flex flex-col gap-3">
       <h2 id="in-progress" className="text-lg font-semibold tracking-tight">
-        {orders.length === 1 ? "Your order" : "Your orders"} in progress
+        {orders.length === 1 ? "Tu pedido en curso" : "Tus pedidos en curso"}
       </h2>
       <ul className="grid gap-4 md:grid-cols-2">
         {orders.map((order) => (
@@ -130,11 +130,11 @@ export const OrderTracker = ({ initialOrders }: { initialOrders: Order[] }) => {
                 <div className="flex items-baseline justify-between gap-2">
                   <CardTitle className="font-mono">#{order.orderNumber}</CardTitle>
                   <Link href={`/my-orders/${order.orderId}`} className="text-sm text-muted-foreground hover:underline">
-                    View order
+                    Ver pedido
                   </Link>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  {ORDER_TYPE_LABELS[order.orderType]} · placed{" "}
+                  {ORDER_TYPE_LABELS[order.orderType]} · realizado a las{" "}
                   {/* The browser's time zone may differ from the server's; the customer's own clock wins. */}
                   <time dateTime={order.createdAt} suppressHydrationWarning>
                     {formatTime(order.createdAt)}
@@ -154,9 +154,9 @@ export const OrderTracker = ({ initialOrders }: { initialOrders: Order[] }) => {
       </ul>
       {paused && (
         <p className="text-sm text-muted-foreground">
-          Updates are paused while you&apos;re away.{" "}
+          Las actualizaciones están en pausa mientras no estás.{" "}
           <Link href="/" className="font-medium text-foreground underline-offset-4 hover:underline">
-            Check again
+            Volver a revisar
           </Link>
         </p>
       )}

@@ -74,10 +74,10 @@ const OrderAgain = async () => {
     <section aria-labelledby="order-again" className="flex flex-col gap-3">
       <div className="flex items-baseline justify-between gap-2">
         <h2 id="order-again" className="text-lg font-semibold tracking-tight">
-          Order again
+          Pedir de nuevo
         </h2>
         <Link href="/my-orders" className="text-sm text-muted-foreground hover:underline">
-          All my orders
+          Todos mis pedidos
         </Link>
       </div>
       <ul className="grid gap-4 md:grid-cols-3">
@@ -102,14 +102,14 @@ const OrderAgain = async () => {
                       <li key={item.orderItemId}>
                         <span className="tabular-nums">{item.quantity}×</span> {item.itemNameSnapshot}
                         {item.toppings.length > 0 && (
-                          <span className="text-muted-foreground"> + {item.toppings.length} {item.toppings.length === 1 ? "topping" : "toppings"}</span>
+                          <span className="text-muted-foreground"> + {item.toppings.length} {item.toppings.length === 1 ? "extra" : "extras"}</span>
                         )}
                       </li>
                     ))}
                   </ul>
                   {unavailable > 0 && (
                     <p className="mt-2 text-xs text-muted-foreground">
-                      {unavailable === 1 ? "1 item is" : `${unavailable} items are`} no longer on the menu and won&apos;t be added.
+                      {unavailable === 1 ? "1 producto ya no está" : `${unavailable} productos ya no están`} en el menú y no se agregará{unavailable === 1 ? "" : "n"}.
                     </p>
                   )}
                 </CardContent>
@@ -136,10 +136,10 @@ const Highlights = async () => {
     <section aria-labelledby="highlights" className="flex flex-col gap-3">
       <div className="flex items-baseline justify-between gap-2">
         <h2 id="highlights" className="text-lg font-semibold tracking-tight">
-          {popular.length > 0 ? "Popular right now" : "From our menu"}
+          {popular.length > 0 ? "Lo más pedido" : "De nuestro menú"}
         </h2>
         <Link href="/menu" className="text-sm text-muted-foreground hover:underline">
-          Full menu
+          Ver todo el menú
         </Link>
       </div>
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -153,7 +153,7 @@ const Highlights = async () => {
   );
 };
 
-const SectionSkeleton = () => <Skeleton className="h-40 w-full rounded-xl" aria-busy="true" aria-label="Loading" />;
+const SectionSkeleton = () => <Skeleton className="h-40 w-full rounded-xl" aria-busy="true" aria-label="Cargando" />;
 
 // The customer home page: orders in progress first (when there are any), then reordering and ideas.
 // Each section loads on its own, so a slow one doesn't hold the others back.
@@ -162,11 +162,11 @@ export const CustomerHome = () => {
     <div className="flex flex-col gap-8">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-semibold tracking-tight">Welcome back</h1>
-          <p className="text-muted-foreground">Hungry? Build a pizza or pick up where you left off.</p>
+          <h1 className="text-2xl font-semibold tracking-tight">¡Hola de nuevo!</h1>
+          <p className="text-muted-foreground">¿Se te antojó algo? Arma una pizza o retoma donde te quedaste.</p>
         </div>
         <Link href="/menu" className={buttonVariants()}>
-          Start an order
+          Empezar un pedido
         </Link>
       </div>
       <Suspense fallback={<SectionSkeleton />}>
