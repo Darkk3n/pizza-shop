@@ -2,9 +2,13 @@
 
 A full-stack point-of-sale system for pizza restaurants: customer ordering, a live kitchen board, automatic inventory deduction, recipe and cost management, and sales analytics.
 
-> **Status:** Feature-complete for in-store use (takeout and dine-in), covered by 115 API tests and CI on every push. Next up: Azure deployment, then discounts. Payments and delivery are not in scope yet.
+> **Status:** Feature-complete for in-store use (takeout and dine-in), covered by 117 API tests and CI on every push. Next up: Azure deployment, then discounts. Payments and delivery are not in scope yet.
 
 ## Features
+
+### Visitors
+
+- **Public site:** a landing page, the menu with sizes and topping prices, an about page with hours and FAQ, and privacy and terms pages, all without signing in.
 
 ### Customers
 
@@ -73,17 +77,17 @@ The browser never talks to the API or sees a token. The Next.js app is a backend
 ## Data Model
 
 ```
-UnitOfMeasure ─< Ingredients ─< RecipeItems >─ Recipes
-                     │                            │
-                     ├──< OrderItemToppings >── OrderItems >── Orders ── Users
-                     │                            │              │
-                     │              PizzaSizes ───┘              │
-                     └──────< OrderIngredientUsages >────────────┘
+UnitsOfMeasure ─< Ingredients ─< RecipeItems >─ Recipes
+                      │                            │
+                      ├──< OrderItemToppings >── OrderItems >── Orders ── Users
+                      │                            │              │
+                      │              PizzaSizes ───┘              │
+                      └──────< OrderIngredientUsages >────────────┘
 ```
 
 | Table                   | Purpose                                                                               |
 | ----------------------- | ------------------------------------------------------------------------------------- |
-| `UnitOfMeasure`         | Units ingredients are stocked and measured in                                         |
+| `UnitsOfMeasure`        | Units ingredients are stocked and measured in                                         |
 | `Ingredients`           | Stock on hand; optionally a topping with a price and portion; can be retired          |
 | `PizzaSizes`            | Sizes with a multiplier for price and ingredient usage; can be retired                |
 | `Recipes`               | Menu pizzas with a base (Small) price; can be retired                                 |
@@ -116,5 +120,4 @@ Users and roles live in the same database (ASP.NET Core Identity). Currency uses
 
 **Workflow**
 
-- `CLAUDE.md` is the single source of truth for architecture and business rules, updated in the same change as the code.
 - Each feature lands as a small, focused commit, and CI must pass on `main`.
